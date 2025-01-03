@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>CMC Waterfall Challenge (WC100)</name>
+    <description><![CDATA[Locations of waterfalls included in the Carolina Mountain Club's Waterfall 100 Challenge...]]></description>
+    <Style id="icon-1899-0288D1-nodesc-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-nodesc-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Waterfalls</name>
+      <Placemark>
+        <name>Setrock Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.22818,35.74977,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Roaring Fork Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.19167,35.75998,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>High Shoals Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.63553,35.59448,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Tom's Creek Falls]]></name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.0622,35.77757,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Crabtree Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.149582,35.819672,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Elk Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.9691,36.19879,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hunt-Fish Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.804286,36.013976,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hebron Colony Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.734414,36.154511,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.86339,35.960518,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Indian Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.42731,35.47275,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Looking Glass Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.76887,35.2962,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Second Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.84671,35.32228,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Falls (Yellowstone Prong)</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.86683,35.31821,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Drift Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.969262,35.093523,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rainbow Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.96588,35.09077,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Turtleback Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.9662,35.09256,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Cathey's Creek Falls]]></name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.803459,35.226501,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Courthouse Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.89431,35.27157,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Eastatoe Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.817506,35.111602,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Moore Cove Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.77776,35.31181,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Skinny Dip Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.83391,35.32236,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Triple Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.61705,35.19897,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>High Falls (Little River)</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.61361,35.19282,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lower Sam Branch Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.89801,35.34104,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wash Hollow Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.89762,35.3418,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rufus Morgan Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.54792,35.14273,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dry Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.2390738,35.067466,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Silver Run Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.06542,35.06617,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Issaqueena Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.121462,34.80684,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>King Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.110604,34.966044,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Spoonauger Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.109685,34.97461,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Glenn Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.238758,35.03096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Linville Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.92657,35.94967,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Picklesimer Rock House Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.25346,35.01872,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Secret Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.171363,35.004516,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bird Rock Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.861245,35.221175,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cedar Rock Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.79961,35.278049,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Long Branch Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.82491,35.27892,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schoolhouse Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.00665,35.16308,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mingo Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.27512,35.53182,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Soco Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.16953,35.49246,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>D.E.W. Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.00948,35.06857,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>White Owl Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.99714,35.07649,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Stairway Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.956244,35.085548,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Whitewater Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.016827,35.035088,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Twin Falls, SC</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.818387,35.013675,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Douglas Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.374236,35.721013,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Little Bradley Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.295146,35.254479,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pearsons Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.335953,35.215118,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Raven Cliff Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.66055,35.106092,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rainbow Falls, SC</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.588134,35.133565,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Courthouse Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.90373,35.29197,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hickory Nut Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.25948,35.43323,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Eastatoe Gorge Narrows</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.820408,35.031562,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Yellow Branch Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.134367,34.79505,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lee Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.101303,34.895677,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Station Cove Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.085608,34.849467,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Moonshine Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.631354,35.094581,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brasstown Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.304426,34.718869,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Long Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.322563,34.785621,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Opossum Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.314413,34.757566,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Scotsman Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.11211,35.01656,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bridal Veil Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.619141,35.177509,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Little Fall Branch Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.97633,35.75514,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Twin Falls, NC</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.76015,35.33644,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Greenland Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.998131,35.150836,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rileymoore Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.179522,34.741263,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>High Falls (South Fork Mills River)</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.73215,35.34926,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mouse Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.13356,35.73507,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lower Catawba Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.244917,35.604374,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Catawba Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.247484,35.601921,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cove Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.817483,35.294006,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Paradise Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.00537,35.22437,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Upper Sol's Creek Falls]]></name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.0192,35.26348,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Still House Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.95668,35.16896,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Grotto Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.449581,35.673823,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ramsay Cascades</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.300478,35.708581,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Tom's Spring (Daniel Ridge) Falls]]></name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.82688,35.28873,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Shuck Ridge Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.86156,35.29555,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dismal Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.97418,35.1802,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rhapsodie Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.975155,35.183498,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dill Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.9436,35.28328,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Dill Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.94332,35.28402,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Big Bradley Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.291779,35.267891,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Flat Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.03287,35.22039,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Big Laurel Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.505878,35.018188,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Enloe Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.2612,35.61128,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Big Falls (Thompson River)</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.982145,35.04495,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>High Falls (Thompson River)</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.99432,35.0703,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Harper Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.779544,35.983059,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lower Little Lost Cove Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.829518,36.021649,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Little Lost Cove Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.829518,36.021649,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>North Harper Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.84013,36.00423,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wintergreen Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.92488,35.09785,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rainbow Falls, TN</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.463555,35.665026,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Gragg Prong Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.797382,36.0253,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>South Harper Creek Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.81048,35.98062,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Discovery Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.80904,35.32744,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Logging Road Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.81118,35.32121,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Middle Falls (Snowbird Creek)</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -83.9817,35.26225,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Steel's Creeek Falls]]></name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.84737,35.91898,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Burnthouse Branch Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -81.822267,35.951276,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hilliard (Bearcamp) Falls</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -82.96641,35.0542,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
+

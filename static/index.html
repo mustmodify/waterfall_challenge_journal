@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+      #map {
+        height: 500px;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+  
+      form {
+        margin: 20px 0;
+      }
+  
+      label, input, button {
+        display: block;
+        margin: 5px 0;
+      }
+  
+      button {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Goals Map</h1>
+    <div id="map"></div>
+  
+    <h2>Add a Visit</h2>
+    <form id="visit-form">
+      <label for="goal-id">Goal ID:</label>
+      <input type="number" id="goal-id" name="goal_id" required />
+  
+      <label for="visited-on">Visited On:</label>
+      <input type="date" id="visited-on" name="visited_on" />
+  
+      <button type="submit">Add Visit</button>
+    </form>
+  
+    <script>
+      // Initialize map
+      var map = L.map('map').setView([0, 0], 2); // Center map at (0, 0)
+  
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+  
+      // Fetch goals and add markers
+      fetch('/goals')
+        .then(response => response.json())
+        .then(goals => {
+          goals.forEach(goal => {
+            fetch(`/goals/${goal.id}/visits`)
+              .then(response => response.json())
+              .then(visits => {
+                // Determine marker color based on visit count
+                var color = visits.length > 0 ? "brown" : "cyan";
+  
+                // Add marker to map
+                L.circleMarker([goal.feature_location_id.latitude, goal.feature_location_id.longitude], {
+                  color: color,
+                  radius: 8
+                }).addTo(map)
+                  .bindPopup(`
+                    <b>${goal.name}</b><br>
+                    Visits: ${visits.length}<br>
+                    ${visits.map(v => `Visited on: ${v.visited_on}`).join('<br>')}
+                  `);
+              });
+          });
+        });
+  
+      // Handle visit form submission
+      document.getElementById('visit-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const goalId = document.getElementById('goal-id').value;
+        const visitedOn = document.getElementById('visited-on').value || null;
+  
+        fetch('/visits', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ goal_id: goalId, visited_on: visitedOn })
+        }).then(response => {
+          if (response.ok) {
+            alert('Visit added successfully!');
+            location.reload(); // Reload the map to show the updated data
+          } else {
+            alert('Failed to add visit.');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+

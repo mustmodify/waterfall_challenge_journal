@@ -1,0 +1,153 @@
+package main
+
+import (
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+
+	_ "github.com/lib/pq"
+)
+
+const (
+	DB_USER     = "johnathonwright"
+	DB_PASSWORD = "postgres"
+	DB_NAME     = "wc_journey_db"
+)
+
+var db *sql.DB
+
+type Fall struct {
+	Name         string      `json:"Name"`
+	Beauty       *int         `json:"Beauty,omitempty"`
+	PhotoRating  *int         `json:"Photo Rating,omitempty"`
+	Solitude     *int         `json:"Solitude,omitempty"`
+	GPS          interface{} `json:"GPS"`
+	Height       *string      `json:"Height,omitempty"`
+	Distance     *string      `json:"Distance,omitempty"`
+	Accessibility *string     `json:"Accessibility,omitempty"`
+	Number       string      `json:"Number,omitempty"`
+	URL          string      `json:"url"`
+	NewFall      bool        `json:"new_fall,omitempty"`
+}
+
+func initDB() {
+	var err error
+	connStr := fmt.Sprintf("host=localhost user=%s password=%s dbname=%s sslmode=disable",
+		DB_USER, DB_PASSWORD, DB_NAME)
+	db, err = sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = db.Ping(); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Connected to the database!")
+}
+
+func importFalls(filename string) {
+	// Open the JSON file
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatalf("Failed to open JSON file: %v", err)
+	}
+	defer file.Close()
+
+	// Create a JSON decoder
+	decoder := json.NewDecoder(file)
+
+	// Read the opening bracket of the JSON array
+	tok, err := decoder.Token()
+	if err != nil || tok != json.Delim('[') {
+		log.Fatalf("Invalid JSON format: expected an array")
+	}
+
+	var unmatchedFalls []Fall
+
+	// Iterate over each JSON object in the array
+	for decoder.More() {
+		var fall Fall
+		if err := decoder.Decode(&fall); err != nil {
+			log.Printf("Error decoding JSON record: %v", err)
+			continue // Skip this record and move to the next
+		}
+
+		// Process the fall (check if it exists in the database)
+		var existingID int
+		err = db.QueryRow("SELECT id FROM goals WHERE name = $1", fall.Name).Scan(&existingID)
+
+		if err != nil && err != sql.ErrNoRows {
+			log.Printf("Error querying for fall %s: %v", fall.Name, err)
+			continue
+		}
+
+		if err == sql.ErrNoRows {
+			// Add new fall only if `new_fall` is true
+			if fall.NewFall {
+				var locationID sql.NullInt64
+
+				// Insert into locations if GPS exists
+				if gps, ok := fall.GPS.(map[string]interface{}); ok {
+					latitude, latOK := gps["Latitude"].(float64)
+					longitude, lonOK := gps["Longitude"].(float64)
+
+					if latOK && lonOK {
+						err := db.QueryRow("INSERT INTO locations (latitude, longitude) VALUES ($1, $2) RETURNING id", latitude, longitude).Scan(&locationID)
+						if err != nil {
+							log.Printf("Error inserting location for fall %s: %v", fall.Name, err)
+							continue
+						}
+					}
+				}
+
+				// Insert into goals
+				_, err := db.Exec(`
+					INSERT INTO goals (name, rt_hike_distance, beauty_rating, photo_rating, solitude_rating, feature_location_id)
+					VALUES ($1, $2, $3, $4, $5, $6)`,
+					fall.Name, fall.Distance, fall.Beauty, fall.PhotoRating, fall.Solitude, locationID)
+				if err != nil {
+					log.Printf("Error inserting fall %s: %v", fall.Name, err)
+					continue
+				}
+				fmt.Printf("Added new fall: %s\n", fall.Name)
+			} else {
+				unmatchedFalls = append(unmatchedFalls, fall)
+			}
+		} else {
+			// Update existing record
+			_, err := db.Exec(`
+				UPDATE goals
+				SET rt_hike_distance = $2,
+					beauty_rating = $3,
+					photo_rating = $4,
+					solitude_rating = $5
+				WHERE id = $1`,
+				existingID, fall.Distance, fall.Beauty, fall.PhotoRating, fall.Solitude)
+			if err != nil {
+				log.Printf("Error updating fall %s: %v", fall.Name, err)
+				continue
+			}
+			fmt.Printf("Updated existing fall: %s\n", fall.Name)
+		}
+	}
+
+	// Print unmatched falls
+	fmt.Println("Unmatched falls:")
+	for _, fall := range unmatchedFalls {
+		fmt.Printf("- %s (%s)\n", fall.Name, fall.URL)
+	}
+}
+
+func main() {
+	initDB()
+	defer db.Close()
+
+	// Path to the JSON file
+	jsonFile := "data/hiking_wnc_falls.json"
+
+	// Import falls from JSON
+	importFalls(jsonFile)
+}
+
