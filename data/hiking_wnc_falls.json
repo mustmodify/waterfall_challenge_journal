@@ -15,7 +15,7 @@
         "url": "https://hikingwnc.com/the-waterfall-list/001-triple-falls-dupont-forest/"
     },
     {
-        "Name": "High Falls",
+        "Name": "High Falls- Little River",
         "Beauty": "9",
         "Photo Rating": "8",
         "Solitude": "3",
@@ -336,7 +336,8 @@
         "url": "https://hikingwnc.com/023-turtleback-falls/"
     },
     {
-        "Name": "Drift Falls (Bust Yer Butt Falls)",
+        "Name": "Drift Falls",
+        "aka": "Bust Yer Butt Falls",
         "Beauty": "5",
         "Photo Rating": "6",
         "Solitude": "6",
@@ -698,7 +699,8 @@
         "url": "https://hikingwnc.com/048-dill-falls/"
     },
     {
-        "Name": "Bird Rock Falls (Cathedral Falls)",
+        "Name": "Bird Rock Falls",
+        "aka": "Cathedral Falls",
         "Beauty": "8",
         "Photo Rating": "6",
         "Solitude": "5",
@@ -758,7 +760,7 @@
         "url": "https://hikingwnc.com/052-merry-falls/"
     },
     {
-        "Name": "Waterfall on Cedar Rock Creek",
+        "Name": "Cedar Rock Creek Falls",
         "Beauty": "8",
         "Photo Rating": "9",
         "Solitude": "6",
@@ -773,7 +775,7 @@
         "url": "https://hikingwnc.com/052-waterfall-on-cedar-rock-creek/"
     },
     {
-        "Name": "Waterfall on Cathey's Creek",
+        "Name": "Cathey's Creek Falls",
         "Beauty": "7",
         "Photo Rating": "7",
         "Solitude": "6",
@@ -906,7 +908,7 @@
         "url": "https://hikingwnc.com/061-waterfall-on-long-branch/"
     },
     {
-        "Name": "Waterfall on Grogan Creek",
+        "Name": "Grogan Creek Falls",
         "Beauty": "10",
         "Photo Rating": "9",
         "Solitude": "9",
@@ -1290,7 +1292,7 @@
         "url": "https://hikingwnc.com/087-sunburst-falls/"
     },
     {
-        "Name": "Wash Hollow",
+        "Name": "Wash Hollow Falls",
         "Beauty": "8",
         "Photo Rating": "7",
         "Solitude": "9",
@@ -1560,7 +1562,7 @@
         "url": "https://hikingwnc.com/121-waterfall-on-tributary-of-rockhouse-creek/"
     },
     {
-        "Name": "D.E.W. Falls",
+        "Name": "DEW Falls",
         "Beauty": "8",
         "Photo Rating": "9",
         "Solitude": "8",
@@ -2100,7 +2102,7 @@
         "url": "https://hikingwnc.com/157-flat-creek-falls/"
     },
     {
-        "Name": "Big Falls (Thompson River)",
+        "Name": "Big Falls- Thompson River",
         "Beauty": "10",
         "Photo Rating": "9",
         "Solitude": "10",
@@ -2190,7 +2192,7 @@
         "url": "https://hikingwnc.com/163-mt-hardy-falls/"
     },
     {
-        "Name": "High Falls (Thompson River)",
+        "Name": "High Falls- Thompson River",
         "Beauty": "6",
         "Photo Rating": "6",
         "Solitude": "5",
@@ -2472,6 +2474,7 @@
     },
     {
         "Name": "Kings Creek Falls",
+        "aka": "King Creek Falls",
         "Beauty": "8",
         "Photo Rating": "3",
         "Solitude": "7",
@@ -3736,7 +3739,7 @@
         },
         "Height": null,
         "Distance": "0.1 (out and back)",
-        "Accessibility": "Easy (Getting to a good picture vantage \u2013 Hard)",
+        "Accessibility": "Easy (Getting to a good picture vantage - Hard)",
         "Number": "268",
         "url": "https://hikingwnc.com/268-whiteoak-falls/"
     },
@@ -3751,7 +3754,7 @@
         },
         "Height": null,
         "Distance": "Roadside",
-        "Accessibility": "Roadside (taking a good picture \u2013 dangerous)",
+        "Accessibility": "Roadside (taking a good picture - dangerous)",
         "Number": "269",
         "url": "https://hikingwnc.com/269-jagged-rock-falls/"
     },
@@ -4132,7 +4135,7 @@
             "Longitude": -82.6968
         },
         "Height": null,
-        "Distance": "Roadside view \u2013 distant",
+        "Distance": "Roadside view - distant",
         "Accessibility": "Easy",
         "Number": "295",
         "url": "https://hikingwnc.com/295-glencannon-falls/"
@@ -4207,7 +4210,7 @@
             "Longitude": -83.1655
         },
         "Height": null,
-        "Distance": "0.7 \u2013 Trail/creekwalk/wade/bushwhack",
+        "Distance": "0.7 - Trail/creekwalk/wade/bushwhack",
         "Accessibility": "Difficult",
         "Number": "300",
         "url": "https://hikingwnc.com/300-slick-stick-falls/"
@@ -4222,7 +4225,7 @@
             "Longitude": -83.1121
         },
         "Height": null,
-        "Distance": "0.2 \u2013 Scramble",
+        "Distance": "0.2 - Scramble",
         "Accessibility": "Medium+",
         "Number": "301",
         "url": "https://hikingwnc.com/301-scotsman-falls/"
@@ -4273,7 +4276,7 @@
         "url": "https://hikingwnc.com/304-big-falls-snowbird-creek/"
     },
     {
-        "Name": "Middle Falls (Snowbird Creek)",
+        "Name": "Middle Falls- Snowbird Creek",
         "Beauty": "7",
         "Photo Rating": "7",
         "Solitude": "7",
@@ -6621,7 +6624,7 @@
         "url": "https://hikingwnc.com/466-buckeye-falls/"
     },
     {
-        "Name": "Bearcamp Falls (Hilliard)",
+        "Name": "Bearcamp Falls (Hillard Falls)",
         "Beauty": "6",
         "Photo Rating": "6",
         "Solitude": "5",
@@ -7770,7 +7773,7 @@
             "Longitude": -83.00526
         },
         "Height": null,
-        "Distance": "4.0 \u2013 6.0 miles (out and back depending on route)",
+        "Distance": "4.0 - 6.0 miles (out and back depending on route)",
         "Accessibility": "Difficult",
         "Number": "409",
         "url": "https://hikingwnc.com/409-lichen-falls/"
@@ -9463,7 +9466,8 @@
         "url": "https://hikingwnc.com/660-laughing-falls/"
     },
     {
-        "Name": "Ramsey Cascades (TN)",
+        "Name": "Ramsey Cascades (GSMNP)",
+        "aka": "Ramsay Cascades",
         "Beauty": "8",
         "Photo Rating": "9",
         "Solitude": "2",
@@ -14283,5 +14287,6 @@
         "Accessibility": "Moderate+",
         "Number": "1006",
         "url": "https://hikingwnc.com/1005-lower-limberpole-falls/"
-    }
+    },
+{"Name": "Rainbow Falls (GSMNP)", "Beauty": "6", "Photo Rating": "5", "Solitude": "2", "GPS": {"Latitude": 35.66238, "Longitude": -83.46375}, "Height": "50+ ft", "Distance": 6.4, "Accessibility": "Moderate+", "Number": "1013", "url": "https://hikingwnc.com/1013-rainbow-falls-gsmnp/"}
 ]

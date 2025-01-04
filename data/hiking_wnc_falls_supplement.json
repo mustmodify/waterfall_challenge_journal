@@ -1,0 +1,646 @@
+[
+    {
+        "url": "https://hikingwnc.com/103-greenland-greek-falls/",
+        "Name": "Greenland Creek Falls",
+        "Number": "097",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 45\u2032",
+        "Distance": "2.0 miles (out and back)",
+        "Beauty": "8",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.1507,
+            "Longitude": -82.998
+        }
+    },
+    {
+        "url": "http://hikingwnc.com/128-the-chute/",
+        "Name": "The Chute",
+        "Number": "128",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 12\u2032",
+        "Distance": "2.4 miles (out and back)",
+        "Beauty": "7",
+        "Photo Rating": "8",
+        "Solitude": "9",
+        "GPS": {
+            "Latitude": 35.149,
+            "Longitude": -82.9971
+        }
+    },
+    {
+        "url": "http://hikingwnc.com/130-halfway-falls/",
+        "Name": "Halfway Falls",
+        "Number": "129",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "2.8 miles (out and back)",
+        "Beauty": "9",
+        "Photo Rating": "9",
+        "Solitude": "9",
+        "GPS": {
+            "Latitude": 35.1473,
+            "Longitude": -82.9965
+        }
+    },
+    {
+        "url": "http://hikingwnc.com/130-carlton-falls/",
+        "Name": "Carlton Falls",
+        "Number": "130",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 45\u2032",
+        "Distance": "3.6 miles (out and back)",
+        "Beauty": "9",
+        "Photo Rating": "8",
+        "Solitude": "9",
+        "GPS": {
+            "Latitude": 35.1448,
+            "Longitude": -82.9945
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/103-shower-falls/",
+        "Name": "Shower Falls",
+        "Number": "103",
+        "Accessibility": "Easy",
+        "Height": "Height \u2013 18\u2032",
+        "Distance": "Roadside",
+        "Beauty": "5",
+        "Photo Rating": "5",
+        "Solitude": "2",
+        "GPS": {
+            "Latitude": 35.1604,
+            "Longitude": -82.9747
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/103-greenland-greek-falls/",
+        "Name": "Greenland Creek Falls",
+        "Number": "097",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 45\u2032",
+        "Distance": "2.0 miles (out and back)",
+        "Beauty": "8",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.1507,
+            "Longitude": -82.998
+        }
+    },
+    {
+        "url": "http://hikingwnc.com/128-the-chute/",
+        "Name": "The Chute",
+        "Number": "128",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 12\u2032",
+        "Distance": "2.4 miles (out and back)",
+        "Beauty": "7",
+        "Photo Rating": "8",
+        "Solitude": "9",
+        "GPS": {
+            "Latitude": 35.149,
+            "Longitude": -82.9971
+        }
+    },
+    {
+        "url": "http://hikingwnc.com/130-halfway-falls/",
+        "Name": "Halfway Falls",
+        "Number": "129",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "2.8 miles (out and back)",
+        "Beauty": "9",
+        "Photo Rating": "9",
+        "Solitude": "9",
+        "GPS": {
+            "Latitude": 35.1473,
+            "Longitude": -82.9965
+        }
+    },
+    {
+        "url": "http://hikingwnc.com/130-carlton-falls/",
+        "Name": "Carlton Falls",
+        "Number": "130",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 45\u2032",
+        "Distance": "3.6 miles (out and back)",
+        "Beauty": "9",
+        "Photo Rating": "8",
+        "Solitude": "9",
+        "GPS": {
+            "Latitude": 35.1448,
+            "Longitude": -82.9945
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/096-macs-falls/",
+        "Name": "Mac\u2019s Falls",
+        "Number": "096",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "7",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.1545,
+            "Longitude": -83.0034
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/098-pothole-falls/",
+        "Name": "Pothole Falls",
+        "Number": "098",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "8",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.1555,
+            "Longitude": -83.0051
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/099-more-cave-falls/",
+        "Name": "More Cave Falls",
+        "Number": "099",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 12\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "6",
+        "Photo Rating": "7",
+        "Solitude": "9",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "https://hikingwnc.com/100-tranquility-falls/",
+        "Name": "Tranquility Falls",
+        "Number": "100",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 8\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "9",
+        "Photo Rating": "7",
+        "Solitude": "9",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "https://hikingwnc.com/101-turbulent-falls/",
+        "Name": "Turbulent Falls",
+        "Number": "101",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 12\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "7",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "https://hikingwnc.com/102-schoolhouse-falls/",
+        "Name": "Schoolhouse Falls",
+        "Number": "102",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 20\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "9",
+        "Photo Rating": "6",
+        "Solitude": "5",
+        "GPS": {
+            "Latitude": 35.1631,
+            "Longitude": -83.0067
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/103-shower-falls/",
+        "Name": "Shower Falls",
+        "Number": "103",
+        "Accessibility": "Easy",
+        "Height": "Height \u2013 18\u2032",
+        "Distance": "Roadside",
+        "Beauty": "5",
+        "Photo Rating": "5",
+        "Solitude": "2",
+        "GPS": {
+            "Latitude": 35.1604,
+            "Longitude": -82.9747
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/096-macs-falls/",
+        "Name": "Mac\u2019s Falls",
+        "Number": "096",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "7",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.1545,
+            "Longitude": -83.0034
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/098-pothole-falls/",
+        "Name": "Pothole Falls",
+        "Number": "098",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "8",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.1555,
+            "Longitude": -83.0051
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/099-more-cave-falls/",
+        "Name": "More Cave Falls",
+        "Number": "099",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 12\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "6",
+        "Photo Rating": "7",
+        "Solitude": "9",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "https://hikingwnc.com/100-tranquility-falls/",
+        "Name": "Tranquility Falls",
+        "Number": "100",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 8\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "9",
+        "Photo Rating": "7",
+        "Solitude": "9",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "https://hikingwnc.com/101-turbulent-falls/",
+        "Name": "Turbulent Falls",
+        "Number": "101",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 12\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "7",
+        "Photo Rating": "7",
+        "Solitude": "7",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "https://hikingwnc.com/102-schoolhouse-falls/",
+        "Name": "Schoolhouse Falls",
+        "Number": "102",
+        "Accessibility": "Moderate+",
+        "Height": "Height \u2013 20\u2032",
+        "Distance": "4.0 miles (loop)",
+        "Beauty": "9",
+        "Photo Rating": "6",
+        "Solitude": "5",
+        "GPS": {
+            "Latitude": 35.1631,
+            "Longitude": -83.0067
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/110-wardens-falls/",
+        "Name": "Warden\u2019s Falls",
+        "Number": "104",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 35\u2032",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "8",
+        "Photo Rating": "7",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1718,
+            "Longitude": -83.0064
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/105-jawbone-falls/",
+        "Name": "Jawbone Falls",
+        "Number": "105",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 30\u2032",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "7",
+        "Photo Rating": "5",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1731,
+            "Longitude": -83.0036
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/106-riding-ford-falls/",
+        "Name": "Riding Ford Falls",
+        "Number": "106",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 20\u2032 as a series of cascades",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "7",
+        "Photo Rating": "5",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1742,
+            "Longitude": -83.0026
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/107-elbow-falls/",
+        "Name": "Elbow Falls",
+        "Number": "107",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "7",
+        "Photo Rating": "8",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1773,
+            "Longitude": -83.0029
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/108-red-butt-falls/",
+        "Name": "Red Butt Falls",
+        "Number": "108",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 40\u2032 high and 150\u2019+ long sliding cascade",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "9",
+        "Photo Rating": "9",
+        "Solitude": "10",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "http://hikingwnc.com/409-lichen-falls/",
+        "Name": "Lichen Falls",
+        "Number": "409",
+        "Accessibility": "Difficult",
+        "Height": "Height \u2013 30\u2032",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "8",
+        "Photo Rating": "7",
+        "Solitude": "10",
+        "GPS": {
+            "Latitude": 35.18289,
+            "Longitude": -83.00526
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/103-shower-falls/",
+        "Name": "Shower Falls",
+        "Number": "103",
+        "Accessibility": "Easy",
+        "Height": "Height \u2013 18\u2032",
+        "Distance": "Roadside",
+        "Beauty": "5",
+        "Photo Rating": "5",
+        "Solitude": "2",
+        "GPS": {
+            "Latitude": 35.1604,
+            "Longitude": -82.9747
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/110-wardens-falls/",
+        "Name": "Warden\u2019s Falls",
+        "Number": "104",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 35\u2032",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "8",
+        "Photo Rating": "7",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1718,
+            "Longitude": -83.0064
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/105-jawbone-falls/",
+        "Name": "Jawbone Falls",
+        "Number": "105",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 30\u2032",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "7",
+        "Photo Rating": "5",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1731,
+            "Longitude": -83.0036
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/106-riding-ford-falls/",
+        "Name": "Riding Ford Falls",
+        "Number": "106",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 20\u2032 as a series of cascades",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "7",
+        "Photo Rating": "5",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1742,
+            "Longitude": -83.0026
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/107-elbow-falls/",
+        "Name": "Elbow Falls",
+        "Number": "107",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "7",
+        "Photo Rating": "8",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1773,
+            "Longitude": -83.0029
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/108-red-butt-falls/",
+        "Name": "Red Butt Falls",
+        "Number": "108",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 40\u2032 high and 150\u2019+ long sliding cascade",
+        "Distance": "6.0 miles (out and back depending on route)",
+        "Beauty": "9",
+        "Photo Rating": "9",
+        "Solitude": "10",
+        "GPS": "LAT 35.????\u00a0LONG -83.????",
+        "error": true
+    },
+    {
+        "url": "https://hikingwnc.com/109-wilderness-falls/",
+        "Name": "Wilderness Falls",
+        "Number": "109",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 70\u2032",
+        "Distance": "3.2 miles (loop)",
+        "Beauty": "6",
+        "Photo Rating": "4",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.164,
+            "Longitude": -83.0423
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/110-frolictown-falls/",
+        "Name": "Frolictown Falls",
+        "Number": "110",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "3.2 miles (loop)",
+        "Beauty": "8",
+        "Photo Rating": "6",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1621,
+            "Longitude": -83.0381
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/111-granny-burrell-falls/",
+        "Name": "Granny Burrell Falls",
+        "Number": "111",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "3.2 miles (loop)",
+        "Beauty": "8",
+        "Photo Rating": "8",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1628,
+            "Longitude": -83.0288
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/109-wilderness-falls/",
+        "Name": "Wilderness Falls",
+        "Number": "109",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 70\u2032",
+        "Distance": "3.2 miles (loop)",
+        "Beauty": "6",
+        "Photo Rating": "4",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.164,
+            "Longitude": -83.0423
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/110-frolictown-falls/",
+        "Name": "Frolictown Falls",
+        "Number": "110",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "3.2 miles (loop)",
+        "Beauty": "8",
+        "Photo Rating": "6",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1621,
+            "Longitude": -83.0381
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/111-granny-burrell-falls/",
+        "Name": "Granny Burrell Falls",
+        "Number": "111",
+        "Accessibility": "Moderate",
+        "Height": "Height \u2013 15\u2032",
+        "Distance": "3.2 miles (loop)",
+        "Beauty": "8",
+        "Photo Rating": "8",
+        "Solitude": "8",
+        "GPS": {
+            "Latitude": 35.1628,
+            "Longitude": -83.0288
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/009-moore-cove-falls/",
+        "Name": "Moore Cove Falls",
+        "Number": "009",
+        "Accessibility": "Easy",
+        "Height": "Approx 50\u2032",
+        "Distance": "1.2 miles (out and back)",
+        "Beauty": "9",
+        "Photo Rating": "9",
+        "Solitude": "5",
+        "GPS": {
+            "Latitude": 35.3128,
+            "Longitude": -82.7788
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/008-looking-glass-falls/",
+        "Name": "Looking Glass Falls",
+        "Number": "008",
+        "Accessibility": "Easy",
+        "Height": "Height \u2013 89\u2032",
+        "Distance": "Roadside",
+        "Beauty": "9",
+        "Photo Rating": "9",
+        "Solitude": "2",
+        "GPS": {
+            "Latitude": 35.2962,
+            "Longitude": -82.7687
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/792-bella-falls-sc/",
+        "Name": "Bella Falls (SC)",
+        "Number": "792",
+        "Accessibility": "Moderate+ (steep scramble)",
+        "Height": "Height \u2013 20\u2032",
+        "Distance": "4.2 miles (out and back)",
+        "Beauty": "3",
+        "Photo Rating": "1",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.05385,
+            "Longitude": -82.84663
+        }
+    },
+    {
+        "url": "https://hikingwnc.com/794-evil-ducky-falls-sc/",
+        "Name": "Evil Ducky Falls (SC)",
+        "Number": "794",
+        "Accessibility": "Moderate+ (steep scramble)",
+        "Height": "Height \u2013 10\u2032",
+        "Distance": "4.2 miles (out and back)",
+        "Beauty": "3",
+        "Photo Rating": "3",
+        "Solitude": "7",
+        "GPS": {
+            "Latitude": 35.05356,
+            "Longitude": -82.84635
+        }
+    },
+]
