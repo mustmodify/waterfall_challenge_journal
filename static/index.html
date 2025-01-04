@@ -1,102 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goals Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <style>
-      #map {
-        height: 500px;
-        width: 100%;
-        margin-bottom: 20px;
-      }
-  
-      form {
-        margin: 20px 0;
-      }
-  
-      label, input, button {
-        display: block;
-        margin: 5px 0;
-      }
-  
-      button {
-        padding: 5px 10px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Goals Map</h1>
-    <div id="map"></div>
-  
-    <h2>Add a Visit</h2>
-    <form id="visit-form">
-      <label for="goal-id">Goal ID:</label>
-      <input type="number" id="goal-id" name="goal_id" required />
-  
-      <label for="visited-on">Visited On:</label>
-      <input type="date" id="visited-on" name="visited_on" />
-  
-      <button type="submit">Add Visit</button>
-    </form>
-  
-    <script>
-      // Initialize map
-      var map = L.map('map').setView([0, 0], 2); // Center map at (0, 0)
-  
-      // Add OpenStreetMap tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-  
-      // Fetch goals and add markers
-      fetch('/goals')
-        .then(response => response.json())
-        .then(goals => {
-          goals.forEach(goal => {
-            fetch(`/goals/${goal.id}/visits`)
-              .then(response => response.json())
-              .then(visits => {
-                // Determine marker color based on visit count
-                var color = visits.length > 0 ? "brown" : "cyan";
-  
-                // Add marker to map
-                L.circleMarker([goal.feature_location_id.latitude, goal.feature_location_id.longitude], {
-                  color: color,
-                  radius: 8
-                }).addTo(map)
-                  .bindPopup(`
-                    <b>${goal.name}</b><br>
-                    Visits: ${visits.length}<br>
-                    ${visits.map(v => `Visited on: ${v.visited_on}`).join('<br>')}
-                  `);
-              });
-          });
-        });
-  
-      // Handle visit form submission
-      document.getElementById('visit-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const goalId = document.getElementById('goal-id').value;
-        const visitedOn = document.getElementById('visited-on').value || null;
-  
-        fetch('/visits', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ goal_id: goalId, visited_on: visitedOn })
-        }).then(response => {
-          if (response.ok) {
-            alert('Visit added successfully!');
-            location.reload(); // Reload the map to show the updated data
-          } else {
-            alert('Failed to add visit.');
-          }
-        });
-      });
-    </script>
-  </body>
-</html>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goals Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    main {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      height: 500px;
+      flex: 2;
+    }
+
+    #details-card {
+      flex: 1;
+      height: 500px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+
+    form {
+      margin: 20px 0;
+      clear: both;
+    }
+
+    label,
+    input,
+    button {
+      display: block;
+      margin: 5px 0;
+    }
+
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .goal-detail {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Waterfall Journey</h1>
+  <main>
+    <div id="map"></div>
+    <div id="details-card">
+      <div id="goal-details">Click on a marker to see details.</div>
+    </div>
+  </main>
+  <div class="filters">
+    <input type="checkbox" id="beauty" name="beauty" value="beauty" /> Beauty
+    <input type="checkbox" id="photo" name="photo" value="photo" /> Photo
+    <input type="checkbox" id="solitude" name="solitude" value="solitude" /> Solitude
+  </div>
+  <h2>Add a Visit</h2>
+  <form id="visit-form">
+    <label for="goal-id">Goal ID:</label>
+    <input type="number" id="goal-id" name="goal_id" required />
+
+    <label for="visited-on">Visited On:</label>
+    <input type="date" id="visited-on" name="visited_on" />
+
+    <button type="submit">Add Visit</button>
+  </form>
+
+  <script>
+    const color_scale = ['#006210', '#008126', '#00b648', '#66cc82', '#c3e8cb']
+    const visited_color = 'purple';
+
+    // Initialize map and bounds
+    const map = L.map('map');
+    const bounds = L.latLngBounds();
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
+      minZoom: 0,
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      ext: 'png'
+    }).addTo(map);
+
+    const goalDetailsDiv = document.getElementById('goal-details');
+    const filters = document.querySelectorAll('.filters input[type="checkbox"]');
+
+    // Color scale mapping function
+    function getColorByRating(rating) {
+      if (rating >= 9) return color_scale[0];
+      if (rating >= 7) return color_scale[1];
+      if (rating >= 5) return color_scale[2];
+      if (rating >= 3) return color_scale[3];
+      return color_scale[4];
+    }
+
+    function colorForGoal(goal) {
+      if (goal.last_visited) {
+        return visited_color;
+      }
+
+      const selectedFilters = Array.from(filters).filter((f) => f.checked);
+
+      if (selectedFilters.length === 0) {
+        return color_scale[0];
+      }
+
+      const ratings = selectedFilters
+        .map((filter) => goal[`${filter.value}_rating`])
+        .filter((rating) => rating !== undefined);
+
+      if (ratings.length > 0) {
+        const averageRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+        return getColorByRating(averageRating);
+      }
+    }
+    // Fetch goals and add markers
+    function updateMarkers() {
+      fetch('/goals')
+        .then((response) => response.json())
+        .then((goals) => {
+          let markersAdded = false;
+          map.eachLayer((layer) => {
+            if (layer instanceof L.CircleMarker) map.removeLayer(layer);
+          });
+
+          goals.forEach((goal) => {
+            if (goal.location && goal.location.latitude && goal.location.longitude) {
+              const lat = goal.location.latitude;
+              const lng = goal.location.longitude;
+
+              const marker = L.circleMarker([lat, lng], {
+                color: colorForGoal(goal),
+                radius: 6,
+              })
+                .addTo(map)
+                .on('click', () => {
+                  displayGoalDetails(goal);
+                });
+
+              bounds.extend([lat, lng]);
+              markersAdded = true;
+            }
+          });
+
+          setTimeout(() => {
+            if (markersAdded) {
+              map.fitBounds(bounds);
+            } else {
+              map.setView([0, 0], 2);
+            }
+          }, 1000);
+        });
+    }
+
+    // Function to display goal details in the details card
+    function displayGoalDetails(goal) {
+      const detailsHTML = `
+      <h2 class="goal-detail">${goal.name}</h2>
+      <div class="goal-detail"><strong>Beauty Rating:</strong> ${goal.beauty_rating || 'N/A'}</div>
+      <div class="goal-detail"><strong>Photo Rating:</strong> ${goal.photo_rating || 'N/A'}</div>
+      <div class="goal-detail"><strong>Solitude Rating:</strong> ${goal.solitude_rating || 'N/A'}</div>
+      <div class="goal-detail"><strong>RT Hike Distance:</strong> ${goal.rt_hike_distance || 'N/A'}</div>
+      <div class="goal-detail"><strong>Difficulty Rating:</strong> ${goal.difficulty_rating || 'N/A'}</div>
+      <div class="goal-detail"><strong>Last Visited:</strong> ${goal.last_visited || 'Never'}</div>
+    `;
+      goalDetailsDiv.innerHTML = detailsHTML;
+    }
+
+    // Handle filter changes
+    filters.forEach((filter) => {
+      filter.addEventListener('change', updateMarkers);
+    });
+
+    // Initial markers load
+    updateMarkers();
+
+  </script>
+</body>
+
+</html>
