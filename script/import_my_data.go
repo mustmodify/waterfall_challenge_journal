@@ -55,7 +55,7 @@ func main() {
 		name := record[0]
 		dateVisited := record[1]
 		notes := record[2]
-		rtHikeDistance := parseDecimal(record[6])
+		rtHikeDistance := record[6]
 		difficulty := parseString(record[7])
 		beautyRating := parseInt(record[8])
 		photoRating := parseInt(record[9])
