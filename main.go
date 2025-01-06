@@ -249,6 +249,30 @@ func deleteGoal(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+func createVisit(w http.ResponseWriter, r *http.Request) {
+	var visit Visit
+	if err := json.NewDecoder(r.Body).Decode(&visit); err != nil {
+		http.Error(w, "Invalid input data", http.StatusBadRequest)
+		return
+	}
+
+	if visit.GoalID == 0 || visit.VisitedOn == "" {
+		http.Error(w, "Missing goal_id or visited_on", http.StatusBadRequest)
+		return
+	}
+
+	sqlStatement := `INSERT INTO visits (goal_id, visited_on) VALUES ($1, $2) RETURNING id`
+	err := db.QueryRow(sqlStatement, visit.GoalID, visit.VisitedOn).Scan(&visit.ID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(visit)
+}
+
 func main() {
 	r := mux.NewRouter()
 
@@ -263,7 +287,7 @@ func main() {
 	r.HandleFunc("/goals/{id}", updateGoal).Methods("PUT")
 	r.HandleFunc("/goals/{id}", deleteGoal).Methods("DELETE")
 
-	// r.HandleFunc("/visits", createVisit).Methods("POST")
+	r.HandleFunc("/visits", createVisit).Methods("POST")
 	// r.HandleFunc("/goals/{id}/visits", getVisitsForGoal).Methods("GET")
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))

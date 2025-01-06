@@ -64,9 +64,13 @@
     <input type="checkbox" id="solitude" name="solitude" value="solitude" /> Solitude
   </div>
   <h2>Add a Visit</h2>
-  <form id="visit-form">
-    <label for="goal-id">Goal ID:</label>
-    <input type="number" id="goal-id" name="goal_id" required />
+  <form id="visit-form" action="/visits" method="POST">
+    <label for="goal-name">Goal Name:</label>
+    <input list="goal-names" id="goal-name" name="goal_name" required />
+    <datalist id="goal-names"></datalist>
+
+    <label for="goal-id" hidden>Goal ID:</label>
+    <input type="hidden" id="goal-id" name="goal_id" required />
 
     <label for="visited-on">Visited On:</label>
     <input type="date" id="visited-on" name="visited_on" />
@@ -92,6 +96,27 @@
 
     const goalDetailsDiv = document.getElementById('goal-details');
     const filters = document.querySelectorAll('.filters input[type="checkbox"]');
+    const datalist = document.getElementById('goal-names');
+    const goalNameInput = document.getElementById('goal-name');
+    const goalIdInput = document.getElementById('goal-id');
+
+    // Populate datalist with goal names and map them to IDs
+    function populateDatalist(goals) {
+      goals.forEach((goal) => {
+        const option = document.createElement('option');
+        option.value = goal.name;
+        option.dataset.id = goal.id;
+        datalist.appendChild(option);
+      });
+    }
+
+    // Update goal ID when a name is selected
+    goalNameInput.addEventListener('input', () => {
+      const selectedOption = Array.from(datalist.options).find(
+        (option) => option.value === goalNameInput.value
+      );
+      goalIdInput.value = selectedOption ? selectedOption.dataset.id : '';
+    });
 
     // Color scale mapping function
     function getColorByRating(rating) {
@@ -122,11 +147,14 @@
         return getColorByRating(averageRating);
       }
     }
+
     // Fetch goals and add markers
     function updateMarkers() {
       fetch('/goals')
         .then((response) => response.json())
         .then((goals) => {
+          populateDatalist(goals);
+
           let markersAdded = false;
           map.eachLayer((layer) => {
             if (layer instanceof L.CircleMarker) map.removeLayer(layer);
@@ -161,6 +189,28 @@
         });
     }
 
+    document.getElementById('visit-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const goalId = document.getElementById('goal-id').value;
+      const visitedOn = document.getElementById('visited-on').value;
+
+      fetch('/visits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ goal_id: parseInt(goalId, 10), visited_on: visitedOn }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert('Visit added successfully!');
+            location.reload();
+          } else {
+            alert('Failed to add visit.');
+          }
+        });
+    });
     // Function to display goal details in the details card
     function displayGoalDetails(goal) {
       const detailsHTML = `
