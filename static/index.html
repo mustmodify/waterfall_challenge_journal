@@ -4,235 +4,1580 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Goals Map</title>
+  <title>Wanderfall</title>
+  <script>
+    // Resolve the theme before first paint so there is no flash of the wrong one.
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('wj-theme'); } catch (e) { /* private mode */ }
+      var ok = stored === 'light' || stored === 'dark' || stored === 'watercolor';
+      var sys = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = ok ? stored : (sys ? 'dark' : 'light');
+    })();
+  </script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    main {
+    :root {
+      --pine: #16302a;
+      --pine-90: rgba(22, 48, 42, 0.92);
+      --moss: #24473c;
+      --mist: #f2f6f2;
+      --haze: rgba(242, 246, 242, 0.65);
+      --blaze: #e6a53c;
+      --blaze-deep: #c9871e;
+      --line: rgba(242, 246, 242, 0.14);
+      --danger: #d96b4f;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(10, 24, 20, 0.35);
+      --field-bg: rgba(0, 0, 0, 0.25);
+      --dot-off: rgba(242, 246, 242, 0.18);
+      --dot-ring: rgba(10, 20, 16, 0.55);
+      --ok: #7fd49a;
+      --on-blaze: #1d1608;
+      --on-visited: #f2f6f2;
+      /* map marker palette — read by JS as well as by the legend swatches */
+      --c-visited: #14532d;
+      --c-azure: #007fff;
+      --c-tower: #8a6a4f;
+      --c-sel: #f2f6f2;
+      /* Rating ramp is purple: it has to stay clear of blue (status), brown
+         (towers), green (the watercolor basemap) and amber (--blaze). */
+      --r1: #a865e0;
+      --r2: #b983e8;
+      --r3: #caa0ef;
+      --r4: #dabdf4;
+      --r5: #eddcfa;
+      color-scheme: dark;
+      font-size: 16px;
+    }
+
+    /* Moon: dark basemap. The chrome above is already the dark set, but the
+       markers need lifting — navy and deep blues vanish on a near-black map. */
+    :root[data-theme="dark"] {
+      --c-visited: #4ade80;
+      --c-azure: #3fa0ff;
+      --c-tower: #c7a07c;
+      --c-sel: #ffffff;
+      --on-visited: #06280f;
+      /* purple, lifted for a near-black basemap */
+      --r1: #a865e0;
+      --r2: #b983e8;
+      --r3: #caa0ef;
+      --r4: #dabdf4;
+      --r5: #eddcfa;
+    }
+
+    /* Sun and paintbrush both sit on a light basemap, so they share a palette. */
+    :root[data-theme="light"],
+    :root[data-theme="watercolor"] {
+      --pine: #eef1ec;
+      --pine-90: rgba(252, 253, 251, 0.93);
+      --moss: rgba(22, 48, 42, 0.08);
+      --mist: #16302a;
+      --haze: rgba(22, 48, 42, 0.62);
+      --blaze: #b8761a;
+      --blaze-deep: #9a6112;
+      --line: rgba(22, 48, 42, 0.16);
+      --danger: #b4432a;
+      --shadow: 0 10px 30px rgba(22, 48, 42, 0.16);
+      --field-bg: rgba(22, 48, 42, 0.06);
+      --dot-off: rgba(22, 48, 42, 0.16);
+      --dot-ring: rgba(255, 255, 255, 0.85);
+      --ok: #2e7d4f;
+      --on-visited: #f7faf7;
+      --c-sel: #16302a;
+      --r1: #5e1687;
+      --r2: #7d35a6;
+      --r3: #9d63c2;
+      --r4: #bf96da;
+      --r5: #e0cdee;
+      color-scheme: light;
+    }
+
+    /* Paintbrush: warm the panels toward paper so they sit on the watercolor. */
+    :root[data-theme="watercolor"] {
+      --pine: #f4efe4;
+      --pine-90: rgba(253, 250, 242, 0.94);
+    }
+
+    * { box-sizing: border-box; }
+
+    /* Any author `display` rule outranks the UA stylesheet's
+       [hidden]{display:none}, so every element toggled via .hidden that also
+       has a display of its own silently stops hiding. Say it once, loudly. */
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      font-family: 'Archivo', system-ui, sans-serif;
+      color: var(--mist);
+      background: var(--pine);
+    }
+
+    #map { position: fixed; inset: 0; z-index: 0; }
+
+    .panel {
+      position: fixed;
+      z-index: 1100;
+      background: var(--pine-90);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* ---------- header / brand + filters ---------- */
+    #topbar {
+      top: 16px;
+      left: 16px;
+      max-width: min(430px, calc(100vw - 32px));
+      padding: 14px 16px 12px;
+    }
+
+    #brand {
       display: flex;
-      margin-bottom: 20px;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    #map {
-      height: 500px;
-      flex: 2;
+    #brand h1 {
+      margin: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.35rem;
+      letter-spacing: 0.01em;
     }
 
-    #details-card {
-      flex: 1;
-      height: 500px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow-y: auto;
+    #brand .tagline {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--haze);
     }
 
-    form {
-      margin: 20px 0;
-      clear: both;
+    #search {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+      margin-bottom: 10px;
     }
 
-    label,
-    input,
-    button {
-      display: block;
-      margin: 5px 0;
+    #search::placeholder { color: var(--haze); }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
     }
 
-    button {
-      padding: 5px 10px;
+    .chip-row .row-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+      margin-right: 2px;
+      min-width: 52px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--mist);
+      font: inherit;
+      font-size: 0.8rem;
+      padding: 4px 11px;
+      border-radius: 999px;
       cursor: pointer;
     }
 
-    .goal-detail {
-      margin-bottom: 10px;
+    .chip:hover { background: var(--moss); }
+
+    .chip[aria-pressed="true"] {
+      background: var(--blaze);
+      border-color: var(--blaze);
+      color: var(--on-blaze);
+      font-weight: 600;
+    }
+
+    .chip-row + .chip-row { margin-top: 8px; }
+
+    #legend {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .legend-item {
+      font: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--haze);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 10px 3px 7px;
+      white-space: nowrap;
+    }
+
+    .legend-item:hover { color: var(--mist); background: var(--moss); }
+
+    .legend-item[aria-pressed="true"] {
+      background: var(--blaze);
+      border-color: var(--blaze);
+      color: var(--on-blaze);
+      font-weight: 600;
+    }
+
+    .chip .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: -1px;
+    }
+
+    .legend-item .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex: none;
+    }
+
+    #spectrum { margin-top: 8px; }
+
+    #spectrum .bar {
+      display: flex;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    #spectrum .bar span { flex: 1; }
+
+    #spectrum .ends {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--haze);
+      margin-top: 3px;
+    }
+
+    /* ---------- auth ---------- */
+    #auth-corner {
+      top: 16px;
+      right: 16px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #theme-switch {
+      display: flex;
+      gap: 2px;
+      padding: 2px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+
+    #theme-switch button {
+      border: none;
+      background: transparent;
+      color: var(--haze);
+      font-size: 0.95rem;
+      line-height: 1;
+      padding: 5px 7px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    #theme-switch button:hover { color: var(--mist); background: var(--moss); }
+
+    #theme-switch button[aria-pressed="true"] {
+      background: var(--blaze);
+      color: var(--on-blaze);
+    }
+
+    #theme-switch svg { display: block; width: 15px; height: 15px; }
+
+    #auth-corner .signed-in {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+
+    #auth-corner .progress {
+      color: var(--blaze);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    button.quiet {
+      border: none;
+      background: transparent;
+      color: var(--haze);
+      font: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 6px;
+    }
+
+    button.quiet:hover { color: var(--mist); background: var(--moss); }
+
+    button.primary {
+      border: none;
+      background: var(--blaze);
+      color: var(--on-blaze);
+      font: inherit;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button.primary:hover { background: var(--blaze-deep); }
+
+    #auth-card {
+      top: 64px;
+      right: 16px;
+      width: min(300px, calc(100vw - 32px));
+      padding: 16px;
+      display: none;
+    }
+
+    #auth-card.open { display: block; }
+
+    #auth-card h2 {
+      margin: 0 0 12px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    #auth-card label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--haze);
+      margin: 10px 0 4px;
+    }
+
+    #auth-card input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+    }
+
+    #auth-card .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+
+    #auth-error {
+      color: var(--danger);
+      font-size: 0.8rem;
+      margin-top: 10px;
+      min-height: 1em;
+    }
+
+    .name-field { display: none; }
+    #auth-card.signup-mode .name-field { display: block; }
+
+    /* ---------- intro modal ---------- */
+    #intro-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(10, 20, 16, 0.55);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+
+    #intro {
+      position: relative;
+      width: min(460px, 100%);
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      padding: 24px 26px;
+    }
+
+    #intro h2 {
+      margin: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      padding-right: 28px;
+    }
+
+    #intro .byline {
+      color: var(--haze);
+      font-size: 0.8rem;
+      margin: 2px 0 16px;
+    }
+
+    #intro p { margin: 0 0 14px; font-size: 0.92rem; line-height: 1.5; }
+
+    #intro .how {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+      margin-bottom: 8px;
+    }
+
+    #intro .key-list {
+      list-style: none;
+      margin: 0 0 16px;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    #intro .key-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 12px 5px 9px;
+    }
+
+    #intro .key-list .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      flex: none;
+    }
+
+    .group-demo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .group-demo .cluster.demo { flex: none; box-shadow: none; }
+
+    .group-demo p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: var(--haze);
+    }
+
+    #intro .close { position: absolute; top: 12px; right: 12px; }
+
+    #intro .sendoff { margin-bottom: 0; }
+
+    #intro a { color: var(--blaze); }
+
+    #help-button {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--haze);
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      flex: none;
+    }
+
+    #help-button:hover { color: var(--mist); background: var(--moss); }
+
+    /* ---------- details drawer ---------- */
+    #drawer {
+      top: 16px;
+      right: 16px;
+      bottom: 16px;
+      width: min(340px, calc(100vw - 32px));
+      padding: 20px;
+      overflow-y: auto;
+      transform: translateX(calc(100% + 24px));
+      transition: transform 0.25s ease;
+    }
+
+    #drawer.open { transform: none; }
+
+    #drawer .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    #drawer h2 {
+      margin: 4px 0 2px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      padding-right: 28px;
+    }
+
+    #drawer .badges { margin: 8px 0 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--haze);
+    }
+
+    .badge.challenge { border-color: var(--blaze); color: var(--blaze); }
+    .badge.visited { background: var(--c-visited); border-color: var(--c-visited); color: var(--on-visited); font-weight: 600; }
+    .badge.diff-E { border-color: #59b07f; color: #59b07f; }
+    .badge.diff-M { border-color: #dfa94f; color: #dfa94f; }
+    .badge.diff-D { border-color: #d96b4f; color: #d96b4f; }
+
+    .fact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      margin-bottom: 16px;
+    }
+
+    .fact .k {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+    }
+
+    .fact .v { font-size: 0.95rem; margin-top: 2px; }
+
+    .rating-dots { display: inline-flex; gap: 3px; margin-top: 4px; }
+
+    .rating-dots i {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dot-off);
+    }
+
+    .rating-dots i.on { background: var(--blaze); }
+
+    #drawer hr { border: none; border-top: 1px solid var(--line); margin: 16px 0; }
+
+    #log-visit label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--haze);
+      margin-bottom: 4px;
+    }
+
+    #log-visit input[type="date"] {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+      color-scheme: inherit;
+    }
+
+    /* "Last visited: Never" in the stat grid is too easy to miss next to the
+       Save button, so say it again on the way to the form. */
+    .no-visits {
+      text-align: center;
+      padding: 28px 0;
+      color: var(--haze);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    .rate-row { margin-top: 12px; }
+
+    .rate-row .k {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+    }
+
+    .rate-row .k em {
+      font-style: normal;
+      text-transform: none;
+      letter-spacing: 0;
+      opacity: 0.7;
+    }
+
+    .rate-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    /* outspecifies the blanket `#log-visit label { display: block }` above */
+    #log-visit .rate-grid .rate {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 0;
+    }
+
+    .rate-grid select {
+      padding: 7px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+      font-size: 0.85rem;
+      color-scheme: inherit;
+    }
+
+    #log-visit button.full { width: 100%; margin-top: 12px; }
+
+    .visit-rates {
+      margin-left: 8px;
+      color: var(--haze);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+    }
+
+    .visit-history { margin-bottom: 14px; }
+
+    .visit-history .k {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+    }
+
+    .visit-history ul { list-style: none; margin: 6px 0 0; padding: 0; }
+
+    .visit-history li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.9rem;
+    }
+
+    #visit-msg { font-size: 0.8rem; margin-top: 8px; min-height: 1em; }
+    #visit-msg.ok { color: var(--ok); }
+    #visit-msg.err { color: var(--danger); }
+
+    .signin-nudge { font-size: 0.85rem; color: var(--haze); }
+    .signin-nudge button { padding: 0; font-size: inherit; text-decoration: underline; }
+
+    /* ---------- markers and clusters ---------- */
+    /* markercluster only groups L.Marker, not circleMarker, so the pins are
+       divIcons. Same look as the old vector dots, minus the canvas. */
+    .goal-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid var(--dot-ring);
+      box-sizing: border-box;
+    }
+
+    .goal-dot.selected {
+      width: 18px; height: 18px;
+      border-width: 3px;
+      border-color: var(--c-sel);
+    }
+
+    /* The ring is a conic-gradient pie of the pin colours inside the cluster;
+       the core punches a hole in it so the count stays readable. */
+    .cluster {
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(10, 24, 20, 0.28);
+    }
+
+    /* No count to hold any more, so the hole is just enough to read the
+       bubble as a group rather than an oversized pin. */
+    /* Towers never cluster, so a brown dot sitting on a blue bubble is a pin
+       on top of a group, not part of it. The halo is what says so. */
+    .goal-dot.tower { box-shadow: 0 0 0 2px var(--dot-ring); }
+
+    .cluster-core {
+      width: 38%;
+      height: 38%;
+      border-radius: 50%;
+      background: var(--pine-90);
+    }
+
+    /* ---------- leaflet tweaks ---------- */
+    .leaflet-tooltip.goal-tip {
+      background: var(--pine-90);
+      border: 1px solid var(--line);
+      color: var(--mist);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      font-family: 'Archivo', system-ui, sans-serif;
+      padding: 5px 9px;
+    }
+
+    .leaflet-tooltip.goal-tip::before { display: none; }
+
+    .goal-tip .tip-sub { color: var(--haze); font-size: 0.72rem; }
+
+    :focus-visible { outline: 2px solid var(--blaze); outline-offset: 2px; }
+
+    @media (max-width: 720px) {
+      #topbar { max-width: calc(100vw - 32px); }
+
+      #drawer {
+        top: auto;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        max-height: 52vh;
+        transform: translateY(calc(100% + 24px));
+      }
+
+      #drawer.open { transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #drawer { transition: none; }
     }
   </style>
 </head>
 
 <body>
-  <h1>Waterfall Journey</h1>
-  <main>
-    <div id="map"></div>
-    <div id="details-card">
-      <div id="goal-details">Click on a marker to see details.</div>
+  <div id="map"></div>
+
+  <header id="topbar" class="panel">
+    <div id="brand">
+      <h1>Wanderfall</h1>
+      <span class="tagline">WNC challenge log</span>
     </div>
-  </main>
-  <div class="filters">
-    <input type="checkbox" id="beauty" name="beauty" value="beauty" /> Beauty
-    <input type="checkbox" id="photo" name="photo" value="photo" /> Photo
-    <input type="checkbox" id="solitude" name="solitude" value="solitude" /> Solitude
-  </div>
-  <h2>Add a Visit</h2>
-  <form id="visit-form" action="/visits" method="POST">
-    <label for="goal-name">Goal Name:</label>
-    <input list="goal-names" id="goal-name" name="goal_name" required />
+    <input id="search" list="goal-names" placeholder="Find a waterfall or tower&hellip;" aria-label="Find a waterfall or tower" />
     <datalist id="goal-names"></datalist>
+    <div class="chip-row" role="group" aria-label="Challenge filter">
+      <span class="row-label">Type</span>
+      <button class="chip kind" data-kind="all" aria-pressed="true">All</button>
+      <button class="chip kind" data-kind="waterfall" aria-pressed="false"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
+      <button class="chip kind" data-kind="tower" aria-pressed="false"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
+    </div>
+    <div class="chip-row" id="challenge-row" role="group" aria-label="Challenge filter" hidden></div>
+    <div class="chip-row" role="group" aria-label="Visit status filter">
+      <span class="row-label">Status</span>
+      <button class="chip visit-status" data-status="all" aria-pressed="true">All places</button>
+      <button class="chip visit-status" data-status="to-visit" aria-pressed="false">To visit</button>
+      <button class="chip visit-status" data-status="visited" aria-pressed="false"><span class="dot" style="background:var(--c-visited)"></span>Visited</button>
+    </div>
+    <div class="chip-row" role="group" aria-label="Color markers by rating">
+      <span class="row-label">Rate by</span>
+      <button class="chip rating" data-rating="beauty" aria-pressed="false">Beauty</button>
+      <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
+      <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
+    </div>
+    <div id="legend">
+      <button class="legend-item" data-kind="waterfall" aria-pressed="false"><span class="dot" style="background:var(--c-azure)"></span>Waterfall</button>
+      <button class="legend-item" data-kind="tower" aria-pressed="false"><span class="dot" style="background:var(--c-tower)"></span>Tower</button>
+      <button class="legend-item" data-status="visited" aria-pressed="false"><span class="dot" style="background:var(--c-visited)"></span>Visited</button>
+    </div>
+    <div id="spectrum" hidden>
+      <div class="bar">
+        <span style="background:var(--r5)" title="under 3"></span>
+        <span style="background:var(--r4)" title="3 to 4"></span>
+        <span style="background:var(--r3)" title="5 to 6"></span>
+        <span style="background:var(--r2)" title="7 to 8"></span>
+        <span style="background:var(--r1)" title="9 and up"></span>
+      </div>
+      <div class="ends"><span>Lowest</span><span>Best (9+)</span></div>
+    </div>
+  </header>
 
-    <label for="goal-id" hidden>Goal ID:</label>
-    <input type="hidden" id="goal-id" name="goal_id" required />
+  <div id="auth-corner" class="panel">
+    <button id="help-button" aria-label="About Wanderfall" title="About Wanderfall">?</button>
+    <div id="theme-switch" role="group" aria-label="Map theme">
+      <button data-theme-set="light" aria-pressed="false" title="Daylight" aria-label="Daylight map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg></button>
+      <button data-theme-set="dark" aria-pressed="false" title="Night" aria-label="Night map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></button>
+      <button data-theme-set="watercolor" aria-pressed="false" title="Watercolor" aria-label="Watercolor map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L14 13l-3 1 1-3z"/><path d="M9 11c-2.5 0-4 1.5-4 4 0 1.2-.5 2.2-2 3 1 .8 2.3 1.5 4 1.5 2.8 0 5-2.2 5-5"/></svg></button>
+    </div>
+    <button id="signin-button" class="primary">Sign in</button>
+    <div class="signed-in" hidden>
+      <span id="whoami"></span>
+      <span class="progress" id="progress"></span>
+      <button id="signout-button" class="quiet">Sign out</button>
+    </div>
+  </div>
 
-    <label for="visited-on">Visited On:</label>
-    <input type="date" id="visited-on" name="visited_on" />
+  <div id="intro-backdrop" hidden>
+    <div id="intro" class="panel" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <button class="close quiet" id="intro-close" aria-label="Close">&#10005;</button>
+      <h2 id="intro-title">Welcome to Wanderfall!</h2>
+      <p class="byline">A hobby project by jw.</p>
+      <p>This is a list of waterfalls and other quests in Western North Carolina.
+        No account needed; if you do create one, you'll be able to track which
+        features you visit and rate them.</p>
+      <p>Wanderfall also lists several challenges. Visit the entire list and you
+        get a badge!</p>
+      <div class="how">Here's how to read the map</div>
+      <ul class="key-list">
+        <li><span class="dot" style="background:var(--c-azure)"></span>blue is a waterfall</li>
+        <li><span class="dot" style="background:var(--c-tower)"></span>brown is a lookout tower</li>
+      </ul>
+      <div class="how">And when they are close together</div>
+      <div class="group-demo">
+        <span class="cluster demo" style="width:22px;height:22px;background:var(--c-azure)"><span class="cluster-core"></span></span>
+        <span class="cluster demo" style="width:34px;height:34px;background:var(--c-azure)"><span class="cluster-core"></span></span>
+        <span class="cluster demo" style="width:46px;height:46px;background:var(--c-azure)"><span class="cluster-core"></span></span>
+        <p>A ring is a <strong>group</strong> of nearby places. The bigger it is,
+          the more it holds &mdash; click one to zoom in and break it apart.</p>
+      </div>
+      <p class="sendoff">I enjoy making stuff like this, but REALLY enjoy making stuff
+        that gets used. Send feedback!
+        <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
+    </div>
+  </div>
 
-    <button type="submit">Add Visit</button>
-  </form>
+  <div id="auth-card" class="panel">
+    <h2 id="auth-title">Sign in</h2>
+    <form id="auth-form">
+      <div class="name-field">
+        <label for="auth-name">Name</label>
+        <input type="text" id="auth-name" autocomplete="name" />
+      </div>
+      <label for="auth-email">Email</label>
+      <input type="email" id="auth-email" autocomplete="email" required />
+      <label for="auth-password">Password</label>
+      <input type="password" id="auth-password" autocomplete="current-password" required minlength="8" />
+      <div class="actions">
+        <button type="button" id="auth-toggle" class="quiet">Create an account</button>
+        <button type="submit" class="primary" id="auth-submit">Sign in</button>
+      </div>
+      <div id="auth-error" role="alert"></div>
+    </form>
+  </div>
+
+  <aside id="drawer" class="panel" aria-label="Details">
+    <button class="close quiet" id="drawer-close" aria-label="Close details">&#10005;</button>
+    <div id="drawer-body"></div>
+  </aside>
 
   <script>
-    const color_scale = ['#006210', '#008126', '#00b648', '#66cc82', '#c3e8cb']
-    const visited_color = 'purple';
+    // Marker colours live in CSS so the legend swatches and the map cannot drift apart.
+    const C = { visited: '', azure: '', tower: '', sel: '', scale: [] };
 
-    // Initialize map and bounds
-    const map = L.map('map');
-    const bounds = L.latLngBounds();
+    function readThemeColors() {
+      const cs = getComputedStyle(document.documentElement);
+      const v = (name) => cs.getPropertyValue(name).trim();
+      C.visited = v('--c-visited');
+      C.azure = v('--c-azure');
+      C.tower = v('--c-tower');
+      C.sel = v('--c-sel');
+      C.scale = ['--r1', '--r2', '--r3', '--r4', '--r5'].map(v);
+    }
 
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
-      minZoom: 0,
-      maxZoom: 20,
-      attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      ext: 'png'
-    }).addTo(map);
+    const state = {
+      user: null,
+      features: [],
+      kind: 'all',
+      challenge: 'all',
+      visitStatus: 'all',
+      ratings: new Set(),
+      selected: null,
+      markers: new Map(),
+    };
 
-    const goalDetailsDiv = document.getElementById('goal-details');
-    const filters = document.querySelectorAll('.filters input[type="checkbox"]');
-    const datalist = document.getElementById('goal-names');
-    const goalNameInput = document.getElementById('goal-name');
-    const goalIdInput = document.getElementById('goal-id');
+    // Open on WNC so tiles have somewhere to be before /features lands;
+    // loadAll() re-fits to the real data once it arrives.
+    // minZoom/maxZoom declared here rather than inherited from whichever tile
+    // layer happens to be attached: markercluster reads maxZoom off the map the
+    // moment it is added, and the base layer is not attached until applyTheme
+    // runs at the end of this script.
+    const map = L.map('map', { zoomControl: false, minZoom: 0, maxZoom: 20 })
+      .setView([35.4, -82.8], 8);
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+    const THEMES = {
+      light: {
+        url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
+        opts: { minZoom: 0, maxZoom: 20, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
+      },
+      dark: {
+        url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
+        opts: { minZoom: 0, maxZoom: 20, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
+      },
+      watercolor: {
+        // Watercolor is painted, not rendered: it has no labels of its own, and
+        // no tiles past z16, so we overlay labels and let Leaflet upscale.
+        url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg',
+        opts: { minZoom: 0, maxZoom: 20, maxNativeZoom: 16, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
+        labels: 'https://tiles.stadiamaps.com/tiles/stamen_terrain_labels/{z}/{x}/{y}{r}.png',
+      },
+    };
 
-    // Populate datalist with goal names and map them to IDs
-    function populateDatalist(goals) {
-      goals.forEach((goal) => {
-        const option = document.createElement('option');
-        option.value = goal.name;
-        option.dataset.id = goal.id;
-        datalist.appendChild(option);
+    let baseLayer = null;
+    let labelLayer = null;
+
+    // persist only on an explicit choice, so a browser that has never been told
+    // keeps following the OS setting instead of being pinned by its first visit.
+    function applyTheme(name, persist) {
+      if (!THEMES[name]) name = 'light';
+      const theme = THEMES[name];
+      document.documentElement.dataset.theme = name;
+      if (persist) {
+        try { localStorage.setItem('wj-theme', name); } catch (e) { /* private mode */ }
+      }
+
+      if (baseLayer) map.removeLayer(baseLayer);
+      baseLayer = L.tileLayer(theme.url, theme.opts).addTo(map);
+
+      if (labelLayer) { map.removeLayer(labelLayer); labelLayer = null; }
+      if (theme.labels) {
+        labelLayer = L.tileLayer(theme.labels, { minZoom: 0, maxZoom: 20, maxNativeZoom: 18 }).addTo(map);
+      }
+
+      document.querySelectorAll('#theme-switch button').forEach((b) =>
+        b.setAttribute('aria-pressed', String(b.dataset.themeSet === name)));
+
+      readThemeColors();
+      renderMarkers(false);
+    }
+
+    document.querySelectorAll('#theme-switch button').forEach((b) =>
+      b.addEventListener('click', () => applyTheme(b.dataset.themeSet, true)));
+
+    const $ = (id) => document.getElementById(id);
+
+    // ---------- data ----------
+    let introAutoShown = false;
+
+    function loadAll() {
+      return Promise.all([
+        fetch('/me').then((r) => (r.ok ? r.json() : null)).catch(() => null),
+        fetch('/features').then((r) => r.json()),
+        fetch('/visits').then((r) => (r.ok ? r.json() : [])).catch(() => []),
+      ]).then(([user, features, visits]) => {
+        state.user = user;
+        state.features = features;
+        state.visits = visits;
+        renderAuth();
+        // Once per page load, not on every refresh -- otherwise signing out
+        // would throw the welcome back in your face.
+        if (!state.user && !introAutoShown) {
+          introAutoShown = true;
+          setIntro(true);
+        }
+        renderChallenges();
+        renderDatalist();
+        renderMarkers(true);
+        if (state.selected) {
+          const fresh = features.find((f) => f.id === state.selected.id);
+          if (fresh) openDrawer(fresh, false);
+        }
       });
     }
 
-    // Update goal ID when a name is selected
-    goalNameInput.addEventListener('input', () => {
-      const selectedOption = Array.from(datalist.options).find(
-        (option) => option.value === goalNameInput.value
-      );
-      goalIdInput.value = selectedOption ? selectedOption.dataset.id : '';
+    // ---------- markers ----------
+    function isTower(goal) {
+      return goal.kind === 'tower';
+    }
+
+    function ratingColor(goal) {
+      const vals = [...state.ratings]
+        .map((k) => goal[k + '_rating'])
+        .filter((v) => v !== undefined && v !== null);
+      if (!vals.length) return C.scale[4];
+      const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+      if (avg >= 9) return C.scale[0];
+      if (avg >= 7) return C.scale[1];
+      if (avg >= 5) return C.scale[2];
+      if (avg >= 3) return C.scale[3];
+      return C.scale[4];
+    }
+
+    function markerColor(goal) {
+      // Rate by wins over everything: the ramp only reads as a scale if every
+      // pin is on it. Visited is a filter you can apply, not a colour that
+      // punches holes in the gradient.
+      if (state.ratings.size > 0) return ratingColor(goal);
+      if (goal.last_visited) return C.visited;
+      if (isTower(goal)) return C.tower;
+      return C.azure;
+    }
+
+    function hasSelectedRating(goal) {
+      return [...state.ratings].some((k) => {
+        const v = goal[k + '_rating'];
+        return v !== undefined && v !== null;
+      });
+    }
+
+    function inScope(goal) {
+      const matchesKind = state.kind === 'all' || kindOf(goal) === state.kind;
+      const matchesChallenge = state.challenge === 'all' ||
+        (goal.challenges || []).includes(state.challenge);
+      const matchesVisitStatus = state.visitStatus === 'all' ||
+        (state.visitStatus === 'to-visit' && !goal.last_visited) ||
+        (state.visitStatus === 'visited' && !!goal.last_visited);
+      // Colouring by a rating only says something about things that carry one.
+      // Towers have no ratings at all, and a few dozen falls are unrated; both
+      // used to sit on the map in a colour that implied a score they lack.
+      const matchesRated = state.ratings.size === 0 || hasSelectedRating(goal);
+      return matchesKind && matchesChallenge && matchesVisitStatus && matchesRated;
+    }
+
+    // 900 undifferentiated points is a smear, so that case draws as density.
+    // Points earn the right to be points when there are few enough to read, or
+    // when you have said something about which ones you care about.
+    function visibleGoals() {
+      return state.features.filter((goal) => {
+        if (!inScope(goal)) return false;
+        const loc = goal.location;
+        return loc && loc.latitude && loc.longitude;
+      });
+    }
+
+    // Clusters are sized and shaded by how many falls they hold, so the opening
+    // view still reads as density, but every group stays clickable and opens
+    // into its members instead of dead-ending like the heat layer did.
+    const clusterOptsFor = (kind) => ({
+      showCoverageOnHover: false,
+      // 25px is the tightest grouping the icons allow: they are 32-48px wide,
+      // so centres closer than about 24px overlap into a pile. At the opening
+      // zoom that caps the largest group at 80 with nothing above it.
+      maxClusterRadius: 25,
+      disableClusteringAtZoom: 14,
+      spiderfyOnMaxZoom: true,
+      clusterPane: kind === 'tower' ? 'towers' : 'markerPane',
+      iconCreateFunction: (cluster) => {
+        const n = cluster.getChildCount();
+        const size = clusterSize(n);
+        return L.divIcon({
+          className: '',
+          iconSize: [size, size],
+          html: '<div class="cluster ' + kind + '" title="' + n + ' places" style="width:' +
+            size + 'px;height:' + size + 'px;background:' +
+            pieFill(cluster.getAllChildMarkers()) + '">' +
+            '<span class="cluster-core"></span></div>',
+        });
+      },
     });
 
-    // Color scale mapping function
-    function getColorByRating(rating) {
-      if (rating >= 9) return color_scale[0];
-      if (rating >= 7) return color_scale[1];
-      if (rating >= 5) return color_scale[2];
-      if (rating >= 3) return color_scale[3];
-      return color_scale[4];
+    // Towers draw above waterfalls: at the opening zoom a dozen tower bubbles
+    // land within a few pixels of a waterfall bubble, and the smaller one would
+    // otherwise be half-buried by the bigger.
+    map.createPane('towers').style.zIndex = 620;
+
+    // One cluster group per kind, so a bubble never mixes waterfalls with
+    // towers -- a half-blue, half-brown pie read as one confusing thing rather
+    // than two separate ones. Keyed off kind rather than a fixed pair, so
+    // vistas or anything else added later group on their own too.
+    const clusterGroups = new Map();
+
+    function groupFor(kind) {
+      if (!clusterGroups.has(kind)) {
+        // There are 22 towers against 935 falls. Clustering them bought nothing
+        // and cost a lot: a tower bubble landing on a waterfall bubble read as
+        // one two-coloured group. Plain markers can't be mistaken for a group.
+        const group = kind === 'tower'
+          ? L.layerGroup()
+          : L.markerClusterGroup(clusterOptsFor(kind));
+        clusterGroups.set(kind, group.addTo(map));
+      }
+      return clusterGroups.get(kind);
     }
 
-    function colorForGoal(goal) {
-      if (goal.last_visited) {
-        return visited_color;
-      }
-
-      const selectedFilters = Array.from(filters).filter((f) => f.checked);
-
-      if (selectedFilters.length === 0) {
-        return color_scale[0];
-      }
-
-      const ratings = selectedFilters
-        .map((filter) => goal[`${filter.value}_rating`])
-        .filter((rating) => rating !== undefined);
-
-      if (ratings.length > 0) {
-        const averageRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
-        return getColorByRating(averageRating);
-      }
+    // L.layerGroup has no bulk addLayers, so feed it one at a time.
+    function addAll(group, markers) {
+      if (group.addLayers) group.addLayers(markers);
+      else markers.forEach((m) => group.addLayer(m));
     }
 
-    // Fetch goals and add markers
-    function updateMarkers() {
-      fetch('/goals')
-        .then((response) => response.json())
-        .then((goals) => {
-          populateDatalist(goals);
+    function kindOf(goal) {
+      return goal.kind || 'other';
+    }
 
-          let markersAdded = false;
-          map.eachLayer((layer) => {
-            if (layer instanceof L.CircleMarker) map.removeLayer(layer);
-          });
+    // Area, not diameter, carries the count: scaling the width linearly would
+    // make a 60 look nine times a 20 instead of three. The constant offset keeps
+    // a pair from collapsing to something indistinguishable from a single pin --
+    // pure sqrt would put a 2 at about 8px against the 12px dots.
+    function clusterSize(n) {
+      return Math.round(Math.min(48, Math.max(20, 12.4 + 3.98 * Math.sqrt(n))));
+    }
 
-          goals.forEach((goal) => {
-            if (goal.location && goal.location.latitude && goal.location.longitude) {
-              const lat = goal.location.latitude;
-              const lng = goal.location.longitude;
+    // Slices come straight from markerColor, so the pie always agrees with the
+    // pins it stands in for: visited/tower/unvisited normally, and the five
+    // rating bands whenever a Rate by chip is active. Largest slice first so
+    // small ones do not get lost against the start of the sweep.
+    function pieFill(markers) {
+      const tally = new Map();
+      markers.forEach((m) => {
+        const c = markerColor(m.wjGoal);
+        tally.set(c, (tally.get(c) || 0) + 1);
+      });
+      const parts = [...tally.entries()].sort((a, b) => b[1] - a[1]);
+      if (parts.length === 1) return parts[0][0];   // no gradient needed
+      let acc = 0;
+      const stops = parts.map(([color, count]) => {
+        const from = (acc / markers.length) * 100;
+        acc += count;
+        const to = (acc / markers.length) * 100;
+        return color + ' ' + from.toFixed(2) + '% ' + to.toFixed(2) + '%';
+      });
+      return 'conic-gradient(' + stops.join(', ') + ')';
+    }
 
-              const marker = L.circleMarker([lat, lng], {
-                color: colorForGoal(goal),
-                radius: 6,
-              })
-                .addTo(map)
-                .on('click', () => {
-                  displayGoalDetails(goal);
-                });
+    function goalIcon(goal, selected) {
+      const size = selected ? 18 : 12;
+      return L.divIcon({
+        className: '',
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
+        html: '<div class="goal-dot ' + kindOf(goal) + (selected ? ' selected' : '') +
+          '" style="background:' + markerColor(goal) + '"></div>',
+      });
+    }
 
-              bounds.extend([lat, lng]);
-              markersAdded = true;
-            }
-          });
+    // A few far-flung points (one near Chattanooga, one east of Charlotte)
+    // stretch the full extent across 5.6 degrees of longitude, which pushes the
+    // opening view a zoom level further out than the data warrants and leaves
+    // most of the screen empty. Fit the 1st-99th percentile instead. Nothing is
+    // hidden: the strays are still on the map, just off the initial screen.
+    // Skipped for small sets, where every point matters and there is no tail.
+    function fitBoundsFor(goals) {
+      const lats = goals.map((g) => g.location.latitude).sort((a, b) => a - b);
+      const lons = goals.map((g) => g.location.longitude).sort((a, b) => a - b);
+      const k = goals.length > 50 ? Math.floor(goals.length * 0.01) : 0;
+      return L.latLngBounds(
+        [lats[k], lons[k]],
+        [lats[lats.length - 1 - k], lons[lons.length - 1 - k]]
+      );
+    }
 
-          setTimeout(() => {
-            if (markersAdded) {
-              map.fitBounds(bounds);
-            } else {
-              map.setView([0, 0], 2);
-            }
-          }, 1000);
+    function renderMarkers(fit) {
+      const goals = visibleGoals();
+      clusterGroups.forEach((g) => g.clearLayers());
+      state.markers.clear();
+
+      const byKind = new Map();
+      const layers = goals.map((goal) => {
+        const loc = goal.location;
+        const selected = state.selected && state.selected.id === goal.id;
+        const marker = L.marker([loc.latitude, loc.longitude], {
+          icon: goalIcon(goal, selected),
+          zIndexOffset: selected ? 1000 : 0,
+          pane: kindOf(goal) === 'tower' ? 'towers' : 'markerPane',
         });
+        const sub = goal.last_visited
+          ? 'Visited ' + goal.last_visited
+          : (goal.challenges || []).join(' &middot; ') || 'Not visited';
+        marker.bindTooltip(
+          '<strong>' + escapeHtml(goal.name) + '</strong><div class="tip-sub">' + sub + '</div>',
+          { className: 'goal-tip', direction: 'top', offset: [0, -8] }
+        );
+        marker.on('click', () => openDrawer(goal, false));
+        marker.wjGoal = goal;
+        state.markers.set(goal.id, marker);
+        const kind = kindOf(goal);
+        if (!byKind.has(kind)) byKind.set(kind, []);
+        byKind.get(kind).push(marker);
+        return marker;
+      });
+      // bulk add: one at a time would re-cluster on every insert
+      byKind.forEach((group, kind) => addAll(groupFor(kind), group));
+
+      if (fit && layers.length) {
+        const bounds = fitBoundsFor(goals);
+        if (bounds.isValid()) map.fitBounds(bounds, { padding: [40, 40] });
+      }
     }
 
-    document.getElementById('visit-form').addEventListener('submit', function (e) {
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+      }[c]));
+    }
+
+    // ---------- drawer ----------
+    function dots(n) {
+      if (n === undefined || n === null) return '<span class="v">&mdash;</span>';
+      let out = '<span class="rating-dots" aria-label="' + n + ' out of 10">';
+      for (let i = 1; i <= 10; i++) out += '<i class="' + (i <= n ? 'on' : '') + '"></i>';
+      return out + '</span>';
+    }
+
+    // Blank first, so logging a visit stays a one-field action and an unset
+    // rating posts as null rather than defaulting to some number.
+    function rateField(id, label) {
+      let opts = '<option value="">&mdash;</option>';
+      for (let i = 1; i <= 10; i++) opts += '<option>' + i + '</option>';
+      return '<label class="rate" for="' + id + '">' + label +
+        '<select id="' + id + '">' + opts + '</select></label>';
+    }
+
+    function openDrawer(goal, flyTo) {
+      state.selected = goal;
+      const d = goal.difficulty_rating ? goal.difficulty_rating.trim() : '';
+      const diffName = { E: 'Easy', M: 'Moderate', D: 'Difficult' }[d];
+
+      let html = '<h2>' + escapeHtml(goal.name) + '</h2>';
+      html += '<div class="badges">';
+      (goal.challenges || []).forEach((c) => { html += '<span class="badge challenge">' + escapeHtml(c) + '</span>'; });
+      if (diffName) html += '<span class="badge diff-' + d + '">' + diffName + '</span>';
+      if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
+      html += '</div>';
+
+      html += '<div class="fact-grid">';
+      html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;') + '</div></div>';
+      html += '<div class="fact"><div class="k">Last visited</div><div class="v">' + (goal.last_visited ? escapeHtml(goal.last_visited) : 'Never') + '</div></div>';
+      html += '<div class="fact"><div class="k">Beauty</div>' + dots(goal.beauty_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Photo</div>' + dots(goal.photo_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Solitude</div>' + dots(goal.solitude_rating) + '</div>';
+      if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
+      html += '</div>';
+
+      html += '<hr />';
+      if (state.user) {
+        const visits = (state.visits || [])
+          .filter((v) => v.feature_id === goal.id)
+          .sort((a, b) => b.visited_on.localeCompare(a.visited_on));
+        if (visits.length) {
+          html += '<div class="visit-history"><div class="k">Your visits</div><ul>';
+          visits.forEach((v) => {
+            const scored = [['B', v.beauty_rating], ['P', v.photo_rating], ['S', v.solitude_rating]]
+              .filter(([, n]) => n !== null && n !== undefined)
+              .map(([k, n]) => k + '&thinsp;' + n).join(' &middot; ');
+            html += '<li><span>' + escapeHtml(v.visited_on) +
+              (scored ? '<span class="visit-rates">' + scored + '</span>' : '') + '</span>' +
+              '<button class="quiet remove-visit" data-id="' + v.id + '" aria-label="Remove visit on ' + escapeHtml(v.visited_on) + '">&#10005;</button></li>';
+          });
+          html += '</ul></div>';
+        } else {
+          html += '<div class="no-visits">No recorded visits</div>';
+        }
+        html += '<form id="log-visit"><label for="visit-date">Log a' + (visits.length ? 'nother' : '') + ' visit</label>' +
+          '<input type="date" id="visit-date" required value="' + todayStr() + '" />' +
+          '<div class="rate-row"><span class="k">Your ratings <em>&mdash; optional</em></span>' +
+          '<div class="rate-grid">' +
+          rateField('rate-beauty', 'Beauty') +
+          rateField('rate-photo', 'Photo') +
+          rateField('rate-solitude', 'Solitude') +
+          '</div></div>' +
+          '<button type="submit" class="primary full">Save</button>' +
+          '<div id="visit-msg" role="status"></div></form>';
+      } else {
+        html += '<div class="signin-nudge"><button class="quiet" id="nudge-signin">Sign in</button> to log a visit.</div>';
+      }
+
+      $('drawer-body').innerHTML = html;
+      $('drawer').classList.add('open');
+
+      const form = $('log-visit');
+      if (form) form.addEventListener('submit', submitVisit);
+      const nudge = $('nudge-signin');
+      if (nudge) nudge.addEventListener('click', () => toggleAuthCard(true));
+      document.querySelectorAll('.remove-visit').forEach((btn) => {
+        btn.addEventListener('click', () => removeVisit(btn.dataset.id));
+      });
+
+      renderMarkers(false);
+      if (flyTo && goal.location) {
+        // Flying to a fixed zoom can leave the pin swallowed by its cluster.
+        // zoomToShowLayer goes exactly as deep as it takes to expose it.
+        const marker = state.markers.get(goal.id);
+        const group = marker && clusterGroups.get(kindOf(goal));
+        if (group && group.zoomToShowLayer && group.hasLayer(marker)) {
+          group.zoomToShowLayer(marker, () => {});
+        } else {
+          map.flyTo([goal.location.latitude, goal.location.longitude],
+            Math.max(map.getZoom(), 12));
+        }
+      }
+    }
+
+    function closeDrawer() {
+      state.selected = null;
+      $('drawer').classList.remove('open');
+      renderMarkers(false);
+    }
+
+    function todayStr() {
+      const d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function removeVisit(id) {
+      fetch('/visits/' + id, { method: 'DELETE' }).then((r) => {
+        if (r.ok) loadAll();
+      });
+    }
+
+    function ratingValue(id) {
+      const el = $(id);
+      return el && el.value ? Number(el.value) : null;
+    }
+
+    function submitVisit(e) {
       e.preventDefault();
-
-      const goalId = document.getElementById('goal-id').value;
-      const visitedOn = document.getElementById('visited-on').value;
-
+      const msg = $('visit-msg');
       fetch('/visits', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ goal_id: parseInt(goalId, 10), visited_on: visitedOn }),
-      })
-        .then((response) => {
-          if (response.ok) {
-            alert('Visit added successfully!');
-            location.reload();
-          } else {
-            alert('Failed to add visit.');
-          }
-        });
-    });
-    // Function to display goal details in the details card
-    function displayGoalDetails(goal) {
-      const detailsHTML = `
-      <h2 class="goal-detail">${goal.name}</h2>
-      <div class="goal-detail"><strong>Beauty Rating:</strong> ${goal.beauty_rating || 'N/A'}</div>
-      <div class="goal-detail"><strong>Photo Rating:</strong> ${goal.photo_rating || 'N/A'}</div>
-      <div class="goal-detail"><strong>Solitude Rating:</strong> ${goal.solitude_rating || 'N/A'}</div>
-      <div class="goal-detail"><strong>RT Hike Distance:</strong> ${goal.rt_hike_distance || 'N/A'}</div>
-      <div class="goal-detail"><strong>Difficulty Rating:</strong> ${goal.difficulty_rating || 'N/A'}</div>
-      <div class="goal-detail"><strong>Last Visited:</strong> ${goal.last_visited || 'Never'}</div>
-    `;
-      goalDetailsDiv.innerHTML = detailsHTML;
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          feature_id: state.selected.id,
+          visited_on: $('visit-date').value,
+          beauty_rating: ratingValue('rate-beauty'),
+          photo_rating: ratingValue('rate-photo'),
+          solitude_rating: ratingValue('rate-solitude'),
+        }),
+      }).then((r) => {
+        if (r.ok) {
+          msg.className = 'ok';
+          msg.textContent = 'Visit saved.';
+          loadAll();
+        } else {
+          r.text().then((t) => { msg.className = 'err'; msg.textContent = t.trim() || 'Could not save that visit.'; });
+        }
+      });
     }
 
-    // Handle filter changes
-    filters.forEach((filter) => {
-      filter.addEventListener('change', updateMarkers);
+    // ---------- search ----------
+    // In rating mode every pin is on the purple ramp, so none of the swatches
+    // describe anything on the map. The spectrum bar takes over as the key.
+    function renderLegend() {
+      const rating = state.ratings.size > 0;
+      $('spectrum').hidden = !rating;
+      $('legend').hidden = rating;
+    }
+
+    // Display names for the terse codes the DB stores.
+    // Key order is display order: WC100 leads, then the other CMC list, then
+    // the Adams lists smallest first. Anything not listed sorts in after.
+    const CHALLENGE_LABELS = {
+      WC100: 'CMC WC100',
+      LTC: 'Lookout Towers',
+      ADAMS100: 'Adams 100',
+      ADAMS500: 'Adams 500',
+    };
+    const CHALLENGE_ORDER = Object.keys(CHALLENGE_LABELS);
+
+    function startedChallenges() {
+      const names = new Set();
+      state.features.forEach((goal) => {
+        if (!goal.last_visited) return;
+        (goal.challenges || []).forEach((c) => names.add(c));
+      });
+      const rank = (n) => {
+        const i = CHALLENGE_ORDER.indexOf(n);
+        return i === -1 ? CHALLENGE_ORDER.length : i;
+      };
+      return [...names].sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+    }
+
+    // A challenge you have never touched is noise, so the row only lists the
+    // ones you are actually on -- and hides entirely until you are on one.
+    function renderChallenges() {
+      const names = startedChallenges();
+      const row = $('challenge-row');
+      row.hidden = names.length === 0;
+      if (state.challenge !== 'all' && !names.includes(state.challenge)) {
+        state.challenge = 'all';
+      }
+      if (!names.length) { row.innerHTML = ''; return; }
+
+      const chip = (value, label) =>
+        '<button class="chip challenge" data-challenge="' + escapeHtml(value) +
+        '" aria-pressed="' + (state.challenge === value) + '">' + escapeHtml(label) + '</button>';
+
+      row.innerHTML = '<span class="row-label">Challenge</span>' +
+        names.map((n) => chip(n, CHALLENGE_LABELS[n] || n)).join('');
+
+      // Each chip is its own toggle, and turning one on turns the rest off.
+      // Turning the active one off means no challenge filter, so there is
+      // nothing for an "All" chip to do.
+      row.querySelectorAll('.chip.challenge').forEach((c) => {
+        c.addEventListener('click', () => {
+          const picked = c.dataset.challenge;
+          state.challenge = state.challenge === picked ? 'all' : picked;
+          row.querySelectorAll('.chip.challenge').forEach((o) =>
+            o.setAttribute('aria-pressed',
+              String(o.dataset.challenge === state.challenge)));
+          renderMarkers(true);
+        });
+      });
+    }
+
+    function renderDatalist() {
+      $('goal-names').innerHTML = state.features
+        .map((g) => '<option value="' + escapeHtml(g.name) + '"></option>')
+        .join('');
+    }
+
+    $('search').addEventListener('change', () => {
+      const goal = state.features.find((g) => g.name === $('search').value);
+      if (goal) {
+        openDrawer(goal, true);
+        $('search').value = '';
+      }
     });
 
-    // Initial markers load
-    updateMarkers();
+    // ---------- filters ----------
+    // The chip rows and the key are two controls over the same two values, so
+    // pressed state is derived from state rather than set at each click site.
+    function syncFilters() {
+      document.querySelectorAll('.chip.kind').forEach((c) =>
+        c.setAttribute('aria-pressed', String(c.dataset.kind === state.kind)));
+      document.querySelectorAll('.chip.visit-status').forEach((c) =>
+        c.setAttribute('aria-pressed', String(c.dataset.status === state.visitStatus)));
+      document.querySelectorAll('#legend .legend-item').forEach((c) => {
+        const on = c.dataset.kind ? c.dataset.kind === state.kind
+                                  : c.dataset.status === state.visitStatus;
+        c.setAttribute('aria-pressed', String(on));
+      });
+    }
 
+    function setKind(kind) {
+      state.kind = state.kind === kind ? 'all' : kind;
+      syncFilters();
+      renderMarkers(true);
+    }
+
+    function setStatus(status) {
+      state.visitStatus = state.visitStatus === status ? 'all' : status;
+      syncFilters();
+      renderMarkers(true);
+    }
+
+    document.querySelectorAll('.chip.kind').forEach((chip) =>
+      chip.addEventListener('click', () => setKind(chip.dataset.kind)));
+
+    document.querySelectorAll('.chip.visit-status').forEach((chip) =>
+      chip.addEventListener('click', () => setStatus(chip.dataset.status)));
+
+    document.querySelectorAll('#legend .legend-item').forEach((item) =>
+      item.addEventListener('click', () => (item.dataset.kind
+        ? setKind(item.dataset.kind)
+        : setStatus(item.dataset.status))));
+
+    document.querySelectorAll('.chip.rating').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const key = chip.dataset.rating;
+        if (state.ratings.has(key)) state.ratings.delete(key); else state.ratings.add(key);
+        chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
+        renderLegend();
+        renderMarkers(false);
+      });
+    });
+
+    // ---------- auth ----------
+    let signupMode = false;
+
+    function renderAuth() {
+      const signedIn = !!state.user;
+      $('signin-button').hidden = signedIn;
+      document.querySelector('#auth-corner .signed-in').hidden = !signedIn;
+      if (signedIn) {
+        $('whoami').textContent = state.user.name;
+        const wc = state.features.filter((f) => (f.challenges || []).includes('WC100'));
+        const done = wc.filter((g) => g.last_visited).length;
+        $('progress').textContent = 'WC100 ' + done + '/' + wc.length;
+        toggleAuthCard(false);
+      }
+    }
+
+    function toggleAuthCard(open) {
+      $('auth-card').classList.toggle('open', open);
+      if (open) $('auth-email').focus();
+    }
+
+    $('signin-button').addEventListener('click', () =>
+      toggleAuthCard(!$('auth-card').classList.contains('open')));
+
+    $('auth-toggle').addEventListener('click', () => {
+      signupMode = !signupMode;
+      $('auth-card').classList.toggle('signup-mode', signupMode);
+      $('auth-title').textContent = signupMode ? 'Create an account' : 'Sign in';
+      $('auth-submit').textContent = signupMode ? 'Create account' : 'Sign in';
+      $('auth-toggle').textContent = signupMode ? 'I have an account' : 'Create an account';
+      $('auth-name').required = signupMode;
+    });
+
+    $('auth-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      $('auth-error').textContent = '';
+      fetch(signupMode ? '/signup' : '/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: $('auth-name').value,
+          email: $('auth-email').value,
+          password: $('auth-password').value,
+        }),
+      }).then((r) => {
+        if (r.ok) { $('auth-password').value = ''; loadAll(); }
+        else r.text().then((t) => { $('auth-error').textContent = t.trim(); });
+      });
+    });
+
+    $('signout-button').addEventListener('click', () => {
+      fetch('/logout', { method: 'POST' }).then(() => loadAll());
+    });
+
+    $('drawer-close').addEventListener('click', closeDrawer);
+
+    function setIntro(open) {
+      $('intro-backdrop').hidden = !open;
+      if (open) $('intro-close').focus();
+    }
+
+    $('help-button').addEventListener('click', () => setIntro(true));
+    $('intro-close').addEventListener('click', () => setIntro(false));
+    // click the backdrop, but not the panel sitting on it
+    $('intro-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('intro-backdrop')) setIntro(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      // the modal is on top, so it gets the key first
+      if (!$('intro-backdrop').hidden) setIntro(false);
+      else closeDrawer();
+    });
+
+    // Runs last: applyTheme renders the markers, and renderMarkers reaches for
+    // `clusters`, a const further up this script that stays in the temporal
+    // dead zone until execution reaches its declaration.
+    applyTheme(document.documentElement.dataset.theme, false);
+    loadAll();
   </script>
 </body>
 
