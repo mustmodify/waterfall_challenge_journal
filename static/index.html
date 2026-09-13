@@ -709,6 +709,32 @@
 
     #drawer hr { border: none; border-top: 1px solid var(--line); margin: 16px 0; }
 
+    .links { margin-top: 4px; }
+
+    .links .k {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+      margin-bottom: 6px;
+    }
+
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 12px;
+      margin: 0 6px 6px 0;
+    }
+
+    .links a:hover { background: var(--moss); text-decoration: underline; }
+    .links a span { font-size: 0.9em; opacity: 0.75; }
+
     #log-visit label {
       display: block;
       font-size: 0.72rem;
@@ -1429,6 +1455,13 @@
       return out + '</span>';
     }
 
+    const LINK_LABELS = { hikingwnc: 'HikingWNC' };
+
+    function linkHost(url) {
+      try { return new URL(url).hostname.replace(/^www\./, ''); }
+      catch (e) { return 'Link'; }
+    }
+
     function openDrawer(goal, flyTo) {
       state.selected = goal;
       const d = goal.difficulty_rating ? goal.difficulty_rating.trim() : '';
@@ -1449,6 +1482,18 @@
       html += '<div class="fact"><div class="k">Solitude</div>' + dots(goal.solitude_rating) + '</div>';
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
+
+      // hikingwnc has the directions, the photos and the current state of the
+      // trail. Sending people there beats pretending we know any of that.
+      if ((goal.links || []).length) {
+        html += '<div class="links"><div class="k">More about this place</div>';
+        goal.links.forEach((l) => {
+          html += '<a href="' + escapeHtml(l.url) + '" target="_blank" rel="noopener">' +
+            escapeHtml(LINK_LABELS[l.rel] || l.rel || linkHost(l.url)) +
+            '<span aria-hidden="true">&#8599;</span></a>';
+        });
+        html += '</div>';
+      }
 
       html += '<hr />';
       if (state.user) {
