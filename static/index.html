@@ -2300,7 +2300,7 @@
         const bit = document.createElement('i');
         bit.className = 'confetti';
         bit.style.background = colors[i % colors.length];
-        bit.style.left = (box.left + box.width * Math.random()) + 'px';
+        bit.style.left = (box.left + box.width * 0.5 * Math.random()) + 'px';
         bit.style.top = (box.top + box.height / 2) + 'px';
         document.body.appendChild(bit);
         const down = Math.random() < 0.7;
@@ -2311,7 +2311,7 @@
           { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
           { transform: 'translate(' + Math.cos(angle) * dist + 'px,' +
                        Math.sin(angle) * dist + 'px) rotate(' + spin + 'deg)', opacity: 0 },
-        ], { duration: 900 + Math.random() * 600, easing: 'cubic-bezier(.2,.7,.3,1)' })
+        ], { duration: 2250 + Math.random() * 1500, easing: 'cubic-bezier(.2,.7,.3,1)' })
           .onfinish = () => bit.remove();
       }
     }
