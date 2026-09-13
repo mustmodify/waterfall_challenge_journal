@@ -63,6 +63,7 @@ type Feature struct {
 	Links             []Link        `json:"links"`
 	Areas             []string      `json:"areas"`
 	Notes             []FeatureNote `json:"notes"`
+	Confidence        *string       `json:"confidence,omitempty"`
 	Owner             *string       `json:"owner,omitempty"`
 	DeprecatedReason  *string       `json:"deprecated_reason,omitempty"`
 	DeprecatedNote    *string       `json:"deprecated_note,omitempty"`
@@ -190,8 +191,9 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		args = append(args, user.ID)
 	}
 	rows, err := db.Query(`
-		SELECT features.id, name, kind, parking_location_id, feature_location_id, rt_hike_distance,
-			difficulty_rating, accessibility, height_ft, beauty_rating, photo_rating, solitude_rating,
+		SELECT features.id, features.name, kind, parking_location_id, feature_location_id,
+			rt_hike_distance, difficulty_rating, accessibility, height_ft,
+			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
 			locations.id as location_id, longitude, latitude,
 			`+lastVisited+` AS last_visited,
@@ -211,9 +213,16 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			(SELECT json_agg(json_build_object('text', notes.text, 'source',
 				coalesce(notes.source, '')) ORDER BY notes.id)
 				FROM notes WHERE notes.feature_id = features.id) AS note_json,
+			confidence.tier,
 			features.owner, deprecated_reason, deprecated_note,
 			deprecated_on::text
-		FROM features LEFT JOIN locations ON locations.id = features.feature_location_id
+		FROM features
+			LEFT JOIN locations ON locations.id = features.feature_location_id
+			LEFT JOIN coordinate_confidence confidence ON confidence.feature_id = features.id
+		-- A tower carries no source claims at all, so tiering would hide every
+		-- one of them.
+		WHERE features.kind <> 'waterfall'
+		   OR confidence.tier IN ('confirmed', 'corroborated')
 	`, args...)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -231,6 +240,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var linkRows sql.NullString
 		var areaNames sql.NullString
 		var noteJSON []byte
+		var confidence sql.NullString
 
 		err := rows.Scan(
 			&f.ID,
@@ -256,6 +266,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&linkRows,
 			&areaNames,
 			&noteJSON,
+			&confidence,
 			&f.Owner,
 			&f.DeprecatedReason,
 			&f.DeprecatedNote,
@@ -273,6 +284,11 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		f.Challenges = []string{}
 		if challengeNames.Valid && challengeNames.String != "" {
 			f.Challenges = strings.Split(challengeNames.String, ",")
+		}
+
+		if confidence.Valid {
+			tier := confidence.String
+			f.Confidence = &tier
 		}
 
 		f.Areas = []string{}
