@@ -13,7 +13,7 @@
     (function () {
       var stored = null;
       try { stored = localStorage.getItem('wj-theme'); } catch (e) { /* private mode */ }
-      var ok = stored === 'light' || stored === 'dark' || stored === 'watercolor';
+      var ok = stored === 'light' || stored === 'dark' || stored === 'topo';
       var sys = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       document.documentElement.dataset.theme = ok ? stored : (sys ? 'dark' : 'light');
     })();
@@ -1133,7 +1133,7 @@
     <div class="tiles themes" role="group" aria-labelledby="style-label">
       <button class="tile" data-theme-set="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg><span>Daylight</span></button>
       <button class="tile" data-theme-set="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg><span>Night</span></button>
-      <button class="tile" data-theme-set="watercolor" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L14 13l-3 1 1-3z"/><path d="M9 11c-2.5 0-4 1.5-4 4 0 1.2-.5 2.2-2 3 1 .8 2.3 1.5 4 1.5 2.8 0 5-2.2 5-5"/></svg><span>Watercolor</span></button>
+      <button class="tile" data-theme-set="topo" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 19l6.5-11 4 6.5 2.5-4L22 19z"/><path d="M6.5 19c1.5-2.5 3.5-3.5 5.5-3.5s4 1 5.5 3.5"/></svg><span>Topo</span></button>
     </div>
   </div>
 
@@ -1354,24 +1354,22 @@
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     const THEMES = {
       light: {
-        url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
-        opts: { minZoom: 0, maxZoom: 20, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
+        url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+        opts: { minZoom: 0, maxZoom: 20, subdomains: 'abcd', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>' },
       },
       dark: {
-        url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
-        opts: { minZoom: 0, maxZoom: 20, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
+        url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        opts: { minZoom: 0, maxZoom: 20, subdomains: 'abcd', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>' },
       },
-      watercolor: {
-        // Watercolor is painted, not rendered: it has no labels of its own, and
-        // no tiles past z16, so we overlay labels and let Leaflet upscale.
-        url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg',
-        opts: { minZoom: 0, maxZoom: 20, maxNativeZoom: 16, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
-        labels: 'https://tiles.stadiamaps.com/tiles/stamen_terrain_labels/{z}/{x}/{y}{r}.png',
+      // Contours and drainages, which is what you actually want to know before
+      // walking into a gorge. Public domain, no key, and no tiles past z16.
+      topo: {
+        url: 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
+        opts: { minZoom: 0, maxZoom: 20, maxNativeZoom: 16, attribution: 'Map data &copy; <a href="https://www.usgs.gov/programs/national-geospatial-program/national-map" target="_blank">USGS The National Map</a>' },
       },
     };
 
     let baseLayer = null;
-    let labelLayer = null;
 
     // persist only on an explicit choice, so a browser that has never been told
     // keeps following the OS setting instead of being pinned by its first visit.
@@ -1385,11 +1383,6 @@
 
       if (baseLayer) map.removeLayer(baseLayer);
       baseLayer = L.tileLayer(theme.url, theme.opts).addTo(map);
-
-      if (labelLayer) { map.removeLayer(labelLayer); labelLayer = null; }
-      if (theme.labels) {
-        labelLayer = L.tileLayer(theme.labels, { minZoom: 0, maxZoom: 20, maxNativeZoom: 18 }).addTo(map);
-      }
 
       document.querySelectorAll('#menu [data-theme-set]').forEach((b) =>
         b.setAttribute('aria-pressed', String(b.dataset.themeSet === name)));

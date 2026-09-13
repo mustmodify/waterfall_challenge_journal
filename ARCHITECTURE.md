@@ -105,9 +105,10 @@ Three pages sharing `static/app.css` (theme tokens and primitives),
 rather than linking `app.css`. Until that is resolved, changes to either must
 be mirrored in both or the map and the other pages will drift.
 
-Leaflet plus leaflet.markercluster from unpkg, pinned. Basemaps are Stadia
-Maps; the Stamen Watercolor theme overlays a labels layer because the
-watercolor tiles carry no labels of their own and cap out at zoom 16.
+Leaflet plus leaflet.markercluster from unpkg, pinned. Basemaps are CARTO for
+light and dark and USGS for topo, both of which serve any domain without a key.
+Stadia served the first version and refuses a real domain unless it is
+registered to an account, which is how the tiles came to be swapped.
 
 Waterfalls cluster; towers never do. With 22 of them clustering bought nothing
 and cost legibility — a tower bubble landing on a waterfall bubble read as one

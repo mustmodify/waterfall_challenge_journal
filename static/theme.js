@@ -3,7 +3,7 @@
 (function () {
   var stored = null;
   try { stored = localStorage.getItem('wj-theme'); } catch (e) { /* private mode */ }
-  var ok = stored === 'light' || stored === 'dark' || stored === 'watercolor';
+  var ok = stored === 'light' || stored === 'dark' || stored === 'topo';
   var sys = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.documentElement.dataset.theme = ok ? stored : (sys ? 'dark' : 'light');
 })();

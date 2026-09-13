@@ -26,7 +26,7 @@
   --c-tower: #8a6a4f;
   --c-sel: #f2f6f2;
   /* Rating ramp is purple: it has to stay clear of blue (status), brown
-     (towers), green (the watercolor basemap) and amber (--accent). */
+     (towers), green (visited) and amber (--accent). */
   --r1: #a865e0;
   --r2: #b983e8;
   --r3: #caa0ef;
@@ -54,7 +54,7 @@
 
 /* Sun and paintbrush both sit on a light basemap, so they share a palette. */
 :root[data-theme="light"],
-:root[data-theme="watercolor"] {
+:root[data-theme="topo"] {
   --pine: #eef1ec;
   --pine-90: rgba(252, 253, 251, 0.93);
   --moss: rgba(22, 48, 42, 0.08);
@@ -79,8 +79,8 @@
   color-scheme: light;
 }
 
-/* Paintbrush: warm the panels toward paper so they sit on the watercolor. */
-:root[data-theme="watercolor"] {
+/* Topo: warm the panels toward paper so they sit on the USGS sheet. */
+:root[data-theme="topo"] {
   --pine: #f4efe4;
   --pine-90: rgba(253, 250, 242, 0.94);
 }
