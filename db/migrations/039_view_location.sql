@@ -12,7 +12,7 @@
 
 BEGIN;
 
-ALTER TABLE features ADD COLUMN view_location_id integer REFERENCES locations(id);
+ALTER TABLE features ADD COLUMN IF NOT EXISTS view_location_id integer REFERENCES locations(id);
 
 ALTER TABLE claims DROP CONSTRAINT claims_field_known;
 ALTER TABLE claims ADD CONSTRAINT claims_field_known CHECK (field IN (
