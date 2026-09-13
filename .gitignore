@@ -3,3 +3,6 @@ waterfall-journal
 wc-journey
 .mcp.json
 test/features.json
+
+# Archived pages we re-read locally rather than re-fetching
+data/spider-cache/

@@ -299,6 +299,8 @@
       fetch('/features').then((r) => r.json()),
     ]).then(([user, features]) => {
       state.user = user;
+      if (user && user.is_admin && window.wjMarkInternal) window.wjMarkInternal(true);
+
       state.features = features;
       features.forEach((f) => state.byName.set(f.name.toLowerCase(), f));
       $('place-names').innerHTML = features

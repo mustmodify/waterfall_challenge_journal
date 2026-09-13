@@ -1,0 +1,4442 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-09-13T17:59:54Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 171268947,
+      "lat": 35.3980169,
+      "lon": -83.0428741,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 4,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1565.148",
+        "name": "Licklog Gap Overlook (MP 435.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 171289541,
+      "lat": 35.4390938,
+      "lon": -83.0625994,
+      "timestamp": "2019-01-15T05:27:39Z",
+      "version": 4,
+      "changeset": 66322079,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "amenity": "parking",
+        "name": "Rabb Knob Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 171289654,
+      "lat": 35.4368362,
+      "lon": -83.0480937,
+      "timestamp": "2025-11-25T17:44:25Z",
+      "version": 4,
+      "changeset": 175121439,
+      "user": "rivermont",
+      "uid": 4085780,
+      "tags": {
+        "amenity": "parking",
+        "name": "View Waynesville",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 171677875,
+      "lat": 35.4099854,
+      "lon": -83.0451212,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 6,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1600.2",
+        "name": "Grassy Ridge Mine Overlook (MP 436.8)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 171698720,
+      "lat": 35.4504882,
+      "lon": -83.116691,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 6,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "W",
+        "ele": "1539.24",
+        "name": "Scott Creek Overlook (MP 448.5)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 171698793,
+      "lat": 35.4525152,
+      "lon": -83.0929626,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 5,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "SW",
+        "ele": "1255.776",
+        "name": "Woodfin Valley Overlook (MP 446.0)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 295458057,
+      "lat": 34.7370586,
+      "lon": -83.9362131,
+      "timestamp": "2016-05-23T23:07:12Z",
+      "version": 3,
+      "changeset": 39521162,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 295488168,
+      "lat": 34.7215707,
+      "lon": -83.8564766,
+      "timestamp": "2016-01-15T03:24:01Z",
+      "version": 2,
+      "changeset": 36584332,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 309814349,
+      "lat": 35.3044143,
+      "lon": -82.7947757,
+      "timestamp": "2025-04-05T21:35:21Z",
+      "version": 5,
+      "changeset": 164569066,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331531369,
+      "lat": 34.7071846,
+      "lon": -83.9171182,
+      "timestamp": "2020-07-07T14:44:39Z",
+      "version": 4,
+      "changeset": 87661270,
+      "user": "Fredlyfish4",
+      "uid": 1683838,
+      "tags": {
+        "name": "Lower DeSoto Falls",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331531518,
+      "lat": 34.7170012,
+      "lon": -83.9153509,
+      "timestamp": "2017-05-12T04:38:27Z",
+      "version": 2,
+      "changeset": 48610894,
+      "user": "fieldkat",
+      "uid": 215415,
+      "tags": {
+        "name": "Upper DeSoto Falls",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331554374,
+      "lat": 34.7596837,
+      "lon": -83.9348344,
+      "timestamp": "2009-01-12T20:06:30Z",
+      "version": 1,
+      "changeset": 779373,
+      "user": "Le Fou",
+      "uid": 32375,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331572419,
+      "lat": 34.7387419,
+      "lon": -83.3886013,
+      "timestamp": "2025-11-06T21:35:42Z",
+      "version": 4,
+      "changeset": 174308312,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook 1",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331572441,
+      "lat": 34.7399326,
+      "lon": -83.3924315,
+      "timestamp": "2025-11-10T02:01:38Z",
+      "version": 5,
+      "changeset": 174442217,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook 3",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331572446,
+      "lat": 34.7394719,
+      "lon": -83.3924678,
+      "timestamp": "2025-11-06T21:35:42Z",
+      "version": 3,
+      "changeset": 174308312,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook2",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331572736,
+      "lat": 34.7385072,
+      "lon": -83.3933051,
+      "timestamp": "2025-11-10T02:01:38Z",
+      "version": 7,
+      "changeset": 174442217,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "description": "View of Hawthorn Pool and down gorge over Tempesta Falls",
+        "name": "Overlook 6",
+        "tourism": "viewpoint",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331572832,
+      "lat": 34.7370863,
+      "lon": -83.3902299,
+      "timestamp": "2025-11-10T02:01:38Z",
+      "version": 7,
+      "changeset": 174442217,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook 8",
+        "tourism": "viewpoint",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331572837,
+      "lat": 34.7369475,
+      "lon": -83.3892086,
+      "timestamp": "2024-03-21T16:11:03Z",
+      "version": 4,
+      "changeset": 148969275,
+      "user": "SamWhited",
+      "uid": 14994176,
+      "tags": {
+        "name": "Overlook 10",
+        "tourism": "viewpoint",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 331572945,
+      "lat": 34.7403665,
+      "lon": -83.3955018,
+      "timestamp": "2025-11-06T21:35:42Z",
+      "version": 5,
+      "changeset": 174308312,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook 5",
+        "tourism": "viewpoint",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 347687418,
+      "lat": 34.7636253,
+      "lon": -83.712255,
+      "timestamp": "2022-09-18T01:57:07Z",
+      "version": 3,
+      "changeset": 126316154,
+      "user": "bhietsch",
+      "uid": 5390272,
+      "tags": {
+        "name": "Waterfall view",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 347694114,
+      "lat": 34.7924746,
+      "lon": -83.7865713,
+      "timestamp": "2022-09-18T01:57:07Z",
+      "version": 6,
+      "changeset": 126316154,
+      "user": "bhietsch",
+      "uid": 5390272,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 358711765,
+      "lat": 34.7585817,
+      "lon": -84.0661345,
+      "timestamp": "2024-05-24T14:47:09Z",
+      "version": 3,
+      "changeset": 151774166,
+      "user": "Mateusz Konieczny - bot account",
+      "uid": 3199858,
+      "tags": {
+        "ele": "669",
+        "gnis:feature_id": "327521",
+        "name": "Cooper Creek Scenic Area",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 517752485,
+      "lat": 35.5248508,
+      "lon": -83.9934683,
+      "timestamp": "2013-06-13T21:55:28Z",
+      "version": 2,
+      "changeset": 16543192,
+      "user": "pnorman",
+      "uid": 355617,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 571697368,
+      "lat": 34.8450185,
+      "lon": -82.4006917,
+      "timestamp": "2026-02-25T05:50:14Z",
+      "version": 3,
+      "changeset": 179019258,
+      "user": "tobych",
+      "uid": 18290369,
+      "tags": {
+        "name": "Falls Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 611965259,
+      "lat": 34.8449452,
+      "lon": -82.4015144,
+      "timestamp": "2010-01-12T02:17:16Z",
+      "version": 1,
+      "changeset": 3600621,
+      "user": "MikeN",
+      "uid": 135163,
+      "tags": {
+        "name": "Falls Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 952751864,
+      "lat": 35.3953918,
+      "lon": -82.7627736,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 5,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "description": "Elev. 4266; Elve. Here 4925",
+        "ele": "1501.14",
+        "name": "View Funnel Top (MP 409.3)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 952780591,
+      "lat": 35.3871989,
+      "lon": -82.7753571,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 4,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1469.746",
+        "name": "View Pink Beds (MP 410.3)",
+        "note": "Elev. 3200; Elev. Here 4822",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 957661934,
+      "lat": 35.3809955,
+      "lon": -82.7811938,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 4,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1435.608",
+        "name": "The Cradle of Forestry Overlook (MP 411.0)",
+        "note": "Elev 4710",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 957671716,
+      "lat": 35.3746023,
+      "lon": -82.7901419,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 6,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "name": "Cold Mountain Overlook (MP 411.9)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 957679068,
+      "lat": 35.370221,
+      "lon": -82.7915768,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 3,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1382.268",
+        "name": "Wagon Road Gap Overlook (MP 411.8)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 957685072,
+      "lat": 35.3577077,
+      "lon": -82.7934163,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 3,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1432.56",
+        "name": "Pounding Mill Overlook (MP 413.2)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 957706540,
+      "lat": 35.3359959,
+      "lon": -82.8152109,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 2,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1318.87",
+        "name": "View Cherry Cove (MP 415.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 978981385,
+      "lat": 35.3041975,
+      "lon": -82.8884204,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 4,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1674.571",
+        "name": "Fetterbush Overlook (MP 421.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 978981468,
+      "lat": 35.3050428,
+      "lon": -82.8994945,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1664.818",
+        "name": "View Devils Courthouse (MP 422.4)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979674840,
+      "lat": 35.3040646,
+      "lon": -82.9425289,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 4,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1615.44",
+        "name": "Rough Butt Bald Overlook (MP 425.4)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979722154,
+      "lat": 35.3629809,
+      "lon": -82.9921858,
+      "timestamp": "2023-07-23T13:53:54Z",
+      "version": 4,
+      "changeset": 138894957,
+      "user": "rivermont",
+      "uid": 4085780,
+      "tags": {
+        "ele": "1843.126",
+        "ele:ft": "6053",
+        "name": "Richland Balsam Overlook - Highest Point on the Parkway (MP 431.4)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979722198,
+      "lat": 35.3555812,
+      "lon": -82.9879007,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1813.56",
+        "name": "Cowee mountains Overlook (MP 430.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979722239,
+      "lat": 35.3540953,
+      "lon": -82.982916,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 4,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1789.786",
+        "name": "Beartrail Ridge Overlook (MP 430.4)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979722262,
+      "lat": 35.335268,
+      "lon": -82.9659544,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1306.068",
+        "name": "Beartrap Gap Overlook (MP 428.5)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979722295,
+      "lat": 35.3249934,
+      "lon": -82.963798,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1722.73",
+        "name": "Spot Knob (MP 427.8)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979739837,
+      "lat": 35.3907442,
+      "lon": -83.0371994,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1635.252",
+        "name": "View Doubletop Mountain (MP 435.3)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979739841,
+      "lat": 35.3788984,
+      "lon": -83.015139,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1700.784",
+        "name": "Roy Taylor Forest Overlook (MP 433.3)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 979739868,
+      "lat": 35.3763762,
+      "lon": -83.0056228,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1717.548",
+        "name": "Lone Bald Overlook (MP 432.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 981574307,
+      "lat": 35.4309327,
+      "lon": -83.0356936,
+      "timestamp": "2012-02-14T17:55:27Z",
+      "version": 2,
+      "changeset": 10685373,
+      "user": "jumbanho",
+      "uid": 38487,
+      "tags": {
+        "amenity": "parking",
+        "name": "Cove Field Ridge Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 981574350,
+      "lat": 35.4252143,
+      "lon": -83.0359385,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1456.944",
+        "name": "View Steestachee Bald (MP 438.9)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 981574370,
+      "lat": 35.4336406,
+      "lon": -83.0390566,
+      "timestamp": "2025-11-25T17:44:25Z",
+      "version": 2,
+      "changeset": 175121439,
+      "user": "rivermont",
+      "uid": 4085780,
+      "tags": {
+        "amenity": "parking",
+        "name": "View Village of Saurock",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 981590345,
+      "lat": 35.4365685,
+      "lon": -83.0665003,
+      "timestamp": "2019-01-15T05:27:47Z",
+      "version": 2,
+      "changeset": 66322079,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "amenity": "parking",
+        "name": "Balsam Gap Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 981685208,
+      "lat": 35.4475713,
+      "lon": -82.7172598,
+      "timestamp": "2013-08-20T02:00:23Z",
+      "version": 2,
+      "changeset": 17419904,
+      "user": "sandhill",
+      "uid": 1694880,
+      "tags": {
+        "amenity": "parking",
+        "name": "View Hominy Valley",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 981808345,
+      "lat": 35.4507368,
+      "lon": -82.651572,
+      "timestamp": "2013-08-20T02:08:40Z",
+      "version": 2,
+      "changeset": 17419928,
+      "user": "sandhill",
+      "uid": 1694880,
+      "tags": {
+        "amenity": "parking",
+        "name": "Bad Fork Valley Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 981812145,
+      "lat": 35.4608954,
+      "lon": -82.6364612,
+      "timestamp": "2011-02-05T03:00:40Z",
+      "version": 2,
+      "changeset": 7189153,
+      "user": "wncoutdoorstrailjumbanho",
+      "uid": 403998,
+      "tags": {
+        "amenity": "parking",
+        "name": "View Chesnut Cove",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1226186065,
+      "lat": 35.0332586,
+      "lon": -83.0165845,
+      "timestamp": "2018-06-13T19:21:36Z",
+      "version": 3,
+      "changeset": 59821075,
+      "user": "dallasepperson",
+      "uid": 102177,
+      "tags": {
+        "direction": "350",
+        "name": "Whitewater Falls Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1541376573,
+      "lat": 35.1090969,
+      "lon": -82.6582366,
+      "timestamp": "2011-12-11T19:29:46Z",
+      "version": 1,
+      "changeset": 10093328,
+      "user": "difuori",
+      "uid": 275822,
+      "tags": {
+        "name": "View on Raven Cliff Falls",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1788524143,
+      "lat": 35.5629244,
+      "lon": -83.49839,
+      "timestamp": "2026-08-09T16:22:19Z",
+      "version": 10,
+      "changeset": 187188901,
+      "user": "Tilloo",
+      "uid": 10615138,
+      "tags": {
+        "access": "yes",
+        "fee": "no",
+        "man_made": "tower",
+        "name": "Kuwohi Tower",
+        "noexit": "yes",
+        "tourism": "viewpoint",
+        "tower:type": "observation",
+        "wheelchair": "yes",
+        "wikidata": "Q65582396"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2023152423,
+      "lat": 35.0530349,
+      "lon": -82.699459,
+      "timestamp": "2015-02-16T18:44:59Z",
+      "version": 2,
+      "changeset": 28892188,
+      "user": "Ryan112233",
+      "uid": 2306938,
+      "tags": {
+        "name": "Table rock view point",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2023152427,
+      "lat": 35.0507854,
+      "lon": -82.7011371,
+      "timestamp": "2012-11-20T15:08:28Z",
+      "version": 1,
+      "changeset": 13945984,
+      "user": "zunder1990",
+      "uid": 959207,
+      "tags": {
+        "name": "view point",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2023152430,
+      "lat": 35.0427646,
+      "lon": -82.7144507,
+      "timestamp": "2018-08-12T21:10:53Z",
+      "version": 3,
+      "changeset": 61600620,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Halfway Shelter",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2023152433,
+      "lat": 35.0288616,
+      "lon": -82.734578,
+      "timestamp": "2023-09-11T14:10:33Z",
+      "version": 7,
+      "changeset": 141115740,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Bald Knob viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2210020979,
+      "lat": 35.4621828,
+      "lon": -83.1399487,
+      "timestamp": "2018-05-09T23:06:32Z",
+      "version": 3,
+      "changeset": 58834438,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "sw",
+        "name": "Pedestrian Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2294932940,
+      "lat": 35.3246633,
+      "lon": -84.1775785,
+      "timestamp": "2019-05-01T04:04:41Z",
+      "version": 3,
+      "changeset": 69756592,
+      "user": "jrenglish",
+      "uid": 768740,
+      "tags": {
+        "name": "Bald River Falls Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2294948224,
+      "lat": 35.3033068,
+      "lon": -84.0236787,
+      "timestamp": "2026-02-01T06:14:57Z",
+      "version": 2,
+      "changeset": 177952059,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "name": "Sunset Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2310264312,
+      "lat": 35.5948355,
+      "lon": -83.790119,
+      "timestamp": "2013-09-11T19:23:19Z",
+      "version": 3,
+      "changeset": 17788688,
+      "user": "tpcolson",
+      "uid": 1225906,
+      "tags": {
+        "name": "Lone Grove",
+        "source": "NPS",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2310264318,
+      "lat": 35.5884057,
+      "lon": -83.8027444,
+      "timestamp": "2013-09-11T19:23:20Z",
+      "version": 3,
+      "changeset": 17788688,
+      "user": "tpcolson",
+      "uid": 1225906,
+      "tags": {
+        "name": "Valley View",
+        "source": "NPS",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2324985381,
+      "lat": 34.7258653,
+      "lon": -83.8365868,
+      "timestamp": "2013-05-30T02:30:10Z",
+      "version": 1,
+      "changeset": 16346115,
+      "user": "BeauMan",
+      "uid": 346474,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2324985382,
+      "lat": 34.7261586,
+      "lon": -83.8280705,
+      "timestamp": "2013-05-30T02:30:10Z",
+      "version": 1,
+      "changeset": 16346115,
+      "user": "BeauMan",
+      "uid": 346474,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2454897719,
+      "lat": 35.5307665,
+      "lon": -83.1716809,
+      "timestamp": "2018-05-15T04:05:27Z",
+      "version": 2,
+      "changeset": 58970177,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "NW",
+        "name": "Horse Trough Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2478489024,
+      "lat": 34.7021054,
+      "lon": -83.7918896,
+      "timestamp": "2018-08-10T00:47:56Z",
+      "version": 2,
+      "changeset": 61516207,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "Waterfall view deck",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2630694228,
+      "lat": 35.027443,
+      "lon": -83.0253653,
+      "timestamp": "2014-01-21T03:13:07Z",
+      "version": 1,
+      "changeset": 20115850,
+      "user": "stiri",
+      "uid": 1557531,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2630699407,
+      "lat": 35.0337555,
+      "lon": -83.0161566,
+      "timestamp": "2018-06-26T15:42:24Z",
+      "version": 4,
+      "changeset": 60187115,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "330",
+        "name": "Whitewater Falls Viewing Platform",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2630720712,
+      "lat": 35.0137998,
+      "lon": -82.9899752,
+      "timestamp": "2018-06-26T00:46:31Z",
+      "version": 2,
+      "changeset": 60164600,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Lower Whitewater Falls Platform",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2717284984,
+      "lat": 34.9748003,
+      "lon": -83.1100162,
+      "timestamp": "2019-11-29T04:01:59Z",
+      "version": 2,
+      "changeset": 77704423,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Spoonauger Falls",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2727292831,
+      "lat": 35.3223257,
+      "lon": -82.8462607,
+      "timestamp": "2025-11-07T13:35:03Z",
+      "version": 3,
+      "changeset": 174334651,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "260",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2737707094,
+      "lat": 35.1662618,
+      "lon": -83.0359191,
+      "timestamp": "2014-03-23T19:59:44Z",
+      "version": 1,
+      "changeset": 21272167,
+      "user": "wncoutdoors",
+      "uid": 89097,
+      "tags": {
+        "name": "Salt Rock Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2738692020,
+      "lat": 35.0688564,
+      "lon": -83.2383671,
+      "timestamp": "2024-07-21T21:12:04Z",
+      "version": 4,
+      "changeset": 154237139,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "W",
+        "name": "Dry Falls Viewing Platform",
+        "tourism": "viewpoint",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2744073357,
+      "lat": 35.4926674,
+      "lon": -83.1676478,
+      "timestamp": "2014-03-26T04:00:30Z",
+      "version": 1,
+      "changeset": 21317663,
+      "user": "wncoutdoors",
+      "uid": 89097,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2812509835,
+      "lat": 35.3018817,
+      "lon": -82.9344896,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1676.4",
+        "name": "Wolf Mountain Overlook (MP 424.8)",
+        "surface": "asphalt",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2812509844,
+      "lat": 35.300172,
+      "lon": -82.9293479,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 3,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1679.448",
+        "name": "View Herrin Knob Overlook (MP 424.4)",
+        "surface": "asphalt",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2882203100,
+      "lat": 35.5206065,
+      "lon": -83.2474146,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 3,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "N",
+        "ele": "1138.428",
+        "name": "Thomas Divide Overlook (MP 463.9)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3056141952,
+      "lat": 35.0284171,
+      "lon": -82.7448512,
+      "timestamp": "2020-09-22T01:23:41Z",
+      "version": 3,
+      "changeset": 91254270,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Drawbar Cliffs",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3056152309,
+      "lat": 35.0948785,
+      "lon": -82.7267026,
+      "timestamp": "2015-01-18T18:10:59Z",
+      "version": 4,
+      "changeset": 28236571,
+      "user": "Ryan112233",
+      "uid": 2306938,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3216791809,
+      "lat": 35.0132686,
+      "lon": -82.8188809,
+      "timestamp": "2018-01-05T22:33:06Z",
+      "version": 3,
+      "changeset": 55199609,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "amenity": "shelter",
+        "shelter_type": "viewing_platform",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3331238486,
+      "lat": 35.2656206,
+      "lon": -82.4572844,
+      "timestamp": "2015-02-05T01:25:22Z",
+      "version": 1,
+      "changeset": 28622719,
+      "user": "Ryan Lash",
+      "uid": 127401,
+      "tags": {
+        "name": "Glassy Mountain Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3354601413,
+      "lat": 35.0473717,
+      "lon": -82.7105454,
+      "timestamp": "2020-12-14T01:29:24Z",
+      "version": 2,
+      "changeset": 95775889,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Governor's Rock Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3462538752,
+      "lat": 35.0627563,
+      "lon": -82.8091642,
+      "timestamp": "2015-04-19T22:35:12Z",
+      "version": 3,
+      "changeset": 30343290,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3462538753,
+      "lat": 35.0624348,
+      "lon": -82.8093439,
+      "timestamp": "2015-04-18T01:11:47Z",
+      "version": 1,
+      "changeset": 30298504,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3688067922,
+      "lat": 34.6331121,
+      "lon": -84.1781348,
+      "timestamp": "2024-09-15T19:38:27Z",
+      "version": 5,
+      "changeset": 156661667,
+      "user": "MooPoo7",
+      "uid": 7596709,
+      "tags": {
+        "direction": "140",
+        "name": "Owen's Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3692065495,
+      "lat": 35.4137579,
+      "lon": -82.7489909,
+      "timestamp": "2022-07-24T23:11:57Z",
+      "version": 2,
+      "changeset": 124026766,
+      "user": "Isopycnic",
+      "uid": 1864944,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3692065505,
+      "lat": 35.4062625,
+      "lon": -82.7505291,
+      "timestamp": "2015-08-11T19:10:17Z",
+      "version": 1,
+      "changeset": 33275716,
+      "user": "pzp",
+      "uid": 2588308,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3699128470,
+      "lat": 34.6401218,
+      "lon": -83.7152102,
+      "timestamp": "2015-09-20T23:20:53Z",
+      "version": 2,
+      "changeset": 34151505,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3703933447,
+      "lat": 34.7379541,
+      "lon": -83.3861128,
+      "timestamp": "2025-11-10T02:01:38Z",
+      "version": 3,
+      "changeset": 174442217,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Inspiration Point",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3703935268,
+      "lat": 34.7391521,
+      "lon": -83.3906346,
+      "timestamp": "2025-11-10T02:01:38Z",
+      "version": 5,
+      "changeset": 174442217,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook 1A",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3731192417,
+      "lat": 34.6376153,
+      "lon": -83.7182662,
+      "timestamp": "2015-09-21T00:05:14Z",
+      "version": 2,
+      "changeset": 34151902,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3752219926,
+      "lat": 34.6370569,
+      "lon": -83.713279,
+      "timestamp": "2015-09-21T00:05:14Z",
+      "version": 2,
+      "changeset": 34151902,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3752221839,
+      "lat": 34.6376088,
+      "lon": -83.7147655,
+      "timestamp": "2015-09-21T00:05:14Z",
+      "version": 2,
+      "changeset": 34151902,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3752221849,
+      "lat": 34.6380975,
+      "lon": -83.7149654,
+      "timestamp": "2015-09-21T00:05:14Z",
+      "version": 2,
+      "changeset": 34151902,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3752221856,
+      "lat": 34.638682,
+      "lon": -83.7150029,
+      "timestamp": "2015-09-21T00:05:14Z",
+      "version": 2,
+      "changeset": 34151902,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3752221863,
+      "lat": 34.6394817,
+      "lon": -83.7147723,
+      "timestamp": "2015-09-21T00:05:14Z",
+      "version": 2,
+      "changeset": 34151902,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3825307554,
+      "lat": 34.9299344,
+      "lon": -83.4021195,
+      "timestamp": "2015-11-08T20:47:12Z",
+      "version": 1,
+      "changeset": 35178728,
+      "user": "stiri",
+      "uid": 1557531,
+      "tags": {
+        "name": "Lookoff Mountain Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3835899792,
+      "lat": 35.0112579,
+      "lon": -82.8955566,
+      "timestamp": "2024-02-25T20:00:41Z",
+      "version": 4,
+      "changeset": 147906266,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "270",
+        "name": "Jumping Off Rock",
+        "natural": "rock",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3947026617,
+      "lat": 34.7227418,
+      "lon": -83.8578093,
+      "timestamp": "2016-01-15T03:23:55Z",
+      "version": 1,
+      "changeset": 36584332,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3947026624,
+      "lat": 34.7232714,
+      "lon": -83.8601713,
+      "timestamp": "2016-01-15T03:23:55Z",
+      "version": 1,
+      "changeset": 36584332,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3980488412,
+      "lat": 34.6650484,
+      "lon": -83.9826991,
+      "timestamp": "2018-09-22T14:25:29Z",
+      "version": 5,
+      "changeset": 62827195,
+      "user": "wheelmap_visitor",
+      "uid": 290680,
+      "tags": {
+        "addr:city": "Dahlonega",
+        "addr:postcode": "30533",
+        "addr:state": "GA",
+        "addr:street": "GA 60",
+        "contact:website": "https://www.fs.usda.gov/recarea/conf/recarea/?recid=77736",
+        "name": "Chestatee Overlook",
+        "opening_hours": "sunrise-sunset",
+        "operator": "United States Forest Service",
+        "tourism": "viewpoint",
+        "website": "https://www.fs.usda.gov/recarea/conf/recarea/?recid=77736",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3980497587,
+      "lat": 34.687153,
+      "lon": -83.9939966,
+      "timestamp": "2016-04-09T13:29:47Z",
+      "version": 3,
+      "changeset": 38428981,
+      "user": "afonit",
+      "uid": 3327134,
+      "tags": {
+        "name": "Preacher's Rock",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4049659741,
+      "lat": 34.7966877,
+      "lon": -83.6931783,
+      "timestamp": "2016-03-09T04:06:42Z",
+      "version": 1,
+      "changeset": 37700128,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4049659783,
+      "lat": 34.8021838,
+      "lon": -83.6844743,
+      "timestamp": "2016-03-09T04:06:43Z",
+      "version": 1,
+      "changeset": 37700128,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4154560431,
+      "lat": 34.669932,
+      "lon": -84.0208778,
+      "timestamp": "2016-04-29T00:45:07Z",
+      "version": 1,
+      "changeset": 38970390,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4154560445,
+      "lat": 34.6725939,
+      "lon": -84.0163585,
+      "timestamp": "2016-04-29T00:45:08Z",
+      "version": 1,
+      "changeset": 38970390,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4203341712,
+      "lat": 34.7346993,
+      "lon": -83.9363483,
+      "timestamp": "2016-05-23T23:07:02Z",
+      "version": 1,
+      "changeset": 39521162,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4203341854,
+      "lat": 34.7377199,
+      "lon": -83.9363858,
+      "timestamp": "2016-05-23T23:07:04Z",
+      "version": 1,
+      "changeset": 39521162,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4203341867,
+      "lat": 34.7384362,
+      "lon": -83.9364174,
+      "timestamp": "2016-05-23T23:07:04Z",
+      "version": 1,
+      "changeset": 39521162,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4203341898,
+      "lat": 34.7393785,
+      "lon": -83.9368049,
+      "timestamp": "2016-05-23T23:07:05Z",
+      "version": 1,
+      "changeset": 39521162,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4224713326,
+      "lat": 34.6944667,
+      "lon": -83.9403011,
+      "timestamp": "2016-06-04T00:47:07Z",
+      "version": 1,
+      "changeset": 39790044,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "cascades",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4270844618,
+      "lat": 34.6534264,
+      "lon": -84.100435,
+      "timestamp": "2016-06-29T01:36:01Z",
+      "version": 1,
+      "changeset": 40356245,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4310102495,
+      "lat": 34.6635647,
+      "lon": -84.1254525,
+      "timestamp": "2016-07-18T23:50:07Z",
+      "version": 1,
+      "changeset": 40845667,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4349026969,
+      "lat": 35.398101,
+      "lon": -83.906873,
+      "timestamp": "2026-09-01T15:44:44Z",
+      "version": 2,
+      "changeset": 188372805,
+      "user": "cmitchell",
+      "uid": 10176409,
+      "tags": {
+        "name": "Maple Springs Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4352064727,
+      "lat": 34.6676831,
+      "lon": -84.1708959,
+      "timestamp": "2016-10-14T02:35:10Z",
+      "version": 2,
+      "changeset": 42885433,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "Long Creek Falls view",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4771991021,
+      "lat": 34.7218907,
+      "lon": -83.8403429,
+      "timestamp": "2017-04-03T01:57:45Z",
+      "version": 1,
+      "changeset": 47397230,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4852866318,
+      "lat": 34.6764184,
+      "lon": -83.3877451,
+      "timestamp": "2017-05-14T20:23:42Z",
+      "version": 2,
+      "changeset": 48682935,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "Upper Falls view",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4859967862,
+      "lat": 34.8748522,
+      "lon": -83.5743799,
+      "timestamp": "2017-05-17T14:16:50Z",
+      "version": 1,
+      "changeset": 48764529,
+      "user": "Kirbert",
+      "uid": 2077000,
+      "tags": {
+        "name": "Popcorn Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4873040575,
+      "lat": 34.7371517,
+      "lon": -83.3893571,
+      "timestamp": "2025-11-10T02:01:38Z",
+      "version": 4,
+      "changeset": 174442217,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook 9",
+        "tourism": "viewpoint",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5002315028,
+      "lat": 34.685052,
+      "lon": -83.7483159,
+      "timestamp": "2017-07-30T00:56:39Z",
+      "version": 1,
+      "changeset": 50682872,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5002330197,
+      "lat": 34.6779063,
+      "lon": -83.7389262,
+      "timestamp": "2017-07-30T01:23:55Z",
+      "version": 1,
+      "changeset": 50683055,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "18",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5002357593,
+      "lat": 34.6737505,
+      "lon": -83.7316453,
+      "timestamp": "2017-07-30T01:57:25Z",
+      "version": 1,
+      "changeset": 50683310,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "waterfall",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5055047414,
+      "lat": 35.0937483,
+      "lon": -82.9686528,
+      "timestamp": "2020-10-12T14:51:30Z",
+      "version": 3,
+      "changeset": 92362357,
+      "user": "dallasepperson",
+      "uid": 102177,
+      "tags": {
+        "direction": "270",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5079802765,
+      "lat": 34.9601426,
+      "lon": -83.728882,
+      "timestamp": "2017-09-04T19:59:56Z",
+      "version": 1,
+      "changeset": 51730047,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5130945930,
+      "lat": 35.3136761,
+      "lon": -82.5273698,
+      "timestamp": "2022-06-20T03:26:51Z",
+      "version": 2,
+      "changeset": 122598687,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Jump Off Rock",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5153609822,
+      "lat": 35.5036737,
+      "lon": -83.9760455,
+      "timestamp": "2017-10-07T14:12:33Z",
+      "version": 1,
+      "changeset": 52709144,
+      "user": "okainov",
+      "uid": 6168055,
+      "tags": {
+        "name": "View to the dam",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5215167064,
+      "lat": 35.0292535,
+      "lon": -82.8517636,
+      "timestamp": "2017-11-06T23:01:40Z",
+      "version": 1,
+      "changeset": 53568517,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5215202001,
+      "lat": 35.0222491,
+      "lon": -82.8777527,
+      "timestamp": "2017-11-06T23:32:50Z",
+      "version": 1,
+      "changeset": 53568902,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5215202002,
+      "lat": 35.0211499,
+      "lon": -82.8804554,
+      "timestamp": "2017-11-06T23:32:50Z",
+      "version": 1,
+      "changeset": 53568902,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5218741340,
+      "lat": 34.9895754,
+      "lon": -82.9096842,
+      "timestamp": "2017-11-08T20:45:06Z",
+      "version": 1,
+      "changeset": 53622018,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5237289899,
+      "lat": 35.0008473,
+      "lon": -83.0436451,
+      "timestamp": "2019-11-29T01:36:37Z",
+      "version": 3,
+      "changeset": 77702331,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Wigington Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5249456064,
+      "lat": 35.1708923,
+      "lon": -83.0208959,
+      "timestamp": "2017-11-26T21:02:14Z",
+      "version": 1,
+      "changeset": 54105460,
+      "user": "crob8",
+      "uid": 7067971,
+      "tags": {
+        "name": "Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5249456065,
+      "lat": 35.1710984,
+      "lon": -83.024482,
+      "timestamp": "2017-11-26T21:02:14Z",
+      "version": 1,
+      "changeset": 54105460,
+      "user": "crob8",
+      "uid": 7067971,
+      "tags": {
+        "name": "Purdy Point",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5249456066,
+      "lat": 35.164424,
+      "lon": -83.0144076,
+      "timestamp": "2017-11-26T21:02:14Z",
+      "version": 1,
+      "changeset": 54105460,
+      "user": "crob8",
+      "uid": 7067971,
+      "tags": {
+        "name": "Tranquility Point",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5249456331,
+      "lat": 35.1656879,
+      "lon": -82.9892543,
+      "timestamp": "2024-08-18T01:15:51Z",
+      "version": 4,
+      "changeset": 155394089,
+      "user": "𝔸𝔹_",
+      "uid": 12253391,
+      "tags": {
+        "description": "Near the Endless Sky Above Us\nUp in Canaan Land\nLies the Beauty of High Bethel\nMade by God's Own Hand\n\nHere We Watch the Sunset\nHis Love We Understand\nIn the Majesty of Mountains\nHere We Join God's Hand\n\nBegun 1956.  Completed 1974.",
+        "direction": "180-360",
+        "name": "High Bethel",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5274410691,
+      "lat": 35.0307048,
+      "lon": -83.2387996,
+      "timestamp": "2017-12-10T00:01:46Z",
+      "version": 1,
+      "changeset": 54499327,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "n",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5274411835,
+      "lat": 35.0314107,
+      "lon": -83.2384534,
+      "timestamp": "2017-12-10T00:01:47Z",
+      "version": 1,
+      "changeset": 54499327,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "n",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5274411864,
+      "lat": 35.0316924,
+      "lon": -83.2381457,
+      "timestamp": "2017-12-10T00:01:47Z",
+      "version": 1,
+      "changeset": 54499327,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "S",
+        "name": "Glen Falls Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5523826917,
+      "lat": 34.8065343,
+      "lon": -83.1217518,
+      "timestamp": "2018-04-02T23:54:01Z",
+      "version": 1,
+      "changeset": 57755670,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5574235591,
+      "lat": 35.0875617,
+      "lon": -83.3590356,
+      "timestamp": "2018-04-23T18:06:47Z",
+      "version": 1,
+      "changeset": 58347427,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "S",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5606234143,
+      "lat": 35.5574581,
+      "lon": -83.4961877,
+      "timestamp": "2023-06-26T15:14:01Z",
+      "version": 3,
+      "changeset": 137797533,
+      "user": "DLance",
+      "uid": 12842151,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5608182551,
+      "lat": 35.5082888,
+      "lon": -83.1744298,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "S",
+        "ele": "1530.096",
+        "name": "Plott Balsam Overlook (MP 457.9)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5608182868,
+      "lat": 35.465747,
+      "lon": -83.1437387,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "NW",
+        "ele": "1668.78",
+        "name": "Cranberry Ridge Overlook (MP 452.1)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5608183156,
+      "lat": 35.4847017,
+      "lon": -83.1518785,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "SW",
+        "ele": "1456.944",
+        "name": "Thunderstruck Overlook (MP 454.4)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5608183375,
+      "lat": 35.4639939,
+      "lon": -83.1377795,
+      "timestamp": "2023-03-27T12:18:56Z",
+      "version": 2,
+      "changeset": 134175077,
+      "user": "AlexBarinov",
+      "uid": 701663,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5608183585,
+      "lat": 35.4578189,
+      "lon": -83.1407601,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 3,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "E",
+        "ele": "1743.151",
+        "name": "Browning Knob Overlook (MP 451.2)",
+        "old_name": "Cut-off Ridge Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5618819994,
+      "lat": 35.5193954,
+      "lon": -83.1785078,
+      "timestamp": "2018-05-15T04:04:39Z",
+      "version": 1,
+      "changeset": 58970177,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "N",
+        "name": "Mile High Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5618820007,
+      "lat": 35.5195063,
+      "lon": -83.1772086,
+      "timestamp": "2018-05-15T04:04:39Z",
+      "version": 1,
+      "changeset": 58970177,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "SE",
+        "name": "Maggie Valley Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5618820164,
+      "lat": 35.5190959,
+      "lon": -83.1691191,
+      "timestamp": "2018-05-15T04:04:40Z",
+      "version": 1,
+      "changeset": 58970177,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "E",
+        "name": "Lake Junaluska Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5618821377,
+      "lat": 35.5249759,
+      "lon": -83.2223649,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "N",
+        "ele": "1264.92",
+        "name": "Big Witch Overlook (MP 461.9)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5618821530,
+      "lat": 35.5160591,
+      "lon": -83.2103379,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "name": "Jenkins Ridge Overlook (MP 460.8)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5618821602,
+      "lat": 35.5160537,
+      "lon": -83.1939617,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "W",
+        "ele": "1501.14",
+        "name": "Bunches Bald Overlook (MP 459.5)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5618821654,
+      "lat": 35.5096119,
+      "lon": -83.1887689,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "W",
+        "ele": "1569.72",
+        "name": "Lickstone Overlook (MP 458.9)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5623023342,
+      "lat": 35.4463589,
+      "lon": -83.1155822,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "direction": "SE",
+        "ele": "1497.178",
+        "name": "Wesner Bald Overlook (MP 448.1)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5623023851,
+      "lat": 35.4421162,
+      "lon": -83.0967725,
+      "timestamp": "2018-05-16T20:07:28Z",
+      "version": 1,
+      "changeset": 59029275,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "W",
+        "name": "Mount Lynn Lowry Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5623030459,
+      "lat": 35.4587266,
+      "lon": -83.1309888,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1709.928",
+        "name": "Yellow Face Overlook (MP 450.2)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5623030513,
+      "lat": 35.4594425,
+      "lon": -83.1172299,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 2,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1609.344",
+        "name": "Fork Ridge Overlook (MP 449.0)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5659682206,
+      "lat": 35.5944954,
+      "lon": -83.4134882,
+      "timestamp": "2021-09-09T15:53:40Z",
+      "version": 2,
+      "changeset": 110983839,
+      "user": "tpcolson",
+      "uid": 1225906,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5746048532,
+      "lat": 34.729222,
+      "lon": -83.8347642,
+      "timestamp": "2018-07-07T23:26:15Z",
+      "version": 1,
+      "changeset": 60499256,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5746074599,
+      "lat": 34.7715414,
+      "lon": -83.8287453,
+      "timestamp": "2018-07-08T00:07:29Z",
+      "version": 1,
+      "changeset": 60499579,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5778159790,
+      "lat": 35.0916219,
+      "lon": -84.0392798,
+      "timestamp": "2025-12-06T06:24:46Z",
+      "version": 2,
+      "changeset": 175573107,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "direction": "270",
+        "name": "Hiwassee River Observation Deck",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797319788,
+      "lat": 35.3207195,
+      "lon": -83.9825049,
+      "timestamp": "2023-03-25T20:51:32Z",
+      "version": 2,
+      "changeset": 134118114,
+      "user": "pokey",
+      "uid": 163396,
+      "tags": {
+        "description": "Overgrown.",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797322657,
+      "lat": 35.329819,
+      "lon": -83.9469667,
+      "timestamp": "2026-08-01T18:02:03Z",
+      "version": 2,
+      "changeset": 186775879,
+      "user": "rivermont",
+      "uid": 4085780,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797322659,
+      "lat": 35.3207781,
+      "lon": -84.030115,
+      "timestamp": "2020-09-03T04:45:21Z",
+      "version": 2,
+      "changeset": 90333985,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "name": "Whig Cove",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797322663,
+      "lat": 35.3066169,
+      "lon": -84.0128309,
+      "timestamp": "2023-03-25T20:51:32Z",
+      "version": 2,
+      "changeset": 134118114,
+      "user": "pokey",
+      "uid": 163396,
+      "tags": {
+        "ele": "1643",
+        "name": "Santeetlah Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797322664,
+      "lat": 35.3375958,
+      "lon": -84.0246763,
+      "timestamp": "2023-03-25T20:51:32Z",
+      "version": 2,
+      "changeset": 134118114,
+      "user": "pokey",
+      "uid": 163396,
+      "tags": {
+        "ele": "1347",
+        "name": "Stratton Ridge",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797322951,
+      "lat": 35.3304346,
+      "lon": -83.9339175,
+      "timestamp": "2018-07-31T00:52:23Z",
+      "version": 1,
+      "changeset": 61211844,
+      "user": "LeifRasmussen",
+      "uid": 4312767,
+      "tags": {
+        "name": "Shute Cove Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797323156,
+      "lat": 35.3198215,
+      "lon": -83.9616075,
+      "timestamp": "2026-08-01T18:02:03Z",
+      "version": 2,
+      "changeset": 186775879,
+      "user": "rivermont",
+      "uid": 4085780,
+      "tags": {
+        "ele": "1264",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5797323157,
+      "lat": 35.3175497,
+      "lon": -84.0218032,
+      "timestamp": "2026-08-01T18:02:03Z",
+      "version": 2,
+      "changeset": 186775879,
+      "user": "rivermont",
+      "uid": 4085780,
+      "tags": {
+        "ele": "1491",
+        "name": "Haw Knob",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5821650560,
+      "lat": 34.7016175,
+      "lon": -83.7890741,
+      "timestamp": "2018-08-10T01:09:32Z",
+      "version": 1,
+      "changeset": 61516411,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5877079994,
+      "lat": 34.7633614,
+      "lon": -83.712198,
+      "timestamp": "2018-09-03T00:26:36Z",
+      "version": 1,
+      "changeset": 62232019,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "Waterfall view",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6120271773,
+      "lat": 35.0476482,
+      "lon": -83.808621,
+      "timestamp": "2018-12-06T01:03:35Z",
+      "version": 1,
+      "changeset": 65222272,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6122445981,
+      "lat": 35.1529617,
+      "lon": -84.1787884,
+      "timestamp": "2018-12-06T23:03:54Z",
+      "version": 1,
+      "changeset": 65253707,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6245894649,
+      "lat": 35.0316143,
+      "lon": -82.8205355,
+      "timestamp": "2019-02-16T04:50:31Z",
+      "version": 2,
+      "changeset": 67245102,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6331184401,
+      "lat": 34.6838118,
+      "lon": -83.7489305,
+      "timestamp": "2019-03-11T17:24:27Z",
+      "version": 3,
+      "changeset": 68031281,
+      "user": "zorkonius",
+      "uid": 31595,
+      "tags": {
+        "name": "Covered Bridge",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6397404032,
+      "lat": 34.8214311,
+      "lon": -83.7224202,
+      "timestamp": "2019-04-10T23:45:24Z",
+      "version": 1,
+      "changeset": 69100066,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "waterfall view",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6397404035,
+      "lat": 34.8223912,
+      "lon": -83.7219518,
+      "timestamp": "2019-04-10T23:45:25Z",
+      "version": 1,
+      "changeset": 69100066,
+      "user": "maven149",
+      "uid": 136601,
+      "tags": {
+        "name": "waterfall view",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6419803577,
+      "lat": 34.9397444,
+      "lon": -82.8863667,
+      "timestamp": "2023-10-06T22:34:52Z",
+      "version": 3,
+      "changeset": 142250707,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Raven Rock",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6506381088,
+      "lat": 35.0077841,
+      "lon": -83.4810503,
+      "timestamp": "2019-05-28T14:32:35Z",
+      "version": 1,
+      "changeset": 70699478,
+      "user": "Unfiltered Explorations",
+      "uid": 8978019,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6614751343,
+      "lat": 35.0363497,
+      "lon": -82.7824533,
+      "timestamp": "2021-04-11T19:52:52Z",
+      "version": 2,
+      "changeset": 102754729,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Rock Mountain View",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6614819346,
+      "lat": 35.0378661,
+      "lon": -82.7912021,
+      "timestamp": "2019-07-14T17:50:30Z",
+      "version": 1,
+      "changeset": 72239316,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6646799187,
+      "lat": 35.0397161,
+      "lon": -82.7897697,
+      "timestamp": "2019-07-25T13:47:00Z",
+      "version": 1,
+      "changeset": 72646959,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6804568644,
+      "lat": 35.0968138,
+      "lon": -82.946721,
+      "timestamp": "2019-09-18T04:26:44Z",
+      "version": 1,
+      "changeset": 74604777,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "SE",
+        "name": "Gorges Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6804569272,
+      "lat": 35.1013188,
+      "lon": -82.9429341,
+      "timestamp": "2019-09-18T04:26:44Z",
+      "version": 1,
+      "changeset": 74604777,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "NE",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6865031270,
+      "lat": 34.9017647,
+      "lon": -82.6612961,
+      "timestamp": "2019-10-14T19:55:30Z",
+      "version": 2,
+      "changeset": 75686470,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6865046616,
+      "lat": 34.9008057,
+      "lon": -82.6610141,
+      "timestamp": "2019-10-09T21:59:35Z",
+      "version": 2,
+      "changeset": 75484224,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6879610883,
+      "lat": 34.9003912,
+      "lon": -82.659469,
+      "timestamp": "2019-10-14T19:55:30Z",
+      "version": 1,
+      "changeset": 75686470,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6879645139,
+      "lat": 34.9014096,
+      "lon": -82.6587661,
+      "timestamp": "2019-10-14T19:55:30Z",
+      "version": 1,
+      "changeset": 75686470,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6879645160,
+      "lat": 34.9003499,
+      "lon": -82.658517,
+      "timestamp": "2019-10-14T19:55:30Z",
+      "version": 1,
+      "changeset": 75686470,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6907517632,
+      "lat": 35.06224,
+      "lon": -82.8092902,
+      "timestamp": "2019-11-03T02:59:52Z",
+      "version": 3,
+      "changeset": 76542261,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6985151784,
+      "lat": 35.0988354,
+      "lon": -82.5721125,
+      "timestamp": "2021-01-10T23:31:35Z",
+      "version": 2,
+      "changeset": 97267728,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "High Rock Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7018312363,
+      "lat": 34.9617337,
+      "lon": -83.0807636,
+      "timestamp": "2019-11-29T00:01:24Z",
+      "version": 1,
+      "changeset": 77701331,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7127133282,
+      "lat": 35.2791565,
+      "lon": -82.7906205,
+      "timestamp": "2020-11-15T14:41:28Z",
+      "version": 2,
+      "changeset": 94149793,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7312618178,
+      "lat": 34.6800975,
+      "lon": -83.1499194,
+      "timestamp": "2020-03-20T15:06:05Z",
+      "version": 1,
+      "changeset": 82436941,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7312630885,
+      "lat": 34.680961,
+      "lon": -83.1484848,
+      "timestamp": "2020-03-20T15:06:05Z",
+      "version": 1,
+      "changeset": 82436941,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7372171356,
+      "lat": 35.1937393,
+      "lon": -82.6149186,
+      "timestamp": "2026-06-03T21:51:30Z",
+      "version": 2,
+      "changeset": 183615302,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "High Falls Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7375970204,
+      "lat": 34.95757,
+      "lon": -82.8099536,
+      "timestamp": "2020-04-07T15:26:38Z",
+      "version": 1,
+      "changeset": 83206063,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7387854466,
+      "lat": 35.1898939,
+      "lon": -83.4562529,
+      "timestamp": "2020-04-10T04:19:33Z",
+      "version": 1,
+      "changeset": 83335787,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "S",
+        "name": "William's Pulpit",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7426234120,
+      "lat": 34.9679514,
+      "lon": -82.7759783,
+      "timestamp": "2023-09-17T23:00:12Z",
+      "version": 2,
+      "changeset": 141400561,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7445169085,
+      "lat": 35.2179322,
+      "lon": -82.7205283,
+      "timestamp": "2020-04-25T14:50:52Z",
+      "version": 1,
+      "changeset": 84108867,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "direction": "S",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7570135331,
+      "lat": 35.3959395,
+      "lon": -83.6203153,
+      "timestamp": "2020-05-29T17:02:29Z",
+      "version": 1,
+      "changeset": 85958709,
+      "user": "Raymo853",
+      "uid": 2017512,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7617879674,
+      "lat": 35.304949,
+      "lon": -82.6901023,
+      "timestamp": "2020-06-13T13:47:34Z",
+      "version": 2,
+      "changeset": 86600004,
+      "user": "jumbanho",
+      "uid": 38487,
+      "tags": {
+        "name": "Abbey's Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7870946071,
+      "lat": 35.4232045,
+      "lon": -83.8310281,
+      "timestamp": "2023-10-16T02:36:57Z",
+      "version": 2,
+      "changeset": 142641563,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "name": "Lookout Rock",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7926529676,
+      "lat": 35.0251066,
+      "lon": -82.7439284,
+      "timestamp": "2020-09-22T01:23:41Z",
+      "version": 2,
+      "changeset": 91254270,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7929707437,
+      "lat": 35.0209887,
+      "lon": -82.7452809,
+      "timestamp": "2020-09-22T01:23:41Z",
+      "version": 1,
+      "changeset": 91254270,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7955110631,
+      "lat": 35.0940852,
+      "lon": -82.7132544,
+      "timestamp": "2020-09-29T15:53:22Z",
+      "version": 2,
+      "changeset": 91717941,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8065809685,
+      "lat": 35.3027378,
+      "lon": -82.8960226,
+      "timestamp": "2020-10-30T14:06:33Z",
+      "version": 1,
+      "changeset": 93295187,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8073224516,
+      "lat": 35.3298945,
+      "lon": -82.8950346,
+      "timestamp": "2020-11-02T03:13:21Z",
+      "version": 1,
+      "changeset": 93388540,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8073224517,
+      "lat": 35.3298455,
+      "lon": -82.8950474,
+      "timestamp": "2020-11-02T03:13:21Z",
+      "version": 1,
+      "changeset": 93388540,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8073224518,
+      "lat": 35.3296322,
+      "lon": -82.8952419,
+      "timestamp": "2020-11-02T03:13:21Z",
+      "version": 1,
+      "changeset": 93388540,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8309658028,
+      "lat": 35.0829333,
+      "lon": -82.6058057,
+      "timestamp": "2021-01-10T23:31:35Z",
+      "version": 2,
+      "changeset": 97267728,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "name": "Chandler Rock Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8359019108,
+      "lat": 35.1789986,
+      "lon": -82.6355299,
+      "timestamp": "2021-01-26T03:58:21Z",
+      "version": 2,
+      "changeset": 98151867,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8737666946,
+      "lat": 35.4859682,
+      "lon": -83.4592942,
+      "timestamp": "2026-02-23T02:39:19Z",
+      "version": 2,
+      "changeset": 178923481,
+      "user": "bdentremont",
+      "uid": 3444743,
+      "tags": {
+        "name": "Lonesome Pine Overlook",
+        "source": "Overlook found signposted during ground survey, 2026-02-22.",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8746041202,
+      "lat": 35.0296386,
+      "lon": -83.2394026,
+      "timestamp": "2025-06-02T10:48:46Z",
+      "version": 2,
+      "changeset": 167086308,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "10",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8751724505,
+      "lat": 34.9858926,
+      "lon": -83.0722653,
+      "timestamp": "2021-09-03T06:50:31Z",
+      "version": 2,
+      "changeset": 110657061,
+      "user": "Greg_Rose",
+      "uid": 4622040,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8990685181,
+      "lat": 35.0266299,
+      "lon": -82.6970691,
+      "timestamp": "2021-08-08T20:11:48Z",
+      "version": 1,
+      "changeset": 109361488,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9007286354,
+      "lat": 35.0342961,
+      "lon": -82.6844241,
+      "timestamp": "2023-11-06T13:23:12Z",
+      "version": 4,
+      "changeset": 143693475,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "310",
+        "name": "Grant Meadow Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9029287225,
+      "lat": 35.5947459,
+      "lon": -83.4156094,
+      "timestamp": "2021-09-09T15:53:40Z",
+      "version": 2,
+      "changeset": 110983839,
+      "user": "tpcolson",
+      "uid": 1225906,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9029287249,
+      "lat": 35.5980309,
+      "lon": -83.4211762,
+      "timestamp": "2021-08-23T17:01:45Z",
+      "version": 1,
+      "changeset": 110128519,
+      "user": "Heptazane",
+      "uid": 23762,
+      "tags": {
+        "name": "Deep Creek Valley Overlook #1",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9029287250,
+      "lat": 35.5947476,
+      "lon": -83.4165642,
+      "timestamp": "2021-08-23T17:01:45Z",
+      "version": 1,
+      "changeset": 110128519,
+      "user": "Heptazane",
+      "uid": 23762,
+      "tags": {
+        "name": "Deep Creek Valley Overlook #2",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9041327666,
+      "lat": 35.4536062,
+      "lon": -82.6799532,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 2,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1088.136",
+        "name": "Beaver Dam Gap Overlook (MP 401.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9049475140,
+      "lat": 34.6964482,
+      "lon": -84.0380132,
+      "timestamp": "2021-08-31T00:28:51Z",
+      "version": 1,
+      "changeset": 110483915,
+      "user": "ROJordan",
+      "uid": 2365805,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9118899297,
+      "lat": 35.4494573,
+      "lon": -83.7966078,
+      "timestamp": "2021-09-24T04:08:16Z",
+      "version": 1,
+      "changeset": 111626085,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9119013125,
+      "lat": 35.4527899,
+      "lon": -83.8002455,
+      "timestamp": "2021-09-24T04:08:16Z",
+      "version": 1,
+      "changeset": 111626085,
+      "user": "MST Hiker",
+      "uid": 3510001,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9177070517,
+      "lat": 34.7194027,
+      "lon": -83.4887124,
+      "timestamp": "2021-10-16T20:46:39Z",
+      "version": 1,
+      "changeset": 112592866,
+      "user": "Busbd2",
+      "uid": 662145,
+      "tags": {
+        "name": "end of road 10.2021",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9179026804,
+      "lat": 35.311332,
+      "lon": -82.92781,
+      "timestamp": "2026-08-18T23:24:41Z",
+      "version": 3,
+      "changeset": 187664025,
+      "user": "MassCartog",
+      "uid": 21249613,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9311510930,
+      "lat": 34.8720813,
+      "lon": -83.074254,
+      "timestamp": "2021-12-05T01:07:50Z",
+      "version": 1,
+      "changeset": 114569810,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9388559297,
+      "lat": 35.2661818,
+      "lon": -83.4218103,
+      "timestamp": "2022-01-03T15:47:48Z",
+      "version": 1,
+      "changeset": 115717619,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "direction": "140",
+        "name": "Cowee Mound Viewing Site",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9743653102,
+      "lat": 35.4508096,
+      "lon": -82.6516174,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 1,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1021.08",
+        "name": "Bad Fork Valley Overlook (MP 399.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9743653103,
+      "lat": 35.4504331,
+      "lon": -82.7089203,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 1,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1164.336",
+        "name": "Big Ridge Overlook (MP 403.6)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9743653104,
+      "lat": 35.4474542,
+      "lon": -82.7172138,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 1,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1213.104",
+        "name": "Hominy Valley (MP 404.2)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9743653105,
+      "lat": 35.4426677,
+      "lon": -82.719732,
+      "timestamp": "2025-04-08T20:22:49Z",
+      "version": 2,
+      "changeset": 164696733,
+      "user": "Lumikeiju",
+      "uid": 20996589,
+      "tags": {
+        "ele": "1245.108",
+        "name": "Mills River Valley Overlook (MP 404.5)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9743653106,
+      "lat": 35.3297561,
+      "lon": -82.8209263,
+      "timestamp": "2022-05-16T13:06:43Z",
+      "version": 1,
+      "changeset": 121053562,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1367.942",
+        "name": "Log Hollow Overlook (MP 416.6)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9743726078,
+      "lat": 35.3274424,
+      "lon": -82.9651438,
+      "timestamp": "2022-05-16T13:32:44Z",
+      "version": 1,
+      "changeset": 121054596,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1722.12",
+        "name": "Caney Fork Overlook (MP 428.0)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925120,
+      "lat": 35.4524024,
+      "lon": -83.1031363,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1382.268",
+        "name": "Woodfin Cascades Overlook (MP 446.7)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925121,
+      "lat": 35.4678353,
+      "lon": -83.1416401,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1653.54",
+        "name": "Woolyback Overlook (MP 452.3)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925122,
+      "lat": 35.4899675,
+      "lon": -83.1526688,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1386.84",
+        "name": "Fed Cove Overlook (MP 455.1)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925123,
+      "lat": 35.4943892,
+      "lon": -83.1555087,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1392.936",
+        "name": "Soco Gap Overlook (MP 455.5)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925124,
+      "lat": 35.5037303,
+      "lon": -83.1554696,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1359.408",
+        "name": "Jonathan Creek Overlook (MP 456.2)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925125,
+      "lat": 35.5170243,
+      "lon": -83.2842805,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "777.24",
+        "name": "Ballhoot Scar Overlook (MP 467.4)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925126,
+      "lat": 35.5175646,
+      "lon": -83.2846031,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "name": "Ballhoot Scar Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925127,
+      "lat": 35.5185811,
+      "lon": -83.2883976,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "731.52",
+        "name": "Raven Fork Overlook (MP 467.9)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746925128,
+      "lat": 35.5131265,
+      "lon": -83.2940064,
+      "timestamp": "2022-05-16T19:34:26Z",
+      "version": 1,
+      "changeset": 121066899,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "142.7683",
+        "name": "Oconaluftee River Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9746941737,
+      "lat": 35.4802805,
+      "lon": -83.14025,
+      "timestamp": "2022-05-16T19:43:01Z",
+      "version": 1,
+      "changeset": 121067154,
+      "user": "raycock",
+      "uid": 164519,
+      "tags": {
+        "ele": "1556.004",
+        "name": "Hornbuckle Valley (MP 453.4)",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9908191629,
+      "lat": 35.3706606,
+      "lon": -82.841265,
+      "timestamp": "2022-07-24T20:03:30Z",
+      "version": 1,
+      "changeset": 124022972,
+      "user": "ConcreteCyclist",
+      "uid": 8550923,
+      "tags": {
+        "direction": "-130",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9908204324,
+      "lat": 35.3623952,
+      "lon": -82.8276196,
+      "timestamp": "2022-07-24T20:12:58Z",
+      "version": 1,
+      "changeset": 124023207,
+      "user": "ConcreteCyclist",
+      "uid": 8550923,
+      "tags": {
+        "direction": "-155",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9908225017,
+      "lat": 35.3683205,
+      "lon": -82.862739,
+      "timestamp": "2022-07-24T20:10:22Z",
+      "version": 1,
+      "changeset": 124023149,
+      "user": "ConcreteCyclist",
+      "uid": 8550923,
+      "tags": {
+        "direction": "-85",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9908225023,
+      "lat": 35.3682629,
+      "lon": -82.8622421,
+      "timestamp": "2022-07-24T20:10:22Z",
+      "version": 1,
+      "changeset": 124023149,
+      "user": "ConcreteCyclist",
+      "uid": 8550923,
+      "tags": {
+        "direction": "60",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9908252819,
+      "lat": 35.3274338,
+      "lon": -82.8743896,
+      "timestamp": "2022-07-24T20:25:27Z",
+      "version": 1,
+      "changeset": 124023592,
+      "user": "ConcreteCyclist",
+      "uid": 8550923,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10005318009,
+      "lat": 35.321155,
+      "lon": -82.8400486,
+      "timestamp": "2022-09-06T22:56:10Z",
+      "version": 1,
+      "changeset": 125877821,
+      "user": "Icefur_2",
+      "uid": 11702718,
+      "tags": {
+        "name": "East Fork Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10136157866,
+      "lat": 34.7698707,
+      "lon": -83.916475,
+      "timestamp": "2022-10-28T19:40:20Z",
+      "version": 1,
+      "changeset": 128189046,
+      "user": "fieldkat",
+      "uid": 215415,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10164757317,
+      "lat": 34.9599221,
+      "lon": -83.5271888,
+      "timestamp": "2022-11-07T04:38:20Z",
+      "version": 1,
+      "changeset": 128579143,
+      "user": "Busbd2",
+      "uid": 662145,
+      "tags": {
+        "name": "stop point 10.2022",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10195139649,
+      "lat": 35.4926239,
+      "lon": -83.1697791,
+      "timestamp": "2022-11-16T20:02:08Z",
+      "version": 1,
+      "changeset": 129009438,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "direction": "180",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10195139650,
+      "lat": 35.4926126,
+      "lon": -83.1695964,
+      "timestamp": "2022-11-16T20:02:08Z",
+      "version": 1,
+      "changeset": 129009438,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "direction": "180",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10607635859,
+      "lat": 34.9670294,
+      "lon": -83.7691239,
+      "timestamp": "2023-02-05T07:54:34Z",
+      "version": 1,
+      "changeset": 132099728,
+      "user": "CurlingMan13",
+      "uid": 6641970,
+      "tags": {
+        "name": "Lakeview Deck",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10607635907,
+      "lat": 34.9669201,
+      "lon": -83.7702171,
+      "timestamp": "2023-02-05T07:54:34Z",
+      "version": 1,
+      "changeset": 132099728,
+      "user": "CurlingMan13",
+      "uid": 6641970,
+      "tags": {
+        "name": "Overlook Deck",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10607635924,
+      "lat": 34.9679678,
+      "lon": -83.7701914,
+      "timestamp": "2023-02-05T07:54:34Z",
+      "version": 1,
+      "changeset": 132099728,
+      "user": "CurlingMan13",
+      "uid": 6641970,
+      "tags": {
+        "name": "Bonnie Day Arbor",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10650496073,
+      "lat": 35.0526584,
+      "lon": -82.6996333,
+      "timestamp": "2023-02-11T23:13:10Z",
+      "version": 1,
+      "changeset": 132426099,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10766146974,
+      "lat": 35.4631068,
+      "lon": -83.1320861,
+      "timestamp": "2023-03-27T12:18:56Z",
+      "version": 1,
+      "changeset": 134175077,
+      "user": "AlexBarinov",
+      "uid": 701663,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10766147296,
+      "lat": 35.4641985,
+      "lon": -83.1091032,
+      "timestamp": "2023-03-27T12:18:56Z",
+      "version": 1,
+      "changeset": 134175077,
+      "user": "AlexBarinov",
+      "uid": 701663,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10767351069,
+      "lat": 35.2415685,
+      "lon": -82.967876,
+      "timestamp": "2023-03-27T23:35:59Z",
+      "version": 1,
+      "changeset": 134197043,
+      "user": "Dave Laird",
+      "uid": 12923420,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10771815625,
+      "lat": 34.7380483,
+      "lon": -83.3907049,
+      "timestamp": "2023-03-29T20:18:36Z",
+      "version": 1,
+      "changeset": 134277475,
+      "user": "Didger85",
+      "uid": 2429366,
+      "tags": {
+        "name": "Hurricane Falls Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10771815633,
+      "lat": 34.7377953,
+      "lon": -83.3928405,
+      "timestamp": "2025-11-06T21:35:42Z",
+      "version": 3,
+      "changeset": 174308312,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "description": "View of Hawthorn Pool, and Tempesta Falls",
+        "name": "Overlook 7",
+        "tourism": "viewpoint",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10796178882,
+      "lat": 35.4296112,
+      "lon": -83.2008521,
+      "timestamp": "2023-04-09T03:41:05Z",
+      "version": 1,
+      "changeset": 134673214,
+      "user": "WashuOtaku",
+      "uid": 5009402,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11079685497,
+      "lat": 35.0310446,
+      "lon": -83.1548262,
+      "timestamp": "2023-08-01T00:58:24Z",
+      "version": 1,
+      "changeset": 139276170,
+      "user": "WTR4",
+      "uid": 3556438,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11310858884,
+      "lat": 35.2385405,
+      "lon": -82.4373547,
+      "timestamp": "2023-11-03T23:25:22Z",
+      "version": 1,
+      "changeset": 143594745,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "280",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11328157793,
+      "lat": 35.0426975,
+      "lon": -82.7145644,
+      "timestamp": "2023-11-05T20:45:26Z",
+      "version": 1,
+      "changeset": 143665718,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "170",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11507277519,
+      "lat": 35.0520538,
+      "lon": -82.6924951,
+      "timestamp": "2024-01-11T02:18:17Z",
+      "version": 1,
+      "changeset": 146124784,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11773536326,
+      "lat": 35.0903675,
+      "lon": -82.9649857,
+      "timestamp": "2024-03-30T13:31:27Z",
+      "version": 1,
+      "changeset": 149351855,
+      "user": "Sparks",
+      "uid": 80285,
+      "tags": {
+        "name": "Rainbow Falls",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11963538247,
+      "lat": 35.222775,
+      "lon": -82.5707706,
+      "timestamp": "2025-04-07T14:57:07Z",
+      "version": 2,
+      "changeset": 164639237,
+      "user": "DuPont State Recreational Forest",
+      "uid": 22617544,
+      "tags": {
+        "abandoned:place": "permanently closed",
+        "description": "Permanently closed",
+        "direction": "150",
+        "note": "Permanently closed",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11997963203,
+      "lat": 35.3117796,
+      "lon": -82.7775794,
+      "timestamp": "2025-04-30T21:20:59Z",
+      "version": 2,
+      "changeset": 165652632,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12117683109,
+      "lat": 35.1743706,
+      "lon": -82.9917926,
+      "timestamp": "2024-08-18T01:12:05Z",
+      "version": 1,
+      "changeset": 155394044,
+      "user": "𝔸𝔹_",
+      "uid": 12253391,
+      "tags": {
+        "direction": "180",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12303059021,
+      "lat": 35.0901532,
+      "lon": -82.5841232,
+      "timestamp": "2024-10-31T22:49:13Z",
+      "version": 1,
+      "changeset": 158600687,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "150",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12449811598,
+      "lat": 34.734823,
+      "lon": -83.9174159,
+      "timestamp": "2024-12-24T17:07:37Z",
+      "version": 1,
+      "changeset": 160582999,
+      "user": "MooPoo7",
+      "uid": 7596709,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12453185718,
+      "lat": 34.7270265,
+      "lon": -83.8417461,
+      "timestamp": "2024-12-26T15:12:18Z",
+      "version": 1,
+      "changeset": 160641516,
+      "user": "MooPoo7",
+      "uid": 7596709,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12747899014,
+      "lat": 35.1752933,
+      "lon": -82.6128541,
+      "timestamp": "2025-04-11T13:38:31Z",
+      "version": 1,
+      "changeset": 164816849,
+      "user": "MarksPhotoTrips",
+      "uid": 624084,
+      "tags": {
+        "direction": "345",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12961248796,
+      "lat": 34.9600858,
+      "lon": -83.88201,
+      "timestamp": "2025-06-29T14:30:13Z",
+      "version": 1,
+      "changeset": 168268095,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "direction": "N",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12999318754,
+      "lat": 35.1055453,
+      "lon": -82.6278406,
+      "timestamp": "2025-07-14T14:08:37Z",
+      "version": 1,
+      "changeset": 168919670,
+      "user": "Royoriti",
+      "uid": 6318618,
+      "tags": {
+        "direction": "180",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12999318755,
+      "lat": 35.1054744,
+      "lon": -82.6280207,
+      "timestamp": "2025-07-14T14:08:37Z",
+      "version": 1,
+      "changeset": 168919670,
+      "user": "Royoriti",
+      "uid": 6318618,
+      "tags": {
+        "direction": "200",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13145943744,
+      "lat": 34.6774017,
+      "lon": -84.0000229,
+      "timestamp": "2025-09-15T21:34:39Z",
+      "version": 1,
+      "changeset": 171986870,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "direction": "SSE",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13206740138,
+      "lat": 35.5884844,
+      "lon": -83.4055328,
+      "timestamp": "2025-10-10T12:21:34Z",
+      "version": 1,
+      "changeset": 173092082,
+      "user": "StrikeMind",
+      "uid": 20112842,
+      "tags": {
+        "name": "Charles A Webb Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13208843305,
+      "lat": 35.5100274,
+      "lon": -83.1413469,
+      "timestamp": "2025-10-11T15:28:47Z",
+      "version": 1,
+      "changeset": 173143185,
+      "user": "StrikeMind",
+      "uid": 20112842,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13284561950,
+      "lat": 34.9055243,
+      "lon": -83.4090671,
+      "timestamp": "2025-11-06T06:55:44Z",
+      "version": 1,
+      "changeset": 174272060,
+      "user": "Liam_100292",
+      "uid": 23472997,
+      "tags": {
+        "name": "Blue Ridge Overlook",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13286158124,
+      "lat": 34.7404642,
+      "lon": -83.3946204,
+      "timestamp": "2025-11-06T21:35:42Z",
+      "version": 1,
+      "changeset": 174308312,
+      "user": "Katz K",
+      "uid": 1716796,
+      "tags": {
+        "name": "Overlook 4",
+        "tourism": "viewpoint",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13625386892,
+      "lat": 35.0686279,
+      "lon": -83.6588178,
+      "timestamp": "2026-03-07T17:58:31Z",
+      "version": 1,
+      "changeset": 179503772,
+      "user": "NtsFranz",
+      "uid": 6050729,
+      "tags": {
+        "direction": "25",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13625386899,
+      "lat": 35.0683217,
+      "lon": -83.6588142,
+      "timestamp": "2026-03-07T17:58:31Z",
+      "version": 1,
+      "changeset": 179503772,
+      "user": "NtsFranz",
+      "uid": 6050729,
+      "tags": {
+        "direction": "220",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13747254178,
+      "lat": 35.4892995,
+      "lon": -83.3315823,
+      "timestamp": "2026-04-21T02:21:38Z",
+      "version": 1,
+      "changeset": 181606345,
+      "user": "Jón",
+      "uid": 2205183,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13772777396,
+      "lat": 34.9298111,
+      "lon": -83.1307876,
+      "timestamp": "2026-04-28T23:21:20Z",
+      "version": 2,
+      "changeset": 181963514,
+      "user": "NtsFranz",
+      "uid": 6050729,
+      "tags": {
+        "direction": "225",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13837881332,
+      "lat": 34.7234143,
+      "lon": -83.8237185,
+      "timestamp": "2026-05-17T00:02:19Z",
+      "version": 1,
+      "changeset": 182763107,
+      "user": "JacksGT",
+      "uid": 4166924,
+      "tags": {
+        "name": "Raven Cliffs",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14058826390,
+      "lat": 35.5861729,
+      "lon": -83.472897,
+      "timestamp": "2026-07-29T14:13:13Z",
+      "version": 1,
+      "changeset": 186587666,
+      "user": "BKAMfGSHG",
+      "uid": 1717585,
+      "tags": {
+        "name": "Mount Collins Viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14095400196,
+      "lat": 34.9698141,
+      "lon": -83.2502061,
+      "timestamp": "2026-08-14T19:24:54Z",
+      "version": 1,
+      "changeset": 187460148,
+      "user": "Kirbert",
+      "uid": 2077000,
+      "tags": {
+        "name": "Duncan Cemetery Falls",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14131325014,
+      "lat": 35.3323592,
+      "lon": -83.5955509,
+      "timestamp": "2026-08-28T14:45:55Z",
+      "version": 1,
+      "changeset": 188151776,
+      "user": "cmitchell",
+      "uid": 10176409,
+      "tags": {
+        "direction": "55",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14131367504,
+      "lat": 35.3335118,
+      "lon": -83.5901704,
+      "timestamp": "2026-08-28T15:06:22Z",
+      "version": 1,
+      "changeset": 188152779,
+      "user": "cmitchell",
+      "uid": 10176409,
+      "tags": {
+        "direction": "300",
+        "tourism": "viewpoint"
+      }
+    }
+  ]
+}

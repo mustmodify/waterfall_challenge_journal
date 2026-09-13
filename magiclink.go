@@ -130,7 +130,7 @@ func consumeMagicLink(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	if err := startSession(w, userID); err != nil {
+	if err := startSession(w, r, userID); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

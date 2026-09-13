@@ -214,19 +214,48 @@
       margin-right: -8px;
     }
 
-    #showing b { font-weight: 700; }
+    #showing b { font-weight: 700; display: inline-block; }
 
-    /* Fires only when the number actually changes, so it reads as a response
-       to what you just did rather than decoration. */
-    @keyframes showing-bump {
-      0%   { background: var(--accent); color: var(--on-accent); }
-      100% { background: transparent; color: var(--mist); }
+    #showing .scope {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-left: 6px;
+      padding: 1px 4px 1px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--ink);
     }
 
-    #showing.bump { animation: showing-bump 900ms ease-out; }
+    #showing .scope button {
+      padding: 0 3px;
+      font-size: 0.7rem;
+      line-height: 1;
+      color: var(--mist);
+    }
+
+    /* Just the number, not the whole bar -- the row is a block, so animating
+       it painted the full width of the card. */
+    @keyframes count-pop {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.28); color: var(--accent); }
+      100% { transform: scale(1); }
+    }
+
+    #showing b.pop { animation: count-pop 420ms ease-out; }
+
+    .confetti {
+      position: fixed;
+      width: 7px;
+      height: 10px;
+      border-radius: 1px;
+      pointer-events: none;
+      z-index: 3000;
+    }
 
     @media (prefers-reduced-motion: reduce) {
-      #showing.bump { animation: none; }
+      #showing b.pop { animation: none; }
     }
 
     #spectrum .bar {
@@ -1060,13 +1089,13 @@
     </div>
     <div id="spectrum" hidden>
       <div class="bar">
-        <span style="background:var(--r5)" title="under 3"></span>
-        <span style="background:var(--r4)" title="3 to 4"></span>
-        <span style="background:var(--r3)" title="5 to 6"></span>
-        <span style="background:var(--r2)" title="7 to 8"></span>
-        <span style="background:var(--r1)" title="9 and up"></span>
+        <span style="background:var(--r5)" title="lowest"></span>
+        <span style="background:var(--r4)" title="low"></span>
+        <span style="background:var(--r3)" title="middling"></span>
+        <span style="background:var(--r2)" title="high"></span>
+        <span style="background:var(--r1)" title="highest"></span>
       </div>
-      <div class="ends"><span>Lowest</span><span>Best (9+)</span></div>
+      <div class="ends"><span>Lowest</span><span>Best</span></div>
     </div>
     <div id="showing"></div>
   </header>
@@ -1319,7 +1348,7 @@
     // whole region, so it gets a looser one.
     const map = L.map('map', {
       zoomControl: false,
-      minZoom: window.matchMedia('(max-width: 720px)').matches ? 5 : 7,
+      minZoom: 7,
       maxZoom: 20,
     }).setView([35.4, -82.8], 8);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -1390,6 +1419,20 @@
     // ---------- data ----------
     let introAutoShown = false;
 
+    // Three reloads is enough to have read it. The Actions menu still opens it
+    // on demand, and a new browser session starts the count over.
+    const INTRO_LIMIT = 3;
+
+    function introShownCount() {
+      try { return Number(sessionStorage.getItem('wj-intro-seen')) || 0; }
+      catch (e) { return 0; }
+    }
+
+    function countIntroShown() {
+      try { sessionStorage.setItem('wj-intro-seen', String(introShownCount() + 1)); }
+      catch (e) { /* private mode */ }
+    }
+
     function loadAll() {
       return Promise.all([
         fetch('/me').then((r) => (r.ok ? r.json() : null)).catch(() => null),
@@ -1397,13 +1440,15 @@
         fetch('/visits').then((r) => (r.ok ? r.json() : [])).catch(() => []),
       ]).then(([user, features, visits]) => {
         state.user = user;
+        if (user && user.is_admin && window.wjMarkInternal) window.wjMarkInternal(true);
         state.features = features;
         state.visits = visits;
         renderAuth();
         // Once per page load, not on every refresh -- otherwise signing out
         // would throw the welcome back in your face.
-        if (!state.user && !introAutoShown) {
+        if (!state.user && !introAutoShown && introShownCount() < INTRO_LIMIT) {
           introAutoShown = true;
+          countIntroShown();
           setIntro(true);
         }
         renderChallenges();
@@ -1596,17 +1641,72 @@
       );
     }
 
+    // Coming back to where you left off is only useful if there is something
+    // there; a saved view over empty country is worse than the default fit.
+    function restoreSavedView(goals) {
+      let raw = null;
+      try { raw = localStorage.getItem('wj-view'); } catch (e) { /* private mode */ }
+      if (!raw) return false;
+      const [lat, lon, zoom] = raw.split(',').map(Number);
+      if (![lat, lon, zoom].every(Number.isFinite)) return false;
+      map.setView([lat, lon], zoom, { animate: false });
+      const box = map.getBounds();
+      let seen = 0;
+      for (const g of goals) {
+        if (box.contains([g.location.latitude, g.location.longitude]) && ++seen >= 5) return true;
+      }
+      return false;
+    }
+
+    map.on('moveend', () => {
+      const c = map.getCenter();
+      try {
+        localStorage.setItem('wj-view',
+          c.lat.toFixed(5) + ',' + c.lng.toFixed(5) + ',' + map.getZoom());
+      } catch (e) { /* private mode */ }
+    });
+
+    let returnTimer = null;
+
+    // A filter can change the map anywhere on it, so show the whole result --
+    // then hand back the zoom they were reading at, centred on what is left.
+    function showBounds(bounds) {
+      const back = map.getZoom();
+      clearTimeout(returnTimer);
+      map.fitBounds(bounds, { padding: [40, 40] });
+      // A phone screen is narrow enough that fitting the whole region lands
+      // around z6, where the clusters are a single blob.
+      if (window.matchMedia('(max-width: 720px)').matches && map.getZoom() < 8) map.setZoom(8);
+      if (map.getZoom() >= back) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        map.setView(bounds.getCenter(), back);
+        return;
+      }
+      returnTimer = setTimeout(() => map.flyTo(bounds.getCenter(), back), 1400);
+    }
+
+    let triedSavedView = false;
+    let viewRestored = false;
     let lastShownCount = null;
 
     function renderMarkers(fit) {
       const goals = visibleGoals();
       const showing = $('showing');
       showing.innerHTML = 'Showing <b>' + goals.length.toLocaleString() + '</b> ' +
-        (goals.length === 1 ? 'adventure' : 'adventures');
+        (goals.length === 1 ? 'adventure' : 'adventures') +
+        (state.area ? ' <span class="scope">' + escapeHtml(state.area) +
+          '<button type="button" class="quiet" id="scope-clear" ' +
+          'aria-label="Clear area filter">&#10005;</button></span>' : '');
+      if (state.area) {
+        $('scope-clear').addEventListener('click', () => {
+          setArea('');
+          $('search').value = '';
+        });
+      }
       if (lastShownCount !== null && lastShownCount !== goals.length) {
-        showing.classList.remove('bump');
-        void showing.offsetWidth;          // restart the animation
-        showing.classList.add('bump');
+        const num = showing.querySelector('b');
+        void num.offsetWidth;              // restart the animation
+        num.classList.add('pop');
       }
       lastShownCount = goals.length;
 
@@ -1641,9 +1741,22 @@
       byKind.forEach((group, kind) => addAll(groupFor(kind), group));
 
       if (fit && layers.length) {
+        if (!triedSavedView) {
+          triedSavedView = true;
+          if (restoreSavedView(goals)) {
+            viewRestored = true;
+            return;
+          }
+        }
         const bounds = fitBoundsFor(goals);
-        if (bounds.isValid()) map.fitBounds(bounds, { padding: [40, 40] });
+        if (bounds.isValid()) showBounds(bounds);
       }
+    }
+
+    // Analytics is optional scenery: the loader is blocked in plenty of
+    // browsers and absent in development, and nothing here may depend on it.
+    function track(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
     }
 
     function escapeHtml(s) {
@@ -1653,11 +1766,9 @@
     }
 
     // ---------- drawer ----------
-    function dots(n) {
-      if (n === undefined || n === null) return '<span class="v">&mdash;</span>';
-      let out = '<span class="rating-dots" aria-label="' + n + ' out of 10">';
-      for (let i = 1; i <= 10; i++) out += '<i class="' + (i <= n ? 'on' : '') + '"></i>';
-      return out + '</span>';
+    function band(key, n) {
+      const word = window.wjBand(key, n);
+      return '<span class="v">' + (word || '&mdash;') + '</span>';
     }
 
     const LINK_LABELS = { hikingwnc: 'HikingWNC' };
@@ -1698,9 +1809,9 @@
       html += '<div class="fact-grid">';
       html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;') + '</div></div>';
       html += '<div class="fact"><div class="k">Last visited</div><div class="v">' + (goal.last_visited ? escapeHtml(goal.last_visited) : 'Never') + '</div></div>';
-      html += '<div class="fact"><div class="k">Beauty</div>' + dots(goal.beauty_rating) + '</div>';
-      html += '<div class="fact"><div class="k">Photo</div>' + dots(goal.photo_rating) + '</div>';
-      html += '<div class="fact"><div class="k">Solitude</div>' + dots(goal.solitude_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Beauty</div>' + band('beauty', goal.beauty_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Photo</div>' + band('photo', goal.photo_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Solitude</div>' + band('solitude', goal.solitude_rating) + '</div>';
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
 
@@ -1898,6 +2009,7 @@
 
     $('challenge-select').addEventListener('change', (e) => {
       state.challenge = e.target.value;
+      track('select_challenge', { challenge: state.challenge });
       syncFilterButton();
       renderMarkers(true);
     });
@@ -1938,18 +2050,28 @@
 
       if (typed.endsWith(AREA_SUFFIX)) {
         const area = typed.slice(0, -AREA_SUFFIX.length);
-        if (areaNames.has(area)) { setArea(area); $('search').value = ''; }
+        if (areaNames.has(area)) {
+          track('search', { found: 'area', term: area });
+          setArea(area);
+        } else {
+          track('search', { found: 'nothing' });
+        }
         return;
       }
 
       // A place wins a tie: someone typing "Linville Falls" wants the waterfall.
+      // The term is reported only when it matches a place or area we publish,
+      // so what reaches Google is our own vocabulary rather than whatever
+      // someone typed into a box.
       const goal = state.features.find((g) => g.name === typed);
       if (goal) {
+        track('search', { found: 'place', term: goal.name });
         openDrawer(goal, true);
-        $('search').value = '';
       } else if (areaNames.has(typed)) {
+        track('search', { found: 'area', term: typed });
         setArea(typed);
-        $('search').value = '';
+      } else {
+        track('search', { found: 'nothing' });
       }
     });
 
@@ -1968,6 +2090,8 @@
         const k = chip.dataset.kind;
         if (state.showKinds.has(k)) state.showKinds.delete(k);
         else state.showKinds.add(k);
+        track('filter_kind', { kind: k, showing: state.showKinds.has(k),
+          kinds_on: [...state.showKinds].sort().join(',') || 'none' });
         syncFilters();
         renderMarkers(true);
       }));
@@ -1987,6 +2111,8 @@
       chip.addEventListener('click', () => {
         const key = chip.dataset.rating;
         if (state.ratings.has(key)) state.ratings.delete(key); else state.ratings.add(key);
+        track('color_by_rating', { rating: key, turned_on: state.ratings.has(key),
+          ratings_on: [...state.ratings].sort().join(',') || 'none' });
         chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
         renderLegend();
         renderMarkers(false);
@@ -2149,7 +2275,7 @@
       if (narrowScreen.matches) {
         $('filters-slot').appendChild(controls);
       } else {
-        $('topbar').appendChild(controls);
+        $('topbar').insertBefore(controls, $('spectrum'));
         setFilters(false);
       }
       $('filter-button').hidden = !narrowScreen.matches;
@@ -2273,17 +2399,43 @@
         setMenu(false);
         MENU_ACTIONS[t.dataset.act]();
       }));
-    // On a phone the filters are behind a button, so the count is the only
-    // thing saying how much there is. Point at it once the card is gone.
+    // Thrown from the count rather than the middle of the screen, so it points
+    // at the number instead of just celebrating at you.
+    function confettiBurst(target) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const box = target.getBoundingClientRect();
+      const css = getComputedStyle(document.documentElement);
+      const colors = ['--c-azure', '--c-tower', '--c-visited', '--accent', '--r2', '--r4']
+        .map((n) => css.getPropertyValue(n).trim());
+      for (let i = 0; i < 28; i++) {
+        const bit = document.createElement('i');
+        bit.className = 'confetti';
+        bit.style.background = colors[i % colors.length];
+        bit.style.left = (box.left + box.width * 0.5 * Math.random()) + 'px';
+        bit.style.top = (box.top + box.height / 2) + 'px';
+        document.body.appendChild(bit);
+        const down = Math.random() < 0.7;
+        const angle = (down ? Math.PI / 2 : -Math.PI / 2) + (Math.random() - 0.5) * 2.4;
+        const dist = (down ? 70 : 40) + Math.random() * 80;
+        const spin = Math.round(Math.random() * 720 - 360);
+        bit.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + Math.cos(angle) * dist + 'px,' +
+                       Math.sin(angle) * dist + 'px) rotate(' + spin + 'deg)', opacity: 0 },
+        ], { duration: 2250 + Math.random() * 1500, easing: 'cubic-bezier(.2,.7,.3,1)' })
+          .onfinish = () => bit.remove();
+      }
+    }
+
+    // The fitted centre lands in Pisgah with no waterfall within 9 km of it.
+    // Asheville is where people actually start from.
+    const ASHEVILLE = [35.6181014232303, -82.51233286689967];
+
     function dismissIntro() {
       setIntro(false);
       if (!narrowScreen.matches) return;
-      setTimeout(() => {
-        const el = $('showing');
-        el.classList.remove('bump');
-        void el.offsetWidth;
-        el.classList.add('bump');
-      }, 3000);
+      if (!viewRestored) map.setView(ASHEVILLE, 9);
+      setTimeout(() => confettiBurst($('showing')), 1500);
     }
 
     $('intro-close').addEventListener('click', dismissIntro);

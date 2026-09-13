@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"sort"
 	"strings"
 
@@ -21,11 +22,20 @@ const (
 
 var db *sql.DB
 
+// A host hands you one connection string and expects the app to use it. The
+// constants above stay as the development fallback so a local checkout still
+// runs with no environment at all.
+func dbSource() string {
+	if url := os.Getenv("DATABASE_URL"); url != "" {
+		return url
+	}
+	return fmt.Sprintf("host=localhost user=%s password=%s dbname=%s sslmode=disable",
+		DB_USER, DB_PASSWORD, DB_NAME)
+}
+
 func init() {
 	var err error
-	dbInfo := fmt.Sprintf("host=localhost user=%s password=%s dbname=%s sslmode=disable",
-		DB_USER, DB_PASSWORD, DB_NAME)
-	db, err = sql.Open("postgres", dbInfo)
+	db, err = sql.Open("postgres", dbSource())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,6 +73,7 @@ type Feature struct {
 	Links             []Link        `json:"links"`
 	Areas             []string      `json:"areas"`
 	Notes             []FeatureNote `json:"notes"`
+	Confidence        *string       `json:"confidence,omitempty"`
 	Owner             *string       `json:"owner,omitempty"`
 	DeprecatedReason  *string       `json:"deprecated_reason,omitempty"`
 	DeprecatedNote    *string       `json:"deprecated_note,omitempty"`
@@ -190,8 +201,9 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		args = append(args, user.ID)
 	}
 	rows, err := db.Query(`
-		SELECT features.id, name, kind, parking_location_id, feature_location_id, rt_hike_distance,
-			difficulty_rating, accessibility, height_ft, beauty_rating, photo_rating, solitude_rating,
+		SELECT features.id, features.name, kind, parking_location_id, feature_location_id,
+			rt_hike_distance, difficulty_rating, accessibility, height_ft,
+			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
 			locations.id as location_id, longitude, latitude,
 			`+lastVisited+` AS last_visited,
@@ -211,9 +223,16 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			(SELECT json_agg(json_build_object('text', notes.text, 'source',
 				coalesce(notes.source, '')) ORDER BY notes.id)
 				FROM notes WHERE notes.feature_id = features.id) AS note_json,
+			confidence.tier,
 			features.owner, deprecated_reason, deprecated_note,
 			deprecated_on::text
-		FROM features LEFT JOIN locations ON locations.id = features.feature_location_id
+		FROM features
+			LEFT JOIN locations ON locations.id = features.feature_location_id
+			LEFT JOIN coordinate_confidence confidence ON confidence.feature_id = features.id
+		-- A tower carries no source claims at all, so tiering would hide every
+		-- one of them.
+		WHERE features.kind <> 'waterfall'
+		   OR confidence.tier IN ('confirmed', 'corroborated')
 	`, args...)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -231,6 +250,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var linkRows sql.NullString
 		var areaNames sql.NullString
 		var noteJSON []byte
+		var confidence sql.NullString
 
 		err := rows.Scan(
 			&f.ID,
@@ -256,6 +276,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&linkRows,
 			&areaNames,
 			&noteJSON,
+			&confidence,
 			&f.Owner,
 			&f.DeprecatedReason,
 			&f.DeprecatedNote,
@@ -273,6 +294,11 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		f.Challenges = []string{}
 		if challengeNames.Valid && challengeNames.String != "" {
 			f.Challenges = strings.Split(challengeNames.String, ",")
+		}
+
+		if confidence.Valid {
+			tier := confidence.String
+			f.Confidence = &tier
 		}
 
 		f.Areas = []string{}
@@ -352,6 +378,18 @@ func deleteFeature(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// index.html and the scripts it loads are edited together and have to arrive
+// together. A browser holding yesterday's ratings.js against today's page
+// throws "wjBand is not a function" and the details drawer stops opening.
+// no-cache still allows a 304, so this costs a conditional request, not a
+// download.
+func noCache(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache")
+		h.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	r := mux.NewRouter()
 
@@ -371,10 +409,13 @@ func main() {
 	r.HandleFunc("/logout", logout).Methods("POST")
 	r.HandleFunc("/me", me).Methods("GET")
 
-	r.HandleFunc("/auth/request", requestMagicLink).Methods("POST")
+	signInLimit := newLimiter(5, 5)
+	fixLimit := newLimiter(10, 10)
+
+	r.HandleFunc("/auth/request", signInLimit.guard(requestMagicLink)).Methods("POST")
 	r.HandleFunc("/auth/callback", consumeMagicLink).Methods("GET")
 	r.HandleFunc("/challenges", getChallenges).Methods("GET")
-	r.HandleFunc("/corrections", createCorrection).Methods("POST")
+	r.HandleFunc("/corrections", fixLimit.guard(createCorrection)).Methods("POST")
 	r.HandleFunc("/corrections", listCorrections).Methods("GET")
 	r.HandleFunc("/corrections/{id}", updateCorrection).Methods("PATCH")
 	r.HandleFunc("/corrections/{id}", deleteCorrection).Methods("DELETE")
@@ -383,7 +424,7 @@ func main() {
 	r.HandleFunc("/visits", getVisits).Methods("GET")
 	r.HandleFunc("/visits/{id}", deleteVisit).Methods("DELETE")
 
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", noCache(http.FileServer(http.Dir("static/")))))
 
 	r.HandleFunc("/bulk", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/bulk.html")
@@ -401,6 +442,10 @@ func main() {
 
 	initMailer()
 
-	fmt.Println("Server running on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	addr := ":8080"
+	if port := os.Getenv("PORT"); port != "" {
+		addr = ":" + port
+	}
+	log.Printf("Server running on http://localhost%s", addr)
+	log.Fatal(http.ListenAndServe(addr, r))
 }
