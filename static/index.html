@@ -22,6 +22,7 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="/config.js"></script>
   <script src="/static/ratings.js"></script>
   <link rel="stylesheet" href="/static/app.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1352,14 +1353,21 @@
       maxZoom: 20,
     }).setView([35.4, -82.8], 8);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
+    // Stadia authenticates a browser by the domains on its property, and the key
+    // is only needed where that is not set up. It is served from the
+    // environment rather than committed, so rotating it is a dashboard edit.
+    const stadiaKey = (window.WJ_CONFIG && window.WJ_CONFIG.stadiaKey) || '';
+    const stadia = (path) => 'https://tiles.stadiamaps.com/tiles/' + path +
+      (stadiaKey ? '?api_key=' + encodeURIComponent(stadiaKey) : '');
+
     const THEMES = {
       light: {
-        url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-        opts: { minZoom: 0, maxZoom: 20, subdomains: 'abcd', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>' },
+        url: stadia('alidade_smooth/{z}/{x}/{y}{r}.png'),
+        opts: { minZoom: 0, maxZoom: 20, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
       },
       dark: {
-        url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-        opts: { minZoom: 0, maxZoom: 20, subdomains: 'abcd', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>' },
+        url: stadia('alidade_smooth_dark/{z}/{x}/{y}{r}.png'),
+        opts: { minZoom: 0, maxZoom: 20, attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' },
       },
       // Contours and drainages, which is what you actually want to know before
       // walking into a gorge. Public domain, no key, and no tiles past z16.

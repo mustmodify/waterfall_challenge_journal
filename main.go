@@ -383,6 +383,17 @@ func deleteFeature(w http.ResponseWriter, r *http.Request) {
 // throws "wjBand is not a function" and the details drawer stops opening.
 // no-cache still allows a 304, so this costs a conditional request, not a
 // download.
+// A tile key has to reach the browser to be used, so it cannot be secret. It
+// can still be kept out of the repository and rotated without a commit, which
+// is what this is for. Stadia scopes a key to the domains on its property, so
+// a copied one is worth nothing elsewhere.
+func clientConfig(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
+	w.Header().Set("Cache-Control", "no-cache")
+	key, _ := json.Marshal(os.Getenv("WANDERFALL_STADIA_KEY"))
+	fmt.Fprintf(w, "window.WJ_CONFIG = { stadiaKey: %s };\n", key)
+}
+
 func noCache(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "no-cache")
@@ -408,6 +419,7 @@ func main() {
 	r.HandleFunc("/login", login).Methods("POST")
 	r.HandleFunc("/logout", logout).Methods("POST")
 	r.HandleFunc("/me", me).Methods("GET")
+	r.HandleFunc("/config.js", clientConfig).Methods("GET")
 
 	signInLimit := newLimiter(5, 5)
 	fixLimit := newLimiter(10, 10)
