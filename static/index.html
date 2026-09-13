@@ -1002,6 +1002,10 @@
       }
 
       #drawer.open { transform: none; }
+
+      /* Centre the modals above the Actions button rather than over it. */
+      #intro-backdrop, #anon-backdrop, #rateby-backdrop,
+      #fix-backdrop, #filters-backdrop { padding-bottom: 84px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1310,8 +1314,14 @@
     // layer happens to be attached: markercluster reads maxZoom off the map the
     // moment it is added, and the base layer is not attached until applyTheme
     // runs at the end of this script.
-    const map = L.map('map', { zoomControl: false, minZoom: 7, maxZoom: 20 })
-      .setView([35.4, -82.8], 8);
+    // A phone at z7 shows 400 km where a desktop shows 1500. Same floor on
+    // both would mean a phone could never pull back far enough to see the
+    // whole region, so it gets a looser one.
+    const map = L.map('map', {
+      zoomControl: false,
+      minZoom: window.matchMedia('(max-width: 720px)').matches ? 5 : 7,
+      maxZoom: 20,
+    }).setView([35.4, -82.8], 8);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     const THEMES = {
       light: {
@@ -1847,7 +1857,7 @@
     // the Adams lists smallest first. Anything not listed sorts in after.
     const CHALLENGE_LABELS = {
       WC100: 'CMC WC100',
-      LTC: 'Lookout Towers',
+      LTC: 'Tower Challenge',
       ADAMS100: 'Adams 100',
       ADAMS500: 'Adams 500',
     };
@@ -2263,8 +2273,21 @@
         setMenu(false);
         MENU_ACTIONS[t.dataset.act]();
       }));
-    $('intro-close').addEventListener('click', () => setIntro(false));
-    $('intro-go').addEventListener('click', () => setIntro(false));
+    // On a phone the filters are behind a button, so the count is the only
+    // thing saying how much there is. Point at it once the card is gone.
+    function dismissIntro() {
+      setIntro(false);
+      if (!narrowScreen.matches) return;
+      setTimeout(() => {
+        const el = $('showing');
+        el.classList.remove('bump');
+        void el.offsetWidth;
+        el.classList.add('bump');
+      }, 3000);
+    }
+
+    $('intro-close').addEventListener('click', dismissIntro);
+    $('intro-go').addEventListener('click', dismissIntro);
     // click the backdrop, but not the panel sitting on it
     $('intro-backdrop').addEventListener('click', (e) => {
       if (e.target === $('intro-backdrop')) setIntro(false);
