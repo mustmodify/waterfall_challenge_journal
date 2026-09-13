@@ -109,8 +109,9 @@ What the backfill turned up:
   disagrees with itself.
 - hikingwnc publishes no coordinate for More Cave, Tranquility, Turbulent and
   Red Butt Falls -- the scrape holds the literal string `LAT 35.???? LONG
-  -83.????`. Three more carry a malformed number (`LONG -82.3.9353`) and were
-  left unclaimed rather than guessed.
+  -83.????`. Three more carry a malformed number (`LONG -82.3.9353`). All seven
+  are kept verbatim as `coordinate_raw` claims: a reading we cannot parse is
+  still a reading someone took, and guessing the missing digit would invent one.
 - `hike_distance` has 928 claims and no accepted value anywhere, because
   `features.rt_hike_distance` is a derived round-trip number and the sources
   publish prose one-way distances. Nothing is wrong; nothing has been resolved

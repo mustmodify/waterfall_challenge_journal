@@ -14,6 +14,10 @@
 --
 -- note carries the reasoning either way: why a rejected claim lost, or what
 -- had to be assumed to accept the one that won.
+--
+-- Nothing a source says is discarded. A coordinate we cannot parse into a
+-- point is kept verbatim as coordinate_raw rather than dropped, because a
+-- reading we cannot use is still a reading someone took.
 
 BEGIN;
 
@@ -32,7 +36,7 @@ CREATE TABLE claims (
     CONSTRAINT claims_field_known CHECK (field IN (
         'coordinate', 'parking_coordinate', 'height_ft', 'elevation_ft',
         'beauty_rating', 'photo_rating', 'solitude_rating', 'hike_distance',
-        'accessibility', 'owner', 'name', 'alias')),
+        'accessibility', 'owner', 'name', 'alias', 'coordinate_raw')),
 
     CONSTRAINT claims_value_shape CHECK (
         CASE field

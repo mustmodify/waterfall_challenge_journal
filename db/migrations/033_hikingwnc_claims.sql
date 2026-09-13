@@ -2153,6 +2153,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (649, 'hike_distance', '"Roadside"', 'hikingwnc', 'https://hikingwnc.com/311-pounding-mill-falls/'),
 (649, 'accessibility', '"Easy"', 'hikingwnc', 'https://hikingwnc.com/311-pounding-mill-falls/'),
 (649, 'name', '"Pounding Mill Falls"', 'hikingwnc', 'https://hikingwnc.com/311-pounding-mill-falls/'),
+(650, 'coordinate_raw', '"GPS Info: LAT 35.25872 LONG -82.3.9353"', 'hikingwnc', 'https://hikingwnc.com/312-pinhook-falls/'),
 (650, 'beauty_rating', '6', 'hikingwnc', 'https://hikingwnc.com/312-pinhook-falls/'),
 (650, 'photo_rating', '6', 'hikingwnc', 'https://hikingwnc.com/312-pinhook-falls/'),
 (650, 'solitude_rating', '8', 'hikingwnc', 'https://hikingwnc.com/312-pinhook-falls/'),
@@ -5852,6 +5853,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (1144, 'hike_distance', '"3.2"', 'hikingwnc', 'https://hikingwnc.com/865-used-falls-wateroak-creek/'),
 (1144, 'accessibility', '"Difficult+"', 'hikingwnc', 'https://hikingwnc.com/865-used-falls-wateroak-creek/'),
 (1144, 'name', '"Used Falls (Wateroak Creek)"', 'hikingwnc', 'https://hikingwnc.com/865-used-falls-wateroak-creek/'),
+(1145, 'coordinate_raw', '"GPS Info: LAT 35.0.028 LONG -83.55612"', 'hikingwnc', 'https://hikingwnc.com/866-just-like-new-falls/'),
 (1145, 'beauty_rating', '6', 'hikingwnc', 'https://hikingwnc.com/866-just-like-new-falls/'),
 (1145, 'photo_rating', '5', 'hikingwnc', 'https://hikingwnc.com/866-just-like-new-falls/'),
 (1145, 'solitude_rating', '9', 'hikingwnc', 'https://hikingwnc.com/866-just-like-new-falls/'),
@@ -6014,6 +6016,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (1175, 'hike_distance', '"5.0 (out and back)"', 'hikingwnc', 'https://hikingwnc.com/895-campbell-creek-falls/'),
 (1175, 'accessibility', '"Hard+"', 'hikingwnc', 'https://hikingwnc.com/895-campbell-creek-falls/'),
 (1175, 'name', '"Campbell Creek Falls"', 'hikingwnc', 'https://hikingwnc.com/895-campbell-creek-falls/'),
+(1176, 'coordinate_raw', '"GPS Info: LAT 35.476765 LONG -83..112874"', 'hikingwnc', 'https://hikingwnc.com/896-lower-plott-hound-falls/'),
 (1176, 'beauty_rating', '3', 'hikingwnc', 'https://hikingwnc.com/896-lower-plott-hound-falls/'),
 (1176, 'photo_rating', '3', 'hikingwnc', 'https://hikingwnc.com/896-lower-plott-hound-falls/'),
 (1176, 'solitude_rating', '10', 'hikingwnc', 'https://hikingwnc.com/896-lower-plott-hound-falls/'),
@@ -6609,6 +6612,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (1257, 'hike_distance', '"4.0 miles (loop)"', 'hikingwnc-supplement', 'https://hikingwnc.com/098-pothole-falls/'),
 (1257, 'accessibility', '"Moderate+"', 'hikingwnc-supplement', 'https://hikingwnc.com/098-pothole-falls/'),
 (1257, 'name', '"Pothole Falls"', 'hikingwnc-supplement', 'https://hikingwnc.com/098-pothole-falls/'),
+(1258, 'coordinate_raw', '"LAT 35.????\u00a0LONG -83.????"', 'hikingwnc-supplement', 'https://hikingwnc.com/099-more-cave-falls/'),
 (1258, 'beauty_rating', '6', 'hikingwnc-supplement', 'https://hikingwnc.com/099-more-cave-falls/'),
 (1258, 'photo_rating', '7', 'hikingwnc-supplement', 'https://hikingwnc.com/099-more-cave-falls/'),
 (1258, 'solitude_rating', '9', 'hikingwnc-supplement', 'https://hikingwnc.com/099-more-cave-falls/'),
@@ -6616,6 +6620,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (1258, 'hike_distance', '"4.0 miles (loop)"', 'hikingwnc-supplement', 'https://hikingwnc.com/099-more-cave-falls/'),
 (1258, 'accessibility', '"Moderate+"', 'hikingwnc-supplement', 'https://hikingwnc.com/099-more-cave-falls/'),
 (1258, 'name', '"More Cave Falls"', 'hikingwnc-supplement', 'https://hikingwnc.com/099-more-cave-falls/'),
+(1259, 'coordinate_raw', '"LAT 35.????\u00a0LONG -83.????"', 'hikingwnc-supplement', 'https://hikingwnc.com/100-tranquility-falls/'),
 (1259, 'beauty_rating', '9', 'hikingwnc-supplement', 'https://hikingwnc.com/100-tranquility-falls/'),
 (1259, 'photo_rating', '7', 'hikingwnc-supplement', 'https://hikingwnc.com/100-tranquility-falls/'),
 (1259, 'solitude_rating', '9', 'hikingwnc-supplement', 'https://hikingwnc.com/100-tranquility-falls/'),
@@ -6623,6 +6628,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (1259, 'hike_distance', '"4.0 miles (loop)"', 'hikingwnc-supplement', 'https://hikingwnc.com/100-tranquility-falls/'),
 (1259, 'accessibility', '"Moderate+"', 'hikingwnc-supplement', 'https://hikingwnc.com/100-tranquility-falls/'),
 (1259, 'name', '"Tranquility Falls"', 'hikingwnc-supplement', 'https://hikingwnc.com/100-tranquility-falls/'),
+(1260, 'coordinate_raw', '"LAT 35.????\u00a0LONG -83.????"', 'hikingwnc-supplement', 'https://hikingwnc.com/101-turbulent-falls/'),
 (1260, 'beauty_rating', '7', 'hikingwnc-supplement', 'https://hikingwnc.com/101-turbulent-falls/'),
 (1260, 'photo_rating', '7', 'hikingwnc-supplement', 'https://hikingwnc.com/101-turbulent-falls/'),
 (1260, 'solitude_rating', '7', 'hikingwnc-supplement', 'https://hikingwnc.com/101-turbulent-falls/'),
@@ -6670,6 +6676,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (1262, 'hike_distance', '"6.0 miles (out and back depending on route)"', 'hikingwnc-supplement', 'https://hikingwnc.com/107-elbow-falls/'),
 (1262, 'accessibility', '"Moderate"', 'hikingwnc-supplement', 'https://hikingwnc.com/107-elbow-falls/'),
 (1262, 'name', '"Elbow Falls"', 'hikingwnc-supplement', 'https://hikingwnc.com/107-elbow-falls/'),
+(1263, 'coordinate_raw', '"LAT 35.????\u00a0LONG -83.????"', 'hikingwnc-supplement', 'https://hikingwnc.com/108-red-butt-falls/'),
 (1263, 'beauty_rating', '9', 'hikingwnc-supplement', 'https://hikingwnc.com/108-red-butt-falls/'),
 (1263, 'photo_rating', '9', 'hikingwnc-supplement', 'https://hikingwnc.com/108-red-butt-falls/'),
 (1263, 'solitude_rating', '10', 'hikingwnc-supplement', 'https://hikingwnc.com/108-red-butt-falls/'),
@@ -6717,17 +6724,17 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 (406, 'hike_distance', '"1.0"', 'hikingwnc', 'https://hikingwnc.com/095-twin-falls-sc/'),
 (406, 'accessibility', '"Easy+"', 'hikingwnc', 'https://hikingwnc.com/095-twin-falls-sc/'),
 (406, 'name', '"Twin Falls (SC)"', 'hikingwnc', 'https://hikingwnc.com/095-twin-falls-sc/');
--- no coordinate claim for Pinhook Falls (feature 650): GPS Info: LAT 35.25872 LONG -82.3.9353
--- no coordinate claim for Just Like New Falls (feature 1145): GPS Info: LAT 35.0.028 LONG -83.55612
--- no coordinate claim for Lower Plott Hound Falls (feature 1176): GPS Info: LAT 35.476765 LONG -83..112874
--- no coordinate claim for More Cave Falls (feature 1258): LAT 35.???? LONG -83.????
--- no coordinate claim for More Cave Falls (feature 1258): LAT 35.???? LONG -83.????
--- no coordinate claim for Tranquility Falls (feature 1259): LAT 35.???? LONG -83.????
--- no coordinate claim for Tranquility Falls (feature 1259): LAT 35.???? LONG -83.????
--- no coordinate claim for Turbulent Falls (feature 1260): LAT 35.???? LONG -83.????
--- no coordinate claim for Turbulent Falls (feature 1260): LAT 35.???? LONG -83.????
--- no coordinate claim for Red Butt Falls (feature 1263): LAT 35.???? LONG -83.????
--- no coordinate claim for Red Butt Falls (feature 1263): LAT 35.???? LONG -83.????
+-- Pinhook Falls (feature 650) has no usable point: GPS Info: LAT 35.25872 LONG -82.3.9353
+-- Just Like New Falls (feature 1145) has no usable point: GPS Info: LAT 35.0.028 LONG -83.55612
+-- Lower Plott Hound Falls (feature 1176) has no usable point: GPS Info: LAT 35.476765 LONG -83..112874
+-- More Cave Falls (feature 1258) has no usable point: LAT 35.???? LONG -83.????
+-- More Cave Falls (feature 1258) has no usable point: LAT 35.???? LONG -83.????
+-- Tranquility Falls (feature 1259) has no usable point: LAT 35.???? LONG -83.????
+-- Tranquility Falls (feature 1259) has no usable point: LAT 35.???? LONG -83.????
+-- Turbulent Falls (feature 1260) has no usable point: LAT 35.???? LONG -83.????
+-- Turbulent Falls (feature 1260) has no usable point: LAT 35.???? LONG -83.????
+-- Red Butt Falls (feature 1263) has no usable point: LAT 35.???? LONG -83.????
+-- Red Butt Falls (feature 1263) has no usable point: LAT 35.???? LONG -83.????
 
 -- The two scrapes usually agree, and when they do both match what we serve.
 -- Only one of them can be the accepted answer, so the earlier source wins the

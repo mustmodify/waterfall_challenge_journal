@@ -49,14 +49,19 @@ for name, lat, lon in marks:
         ambiguous.append((name, [h[1] for h in hits]))
         continue
     fid, fname, flat, flon = hits[0]
+    note = 'NULL'
     if flat is not None:
         d = km(lat, lon, flat, flon)
         if d > 2:
-            # Same name, different mountain. A wrong identity here would be a
-            # claim about a fall nobody made.
+            # Same name, possibly a different mountain -- there are two Long
+            # Creek Falls and one of them is in Georgia. Recorded anyway, since
+            # an uncertain identity we can see beats one we cannot.
             far.append((name, fname, round(d, 1)))
-            continue
-    rows.append("(%d, 'coordinate', '{\"lat\": %s, \"lon\": %s}', 'cmc-kml')" % (fid, lat, lon))
+            note = ("'Matched to this feature by name alone. The placemark is "
+                    "%s km from where we have it, so it may be a different fall "
+                    "of the same name.'" % round(d, 1))
+    rows.append("(%d, 'coordinate', '{\"lat\": %s, \"lon\": %s}', 'cmc-kml', %s)"
+                % (fid, lat, lon, note))
 
 out = open('db/migrations/036_wc100_kml_claims.sql', 'w', encoding='utf-8')
 out.write("""-- Where the WC100 coordinates came from: data/dwhike.kml.
@@ -67,7 +72,7 @@ out.write("""-- Where the WC100 coordinates came from: data/dwhike.kml.
 
 BEGIN;
 
-INSERT INTO claims (feature_id, field, value, source) VALUES
+INSERT INTO claims (feature_id, field, value, source, note) VALUES
 """)
 out.write(',\n'.join(rows) + ';\n')
 for name in unmatched:
@@ -75,7 +80,7 @@ for name in unmatched:
 for name, names in ambiguous:
     out.write('-- placemark %s matched %d features, left alone\n' % (json.dumps(name), len(names)))
 for name, fname, d in far:
-    out.write('-- no claim: placemark %s is %s km from our %s, so the name match is not an identity\n'
+    out.write('-- placemark %s is %s km from our %s; claimed, but flagged in its note\n'
               % (json.dumps(name), d, json.dumps(fname)))
 out.write("""
 UPDATE claims c SET accepted = true

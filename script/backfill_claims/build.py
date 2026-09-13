@@ -48,14 +48,15 @@ for fid, url in links:
         continue
     for source, e in found:
         gps = e.get('GPS') or {}
+        claims = []
         if isinstance(gps, str):
-            # Three entries carry GPS as prose with a malformed number in it
-            # ("LONG -82.3.9353"). Unusable, and guessing the intended digit
-            # would put a fall somewhere nobody claimed it was.
+            # Some entries carry GPS as prose, sometimes with a malformed number
+            # in it ("LONG -82.3.9353"). Kept verbatim: guessing the intended
+            # digit would invent a reading, but dropping it loses one.
             unusable.append((fid, e.get('Name'), gps))
+            claims.append(('coordinate_raw', json.dumps(gps)))
             gps = {}
         lat, lon = gps.get('Latitude'), gps.get('Longitude')
-        claims = []
         if isinstance(lat, (int, float)) and isinstance(lon, (int, float)):
             claims.append(('coordinate', '{"lat": %s, "lon": %s}' % (lat, lon)))
         for field, key in (('beauty_rating', 'Beauty'), ('photo_rating', 'Photo Rating'),
@@ -93,7 +94,7 @@ INSERT INTO claims (feature_id, field, value, source, url) VALUES
 """)
 out.write(',\n'.join(rows) + ';\n')
 for fid, name, gps in unusable:
-    out.write('-- no coordinate claim for %s (feature %s): %s\n' % (name, fid, gps))
+    out.write('-- %s (feature %s) has no usable point: %s\n' % (name, fid, gps))
 
 out.write("""
 -- The two scrapes usually agree, and when they do both match what we serve.
