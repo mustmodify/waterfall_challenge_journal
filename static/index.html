@@ -214,19 +214,29 @@
       margin-right: -8px;
     }
 
-    #showing b { font-weight: 700; }
+    #showing b { font-weight: 700; display: inline-block; }
 
-    /* Fires only when the number actually changes, so it reads as a response
-       to what you just did rather than decoration. */
-    @keyframes showing-bump {
-      0%   { background: var(--accent); color: var(--on-accent); }
-      100% { background: transparent; color: var(--mist); }
+    /* Just the number, not the whole bar -- the row is a block, so animating
+       it painted the full width of the card. */
+    @keyframes count-pop {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.28); color: var(--accent); }
+      100% { transform: scale(1); }
     }
 
-    #showing.bump { animation: showing-bump 900ms ease-out; }
+    #showing b.pop { animation: count-pop 420ms ease-out; }
+
+    .confetti {
+      position: fixed;
+      width: 7px;
+      height: 10px;
+      border-radius: 1px;
+      pointer-events: none;
+      z-index: 3000;
+    }
 
     @media (prefers-reduced-motion: reduce) {
-      #showing.bump { animation: none; }
+      #showing b.pop { animation: none; }
     }
 
     #spectrum .bar {
@@ -1319,7 +1329,7 @@
     // whole region, so it gets a looser one.
     const map = L.map('map', {
       zoomControl: false,
-      minZoom: window.matchMedia('(max-width: 720px)').matches ? 5 : 7,
+      minZoom: 7,
       maxZoom: 20,
     }).setView([35.4, -82.8], 8);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -1604,9 +1614,9 @@
       showing.innerHTML = 'Showing <b>' + goals.length.toLocaleString() + '</b> ' +
         (goals.length === 1 ? 'adventure' : 'adventures');
       if (lastShownCount !== null && lastShownCount !== goals.length) {
-        showing.classList.remove('bump');
-        void showing.offsetWidth;          // restart the animation
-        showing.classList.add('bump');
+        const num = showing.querySelector('b');
+        void num.offsetWidth;              // restart the animation
+        num.classList.add('pop');
       }
       lastShownCount = goals.length;
 
@@ -1642,7 +1652,12 @@
 
       if (fit && layers.length) {
         const bounds = fitBoundsFor(goals);
-        if (bounds.isValid()) map.fitBounds(bounds, { padding: [40, 40] });
+        if (bounds.isValid()) {
+          map.fitBounds(bounds, { padding: [40, 40] });
+          // A phone screen is narrow enough that fitting the whole region lands
+          // around z6, where the clusters are a single blob.
+          if (window.matchMedia("(max-width: 720px)").matches && map.getZoom() < 8) map.setZoom(8);
+        }
       }
     }
 
@@ -2273,17 +2288,37 @@
         setMenu(false);
         MENU_ACTIONS[t.dataset.act]();
       }));
-    // On a phone the filters are behind a button, so the count is the only
-    // thing saying how much there is. Point at it once the card is gone.
+    // Thrown from the count rather than the middle of the screen, so it points
+    // at the number instead of just celebrating at you.
+    function confettiBurst(target) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const box = target.getBoundingClientRect();
+      const css = getComputedStyle(document.documentElement);
+      const colors = ['--c-azure', '--c-tower', '--c-visited', '--accent', '--r2', '--r4']
+        .map((n) => css.getPropertyValue(n).trim());
+      for (let i = 0; i < 28; i++) {
+        const bit = document.createElement('i');
+        bit.className = 'confetti';
+        bit.style.background = colors[i % colors.length];
+        bit.style.left = (box.left + box.width * Math.random()) + 'px';
+        bit.style.top = (box.top + box.height / 2) + 'px';
+        document.body.appendChild(bit);
+        const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.7;
+        const dist = 45 + Math.random() * 80;
+        const spin = Math.round(Math.random() * 720 - 360);
+        bit.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + Math.cos(angle) * dist + 'px,' +
+                       Math.sin(angle) * dist + 'px) rotate(' + spin + 'deg)', opacity: 0 },
+        ], { duration: 900 + Math.random() * 600, easing: 'cubic-bezier(.2,.7,.3,1)' })
+          .onfinish = () => bit.remove();
+      }
+    }
+
     function dismissIntro() {
       setIntro(false);
       if (!narrowScreen.matches) return;
-      setTimeout(() => {
-        const el = $('showing');
-        el.classList.remove('bump');
-        void el.offsetWidth;
-        el.classList.add('bump');
-      }, 3000);
+      setTimeout(() => confettiBurst($('showing')), 3000);
     }
 
     $('intro-close').addEventListener('click', dismissIntro);
