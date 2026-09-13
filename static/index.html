@@ -354,8 +354,11 @@
     #intro, #anon, #rateby, #fix {
       position: relative;
       width: min(460px, 100%);
-      max-height: calc(100vh - 32px);
+      /* 70vh rather than the full height so a long card is visibly cut off and
+         reads as scrollable, instead of filling the screen and looking whole. */
+      max-height: 70vh;
       overflow-y: auto;
+      overscroll-behavior: contain;
       padding: 24px 26px;
     }
 
