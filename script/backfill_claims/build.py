@@ -40,7 +40,7 @@ def text(v):
 def lit(s):
     return "'" + s.replace("'", "''") + "'"
 
-rows, misses, unusable, seen = [], 0, [], set()
+groups, rows, misses, unusable, seen = {}, [], 0, [], set()
 for fid, url in links:
     found = entries.get(url)
     if not found:
@@ -69,13 +69,15 @@ for fid, url in links:
             t = text(e.get(key))
             if t:
                 claims.append((field, json.dumps(t)))
+        ref = '%s|%s|%s' % (source, fid, url)
+        groups[ref] = (fid, source, url)
         for field, value in claims:
             # A few features carry two hikingwnc pages. The same assertion twice
             # is not a second source.
             if (fid, field, value, source) in seen:
                 continue
             seen.add((fid, field, value, source))
-            rows.append("(%s, '%s', %s, '%s', %s)" % (fid, field, lit(value), source, lit(url)))
+            rows.append("(%s, '%s', %s)" % (lit(ref), field, lit(value)))
 
 out = open('db/migrations/033_hikingwnc_claims.sql', 'w', encoding='utf-8')
 out.write("""-- Every assertion hikingwnc makes about a fall we carry, from the scrape.
@@ -84,15 +86,29 @@ out.write("""-- Every assertion hikingwnc makes about a fall we carry, from the 
 -- not from the features table: those columns have been corrected repeatedly
 -- and would report our conclusions back to us as hikingwnc's.
 --
+-- One group per page, because one page is one act of publishing: it names the
+-- fall, places it, rates it and measures it in a single breath.
+--
 -- Nothing is accepted on insert. The UPDATE at the end accepts a claim only
 -- where it still agrees with what the app serves, so whatever is left
 -- unaccepted is either a value we overrode or a field we never resolved.
 
 BEGIN;
 
-INSERT INTO claims (feature_id, field, value, source, url) VALUES
+INSERT INTO claim_groups (ref, feature_id, source, url) VALUES
 """)
-out.write(',\n'.join(rows) + ';\n')
+out.write(',\n'.join("(%s, %s, '%s', %s)" % (lit(ref), fid, source, lit(url))
+                     for ref, (fid, source, url) in sorted(groups.items())) + ';\n\n')
+
+out.write("""INSERT INTO claims (group_id, feature_id, field, value)
+SELECT g.id, g.feature_id, v.field, v.value::jsonb
+FROM (VALUES
+""")
+out.write(',\n'.join(rows) + """
+) AS v(ref, field, value)
+JOIN claim_groups g ON g.ref = v.ref;
+""")
+
 for fid, name, gps in unusable:
     out.write('-- %s (feature %s) has no usable point: %s\n' % (name, fid, gps))
 
@@ -102,11 +118,13 @@ out.write("""
 -- tie; a genuine disagreement leaves the other claim standing beside it.
 WITH matching AS (
     SELECT c.id,
-           row_number() OVER (PARTITION BY c.feature_id, c.field ORDER BY c.source, c.id) AS rn
+           row_number() OVER (PARTITION BY c.feature_id, c.field
+                              ORDER BY cg.source, c.id) AS rn
     FROM claims c
+    JOIN claim_groups cg ON cg.id = c.group_id
     JOIN features f ON f.id = c.feature_id
     LEFT JOIN locations l ON l.id = f.feature_location_id
-    WHERE c.source LIKE 'hikingwnc%' AND (
+    WHERE cg.source LIKE 'hikingwnc%' AND (
           (c.field = 'coordinate' AND l.latitude IS NOT NULL
            AND round(l.latitude, 5) = round((c.value->>'lat')::numeric, 5)
            AND round(l.longitude, 5) = round((c.value->>'lon')::numeric, 5))
@@ -122,4 +140,4 @@ WHERE id IN (SELECT id FROM matching WHERE rn = 1);
 COMMIT;
 """)
 out.close()
-print('claims %d, links with no scrape entry %d' % (len(rows), misses))
+print('groups %d, claims %d, links with no scrape entry %d' % (len(groups), len(rows), misses))

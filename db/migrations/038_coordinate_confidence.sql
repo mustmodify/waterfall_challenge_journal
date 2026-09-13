@@ -8,10 +8,12 @@
 CREATE VIEW coordinate_confidence AS
 WITH pts AS (
     SELECT c.feature_id,
-           CASE WHEN c.source LIKE 'hikingwnc%' THEN 'hikingwnc' ELSE c.source END AS source,
+           CASE WHEN cg.source LIKE 'hikingwnc%' THEN 'hikingwnc' ELSE cg.source END AS source,
            (c.value->>'lat')::numeric AS lat,
            (c.value->>'lon')::numeric AS lon
-    FROM claims c WHERE c.field = 'coordinate' AND c.identity_certain),
+    FROM claims c
+    JOIN claim_groups cg ON cg.id = c.group_id
+    WHERE c.field = 'coordinate' AND cg.identity_certain),
 stored AS (
     SELECT f.id AS feature_id, f.name, l.latitude AS lat, l.longitude AS lon
     FROM features f

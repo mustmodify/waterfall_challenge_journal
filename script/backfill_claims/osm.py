@@ -39,7 +39,7 @@ def names_agree(a, b):
         return False
     return a == b or a.startswith(b + ' ') or b.startswith(a + ' ')
 
-rows, taken, by_name, by_distance = [], set(), 0, 0
+groups, rows, taken, by_name, by_distance = [], [], set(), 0, 0
 for fid, name, lat, lon in feats:
     scored = sorted(((km(lat, lon, e['lat'], e['lon']), e) for e in falls), key=lambda x: x[0])
     named = [(d, e) for d, e in scored if d < 1.0 and names_agree(name, e['tags'].get('name'))]
@@ -58,25 +58,24 @@ for fid, name, lat, lon in feats:
         by_distance += 1
     taken.add(e['id'])
     t = e['tags']
-    rows.append("(%d, 'coordinate', '{\"lat\": %s, \"lon\": %s}', 'openstreetmap', "
-                "'https://www.openstreetmap.org/node/%d', %s, %s)"
-                % (fid, e['lat'], e['lon'], e['id'], note, certain))
+    ref = 'openstreetmap|%d|node/%d' % (fid, e['id'])
+    groups.append("(%s, %d, 'openstreetmap', 'https://www.openstreetmap.org/node/%d', %s, %s)"
+                  % (lit(ref), fid, e['id'], certain, note))
+    rows.append("(%s, 'coordinate', '{\"lat\": %s, \"lon\": %s}', NULL)"
+                % (lit(ref), e['lat'], e['lon']))
     for key in ('name', 'official_name', 'alt_name', 'alt_name:1'):
         v = (t.get(key) or '').strip()
         if v and not (key == 'name' and names_agree(name, v) and norm(v) == norm(name)):
             field = 'name' if key == 'name' else 'alias'
-            rows.append("(%d, '%s', %s, 'openstreetmap', "
-                        "'https://www.openstreetmap.org/node/%d', NULL, %s)"
-                        % (fid, field, lit(json.dumps(v)), e['id'], certain))
+            rows.append("(%s, '%s', %s, NULL)" % (lit(ref), field, lit(json.dumps(v))))
     h = re.search(r'\d+(\.\d+)?', str(t.get('height') or ''))
     if h:
         ft = float(h.group())
         if 'ft' not in str(t.get('height')):
             ft = ft * 3.28084       # OSM heights are metres unless marked
-        rows.append("(%d, 'height_ft', '%d', 'openstreetmap', "
-                    "'https://www.openstreetmap.org/node/%d', %s, %s)"
-                    % (fid, round(ft), e['id'],
-                       lit('OpenStreetMap tag height=%s.' % t['height']), certain))
+        rows.append("(%s, 'height_ft', '%d', %s)"
+                    % (lit(ref), round(ft),
+                       lit('OpenStreetMap tag height=%s.' % t['height'])))
 
 unclaimed = [e for e in falls if e['id'] not in taken]
 
@@ -92,17 +91,26 @@ out.write("""-- What OpenStreetMap says about the falls we already carry.
 
 BEGIN;
 
-INSERT INTO claims (feature_id, field, value, source, url, note, identity_certain) VALUES
+INSERT INTO claim_groups (ref, feature_id, source, url, identity_certain, note) VALUES
 """)
-out.write(',\n'.join(rows) + ';\n')
+out.write(',\n'.join(groups) + ';\n\n')
+out.write("""INSERT INTO claims (group_id, feature_id, field, value, note)
+SELECT g.id, g.feature_id, v.field, v.value::jsonb, v.note::text
+FROM (VALUES
+""")
+out.write(',\n'.join(rows) + """
+) AS v(ref, field, value, note)
+JOIN claim_groups g ON g.ref = v.ref;
+""")
 out.write("""
 -- Accepted only where it agrees with what we already serve, to five decimals.
 WITH matching AS (
     SELECT c.id, row_number() OVER (PARTITION BY c.feature_id, c.field ORDER BY c.id) AS rn
     FROM claims c
+    JOIN claim_groups cg ON cg.id = c.group_id
     JOIN features f ON f.id = c.feature_id
     JOIN locations l ON l.id = f.feature_location_id
-    WHERE c.source = 'openstreetmap' AND c.field = 'coordinate'
+    WHERE cg.source = 'openstreetmap' AND c.field = 'coordinate'
       AND round(l.latitude, 5) = round((c.value->>'lat')::numeric, 5)
       AND round(l.longitude, 5) = round((c.value->>'lon')::numeric, 5)
       AND NOT EXISTS (SELECT 1 FROM claims a WHERE a.feature_id = c.feature_id

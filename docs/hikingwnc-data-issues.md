@@ -90,8 +90,13 @@ Twin Falls (SC) is listed above separately because the two falls involved are
 
 ## Claims
 
-Every source assertion now lives in `claims`, one row per source per field, with
-`accepted` marking the one promoted into `features`. Two views read it:
+Every source assertion now lives in `claims`, grouped by the act that produced
+it. A `claim_groups` row is one page read or one node dropped; the `claims`
+under it are the name/value pairs it carried, `accepted` marking the one
+promoted into `features`. The name is one of those pairs, so a group can be
+checked against the feature it is attached to -- a group that calls the fall
+something else is a group about a different fall. 30 groups currently name
+something unrelated to the feature they sit on. Views:
 
 - `claim_conflicts` — fields where sources disagree, or where nothing is accepted.
 - `claim_coordinate_spread` — how far apart, in metres, the sources put each

@@ -32,10 +32,13 @@ by_norm = {}
 for fid, name, lat, lon in feats:
     by_norm.setdefault(norm(name), []).append((fid, name, lat, lon))
 
+def lit(s):
+    return "'" + s.replace("'", "''") + "'"
+
 def km(a, b, c, d):
     return 111.32 * math.hypot(a - c, (b - d) * math.cos(math.radians(a)))
 
-rows, unmatched, ambiguous, far = [], [], [], []
+groups, rows, unmatched, ambiguous, far = [], [], [], [], []
 for name, lat, lon in marks:
     n = norm(name)
     hits = by_norm.get(n)
@@ -61,8 +64,11 @@ for name, lat, lon in marks:
                     "%s km from where we have it, so it may be a different fall "
                     "of the same name.'" % round(d, 1))
             certain = 'false'
-    rows.append("(%d, 'coordinate', '{\"lat\": %s, \"lon\": %s}', 'cmc-kml', %s, %s)"
-                % (fid, lat, lon, note, certain))
+    ref = 'cmc-kml|%d|%s' % (fid, name)
+    groups.append("(%s, %d, 'cmc-kml', %s, %s)" % (lit(ref), fid, certain, note))
+    rows.append("(%s, 'coordinate', '{\"lat\": %s, \"lon\": %s}')" % (lit(ref), lat, lon))
+    if name:
+        rows.append("(%s, 'name', %s)" % (lit(ref), lit(json.dumps(name))))
 
 out = open('db/migrations/036_wc100_kml_claims.sql', 'w', encoding='utf-8')
 out.write("""-- Where the WC100 coordinates came from: data/dwhike.kml.
@@ -73,9 +79,17 @@ out.write("""-- Where the WC100 coordinates came from: data/dwhike.kml.
 
 BEGIN;
 
-INSERT INTO claims (feature_id, field, value, source, note, identity_certain) VALUES
+INSERT INTO claim_groups (ref, feature_id, source, identity_certain, note) VALUES
 """)
-out.write(',\n'.join(rows) + ';\n')
+out.write(',\n'.join(groups) + ';\n\n')
+out.write("""INSERT INTO claims (group_id, feature_id, field, value)
+SELECT g.id, g.feature_id, v.field, v.value::jsonb
+FROM (VALUES
+""")
+out.write(',\n'.join(rows) + """
+) AS v(ref, field, value)
+JOIN claim_groups g ON g.ref = v.ref;
+""")
 for name in unmatched:
     out.write('-- no feature matched the placemark %s\n' % json.dumps(name))
 for name, names in ambiguous:
@@ -85,8 +99,9 @@ for name, fname, d in far:
               % (json.dumps(name), d, json.dumps(fname)))
 out.write("""
 UPDATE claims c SET accepted = true
-FROM features f JOIN locations l ON l.id = f.feature_location_id
-WHERE c.feature_id = f.id AND c.source = 'cmc-kml' AND c.field = 'coordinate'
+FROM claim_groups cg, features f JOIN locations l ON l.id = f.feature_location_id
+WHERE c.group_id = cg.id AND c.feature_id = f.id
+  AND cg.source = 'cmc-kml' AND c.field = 'coordinate'
   AND round(l.latitude, 5) = round((c.value->>'lat')::numeric, 5)
   AND round(l.longitude, 5) = round((c.value->>'lon')::numeric, 5)
   AND NOT EXISTS (SELECT 1 FROM claims a

@@ -10,8 +10,9 @@ SELECT c.feature_id,
        c.field,
        count(DISTINCT c.value) AS distinct_values,
        count(*) FILTER (WHERE c.accepted) AS accepted,
-       string_agg(DISTINCT c.source, ', ' ORDER BY c.source) AS sources
+       string_agg(DISTINCT cg.source, ', ' ORDER BY cg.source) AS sources
 FROM claims c
+JOIN claim_groups cg ON cg.id = c.group_id
 JOIN features f ON f.id = c.feature_id
 WHERE c.field <> 'alias'
 GROUP BY c.feature_id, f.name, c.field
@@ -22,10 +23,11 @@ HAVING count(DISTINCT c.value) > 1 OR count(*) FILTER (WHERE c.accepted) = 0;
 -- each feature, in metres, so the noise can be filtered rather than counted.
 CREATE VIEW claim_coordinate_spread AS
 WITH pts AS (
-    SELECT c.feature_id, c.source, c.accepted,
+    SELECT c.feature_id, cg.source, c.accepted,
            (c.value->>'lat')::numeric AS lat,
            (c.value->>'lon')::numeric AS lon
-    FROM claims c WHERE c.field = 'coordinate')
+    FROM claims c JOIN claim_groups cg ON cg.id = c.group_id
+    WHERE c.field = 'coordinate')
 SELECT s.feature_id,
        f.name,
        round(max(111320 * sqrt(power(a.lat - b.lat, 2) +
