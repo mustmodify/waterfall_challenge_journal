@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 20px 0 6px;
+    }
+
+    header.bar h1 {
+      margin: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+
+    header.bar .sub { color: var(--haze); font-size: 0.85rem; }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; align-items: baseline; }
+
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 30px 0 12px;
+    }
+
+    .challenges { display: grid; gap: 10px; }
+
+    .challenge {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+    }
+
+    .challenge .top {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .challenge .name { font-weight: 600; }
+    .challenge .count { margin-left: auto; color: var(--haze); font-size: 0.85rem; white-space: nowrap; }
+    .challenge .of { opacity: 0.7; }
+
+    .meter {
+      height: 8px;
+      border-radius: 4px;
+      background: var(--field-bg);
+      overflow: hidden;
+    }
+
+    .meter i { display: block; height: 100%; background: var(--accent); }
+    .challenge.done .meter i { background: var(--c-visited); }
+
+    .badge-won {
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: 1px solid var(--c-visited);
+      color: var(--c-visited);
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+
+    th {
+      text-align: left;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+      font-weight: 600;
+      padding: 0 10px 6px 0;
+    }
+
+    td { padding: 7px 10px 7px 0; border-top: 1px solid var(--line); }
+    td.when { white-space: nowrap; color: var(--haze); }
+    td .rates { color: var(--haze); font-size: 0.8rem; }
+
+    .empty { color: var(--haze); font-size: 0.9rem; }
+
+    .stats { display: flex; flex-wrap: wrap; gap: 22px; margin: 4px 0 0; }
+    .stat .n { font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 600; }
+    .stat .k { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--haze); }
+
+    @media (max-width: 620px) {
+      td.when { font-size: 0.82rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1 id="who">Account</h1>
+      <span class="sub" id="email"></span>
+      <nav>
+        <a href="/">Map</a>
+        <a href="/bulk">Bulk entry</a>
+        <button id="signout" class="quiet" hidden>Sign out</button>
+      </nav>
+    </header>
+
+    <div id="signed-out" class="empty" hidden>
+      You are not signed in. <a href="/">Sign in on the map</a> to see your challenges and history.
+    </div>
+
+    <div id="content" hidden>
+      <div class="stats" id="stats"></div>
+
+      <h2>Challenges</h2>
+      <div class="challenges" id="challenges"></div>
+
+      <h2>History</h2>
+      <div id="history"></div>
+    </div>
+  </div>
+
+  <script src="/static/ratings.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const LABELS = {
+      WC100: 'CMC WC100', LTC: 'Lookout Towers',
+      ADAMS100: 'Adams 100', ADAMS500: 'Adams 500',
+    };
+    const ORDER = ['WC100', 'LTC', 'ADAMS100', 'ADAMS500'];
+
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // A challenge's target can be smaller than its list. The WC100 lists 116
+    // and asks for any 100, so progress is measured against the target and the
+    // list length is shown only as context.
+    function renderChallenges(features, meta) {
+      const target = new Map((meta || []).map((c) => [c.name, c]));
+      const tally = new Map();
+      features.forEach((f) => {
+        (f.challenges || []).forEach((c) => {
+          if (!tally.has(c)) tally.set(c, { total: 0, done: 0 });
+          const t = tally.get(c);
+          t.total++;
+          if (f.last_visited) t.done++;
+        });
+      });
+      const names = [...tally.keys()].sort((a, b) => {
+        const r = (n) => (ORDER.indexOf(n) === -1 ? ORDER.length : ORDER.indexOf(n));
+        return r(a) - r(b) || a.localeCompare(b);
+      });
+      if (!names.length) { $('challenges').innerHTML = '<p class="empty">No challenges yet.</p>'; return; }
+      $('challenges').innerHTML = names.map((n) => {
+        const t = tally.get(n);
+        const m = target.get(n);
+        const need = m && m.target ? m.target : t.total;
+        const pct = need ? Math.min(100, Math.round((t.done / need) * 100)) : 0;
+        const won = t.done >= need;
+        const extra = need < t.total ? ' <span class="of">of ' + t.total + ' listed</span>' : '';
+        return '<div class="challenge' + (won ? ' done' : '') + '">' +
+          '<div class="top"><span class="name">' + esc(LABELS[n] || n) + '</span>' +
+          (won ? '<span class="badge-won">badge earned</span>' : '') +
+          '<span class="count">' + t.done + ' / ' + need + extra + '</span></div>' +
+          '<div class="meter"><i style="width:' + pct + '%"></i></div></div>';
+      }).join('');
+    }
+
+    function renderHistory(visits, features) {
+      if (!visits.length) {
+        $('history').innerHTML = '<p class="empty">No visits logged yet. ' +
+          '<a href="/bulk">Add some in bulk</a>, or tap a pin on the map.</p>';
+        return;
+      }
+      const byId = new Map(features.map((f) => [f.id, f]));
+      const rows = visits.slice().sort((a, b) => b.visited_on.localeCompare(a.visited_on));
+      $('history').innerHTML = '<table><thead><tr><th>Date</th><th>Place</th>' +
+        '<th>How it was</th></tr></thead><tbody>' +
+        rows.map((v) => {
+          const f = byId.get(v.feature_id);
+          const rates = ['beauty', 'photo', 'solitude']
+            .map((k) => {
+              const t = wjRatingText(k, v[k + '_rating']);
+              return t ? WJ_RATINGS[k].label.toLowerCase() + ': ' + t : '';
+            })
+            .filter(Boolean).join(' &middot; ');
+          return '<tr><td class="when">' + esc(v.visited_on) + '</td>' +
+            '<td>' + esc(v.feature_name || (f ? f.name : 'Unknown')) + '</td>' +
+            '<td class="rates">' + (rates || '&mdash;') + '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }
+
+    function renderStats(visits, features) {
+      const distinct = new Set(visits.map((v) => v.feature_id)).size;
+      const towers = features.filter((f) => f.kind === 'tower' && f.last_visited).length;
+      $('stats').innerHTML = [
+        [visits.length, visits.length === 1 ? 'visit' : 'visits'],
+        [distinct, 'places'],
+        [towers, towers === 1 ? 'tower' : 'towers'],
+      ].map(([n, k]) => '<div class="stat"><div class="n">' + n + '</div><div class="k">' + k + '</div></div>').join('');
+    }
+
+    $('signout').addEventListener('click', () => {
+      fetch('/logout', { method: 'POST' }).then(() => { window.location.href = '/'; });
+    });
+
+    Promise.all([
+      fetch('/me').then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      fetch('/features').then((r) => r.json()),
+      fetch('/visits').then((r) => (r.ok ? r.json() : [])).catch(() => []),
+      fetch('/challenges').then((r) => (r.ok ? r.json() : [])).catch(() => []),
+    ]).then(([user, features, visits, meta]) => {
+      $('signed-out').hidden = !!user;
+      $('content').hidden = !user;
+      $('signout').hidden = !user;
+      if (!user) return;
+      $('who').textContent = user.name || 'Account';
+      $('email').textContent = user.email || '';
+      renderStats(visits, features);
+      renderChallenges(features, meta);
+      renderHistory(visits, features);
+    });
+  </script>
+</body>
+
+</html>

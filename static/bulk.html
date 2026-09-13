@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bulk Entry &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+    header.bar {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 20px 0 6px;
+    }
+
+    header.bar h1 {
+      margin: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+
+    header.bar .sub { color: var(--haze); font-size: 0.85rem; }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; }
+    a { color: var(--accent); }
+
+    .lede { color: var(--haze); font-size: 0.9rem; line-height: 1.5; margin: 10px 0 18px; max-width: 60ch; }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    th {
+      text-align: left;
+      vertical-align: bottom;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+      font-weight: 600;
+      padding: 0 8px 6px 0;
+    }
+
+    /* Every cell holds one control of the same height, so they sit on one
+       line; the per-row message hangs below without shifting its neighbours. */
+    td { padding: 0 8px 8px 0; vertical-align: top; }
+    td > input, td > select { display: block; height: 38px; }
+    td:last-child, th:last-child { padding-right: 0; width: 34px; }
+
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+      font-size: 0.9rem;
+      color-scheme: inherit;
+    }
+
+    input:invalid { border-color: var(--danger); }
+    tr.bad input[name="place"] { border-color: var(--danger); }
+    tr.saved { opacity: 0.45; }
+
+    .row-msg {
+      font-size: 0.72rem;
+      color: var(--danger);
+      padding: 2px 0 0;
+      display: block;
+    }
+
+    tr.saved .row-msg { color: var(--ok); }
+
+    .drop {
+      border: none;
+      background: transparent;
+      color: var(--haze);
+      font: inherit;
+      cursor: pointer;
+      padding: 8px 4px;
+      border-radius: 6px;
+    }
+
+    .drop:hover { color: var(--danger); background: var(--moss); }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    #status { font-size: 0.88rem; color: var(--haze); }
+    #status.err { color: var(--danger); }
+    #status.ok { color: var(--ok); }
+
+    .signin-note {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      color: var(--haze);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      thead { display: none; }
+      tr { display: block; border-bottom: 1px solid var(--line); padding: 10px 0; }
+      td { display: block; padding: 0 0 8px; }
+      td:last-child { width: auto; text-align: right; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.64rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--haze);
+        margin-bottom: 3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1>Bulk Entry</h1>
+      <span class="sub">Wanderfall</span>
+      <nav>
+        <a href="/">Map</a>
+        <a href="/account">Account</a>
+      </nav>
+    </header>
+
+    <p class="lede">One row per visit. A new row appears as soon as you start
+      filling the last one, so you can keep going without reaching for a button.
+      Ratings are optional. Each row is saved on its own &mdash; if one fails,
+      the rest still go through.</p>
+
+    <div id="signed-out" class="signin-note" hidden>
+      You need an account to log visits. <a href="/">Sign in on the map</a>, then come back.
+    </div>
+
+    <form id="bulk" hidden>
+      <table>
+        <thead>
+          <tr>
+            <th>Place</th><th>Date</th><th>Beauty</th><th>Photo</th><th>Solitude</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <datalist id="place-names"></datalist>
+
+      <div class="actions">
+        <button type="submit" class="primary" id="save">Save visits</button>
+        <span id="status"></span>
+      </div>
+    </form>
+  </div>
+
+  <script src="/static/ratings.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const state = { user: null, features: [], byName: new Map() };
+    let dirty = false;
+
+    function rowHtml(i) {
+      return '<tr data-i="' + i + '">' +
+        '<td data-label="Place"><input name="place" list="place-names" autocomplete="off" ' +
+          'placeholder="Waterfall or tower" /><span class="row-msg"></span></td>' +
+        '<td data-label="Date"><input name="date" type="date" /></td>' +
+        '<td data-label="Beauty">' + wjRatingOptions('beauty', 'b' + i) + '</td>' +
+        '<td data-label="Photo">' + wjRatingOptions('photo', 'p' + i) + '</td>' +
+        '<td data-label="Solitude">' + wjRatingOptions('solitude', 's' + i) + '</td>' +
+        '<td><button type="button" class="drop" title="Remove row" aria-label="Remove row">&#10005;</button></td>' +
+        '</tr>';
+    }
+
+    let seq = 0;
+    function addRow() {
+      $('rows').insertAdjacentHTML('beforeend', rowHtml(seq++));
+    }
+
+    function rowIsEmpty(tr) {
+      return ![...tr.querySelectorAll('input, select')].some((el) => el.value.trim());
+    }
+
+    function lastRow() { return $('rows').lastElementChild; }
+
+    // A new blank row the moment the last one is touched, so the form grows
+    // ahead of you instead of making you ask for space.
+    $('rows').addEventListener('input', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      dirty = true;
+      tr.classList.remove('bad', 'saved');
+      tr.querySelector('.row-msg').textContent = '';
+      if (tr === lastRow() && !rowIsEmpty(tr)) addRow();
+    });
+
+    $('rows').addEventListener('click', (e) => {
+      if (!e.target.classList.contains('drop')) return;
+      const tr = e.target.closest('tr');
+      if ($('rows').children.length > 1) tr.remove();
+      else tr.querySelectorAll('input, select').forEach((el) => { el.value = ''; });
+      if (!lastRow() || !rowIsEmpty(lastRow())) addRow();
+    });
+
+    // Losing a page of hand-typed visits to a stray back button would be
+    // infuriating, and this is the only warning the browser allows.
+    window.addEventListener('beforeunload', (e) => {
+      if (!dirty) return;
+      e.preventDefault();
+      e.returnValue = '';
+    });
+
+    function collect() {
+      const out = [];
+      [...$('rows').children].forEach((tr) => {
+        if (tr.classList.contains('saved') || rowIsEmpty(tr)) return;
+        const place = tr.querySelector('[name=place]').value.trim();
+        const date = tr.querySelector('[name=date]').value;
+        const rat = {};
+        tr.querySelectorAll('select[data-rating]').forEach((sel) => {
+          rat[sel.dataset.rating + '_rating'] = sel.value ? Number(sel.value) : null;
+        });
+        out.push({ tr, place, date, rat });
+      });
+      return out;
+    }
+
+    $('bulk').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const rows = collect();
+      if (!rows.length) { setStatus('Nothing to save yet.', ''); return; }
+
+      // Resolve names locally first: an unknown place is the user's typo to fix,
+      // not something worth a round trip to find out about.
+      let bad = 0;
+      const payload = [];
+      rows.forEach((r) => {
+        const f = state.byName.get(r.place.toLowerCase());
+        const msg = r.tr.querySelector('.row-msg');
+        if (!f) { r.tr.classList.add('bad'); msg.textContent = 'No place by that name'; bad++; return; }
+        if (!r.date) { r.tr.classList.add('bad'); msg.textContent = 'Needs a date'; bad++; return; }
+        payload.push(Object.assign({ feature_id: f.id, visited_on: r.date }, r.rat));
+        r.tr.dataset.send = payload.length - 1;
+      });
+      if (!payload.length) { setStatus(bad + ' row(s) need fixing.', 'err'); return; }
+
+      $('save').disabled = true;
+      setStatus('Saving' + String.fromCharCode(8230), '');
+      fetch('/visits/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ visits: payload }),
+      }).then((r) => r.json().then((body) => ({ ok: r.ok, body })))
+        .then(({ body }) => {
+          $('save').disabled = false;
+          const byIndex = new Map((body.results || []).map((x) => [x.index, x]));
+          rows.forEach((r) => {
+            if (r.tr.dataset.send === undefined) return;
+            const res = byIndex.get(Number(r.tr.dataset.send));
+            const msg = r.tr.querySelector('.row-msg');
+            if (res && res.ok) {
+              r.tr.classList.add('saved');
+              r.tr.querySelectorAll('input, select').forEach((el) => { el.disabled = true; });
+              msg.textContent = 'saved';
+            } else if (res) {
+              r.tr.classList.add('bad');
+              msg.textContent = res.error;
+            }
+          });
+          const failed = (body.results || []).filter((x) => !x.ok).length + bad;
+          setStatus('Saved ' + body.saved + (failed ? ', ' + failed + ' still need attention.' : '.'),
+                    failed ? 'err' : 'ok');
+          dirty = [...$('rows').children].some((tr) =>
+            !tr.classList.contains('saved') && !rowIsEmpty(tr));
+        })
+        .catch(() => { $('save').disabled = false; setStatus('Could not reach the server.', 'err'); });
+    });
+
+    function setStatus(text, cls) { $('status').textContent = text; $('status').className = cls; }
+
+    Promise.all([
+      fetch('/me').then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      fetch('/features').then((r) => r.json()),
+    ]).then(([user, features]) => {
+      state.user = user;
+      state.features = features;
+      features.forEach((f) => state.byName.set(f.name.toLowerCase(), f));
+      $('place-names').innerHTML = features
+        .map((f) => '<option value="' + f.name.replace(/"/g, '&quot;') + '"></option>').join('');
+      $('signed-out').hidden = !!user;
+      $('bulk').hidden = !user;
+      if (user) addRow();
+    });
+  </script>
+</body>
+
+</html>

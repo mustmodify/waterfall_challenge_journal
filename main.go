@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -39,13 +40,16 @@ type Location struct {
 	Longitude *float64 `json:"longitude,omitempty"`
 }
 
-type Goal struct {
+type Feature struct {
 	ID                int       `json:"id"`
 	Name              string    `json:"name"`
+	Kind              string    `json:"kind"`
 	FeatureLocationID *int      `json:"feature_location_id"`
 	ParkingLocationID *int      `json:"parking_location_id"`
 	RtHikeDistance    *string   `json:"rt_hike_distance,omitempty"`
 	DifficultyRating  *string   `json:"difficulty_rating,omitempty"`
+	Accessibility     *string   `json:"accessibility,omitempty"`
+	HeightFt          *int      `json:"height_ft,omitempty"`
 	BeautyRating      *int      `json:"beauty_rating,omitempty"`
 	PhotoRating       *int      `json:"photo_rating,omitempty"`
 	SolitudeRating    *int      `json:"solitude_rating,omitempty"`
@@ -54,20 +58,15 @@ type Goal struct {
 	BookPage          *int      `json:"book_page,omitempty"`
 	Location          *Location `json:"location,omitempty"`
 	LastVisited       *string   `json:"last_visited,omitempty"`
+	Challenges        []string  `json:"challenges"`
 }
 
 type Note struct {
 	ID        int    `json:"id"`
-	GoalID    int    `json:"goal_id"`
+	FeatureID int    `json:"feature_id"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 	Text      string `json:"text"`
-}
-
-type Visit struct {
-	ID        int    `json:"id"`
-	GoalID    int    `json:"goal_id"`
-	VisitedOn string `json:"visited_on"`
 }
 
 // Create a new location
@@ -138,96 +137,127 @@ func deleteLocation(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-// Create a new goal
-func createGoal(w http.ResponseWriter, r *http.Request) {
-	var goal Goal
-	json.NewDecoder(r.Body).Decode(&goal)
-	sqlStatement := `INSERT INTO goals (name, parking_location_id, feature_location_id) VALUES ($1, $2, $3) RETURNING id`
-	err := db.QueryRow(sqlStatement, goal.Name, goal.ParkingLocationID, goal.FeatureLocationID).Scan(&goal.ID)
+// Create a new feature
+func createFeature(w http.ResponseWriter, r *http.Request) {
+	var f Feature
+	if err := json.NewDecoder(r.Body).Decode(&f); err != nil {
+		http.Error(w, "Invalid input data", http.StatusBadRequest)
+		return
+	}
+	if f.Kind == "" {
+		f.Kind = "waterfall"
+	}
+	sqlStatement := `INSERT INTO features (name, kind, parking_location_id, feature_location_id) VALUES ($1, $2, $3, $4) RETURNING id`
+	err := db.QueryRow(sqlStatement, f.Name, f.Kind, f.ParkingLocationID, f.FeatureLocationID).Scan(&f.ID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(goal)
+	json.NewEncoder(w).Encode(f)
 }
 
-func getGoals(w http.ResponseWriter, r *http.Request) {
+func getFeatures(w http.ResponseWriter, r *http.Request) {
+	// last_visited is per-user: anonymous visitors see no visit history.
+	lastVisited := `NULL::text`
+	args := []interface{}{}
+	if user := currentUser(r); user != nil {
+		lastVisited = `(SELECT MAX(visited_on)::text FROM visits WHERE visits.feature_id = features.id AND visits.user_id = $1)`
+		args = append(args, user.ID)
+	}
 	rows, err := db.Query(`
-		SELECT goals.id, name, parking_location_id, feature_location_id, rt_hike_distance,
-			difficulty_rating, beauty_rating, photo_rating, solitude_rating, hwnc_id, cmc_hike_no, book_page,
+		SELECT features.id, name, kind, parking_location_id, feature_location_id, rt_hike_distance,
+			difficulty_rating, accessibility, height_ft, beauty_rating, photo_rating, solitude_rating,
+			hwnc_id, cmc_hike_no, book_page,
 			locations.id as location_id, longitude, latitude,
-			(SELECT MAX(visited_on) FROM visits WHERE visits.goal_id = goals.id) AS last_visited
-		FROM goals LEFT JOIN locations ON locations.id = goals.feature_location_id
-	`)
+			`+lastVisited+` AS last_visited,
+			(SELECT string_agg(challenges.name, ',') FROM goals
+				JOIN challenges ON challenges.id = goals.challenge_id
+				WHERE goals.feature_id = features.id) AS challenge_names
+		FROM features LEFT JOIN locations ON locations.id = features.feature_location_id
+	`, args...)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer rows.Close()
 
-	goals := []Goal{}
+	features := []Feature{}
 	for rows.Next() {
-		var goal Goal
+		var f Feature
 		var latitude, longitude sql.NullFloat64
 		var locationID sql.NullInt64
 		var lastVisited sql.NullString
+		var challengeNames sql.NullString
 
 		err := rows.Scan(
-			&goal.ID,
-			&goal.Name,
-			&goal.ParkingLocationID,
-			&goal.FeatureLocationID,
-			&goal.RtHikeDistance,
-			&goal.DifficultyRating,
-			&goal.BeautyRating,
-			&goal.PhotoRating,
-			&goal.SolitudeRating,
-			&goal.HwncID,
-			&goal.CmcHikeNo,
-			&goal.BookPage,
+			&f.ID,
+			&f.Name,
+			&f.Kind,
+			&f.ParkingLocationID,
+			&f.FeatureLocationID,
+			&f.RtHikeDistance,
+			&f.DifficultyRating,
+			&f.Accessibility,
+			&f.HeightFt,
+			&f.BeautyRating,
+			&f.PhotoRating,
+			&f.SolitudeRating,
+			&f.HwncID,
+			&f.CmcHikeNo,
+			&f.BookPage,
 			&locationID,
 			&longitude,
 			&latitude,
 			&lastVisited,
+			&challengeNames,
 		)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
-		// Convert lastVisited to date.Date if valid
 		if lastVisited.Valid {
-			goal.LastVisited = &lastVisited.String
+			f.LastVisited = &lastVisited.String
 		}
 
-		// Populate Location if valid data is present
+		f.Challenges = []string{}
+		if challengeNames.Valid && challengeNames.String != "" {
+			f.Challenges = strings.Split(challengeNames.String, ",")
+		}
+
 		if latitude.Valid && longitude.Valid {
-			goal.Location = &Location{
+			f.Location = &Location{
 				ID:        int(locationID.Int64),
 				Latitude:  &latitude.Float64,
 				Longitude: &longitude.Float64,
 			}
 		}
 
-		goals = append(goals, goal)
-
+		features = append(features, f)
+	}
+	if err := rows.Err(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(goals)
+	json.NewEncoder(w).Encode(features)
 }
 
-// Update a goal
-func updateGoal(w http.ResponseWriter, r *http.Request) {
+// Update a feature
+func updateFeature(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	var goal Goal
-	json.NewDecoder(r.Body).Decode(&goal)
+	var f Feature
+	if err := json.NewDecoder(r.Body).Decode(&f); err != nil {
+		http.Error(w, "Invalid input data", http.StatusBadRequest)
+		return
+	}
 
-	sqlStatement := `UPDATE goals SET name=$1, parking_location_id=$2, feature_location_id=$3 WHERE id=$4`
-	_, err := db.Exec(sqlStatement, goal.Name, goal.ParkingLocationID, goal.FeatureLocationID, id)
+	sqlStatement := `UPDATE features SET name=$1, parking_location_id=$2, feature_location_id=$3 WHERE id=$4`
+	_, err := db.Exec(sqlStatement, f.Name, f.ParkingLocationID, f.FeatureLocationID, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -235,42 +265,18 @@ func updateGoal(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// Delete a goal
-func deleteGoal(w http.ResponseWriter, r *http.Request) {
+// Delete a feature
+func deleteFeature(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	sqlStatement := `DELETE FROM goals WHERE id=$1`
+	sqlStatement := `DELETE FROM features WHERE id=$1`
 	_, err := db.Exec(sqlStatement, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
-}
-
-func createVisit(w http.ResponseWriter, r *http.Request) {
-	var visit Visit
-	if err := json.NewDecoder(r.Body).Decode(&visit); err != nil {
-		http.Error(w, "Invalid input data", http.StatusBadRequest)
-		return
-	}
-
-	if visit.GoalID == 0 || visit.VisitedOn == "" {
-		http.Error(w, "Missing goal_id or visited_on", http.StatusBadRequest)
-		return
-	}
-
-	sqlStatement := `INSERT INTO visits (goal_id, visited_on) VALUES ($1, $2) RETURNING id`
-	err := db.QueryRow(sqlStatement, visit.GoalID, visit.VisitedOn).Scan(&visit.ID)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(visit)
 }
 
 func main() {
@@ -282,15 +288,32 @@ func main() {
 	r.HandleFunc("/locations/{id}", updateLocation).Methods("PUT")
 	r.HandleFunc("/locations/{id}", deleteLocation).Methods("DELETE")
 
-	r.HandleFunc("/goals", createGoal).Methods("POST")
-	r.HandleFunc("/goals", getGoals).Methods("GET")
-	r.HandleFunc("/goals/{id}", updateGoal).Methods("PUT")
-	r.HandleFunc("/goals/{id}", deleteGoal).Methods("DELETE")
+	r.HandleFunc("/features", createFeature).Methods("POST")
+	r.HandleFunc("/features", getFeatures).Methods("GET")
+	r.HandleFunc("/features/{id}", updateFeature).Methods("PUT")
+	r.HandleFunc("/features/{id}", deleteFeature).Methods("DELETE")
 
+	r.HandleFunc("/signup", signup).Methods("POST")
+	r.HandleFunc("/login", login).Methods("POST")
+	r.HandleFunc("/logout", logout).Methods("POST")
+	r.HandleFunc("/me", me).Methods("GET")
+
+	r.HandleFunc("/auth/request", requestMagicLink).Methods("POST")
+	r.HandleFunc("/auth/callback", consumeMagicLink).Methods("GET")
+	r.HandleFunc("/challenges", getChallenges).Methods("GET")
 	r.HandleFunc("/visits", createVisit).Methods("POST")
-	// r.HandleFunc("/goals/{id}/visits", getVisitsForGoal).Methods("GET")
+	r.HandleFunc("/visits/batch", createVisits).Methods("POST")
+	r.HandleFunc("/visits", getVisits).Methods("GET")
+	r.HandleFunc("/visits/{id}", deleteVisit).Methods("DELETE")
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
+
+	r.HandleFunc("/bulk", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/bulk.html")
+	}).Methods("GET")
+	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/account.html")
+	}).Methods("GET")
 
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/index.html")
