@@ -227,6 +227,7 @@
       fetch('/visits').then((r) => (r.ok ? r.json() : [])).catch(() => []),
       fetch('/challenges').then((r) => (r.ok ? r.json() : [])).catch(() => []),
     ]).then(([user, features, visits, meta]) => {
+      if (user && user.is_admin && window.wjMarkInternal) window.wjMarkInternal(true);
       $('signed-out').hidden = !!user;
       $('content').hidden = !user;
       $('signout').hidden = !user;

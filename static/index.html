@@ -1440,6 +1440,7 @@
         fetch('/visits').then((r) => (r.ok ? r.json() : [])).catch(() => []),
       ]).then(([user, features, visits]) => {
         state.user = user;
+        if (user && user.is_admin && window.wjMarkInternal) window.wjMarkInternal(true);
         state.features = features;
         state.visits = visits;
         renderAuth();
