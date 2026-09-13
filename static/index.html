@@ -1310,7 +1310,7 @@
     // layer happens to be attached: markercluster reads maxZoom off the map the
     // moment it is added, and the base layer is not attached until applyTheme
     // runs at the end of this script.
-    const map = L.map('map', { zoomControl: false, minZoom: 0, maxZoom: 20 })
+    const map = L.map('map', { zoomControl: false, minZoom: 7, maxZoom: 20 })
       .setView([35.4, -82.8], 8);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     const THEMES = {
