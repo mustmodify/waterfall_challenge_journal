@@ -16,3 +16,19 @@ func TestLimiterBurstThenRefill(t *testing.T) {
 		t.Fatal("a different address was refused")
 	}
 }
+
+func TestEnvelopeSenderStripsDisplayName(t *testing.T) {
+	t.Setenv("WANDERFALL_SMTP_HOST", "smtp.mailgun.org")
+	t.Setenv("WANDERFALL_SMTP_FROM", "Wanderfall <wanderful@mustmodify.com>")
+	initMailer()
+	m, ok := mailer.(smtpMailer)
+	if !ok {
+		t.Fatal("mailer was not configured")
+	}
+	if m.envelope != "wanderful@mustmodify.com" {
+		t.Fatalf("envelope sender is %q", m.envelope)
+	}
+	if m.from != "Wanderfall <wanderful@mustmodify.com>" {
+		t.Fatalf("From header is %q", m.from)
+	}
+}

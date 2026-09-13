@@ -6,3 +6,7 @@ test/features.json
 
 # Archived pages we re-read locally rather than re-fetching
 data/spider-cache/
+
+# Secrets live in the shell or the host, never in the tree
+.env
+.env.*

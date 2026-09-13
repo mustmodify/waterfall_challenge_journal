@@ -1,0 +1,1244 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict uivGcPzvrUndUSsl6IvMtdz6f9h1LLwx3OkNVKv1tKSIIrkeFddOCQAZP6TU13n
+
+-- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
+-- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: petzoldt_band(numeric); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.petzoldt_band(d numeric) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    SELECT CASE
+        WHEN d IS NULL     THEN NULL
+        WHEN d < 2.5       THEN 'easy'
+        WHEN d < 5         THEN 'moderate'
+        WHEN d < 7.5       THEN 'challenging'
+        WHEN d < 10        THEN 'hard'
+        WHEN d < 12.5      THEN 'very hard'
+        ELSE                    'extreme'
+    END;
+$$;
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.areas (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.areas_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.areas_id_seq OWNED BY public.areas.id;
+
+
+--
+-- Name: challenges; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.challenges (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    target integer,
+    CONSTRAINT challenges_target_positive CHECK (((target IS NULL) OR (target > 0)))
+);
+
+
+--
+-- Name: COLUMN challenges.target; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.challenges.target IS 'Visits needed to complete. NULL = every goal on the list.';
+
+
+--
+-- Name: challenges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.challenges_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: challenges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.challenges_id_seq OWNED BY public.challenges.id;
+
+
+--
+-- Name: claim_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.claim_groups (
+    id integer NOT NULL,
+    ref text NOT NULL,
+    feature_id integer NOT NULL,
+    source character varying(30) NOT NULL,
+    url text,
+    observed_on date,
+    identity_certain boolean DEFAULT true NOT NULL,
+    note text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: claims; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.claims (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    feature_id integer NOT NULL,
+    field character varying(24) NOT NULL,
+    value jsonb NOT NULL,
+    accepted boolean DEFAULT false NOT NULL,
+    note text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT claims_field_known CHECK (((field)::text = ANY ((ARRAY['coordinate'::character varying, 'parking_coordinate'::character varying, 'view_coordinate'::character varying, 'height_ft'::character varying, 'elevation_ft'::character varying, 'elevation_gain_ft'::character varying, 'petzoldt'::character varying, 'beauty_rating'::character varying, 'photo_rating'::character varying, 'solitude_rating'::character varying, 'hike_distance'::character varying, 'accessibility'::character varying, 'owner'::character varying, 'name'::character varying, 'alias'::character varying, 'coordinate_raw'::character varying])::text[]))),
+    CONSTRAINT claims_value_shape CHECK (
+CASE
+    WHEN ((field)::text = ANY ((ARRAY['coordinate'::character varying, 'parking_coordinate'::character varying, 'view_coordinate'::character varying])::text[])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
+    WHEN ((field)::text = 'height_ft'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric > (0)::numeric))
+    WHEN ((field)::text = ANY ((ARRAY['elevation_ft'::character varying, 'elevation_gain_ft'::character varying])::text[])) THEN (jsonb_typeof(value) = 'number'::text)
+    WHEN ((field)::text = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
+    WHEN ((field)::text = ANY ((ARRAY['beauty_rating'::character varying, 'photo_rating'::character varying, 'solitude_rating'::character varying])::text[])) THEN ((jsonb_typeof(value) = 'number'::text) AND ((((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric)))
+    ELSE ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) <> ''::text))
+END)
+);
+
+
+--
+-- Name: features; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.features (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    parking_location_id integer,
+    feature_location_id integer,
+    visited boolean DEFAULT false,
+    rt_hike_distance text,
+    difficulty_rating character(1),
+    beauty_rating integer,
+    photo_rating integer,
+    solitude_rating integer,
+    hwnc_id integer,
+    cmc_hike_no integer,
+    book_page integer,
+    kind character varying(20) DEFAULT 'waterfall'::character varying NOT NULL,
+    accessibility text,
+    height_ft integer,
+    owner character varying(40),
+    deprecated_reason character varying(24),
+    deprecated_note text,
+    deprecated_on date,
+    elevation_ft integer,
+    view_location_id integer,
+    elevation_gain_ft integer,
+    petzoldt numeric(5,2) GENERATED ALWAYS AS (
+CASE
+    WHEN ((rt_hike_distance ~ '^[0-9]+(\.[0-9]+)?$'::text) AND (elevation_gain_ft IS NOT NULL)) THEN round(((rt_hike_distance)::numeric + ((elevation_gain_ft)::numeric / 500.0)), 2)
+    ELSE NULL::numeric
+END) STORED,
+    CONSTRAINT features_beauty_range CHECK (((beauty_rating >= 1) AND (beauty_rating <= 10))),
+    CONSTRAINT features_deprecated_note_check CHECK (((deprecated_note IS NULL) OR (deprecated_reason IS NOT NULL))),
+    CONSTRAINT features_deprecated_reason_check CHECK (((deprecated_reason IS NULL) OR ((deprecated_reason)::text = ANY ((ARRAY['destroyed'::character varying, 'damaged'::character varying, 'private_property'::character varying, 'access_closed'::character varying, 'hazard'::character varying])::text[])))),
+    CONSTRAINT features_difficulty_rating_check CHECK ((difficulty_rating = ANY (ARRAY['E'::bpchar, 'M'::bpchar, 'D'::bpchar]))),
+    CONSTRAINT features_kind_check CHECK (((kind)::text = ANY ((ARRAY['waterfall'::character varying, 'tower'::character varying, 'vista'::character varying, 'other'::character varying])::text[]))),
+    CONSTRAINT features_photo_range CHECK (((photo_rating >= 1) AND (photo_rating <= 10))),
+    CONSTRAINT features_solitude_range CHECK (((solitude_rating >= 1) AND (solitude_rating <= 10)))
+);
+
+
+--
+-- Name: COLUMN features.owner; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.features.owner IS 'Landowner/manager: Federal, State, GSMNP, Cherokee, Conservancy, Private, Duke Energy. Drives access expectations -- Private may charge, Conservancy may restrict hours.';
+
+
+--
+-- Name: COLUMN features.elevation_ft; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.features.elevation_ft IS 'Elevation of the feature itself, where a source gives one. Currently towers only.';
+
+
+--
+-- Name: claim_conflicts; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.claim_conflicts AS
+ SELECT c.feature_id,
+    f.name,
+    c.field,
+    count(DISTINCT c.value) AS distinct_values,
+    count(*) FILTER (WHERE c.accepted) AS accepted,
+    string_agg(DISTINCT (cg.source)::text, ', '::text ORDER BY (cg.source)::text) AS sources
+   FROM ((public.claims c
+     JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
+     JOIN public.features f ON ((f.id = c.feature_id)))
+  WHERE ((c.field)::text <> 'alias'::text)
+  GROUP BY c.feature_id, f.name, c.field
+ HAVING ((count(DISTINCT c.value) > 1) OR (count(*) FILTER (WHERE c.accepted) = 0));
+
+
+--
+-- Name: claim_coordinate_spread; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.claim_coordinate_spread AS
+ WITH pts AS (
+         SELECT c.feature_id,
+            cg.source,
+            c.accepted,
+            ((c.value ->> 'lat'::text))::numeric AS lat,
+            ((c.value ->> 'lon'::text))::numeric AS lon
+           FROM (public.claims c
+             JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
+          WHERE ((c.field)::text = 'coordinate'::text)
+        )
+ SELECT s.feature_id,
+    f.name,
+    round(max(((111320)::double precision * sqrt(((power((a.lat - b.lat), (2)::numeric))::double precision + power((((a.lon - b.lon))::double precision * cos(radians((a.lat)::double precision))), (2)::double precision)))))) AS metres_apart,
+    max(s.sources) AS sources,
+    bool_or(s.decided) AS decided
+   FROM (((( SELECT pts.feature_id,
+            count(DISTINCT pts.source) AS sources,
+            bool_or(pts.accepted) AS decided
+           FROM pts
+          GROUP BY pts.feature_id) s
+     JOIN pts a ON ((a.feature_id = s.feature_id)))
+     JOIN pts b ON (((b.feature_id = s.feature_id) AND ((b.source)::text > (a.source)::text))))
+     JOIN public.features f ON ((f.id = s.feature_id)))
+  GROUP BY s.feature_id, f.name;
+
+
+--
+-- Name: claim_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.claim_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: claim_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.claim_groups_id_seq OWNED BY public.claim_groups.id;
+
+
+--
+-- Name: claims_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.claims_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: claims_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.claims_id_seq OWNED BY public.claims.id;
+
+
+--
+-- Name: locations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.locations (
+    id integer NOT NULL,
+    latitude numeric(10,8),
+    longitude numeric(11,8)
+);
+
+
+--
+-- Name: coordinate_confidence; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.coordinate_confidence AS
+ WITH pts AS (
+         SELECT c.feature_id,
+                CASE
+                    WHEN ((cg.source)::text ~~ 'hikingwnc%'::text) THEN 'hikingwnc'::character varying
+                    ELSE cg.source
+                END AS source,
+            ((c.value ->> 'lat'::text))::numeric AS lat,
+            ((c.value ->> 'lon'::text))::numeric AS lon
+           FROM (public.claims c
+             JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
+          WHERE (((c.field)::text = 'coordinate'::text) AND cg.identity_certain)
+        ), stored AS (
+         SELECT f.id AS feature_id,
+            f.name,
+            l.latitude AS lat,
+            l.longitude AS lon
+           FROM (public.features f
+             LEFT JOIN public.locations l ON ((l.id = f.feature_location_id)))
+          WHERE (f.deprecated_reason IS NULL)
+        ), spread AS (
+         SELECT a.feature_id,
+            max(((111320)::double precision * sqrt(((power((a.lat - b.lat), (2)::numeric))::double precision + power((((a.lon - b.lon))::double precision * cos(radians((a.lat)::double precision))), (2)::double precision))))) AS metres
+           FROM (pts a
+             JOIN pts b ON (((b.feature_id = a.feature_id) AND ((b.source)::text > (a.source)::text))))
+          GROUP BY a.feature_id
+        ), nearest AS (
+         SELECT p_1.feature_id,
+            min(((111320)::double precision * sqrt(((power((s_1.lat - p_1.lat), (2)::numeric))::double precision + power((((s_1.lon - p_1.lon))::double precision * cos(radians((s_1.lat)::double precision))), (2)::double precision))))) AS metres
+           FROM (pts p_1
+             JOIN stored s_1 ON (((s_1.feature_id = p_1.feature_id) AND (s_1.lat IS NOT NULL))))
+          GROUP BY p_1.feature_id
+        )
+ SELECT s.feature_id,
+    s.name,
+    count(DISTINCT p.source) AS sources,
+    round(COALESCE(spread.metres, (0)::double precision)) AS sources_apart_m,
+    round(nearest.metres) AS ours_off_by_m,
+        CASE
+            WHEN (s.lat IS NULL) THEN 'no coordinate'::text
+            WHEN (count(p.source) = 0) THEN 'unsourced'::text
+            WHEN (COALESCE(spread.metres, (0)::double precision) > (500)::double precision) THEN 'disputed'::text
+            WHEN ((count(DISTINCT p.source) >= 3) AND (COALESCE(spread.metres, (0)::double precision) <= (100)::double precision) AND (nearest.metres <= (100)::double precision)) THEN 'confirmed'::text
+            WHEN ((count(DISTINCT p.source) >= 2) AND (COALESCE(spread.metres, (0)::double precision) <= (250)::double precision) AND (nearest.metres <= (250)::double precision)) THEN 'corroborated'::text
+            WHEN ((count(DISTINCT p.source) = 1) AND (nearest.metres <= (100)::double precision)) THEN 'single source'::text
+            ELSE 'unverified'::text
+        END AS tier
+   FROM (((stored s
+     LEFT JOIN pts p ON ((p.feature_id = s.feature_id)))
+     LEFT JOIN spread ON ((spread.feature_id = s.feature_id)))
+     LEFT JOIN nearest ON ((nearest.feature_id = s.feature_id)))
+  GROUP BY s.feature_id, s.name, s.lat, spread.metres, nearest.metres;
+
+
+--
+-- Name: corrections; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.corrections (
+    id integer NOT NULL,
+    user_id integer,
+    feature_id integer,
+    subject text,
+    field character varying(40),
+    current_value text,
+    suggested_value text,
+    comment text,
+    status character varying(20) DEFAULT 'open'::character varying NOT NULL,
+    resolved_by integer,
+    resolved_at timestamp without time zone,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT corrections_has_target CHECK (((feature_id IS NOT NULL) OR (subject IS NOT NULL))),
+    CONSTRAINT corrections_status_check CHECK (((status)::text = ANY ((ARRAY['open'::character varying, 'accepted'::character varying, 'rejected'::character varying, 'duplicate'::character varying])::text[])))
+);
+
+
+--
+-- Name: corrections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.corrections_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: corrections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.corrections_id_seq OWNED BY public.corrections.id;
+
+
+--
+-- Name: feature_areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feature_areas (
+    feature_id integer NOT NULL,
+    area_id integer NOT NULL,
+    source character varying(20) NOT NULL
+);
+
+
+--
+-- Name: features_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.features_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: features_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.features_id_seq OWNED BY public.features.id;
+
+
+--
+-- Name: goals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.goals (
+    challenge_id integer NOT NULL,
+    feature_id integer NOT NULL,
+    id integer NOT NULL
+);
+
+
+--
+-- Name: goals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.goals_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: goals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.goals_id_seq OWNED BY public.goals.id;
+
+
+--
+-- Name: links; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.links (
+    id integer NOT NULL,
+    feature_id integer NOT NULL,
+    url text NOT NULL,
+    rel character varying(30),
+    comments text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.links_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.links_id_seq OWNED BY public.links.id;
+
+
+--
+-- Name: locations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.locations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.locations_id_seq OWNED BY public.locations.id;
+
+
+--
+-- Name: magic_links; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.magic_links (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    token_hash text NOT NULL,
+    expires_at timestamp without time zone NOT NULL,
+    used_at timestamp without time zone,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: magic_links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.magic_links_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: magic_links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.magic_links_id_seq OWNED BY public.magic_links.id;
+
+
+--
+-- Name: notes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notes (
+    id integer NOT NULL,
+    feature_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    text text,
+    source character varying(30)
+);
+
+
+--
+-- Name: COLUMN notes.source; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.notes.source IS 'Where the note came from. NULL = written by the account owner.';
+
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.notes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.notes_id_seq OWNED BY public.notes.id;
+
+
+--
+-- Name: route_ratings; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.route_ratings AS
+ SELECT cg.id AS group_id,
+    cg.feature_id,
+    f.name,
+    cg.source,
+    cg.url,
+    (regexp_replace((d.value #>> '{}'::text[]), '[^0-9.].*$'::text, ''::text))::numeric AS miles,
+    ((g.value #>> '{}'::text[]))::integer AS gain_ft,
+    round(((regexp_replace((d.value #>> '{}'::text[]), '[^0-9.].*$'::text, ''::text))::numeric + ((((g.value #>> '{}'::text[]))::integer)::numeric / 500.0)), 2) AS petzoldt,
+    public.petzoldt_band(round(((regexp_replace((d.value #>> '{}'::text[]), '[^0-9.].*$'::text, ''::text))::numeric + ((((g.value #>> '{}'::text[]))::integer)::numeric / 500.0)), 2)) AS band
+   FROM (((public.claim_groups cg
+     JOIN public.features f ON ((f.id = cg.feature_id)))
+     JOIN public.claims d ON (((d.group_id = cg.id) AND ((d.field)::text = 'hike_distance'::text))))
+     JOIN public.claims g ON (((g.group_id = cg.id) AND ((g.field)::text = 'elevation_gain_ft'::text))))
+  WHERE ((d.value #>> '{}'::text[]) ~ '^[0-9]'::text);
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schema_migrations (
+    filename text NOT NULL,
+    applied_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sessions (
+    token text NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    email character varying(255) NOT NULL,
+    password_digest text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    is_admin boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: visits; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.visits (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    feature_id integer NOT NULL,
+    visited_on date NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    beauty_rating integer,
+    photo_rating integer,
+    solitude_rating integer,
+    CONSTRAINT visits_beauty_range CHECK (((beauty_rating >= 1) AND (beauty_rating <= 4))),
+    CONSTRAINT visits_photo_range CHECK (((photo_rating >= 1) AND (photo_rating <= 4))),
+    CONSTRAINT visits_solitude_range CHECK (((solitude_rating >= 1) AND (solitude_rating <= 4)))
+);
+
+
+--
+-- Name: visits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.visits_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: visits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.visits_id_seq OWNED BY public.visits.id;
+
+
+--
+-- Name: areas id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.areas ALTER COLUMN id SET DEFAULT nextval('public.areas_id_seq'::regclass);
+
+
+--
+-- Name: challenges id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.challenges ALTER COLUMN id SET DEFAULT nextval('public.challenges_id_seq'::regclass);
+
+
+--
+-- Name: claim_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claim_groups ALTER COLUMN id SET DEFAULT nextval('public.claim_groups_id_seq'::regclass);
+
+
+--
+-- Name: claims id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claims ALTER COLUMN id SET DEFAULT nextval('public.claims_id_seq'::regclass);
+
+
+--
+-- Name: corrections id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.corrections ALTER COLUMN id SET DEFAULT nextval('public.corrections_id_seq'::regclass);
+
+
+--
+-- Name: features id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.features ALTER COLUMN id SET DEFAULT nextval('public.features_id_seq'::regclass);
+
+
+--
+-- Name: goals id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.goals ALTER COLUMN id SET DEFAULT nextval('public.goals_id_seq'::regclass);
+
+
+--
+-- Name: links id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.links ALTER COLUMN id SET DEFAULT nextval('public.links_id_seq'::regclass);
+
+
+--
+-- Name: locations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.locations ALTER COLUMN id SET DEFAULT nextval('public.locations_id_seq'::regclass);
+
+
+--
+-- Name: magic_links id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.magic_links ALTER COLUMN id SET DEFAULT nextval('public.magic_links_id_seq'::regclass);
+
+
+--
+-- Name: notes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notes ALTER COLUMN id SET DEFAULT nextval('public.notes_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: visits id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.visits ALTER COLUMN id SET DEFAULT nextval('public.visits_id_seq'::regclass);
+
+
+--
+-- Name: areas areas_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.areas
+    ADD CONSTRAINT areas_name_key UNIQUE (name);
+
+
+--
+-- Name: areas areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.areas
+    ADD CONSTRAINT areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: challenges challenges_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.challenges
+    ADD CONSTRAINT challenges_name_key UNIQUE (name);
+
+
+--
+-- Name: challenges challenges_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.challenges
+    ADD CONSTRAINT challenges_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: claim_groups claim_groups_id_feature_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claim_groups
+    ADD CONSTRAINT claim_groups_id_feature_id_key UNIQUE (id, feature_id);
+
+
+--
+-- Name: claim_groups claim_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claim_groups
+    ADD CONSTRAINT claim_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: claim_groups claim_groups_ref_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claim_groups
+    ADD CONSTRAINT claim_groups_ref_key UNIQUE (ref);
+
+
+--
+-- Name: claims claims_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claims
+    ADD CONSTRAINT claims_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: corrections corrections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.corrections
+    ADD CONSTRAINT corrections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feature_areas feature_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_areas
+    ADD CONSTRAINT feature_areas_pkey PRIMARY KEY (feature_id, area_id, source);
+
+
+--
+-- Name: features features_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.features
+    ADD CONSTRAINT features_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: goals goals_challenge_feature_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.goals
+    ADD CONSTRAINT goals_challenge_feature_key UNIQUE (challenge_id, feature_id);
+
+
+--
+-- Name: goals goals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.goals
+    ADD CONSTRAINT goals_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: links links_feature_id_url_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_feature_id_url_key UNIQUE (feature_id, url);
+
+
+--
+-- Name: links links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: locations locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.locations
+    ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: magic_links magic_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.magic_links
+    ADD CONSTRAINT magic_links_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: magic_links magic_links_token_hash_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.magic_links
+    ADD CONSTRAINT magic_links_token_hash_key UNIQUE (token_hash);
+
+
+--
+-- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notes
+    ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (filename);
+
+
+--
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (token);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: visits visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.visits
+    ADD CONSTRAINT visits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: visits visits_user_feature_date_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.visits
+    ADD CONSTRAINT visits_user_feature_date_key UNIQUE (user_id, feature_id, visited_on);
+
+
+--
+-- Name: claim_groups_feature_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX claim_groups_feature_idx ON public.claim_groups USING btree (feature_id);
+
+
+--
+-- Name: claim_groups_source_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX claim_groups_source_idx ON public.claim_groups USING btree (source);
+
+
+--
+-- Name: claims_feature_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX claims_feature_idx ON public.claims USING btree (feature_id);
+
+
+--
+-- Name: claims_field_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX claims_field_idx ON public.claims USING btree (field);
+
+
+--
+-- Name: claims_one_accepted; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX claims_one_accepted ON public.claims USING btree (feature_id, field) WHERE (accepted AND ((field)::text <> 'alias'::text));
+
+
+--
+-- Name: claims_one_value_per_group; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX claims_one_value_per_group ON public.claims USING btree (group_id, field, value);
+
+
+--
+-- Name: corrections_feature_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX corrections_feature_idx ON public.corrections USING btree (feature_id);
+
+
+--
+-- Name: corrections_open_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX corrections_open_idx ON public.corrections USING btree (status, created_at DESC);
+
+
+--
+-- Name: feature_areas_area_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX feature_areas_area_idx ON public.feature_areas USING btree (area_id);
+
+
+--
+-- Name: features_deprecated_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX features_deprecated_idx ON public.features USING btree (deprecated_reason) WHERE (deprecated_reason IS NOT NULL);
+
+
+--
+-- Name: links_feature_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX links_feature_idx ON public.links USING btree (feature_id);
+
+
+--
+-- Name: links_url_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX links_url_idx ON public.links USING btree (url);
+
+
+--
+-- Name: magic_links_user_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX magic_links_user_idx ON public.magic_links USING btree (user_id, created_at DESC);
+
+
+--
+-- Name: visits_user_feature_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX visits_user_feature_idx ON public.visits USING btree (user_id, feature_id);
+
+
+--
+-- Name: claim_groups claim_groups_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claim_groups
+    ADD CONSTRAINT claim_groups_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: claims claims_group_id_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claims
+    ADD CONSTRAINT claims_group_id_feature_id_fkey FOREIGN KEY (group_id, feature_id) REFERENCES public.claim_groups(id, feature_id) ON DELETE CASCADE;
+
+
+--
+-- Name: corrections corrections_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.corrections
+    ADD CONSTRAINT corrections_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: corrections corrections_resolved_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.corrections
+    ADD CONSTRAINT corrections_resolved_by_fkey FOREIGN KEY (resolved_by) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: corrections corrections_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.corrections
+    ADD CONSTRAINT corrections_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: feature_areas feature_areas_area_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_areas
+    ADD CONSTRAINT feature_areas_area_id_fkey FOREIGN KEY (area_id) REFERENCES public.areas(id) ON DELETE CASCADE;
+
+
+--
+-- Name: feature_areas feature_areas_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_areas
+    ADD CONSTRAINT feature_areas_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: features features_view_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.features
+    ADD CONSTRAINT features_view_location_id_fkey FOREIGN KEY (view_location_id) REFERENCES public.locations(id);
+
+
+--
+-- Name: goals goals_challenge_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.goals
+    ADD CONSTRAINT goals_challenge_id_fkey FOREIGN KEY (challenge_id) REFERENCES public.challenges(id) ON DELETE CASCADE;
+
+
+--
+-- Name: goals goals_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.goals
+    ADD CONSTRAINT goals_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: links links_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: magic_links magic_links_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.magic_links
+    ADD CONSTRAINT magic_links_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: notes notes_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notes
+    ADD CONSTRAINT notes_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: sessions sessions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: visits visits_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.visits
+    ADD CONSTRAINT visits_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: visits visits_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.visits
+    ADD CONSTRAINT visits_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict uivGcPzvrUndUSsl6IvMtdz6f9h1LLwx3OkNVKv1tKSIIrkeFddOCQAZP6TU13n
+

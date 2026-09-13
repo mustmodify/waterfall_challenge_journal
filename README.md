@@ -44,7 +44,7 @@ Sign-in is passwordless. Enter an email address and the server issues a
 single-use link that expires in 20 minutes; following it signs you in, and
 creates the account if the address is new.
 
-**There is no mail transport yet.** The link is written to the server log:
+**With no mail transport configured**, the link is written to the server log:
 
 ```
 2026/09/13 00:50:33 magic link for you@example.com: http://localhost:8080/auth/callback?token=...

@@ -91,10 +91,14 @@ func requestMagicLink(w http.ResponseWriter, r *http.Request) {
 	}
 	link := scheme + "://" + r.Host + "/auth/callback?token=" + url.QueryEscape(token)
 
-	// There is no mail transport yet, so the link goes to the server log. That
-	// is fine for one person on a laptop and completely unacceptable in public:
-	// anyone who can read the log can sign in as anyone who asked for a link.
-	log.Printf("magic link for %s: %s", email, link)
+	// A link in the log is a sign-in credential sitting in plain text for its
+	// whole twenty minutes. Worth it on a laptop with no mail transport, where
+	// the alternative is no way to sign in at all; never once mail works.
+	if mailConfigured() {
+		log.Printf("magic link sent to %s", email)
+	} else {
+		log.Printf("magic link for %s: %s", email, link)
+	}
 
 	resp := map[string]any{"ok": true}
 	// Opt-in echo for local use. Off unless explicitly asked for, because

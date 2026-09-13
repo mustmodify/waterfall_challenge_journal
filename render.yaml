@@ -1,0 +1,31 @@
+# Render blueprint. The secrets are marked sync: false so they are set once in
+# the dashboard and never live in the repository.
+services:
+  - type: web
+    name: wanderfall
+    runtime: go
+    plan: starter
+    region: ohio
+    buildCommand: go build -o wanderfall .
+    startCommand: ./wanderfall
+    healthCheckPath: /features
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wanderfall-db
+          property: connectionString
+      - key: WANDERFALL_MAILGUN_DOMAIN
+        value: mustmodify.com
+      - key: WANDERFALL_SMTP_FROM
+        value: Wanderfall <wanderful@mustmodify.com>
+      - key: WANDERFALL_NOTIFY_EMAIL
+        value: jw@mustmodify.com
+      - key: WANDERFALL_MAILGUN_KEY
+        sync: false
+
+databases:
+  - name: wanderfall-db
+    plan: basic-256mb
+    region: ohio
+    postgresMajorVersion: "16"
