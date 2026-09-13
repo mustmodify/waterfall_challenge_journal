@@ -1,5 +1,3 @@
-// Executes index.html's inline scripts against stubs with the real 900-feature
-// payload, then drives the pin/heat rule through each filter combination.
 const fs = require('fs'), vm = require('vm');
 const html = fs.readFileSync(process.argv[2], 'utf8');
 const FEATURES = JSON.parse(fs.readFileSync(process.argv[3], 'utf8'));
@@ -52,7 +50,6 @@ const sandbox = { L, console,
     addEventListener(){} },
 };
 vm.createContext(sandbox);
-// index.html expects the globals ratings.js defines
 vm.runInContext(fs.readFileSync('static/ratings.js','utf8'), sandbox, {filename:'ratings.js'});
 blocks.forEach((b, i) => {
   const src = i === blocks.length - 1
@@ -93,7 +90,6 @@ setTimeout(() => {
   console.log('\npanes created:', panes.join(', ') || '(none)');
   console.log('cluster opts (last group):', JSON.stringify(clusterOpts, (k,v) => typeof v === 'function' ? '[fn]' : v));
   const ic = clusterOpts.iconCreateFunction;
-  // real child markers, so pieFill tallies actual markerColor output
   // cycle with a stride so a sample cluster spans several categories
   const kids = (n) => Array.from({ length: n },
     (_, i) => made[(i * 7) % made.length]);
