@@ -475,10 +475,11 @@
 
     #anon p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
     #anon .sig { color: var(--haze); margin-bottom: 0; }
-    #anon .actions, #rateby .actions, #fix .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
+    #intro .actions, #anon .actions, #rateby .actions, #fix .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
 
     /* Modal buttons are pills. The secondary keeps a border so it still reads
        as a button next to the filled one, rather than as a stray link. */
+    #intro .actions button,
     #anon .actions button,
     #rateby .actions button,
     #fix .actions button {
@@ -975,6 +976,9 @@
         <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
       <p class="whereami">You can get back to this card any time from the
         <strong>Actions</strong> button &rsaquo; <strong>Info</strong>.</p>
+      <div class="actions">
+        <button type="button" class="primary" id="intro-go">Let's Go! &rsaquo;</button>
+      </div>
     </div>
   </div>
 
@@ -1966,6 +1970,7 @@
         MENU_ACTIONS[t.dataset.act]();
       }));
     $('intro-close').addEventListener('click', () => setIntro(false));
+    $('intro-go').addEventListener('click', () => setIntro(false));
     // click the backdrop, but not the panel sitting on it
     $('intro-backdrop').addEventListener('click', (e) => {
       if (e.target === $('intro-backdrop')) setIntro(false);
