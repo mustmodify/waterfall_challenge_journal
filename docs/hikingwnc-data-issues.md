@@ -87,3 +87,31 @@ Creek all at `35.00837, -83.24688`. That is plausible for several falls along
 one creek recorded from a single trailhead, so it is noted rather than reported.
 Twin Falls (SC) is listed above separately because the two falls involved are
 100 km apart and on different watersheds.
+
+## Claims
+
+Every source assertion now lives in `claims`, one row per source per field, with
+`accepted` marking the one promoted into `features`. Two views read it:
+
+- `claim_conflicts` — fields where sources disagree, or where nothing is accepted.
+- `claim_coordinate_spread` — how far apart, in metres, the sources put each
+  feature. Rounding noise and a real dispute are the same row in
+  `claim_conflicts`; this separates them.
+
+What the backfill turned up:
+
+- The eight coordinate disputes over 700 m are all ones we had already settled:
+  the six one-degree longitude slips, Twin Falls SC, and Eastatoe Narrows.
+- 15 features carry a coordinate that matches no recorded claim, off by 5 to
+  229 m. Something edited those values and left no source. Turtleback, Hooker,
+  Drift, Rainbow, Schoolhouse and King's Creek are among them.
+- Upper Log Hollow Falls has two hikingwnc pages 229 m apart, so the source
+  disagrees with itself.
+- hikingwnc publishes no coordinate for More Cave, Tranquility, Turbulent and
+  Red Butt Falls -- the scrape holds the literal string `LAT 35.???? LONG
+  -83.????`. Three more carry a malformed number (`LONG -82.3.9353`) and were
+  left unclaimed rather than guessed.
+- `hike_distance` has 928 claims and no accepted value anywhere, because
+  `features.rt_hike_distance` is a derived round-trip number and the sources
+  publish prose one-way distances. Nothing is wrong; nothing has been resolved
+  either.
