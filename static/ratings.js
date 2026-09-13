@@ -34,11 +34,9 @@ window.wjRatingSelect = function (key, id) {
 // hikingwnc rates 1-10. Those numbers are his work and stay out of the page
 // until he gives permission, so a score is spoken in our own words instead.
 //
-// The cuts differ by axis because the distributions do. Beauty uses three of
-// the four words: nothing he published is labelled disappointing, since that is
-// our word for how a visit felt, not a verdict to hang on someone else's work.
+// The cuts differ by axis because the distributions do.
 const WJ_BANDS = {
-  beauty:   [[9, 3], [7, 2], [0, 1]],
+  beauty:   [[9, 3], [7, 2], [5, 1], [0, 0]],
   photo:    [[10, 3], [8, 2], [6, 1], [0, 0]],
   solitude: [[10, 3], [8, 2], [6, 1], [0, 0]],
 };
