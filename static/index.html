@@ -1400,6 +1400,20 @@
     // ---------- data ----------
     let introAutoShown = false;
 
+    // Three reloads is enough to have read it. The Actions menu still opens it
+    // on demand, and a new browser session starts the count over.
+    const INTRO_LIMIT = 3;
+
+    function introShownCount() {
+      try { return Number(sessionStorage.getItem('wj-intro-seen')) || 0; }
+      catch (e) { return 0; }
+    }
+
+    function countIntroShown() {
+      try { sessionStorage.setItem('wj-intro-seen', String(introShownCount() + 1)); }
+      catch (e) { /* private mode */ }
+    }
+
     function loadAll() {
       return Promise.all([
         fetch('/me').then((r) => (r.ok ? r.json() : null)).catch(() => null),
@@ -1412,8 +1426,9 @@
         renderAuth();
         // Once per page load, not on every refresh -- otherwise signing out
         // would throw the welcome back in your face.
-        if (!state.user && !introAutoShown) {
+        if (!state.user && !introAutoShown && introShownCount() < INTRO_LIMIT) {
           introAutoShown = true;
+          countIntroShown();
           setIntro(true);
         }
         renderChallenges();
