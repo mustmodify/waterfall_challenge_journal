@@ -2427,10 +2427,14 @@
       }
     }
 
+    // The fitted centre lands in Pisgah with no waterfall within 9 km of it.
+    // Asheville is where people actually start from.
+    const ASHEVILLE = [35.6181014232303, -82.51233286689967];
+
     function dismissIntro() {
       setIntro(false);
       if (!narrowScreen.matches) return;
-      if (!viewRestored) map.setZoom(9);
+      if (!viewRestored) map.setView(ASHEVILLE, 9);
       setTimeout(() => confettiBurst($('showing')), 1500);
     }
 
