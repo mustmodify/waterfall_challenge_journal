@@ -216,6 +216,25 @@
 
     #showing b { font-weight: 700; display: inline-block; }
 
+    #showing .scope {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-left: 6px;
+      padding: 1px 4px 1px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--ink);
+    }
+
+    #showing .scope button {
+      padding: 0 3px;
+      font-size: 0.7rem;
+      line-height: 1;
+      color: var(--mist);
+    }
+
     /* Just the number, not the whole bar -- the row is a block, so animating
        it painted the full width of the card. */
     @keyframes count-pop {
@@ -1673,7 +1692,16 @@
       const goals = visibleGoals();
       const showing = $('showing');
       showing.innerHTML = 'Showing <b>' + goals.length.toLocaleString() + '</b> ' +
-        (goals.length === 1 ? 'adventure' : 'adventures');
+        (goals.length === 1 ? 'adventure' : 'adventures') +
+        (state.area ? ' <span class="scope">' + escapeHtml(state.area) +
+          '<button type="button" class="quiet" id="scope-clear" ' +
+          'aria-label="Clear area filter">&#10005;</button></span>' : '');
+      if (state.area) {
+        $('scope-clear').addEventListener('click', () => {
+          setArea('');
+          $('search').value = '';
+        });
+      }
       if (lastShownCount !== null && lastShownCount !== goals.length) {
         const num = showing.querySelector('b');
         void num.offsetWidth;              // restart the animation
@@ -2016,7 +2044,7 @@
 
       if (typed.endsWith(AREA_SUFFIX)) {
         const area = typed.slice(0, -AREA_SUFFIX.length);
-        if (areaNames.has(area)) { setArea(area); $('search').value = ''; }
+        if (areaNames.has(area)) setArea(area);
         return;
       }
 
@@ -2024,10 +2052,8 @@
       const goal = state.features.find((g) => g.name === typed);
       if (goal) {
         openDrawer(goal, true);
-        $('search').value = '';
       } else if (areaNames.has(typed)) {
         setArea(typed);
-        $('search').value = '';
       }
     });
 
