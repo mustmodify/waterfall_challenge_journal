@@ -40,6 +40,8 @@
     /* Search and the way to the filters, side by side. The brand needs the
        full width above them -- there is no room for it beside the field. */
     .find { display: flex; gap: 8px; align-items: stretch; }
+    #filter-controls { margin-top: 10px; }
+    #filters-slot #filter-controls { margin-top: 0; }
     .find #search { margin-bottom: 0; }
 
     #filter-button {
@@ -108,14 +110,14 @@
       align-items: center;
     }
 
-    .chip-row .row-label {
+    .row-label {
       font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--haze);
-      margin-right: 2px;
-      min-width: 52px;
     }
+
+    .chip-row .row-label { margin-right: 2px; min-width: 52px; }
 
     .chip {
       border: 1px solid var(--line);
@@ -139,7 +141,7 @@
 
     .chip-row + .chip-row { margin-top: 10px; }
     #filters .chip-row { align-items: center; }
-    #filters #area-pick, #filters #challenge-pick { margin-top: 12px; padding-top: 12px; }
+    #filters #area-pick, #filters #challenge-pick { margin-top: 10px; }
 
     #legend {
       margin-top: 10px;
@@ -167,11 +169,8 @@
       align-items: center;
       gap: 8px;
       margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--line);
     }
 
-    #area-pick .row-label { min-width: auto; margin: 0; }
 
     #area-current { flex: 1; min-width: 0; font-size: 0.82rem; font-weight: 600; }
     #area-clear { padding: 4px 6px; }
@@ -181,11 +180,8 @@
       align-items: center;
       gap: 8px;
       margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--line);
     }
 
-    #challenge-pick .row-label { min-width: auto; margin: 0; }
 
     #challenge-select {
       flex: 1;
@@ -958,19 +954,11 @@
     <div class="find">
       <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
       <datalist id="goal-names"></datalist>
-      <button type="button" class="chip" id="filter-button" aria-expanded="false">
+      <button type="button" class="chip" id="filter-button" aria-expanded="false" hidden>
         Filters<span id="filter-count" hidden></span>
       </button>
     </div>
-  </header>
-
-  <div id="filters-backdrop" hidden>
-    <div id="filters" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="filters-title">
-      <div class="modal-head">
-        <h2 id="filters-title">Filters</h2>
-        <button class="close quiet" id="filters-close" aria-label="Close">&#10005;</button>
-      </div>
-      <div class="modal-body">
+    <div id="filter-controls">
     <div class="chip-row" role="group" aria-label="Show on the map">
       <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
       <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
@@ -982,7 +970,7 @@
       <button class="chip visited" data-visited="mute" aria-pressed="true"><span class="dot" style="background:var(--c-visited)"></span>Mute</button>
     </div>
     <div class="chip-row" role="group" aria-label="Color markers by rating">
-      <span class="row-label">Rate by</span>
+      <span class="row-label">Ratings</span>
       <button class="chip rating" data-rating="beauty" aria-pressed="false">Beauty</button>
       <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
       <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
@@ -1007,7 +995,17 @@
         <span style="background:var(--r1)" title="9 and up"></span>
       </div>
       <div class="ends"><span>Lowest</span><span>Best (9+)</span></div>
+    </div>
+    </div>
+  </header>
+
+  <div id="filters-backdrop" hidden>
+    <div id="filters" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="filters-title">
+      <div class="modal-head">
+        <h2 id="filters-title">Filters</h2>
+        <button class="close quiet" id="filters-close" aria-label="Close">&#10005;</button>
       </div>
+      <div class="modal-body" id="filters-slot"></div>
       <div class="modal-foot">
         <div class="actions">
           <button type="button" class="primary" id="filters-done">Done</button>
@@ -2017,6 +2015,25 @@
       if (open) $('filters').focus();
       else syncFilterButton();
     }
+
+    // One set of controls, in two places. Desktop has room for them in the
+    // card; a phone does not, so they move into the modal rather than being
+    // duplicated -- two copies would need two sets of ids and could disagree.
+    const narrowScreen = window.matchMedia('(max-width: 720px)');
+
+    function placeFilters() {
+      const controls = $('filter-controls');
+      if (narrowScreen.matches) {
+        $('filters-slot').appendChild(controls);
+      } else {
+        $('topbar').appendChild(controls);
+        setFilters(false);
+      }
+      $('filter-button').hidden = !narrowScreen.matches;
+    }
+
+    narrowScreen.addEventListener('change', placeFilters);
+    placeFilters();
 
     $('filter-button').addEventListener('click', () => setFilters(true));
     $('filters-close').addEventListener('click', () => setFilters(false));
