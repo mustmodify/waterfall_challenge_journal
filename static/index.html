@@ -1752,6 +1752,12 @@
       }
     }
 
+    // Analytics is optional scenery: the loader is blocked in plenty of
+    // browsers and absent in development, and nothing here may depend on it.
+    function track(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+    }
+
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, (c) => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -2002,6 +2008,7 @@
 
     $('challenge-select').addEventListener('change', (e) => {
       state.challenge = e.target.value;
+      track('select_challenge', { challenge: state.challenge });
       syncFilterButton();
       renderMarkers(true);
     });
@@ -2042,16 +2049,28 @@
 
       if (typed.endsWith(AREA_SUFFIX)) {
         const area = typed.slice(0, -AREA_SUFFIX.length);
-        if (areaNames.has(area)) setArea(area);
+        if (areaNames.has(area)) {
+          track('search', { found: 'area', term: area });
+          setArea(area);
+        } else {
+          track('search', { found: 'nothing' });
+        }
         return;
       }
 
       // A place wins a tie: someone typing "Linville Falls" wants the waterfall.
+      // The term is reported only when it matches a place or area we publish,
+      // so what reaches Google is our own vocabulary rather than whatever
+      // someone typed into a box.
       const goal = state.features.find((g) => g.name === typed);
       if (goal) {
+        track('search', { found: 'place', term: goal.name });
         openDrawer(goal, true);
       } else if (areaNames.has(typed)) {
+        track('search', { found: 'area', term: typed });
         setArea(typed);
+      } else {
+        track('search', { found: 'nothing' });
       }
     });
 
@@ -2070,6 +2089,8 @@
         const k = chip.dataset.kind;
         if (state.showKinds.has(k)) state.showKinds.delete(k);
         else state.showKinds.add(k);
+        track('filter_kind', { kind: k, showing: state.showKinds.has(k),
+          kinds_on: [...state.showKinds].sort().join(',') || 'none' });
         syncFilters();
         renderMarkers(true);
       }));
@@ -2089,6 +2110,8 @@
       chip.addEventListener('click', () => {
         const key = chip.dataset.rating;
         if (state.ratings.has(key)) state.ratings.delete(key); else state.ratings.add(key);
+        track('color_by_rating', { rating: key, turned_on: state.ratings.has(key),
+          ratings_on: [...state.ratings].sort().join(',') || 'none' });
         chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
         renderLegend();
         renderMarkers(false);
