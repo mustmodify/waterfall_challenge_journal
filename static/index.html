@@ -426,14 +426,43 @@
     /* Only while there is something below. Fading unconditionally would dim
        the last line of a card that has already been read to the end. */
     .modal-body[data-more="1"] {
-      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2rem), transparent);
-      mask-image: linear-gradient(to bottom, #000 calc(100% - 2rem), transparent);
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 3.5rem), transparent);
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 3.5rem), transparent);
     }
 
     .modal-foot {
+      position: relative;
       padding: 12px 24px 16px;
       border-top: 1px solid var(--line);
     }
+
+    /* Sits on the seam between the scrolling body and the footer, half in
+       each. In the footer rather than the body because anything inside the
+       body scrolls away with the content it is advertising. */
+    .more-pill {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--pine-90);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: var(--shadow);
+      color: var(--haze);
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .more-pill:hover { color: var(--mist); }
 
     .modal-foot .actions { margin-top: 0; }
 
@@ -2039,11 +2068,29 @@
     function markScrollable(el) {
       const more = el.scrollHeight - el.scrollTop - el.clientHeight > 4;
       el.dataset.more = more ? '1' : '0';
+      if (el.wjPill) el.wjPill.hidden = !more;
     }
 
     function refreshFades() {
       document.querySelectorAll('.modal-body').forEach(markScrollable);
     }
+
+    // One pill per footer, paired with the body directly above it, built here
+    // rather than repeated in the markup of every modal.
+    document.querySelectorAll('.modal-foot').forEach((foot) => {
+      const body = foot.previousElementSibling;
+      if (!body || !body.classList.contains('modal-body')) return;
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'more-pill';
+      pill.hidden = true;
+      pill.innerHTML = 'More <span aria-hidden="true">&darr;</span>';
+      pill.addEventListener('click', () => {
+        body.scrollBy({ top: body.clientHeight * 0.8, behavior: 'smooth' });
+      });
+      foot.appendChild(pill);
+      body.wjPill = pill;
+    });
 
     document.querySelectorAll('.modal-body').forEach((b) =>
       b.addEventListener('scroll', () => markScrollable(b)));
