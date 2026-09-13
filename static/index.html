@@ -934,6 +934,7 @@
       <button class="tile" data-act="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.5 2.7c-.6.2-1 .8-1 1.4v.4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span>Info</span></button>
       <button class="tile" data-act="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg><span>Account</span></button>
       <button class="tile" data-act="challenges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 3M17 6h2.5a2.5 2.5 0 0 1-2.5 3"/><path d="M10 14v3h4v-3M8 20h8"/></svg><span>Challenges</span></button>
+      <button class="tile" data-act="queue" id="tile-queue" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="20" cy="6" r="2.5" fill="currentColor" stroke="none"/></svg><span>Corrections</span></button>
       <button class="tile" data-act="bulk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Bulk Entry</span></button>
       <button class="tile" data-act="signin" id="tile-signin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/><path d="M20 12h-9m0 0 3-3m-3 3 3 3"/></svg><span>Sign In</span></button>
       <button class="tile" data-act="signout" id="tile-signout" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/><path d="M11 12h9m0 0-3-3m3 3-3 3"/></svg><span>Sign Out</span></button>
@@ -1807,6 +1808,7 @@
       $('tile-signin').hidden = signedIn;
       $('tile-signout').hidden = !signedIn;
       $('menu-who').hidden = !signedIn;
+      $('tile-queue').hidden = !(signedIn && state.user.is_admin);
       if (!visitedTouched) state.visited = signedIn ? 'mute' : 'show';
       syncFilters();
       if (signedIn) {
@@ -1953,6 +1955,7 @@
       account:    () => { window.location.href = '/account'; },
       challenges: () => { window.location.href = '/account#challenges'; },
       bulk:       () => { window.location.href = '/bulk'; },
+      queue:      () => { window.location.href = '/corrections/queue'; },
       signin:     () => { openAuth(); },
       signout:    () => { fetch('/logout', { method: 'POST' }).then(() => loadAll()); },
     };

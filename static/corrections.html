@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corrections &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; padding: 20px 0 6px;
+    }
+    header.bar h1 {
+      margin: 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem;
+    }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; }
+
+    .filters { display: flex; gap: 6px; margin: 14px 0 18px; flex-wrap: wrap; }
+
+    .report {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+      margin-bottom: 10px;
+    }
+
+    .report.resolved { opacity: 0.55; }
+
+    .report .top {
+      display: flex; align-items: baseline; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 7px;
+    }
+
+    .report .place { font-weight: 600; }
+    .report .what { color: var(--haze); font-size: 0.85rem; }
+    .report .when { margin-left: auto; color: var(--haze); font-size: 0.78rem; white-space: nowrap; }
+    .report .comment { font-size: 0.92rem; line-height: 1.5; margin: 0 0 8px; }
+    .report .suggested { font-size: 0.85rem; color: var(--haze); margin: 0 0 8px; }
+    .report .who { font-size: 0.78rem; color: var(--haze); }
+
+    .badge {
+      font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em;
+      border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
+    }
+    .badge.open { border-color: var(--accent); color: var(--accent); }
+
+    .report .acts { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+    .empty, .note { color: var(--haze); font-size: 0.9rem; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1>Corrections</h1>
+      <nav><a href="/">Map</a><a href="/account">Account</a></nav>
+    </header>
+
+    <div id="denied" class="empty" hidden>
+      This queue is for whoever looks after the data.
+      <a href="/">Sign in on the map</a> if that's you.
+    </div>
+
+    <div id="content" hidden>
+      <p class="note">Reports people have sent about places that look wrong.
+        Nothing here changes the data by itself &mdash; accepting a report is a
+        note to yourself that you have dealt with it.</p>
+      <div class="filters" id="filters">
+        <button class="chip" data-status="" aria-pressed="true">All</button>
+        <button class="chip" data-status="open" aria-pressed="false">Open</button>
+        <button class="chip" data-status="accepted" aria-pressed="false">Accepted</button>
+        <button class="chip" data-status="rejected" aria-pressed="false">Rejected</button>
+        <button class="chip" data-status="duplicate" aria-pressed="false">Duplicate</button>
+      </div>
+      <div id="list"></div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let filter = '';
+    const FIELDS = {
+      location: 'pin in the wrong place', name: 'name is wrong',
+      access: 'access has changed', gone: 'not there any more',
+      rating: 'a rating is wrong', missing: 'a place is missing', other: 'something else',
+    };
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function load() {
+      fetch('/corrections' + (filter ? '?status=' + filter : ''))
+        .then((r) => {
+          if (r.status === 401 || r.status === 403) { $('denied').hidden = false; $('content').hidden = true; return null; }
+          return r.json();
+        })
+        .then((rows) => { if (rows) render(rows); });
+    }
+
+    function render(rows) {
+      $('denied').hidden = true;
+      $('content').hidden = false;
+      if (!rows.length) { $('list').innerHTML = '<p class="empty">Nothing here.</p>'; return; }
+      $('list').innerHTML = rows.map((c) => {
+        const place = c.feature_name || c.subject || 'somewhere unnamed';
+        const link = c.feature_id ? ' <a href="/?feature=' + c.feature_id + '">on the map</a>' : '';
+        return '<div class="report' + (c.status === 'open' ? '' : ' resolved') + '">' +
+          '<div class="top"><span class="place">' + esc(place) + '</span>' +
+          '<span class="badge ' + esc(c.status) + '">' + esc(c.status) + '</span>' +
+          '<span class="what">' + esc(FIELDS[c.field] || c.field) + '</span>' +
+          '<span class="when">' + esc(c.created_at.slice(0, 16)) + '</span></div>' +
+          '<p class="comment">' + esc(c.comment) + '</p>' +
+          (c.suggested_value ? '<p class="suggested">Suggested: ' + esc(c.suggested_value) + '</p>' : '') +
+          '<p class="who">' + (c.reported_by ? esc(c.reported_by) : 'anonymous') + link + '</p>' +
+          '<div class="acts">' +
+          ['accepted', 'rejected', 'duplicate', 'open']
+            .filter((s) => s !== c.status)
+            .map((s) => '<button class="chip" data-id="' + c.id + '" data-set="' + s + '">' +
+              (s === 'open' ? 'Reopen' : s[0].toUpperCase() + s.slice(1)) + '</button>').join('') +
+          '<button class="chip" data-id="' + c.id + '" data-del="1">Delete</button>' +
+          '</div></div>';
+      }).join('');
+    }
+
+    $('list').addEventListener('click', (e) => {
+      const id = e.target.dataset.id;
+      if (!id) return;
+      if (e.target.dataset.del) {
+        if (!confirm('Delete this report? Accepting or rejecting keeps the record.')) return;
+        fetch('/corrections/' + id, { method: 'DELETE' }).then(load);
+        return;
+      }
+      fetch('/corrections/' + id, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: e.target.dataset.set }),
+      }).then(load);
+    });
+
+    $('filters').addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      filter = e.target.dataset.status;
+      [...$('filters').children].forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === e.target)));
+      load();
+    });
+
+    load();
+  </script>
+</body>
+
+</html>
