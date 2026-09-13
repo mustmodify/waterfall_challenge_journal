@@ -1646,6 +1646,25 @@
       } catch (e) { /* private mode */ }
     });
 
+    let returnTimer = null;
+
+    // A filter can change the map anywhere on it, so show the whole result --
+    // then hand back the zoom they were reading at, centred on what is left.
+    function showBounds(bounds) {
+      const back = map.getZoom();
+      clearTimeout(returnTimer);
+      map.fitBounds(bounds, { padding: [40, 40] });
+      // A phone screen is narrow enough that fitting the whole region lands
+      // around z6, where the clusters are a single blob.
+      if (window.matchMedia('(max-width: 720px)').matches && map.getZoom() < 8) map.setZoom(8);
+      if (map.getZoom() >= back) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        map.setView(bounds.getCenter(), back);
+        return;
+      }
+      returnTimer = setTimeout(() => map.flyTo(bounds.getCenter(), back), 1400);
+    }
+
     let triedSavedView = false;
     let viewRestored = false;
     let lastShownCount = null;
@@ -1701,12 +1720,7 @@
           }
         }
         const bounds = fitBoundsFor(goals);
-        if (bounds.isValid()) {
-          map.fitBounds(bounds, { padding: [40, 40] });
-          // A phone screen is narrow enough that fitting the whole region lands
-          // around z6, where the clusters are a single blob.
-          if (window.matchMedia("(max-width: 720px)").matches && map.getZoom() < 8) map.setZoom(8);
-        }
+        if (bounds.isValid()) showBounds(bounds);
       }
     }
 
