@@ -478,6 +478,10 @@
 
     #anon p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
     #anon .sig { color: var(--haze); margin-bottom: 0; }
+    /* The welcome card has one button and it ends the card, so it sits where
+       you finish reading rather than back at the left margin. */
+    #intro .actions { justify-content: flex-end; }
+
     #intro .actions, #anon .actions, #rateby .actions, #fix .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
 
     /* Modal buttons are pills. The secondary keeps a border so it still reads
