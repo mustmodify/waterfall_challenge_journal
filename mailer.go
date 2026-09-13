@@ -47,6 +47,11 @@ func initMailer() {
 	if v := os.Getenv("WANDERFALL_NOTIFY_EMAIL"); v != "" {
 		notifyAddress = v
 	}
+	if mg, ok := newMailgunMailer(); ok {
+		mailer = mg
+		log.Printf("mail via the Mailgun API as %s", mg.(mailgunMailer).from)
+		return
+	}
 	host := os.Getenv("WANDERFALL_SMTP_HOST")
 	if host == "" {
 		log.Printf("no WANDERFALL_SMTP_HOST: mail will be written to this log, not sent")
@@ -76,8 +81,11 @@ func initMailer() {
 }
 
 func mailConfigured() bool {
-	_, ok := mailer.(smtpMailer)
-	return ok
+	switch mailer.(type) {
+	case smtpMailer, mailgunMailer:
+		return true
+	}
+	return false
 }
 
 // Errors are logged and swallowed on purpose: a report already written to the
