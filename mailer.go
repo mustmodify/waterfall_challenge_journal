@@ -22,7 +22,7 @@ func (logMailer) Send(to, subject, body string) error {
 }
 
 type smtpMailer struct {
-	host, port, user, pass, from string
+	host, port, user, pass, from, envelope string
 }
 
 func (m smtpMailer) Send(to, subject, body string) error {
@@ -36,7 +36,7 @@ func (m smtpMailer) Send(to, subject, body string) error {
 	if m.user != "" {
 		auth = smtp.PlainAuth("", m.user, m.pass, m.host)
 	}
-	return smtp.SendMail(addr, auth, m.from, []string{to}, []byte(msg))
+	return smtp.SendMail(addr, auth, m.envelope, []string{to}, []byte(msg))
 }
 
 var mailer Mailer = logMailer{}
@@ -60,12 +60,24 @@ func initMailer() {
 	if from == "" {
 		from = "wanderfall@" + host
 	}
+	// The header may read "Wanderfall <wanderful@mustmodify.com>"; the envelope
+	// sender has to be the bare address, and Mailgun rejects the whole message
+	// if it is handed the display name instead.
+	envelope := from
+	if i := strings.LastIndex(from, "<"); i >= 0 {
+		envelope = strings.TrimSuffix(from[i+1:], ">")
+	}
 	mailer = smtpMailer{
-		host: host, port: port, from: from,
+		host: host, port: port, from: from, envelope: envelope,
 		user: os.Getenv("WANDERFALL_SMTP_USER"),
 		pass: os.Getenv("WANDERFALL_SMTP_PASS"),
 	}
-	log.Printf("mail via %s:%s as %s", host, port, from)
+	log.Printf("mail via %s:%s as %s", host, port, envelope)
+}
+
+func mailConfigured() bool {
+	_, ok := mailer.(smtpMailer)
+	return ok
 }
 
 // Errors are logged and swallowed on purpose: a report already written to the
