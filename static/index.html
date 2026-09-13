@@ -610,7 +610,6 @@
 
     /* Modal buttons are pills. The secondary keeps a border so it still reads
        as a button next to the filled one, rather than as a stray link. */
-    #intro .actions button,
     #anon .actions button,
     #rateby .actions button {
       border-radius: 999px;
@@ -620,7 +619,6 @@
       line-height: 1;
     }
 
-    #intro .actions button.quiet,
     #anon .actions button.quiet,
     #rateby .actions button.quiet {
       border: 1px solid var(--line);
@@ -628,19 +626,10 @@
       background: transparent;
     }
 
-    #intro .actions button.quiet:hover,
     #anon .actions button.quiet:hover,
     #rateby .actions button.quiet:hover { background: var(--moss); }
 
     #intro .sendoff { margin-bottom: 0; }
-
-    #intro .actions {
-      margin-top: 18px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
 
     #intro a { color: var(--accent); }
 
@@ -1002,11 +991,6 @@
       <p class="sendoff">I enjoy making stuff like this, but REALLY enjoy making stuff
         that gets used. Send feedback!
         <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
-      <div class="actions">
-        <button type="button" class="primary" id="intro-signup">Create an account</button>
-        <button type="button" class="quiet" id="intro-signin">I have one</button>
-        <button type="button" class="quiet" id="intro-browse">Just browsing</button>
-      </div>
     </div>
   </div>
 
@@ -1809,9 +1793,6 @@
         MENU_ACTIONS[t.dataset.act]();
       }));
     $('intro-close').addEventListener('click', () => setIntro(false));
-    $('intro-browse').addEventListener('click', () => setIntro(false));
-    $('intro-signup').addEventListener('click', () => { setIntro(false); openAuth(); });
-    $('intro-signin').addEventListener('click', () => { setIntro(false); openAuth(); });
     // click the backdrop, but not the panel sitting on it
     $('intro-backdrop').addEventListener('click', (e) => {
       if (e.target === $('intro-backdrop')) setIntro(false);
