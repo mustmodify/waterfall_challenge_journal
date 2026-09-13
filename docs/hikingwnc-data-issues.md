@@ -116,3 +116,24 @@ What the backfill turned up:
   `features.rt_hike_distance` is a derived round-trip number and the sources
   publish prose one-way distances. Nothing is wrong; nothing has been resolved
   either.
+
+## Confidence tiers
+
+`coordinate_confidence` sorts every feature by how much agreement stands behind
+the point we draw. Claims whose attachment is uncertain -- a node matched only
+by being nearby, a placemark sharing a name with a fall 60 km away -- are
+recorded but left out of the arithmetic.
+
+| tier | features | what it means |
+| --- | --- | --- |
+| confirmed | 43 | three independent sources within 100 m |
+| corroborated | 396 | two sources within 250 m |
+| single source | 408 | one source, and we agree with it |
+| no coordinate | 55 | nothing to draw |
+| unsourced | 25 | a point on the map that no claim supports |
+| unverified | 16 | sources 250-500 m apart, or ours away from all of them |
+| disputed | 12 | sources over 500 m apart |
+
+The 12 disputes are all known: six one-degree longitude slips, Twin Falls SC,
+Eastatoe Narrows, and four falls where hikingwnc and OpenStreetMap differ by
+500-800 m. Every one has our chosen value recorded as the accepted claim.

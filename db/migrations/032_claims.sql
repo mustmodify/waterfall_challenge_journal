@@ -15,6 +15,11 @@
 -- note carries the reasoning either way: why a rejected claim lost, or what
 -- had to be assumed to accept the one that won.
 --
+-- identity_certain is about the attachment rather than the value: a source
+-- that names a fall we also carry is one thing, a node matched to it only by
+-- being nearby is another. Both are recorded; only the first counts as
+-- corroboration, because there are two Long Creek Falls and one is in Georgia.
+--
 -- Nothing a source says is discarded. A coordinate we cannot parse into a
 -- point is kept verbatim as coordinate_raw rather than dropped, because a
 -- reading we cannot use is still a reading someone took.
@@ -30,6 +35,7 @@ CREATE TABLE claims (
     url             text,
     observed_on     date,
     accepted        boolean NOT NULL DEFAULT false,
+    identity_certain boolean NOT NULL DEFAULT true,
     note            text,
     created_at      timestamp DEFAULT CURRENT_TIMESTAMP,
 

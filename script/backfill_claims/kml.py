@@ -49,7 +49,7 @@ for name, lat, lon in marks:
         ambiguous.append((name, [h[1] for h in hits]))
         continue
     fid, fname, flat, flon = hits[0]
-    note = 'NULL'
+    note, certain = 'NULL', 'true'
     if flat is not None:
         d = km(lat, lon, flat, flon)
         if d > 2:
@@ -60,8 +60,9 @@ for name, lat, lon in marks:
             note = ("'Matched to this feature by name alone. The placemark is "
                     "%s km from where we have it, so it may be a different fall "
                     "of the same name.'" % round(d, 1))
-    rows.append("(%d, 'coordinate', '{\"lat\": %s, \"lon\": %s}', 'cmc-kml', %s)"
-                % (fid, lat, lon, note))
+            certain = 'false'
+    rows.append("(%d, 'coordinate', '{\"lat\": %s, \"lon\": %s}', 'cmc-kml', %s, %s)"
+                % (fid, lat, lon, note, certain))
 
 out = open('db/migrations/036_wc100_kml_claims.sql', 'w', encoding='utf-8')
 out.write("""-- Where the WC100 coordinates came from: data/dwhike.kml.
@@ -72,7 +73,7 @@ out.write("""-- Where the WC100 coordinates came from: data/dwhike.kml.
 
 BEGIN;
 
-INSERT INTO claims (feature_id, field, value, source, note) VALUES
+INSERT INTO claims (feature_id, field, value, source, note, identity_certain) VALUES
 """)
 out.write(',\n'.join(rows) + ';\n')
 for name in unmatched:
