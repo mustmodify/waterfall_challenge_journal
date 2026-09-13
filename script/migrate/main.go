@@ -1,0 +1,132 @@
+// Applies db/migrations in order, once each, recording what it has run.
+//
+// The migrations were hand-applied with psql for the whole of development,
+// which works when one person holds the whole sequence in their head and fails
+// the first time a second database exists. A fresh production database has to
+// receive 47 files in order with nothing skipped and nothing run twice.
+//
+//	go run ./script/migrate            apply anything unapplied
+//	go run ./script/migrate -baseline  record every file as applied, run none
+//	go run ./script/migrate -status    list what has run and what has not
+//
+// -baseline is for the development database, which already has all 47 applied
+// by hand: it writes the ledger without touching the schema.
+package main
+
+import (
+	"database/sql"
+	"flag"
+	"fmt"
+	"log"
+	"os"
+	"path/filepath"
+	"sort"
+
+	_ "github.com/lib/pq"
+)
+
+const dir = "db/migrations"
+
+func main() {
+	baseline := flag.Bool("baseline", false, "record every migration as applied without running it")
+	status := flag.Bool("status", false, "show which migrations have run")
+	flag.Parse()
+
+	url := os.Getenv("DATABASE_URL")
+	if url == "" {
+		url = "host=localhost user=johnathonwright password=postgres dbname=wc_journey_db sslmode=disable"
+	}
+	db, err := sql.Open("postgres", url)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+	if err := db.Ping(); err != nil {
+		log.Fatalf("cannot reach the database: %v", err)
+	}
+
+	if _, err := db.Exec(`
+		CREATE TABLE IF NOT EXISTS schema_migrations (
+			filename   text PRIMARY KEY,
+			applied_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+		)`); err != nil {
+		log.Fatal(err)
+	}
+
+	files, err := filepath.Glob(filepath.Join(dir, "*.sql"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	sort.Strings(files)
+	if len(files) == 0 {
+		log.Fatalf("no migrations found in %s -- run this from the repository root", dir)
+	}
+
+	applied := map[string]bool{}
+	rows, err := db.Query(`SELECT filename FROM schema_migrations`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for rows.Next() {
+		var name string
+		if err := rows.Scan(&name); err != nil {
+			log.Fatal(err)
+		}
+		applied[name] = true
+	}
+	rows.Close()
+
+	if *status {
+		for _, path := range files {
+			name := filepath.Base(path)
+			mark := "  "
+			if applied[name] {
+				mark = "ok"
+			}
+			fmt.Printf("%s  %s\n", mark, name)
+		}
+		return
+	}
+
+	ran := 0
+	for _, path := range files {
+		name := filepath.Base(path)
+		if applied[name] {
+			continue
+		}
+		if *baseline {
+			if _, err := db.Exec(`INSERT INTO schema_migrations (filename) VALUES ($1)`, name); err != nil {
+				log.Fatal(err)
+			}
+			ran++
+			continue
+		}
+
+		body, err := os.ReadFile(path)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("applying %s\n", name)
+
+		// Several migrations open their own transaction. Running them inside
+		// another one turns the inner COMMIT into a warning and leaves the
+		// ledger insert outside the work it describes, so each file is handed
+		// to the server whole and the ledger is written immediately after.
+		if _, err := db.Exec(string(body)); err != nil {
+			log.Fatalf("%s failed: %v", name, err)
+		}
+		if _, err := db.Exec(`INSERT INTO schema_migrations (filename) VALUES ($1)`, name); err != nil {
+			log.Fatalf("%s ran but was not recorded: %v", name, err)
+		}
+		ran++
+	}
+
+	switch {
+	case *baseline:
+		fmt.Printf("recorded %d migration(s) as applied\n", ran)
+	case ran == 0:
+		fmt.Println("nothing to apply")
+	default:
+		fmt.Printf("applied %d migration(s)\n", ran)
+	}
+}
