@@ -8,7 +8,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Correction is one report, as the queue shows it.
 type Correction struct {
 	ID             int     `json:"id"`
 	FeatureID      *int    `json:"feature_id,omitempty"`
@@ -22,9 +21,8 @@ type Correction struct {
 	CreatedAt      string  `json:"created_at"`
 }
 
-// requireAdmin gates the queue. Reports are other people's words about places
-// they have been, and the queue holds them until someone acts; neither is
-// public reading.
+// Reports are other people's words about places they have been, and the queue
+// holds them until someone acts. Neither is public reading.
 func requireAdmin(w http.ResponseWriter, r *http.Request) bool {
 	u := currentUser(r)
 	if u == nil {
@@ -101,8 +99,6 @@ func createCorrection(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Tell someone. Fire and forget: the report is already saved, and losing
-	// it because a mail server was unreachable would be the worse failure.
 	place := "somewhere unnamed"
 	if req.FeatureID != nil {
 		var name string
@@ -182,8 +178,7 @@ func updateCorrection(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	u := currentUser(r)
-	// resolved_by and resolved_at are cleared when something goes back to
-	// open, so they never describe a decision that has been undone.
+	// Cleared on reopen so they never describe a decision that was undone.
 	var resolvedBy any = u.ID
 	resolvedAt := "now()"
 	if req.Status == "open" {

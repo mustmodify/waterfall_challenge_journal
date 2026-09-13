@@ -8,16 +8,12 @@ import (
 	"strings"
 )
 
-// Mailer is the one thing the rest of the app needs from email. SMTP rather
-// than a provider SDK because Resend, Postmark, SES and Mailgun all speak it,
-// so choosing between them is a matter of environment variables rather than a
-// code change.
+// SMTP rather than a provider SDK: Resend, Postmark, SES and Mailgun all speak
+// it, so switching between them is environment variables rather than code.
 type Mailer interface {
 	Send(to, subject, body string) error
 }
 
-// logMailer is what runs until someone configures a real one. Writing the mail
-// to the log is honest about the fact that nothing was delivered.
 type logMailer struct{}
 
 func (logMailer) Send(to, subject, body string) error {
@@ -45,8 +41,6 @@ func (m smtpMailer) Send(to, subject, body string) error {
 
 var mailer Mailer = logMailer{}
 
-// notifyAddress is where operational mail goes -- correction reports, and
-// anything else worth a human knowing about.
 var notifyAddress = "jw@mustmodify.com"
 
 func initMailer() {
@@ -74,9 +68,9 @@ func initMailer() {
 	log.Printf("mail via %s:%s as %s", host, port, from)
 }
 
-// sendAsync never blocks the request and never fails it. A correction that was
-// written to the database is saved whether or not the notification got out;
-// losing the report because the mail server was down would be the worse bug.
+// Errors are logged and swallowed on purpose: a report already written to the
+// database is saved whether or not the notification got out, and losing it
+// because a mail server was unreachable would be the worse failure.
 func sendAsync(to, subject, body string) {
 	go func() {
 		if err := mailer.Send(to, subject, body); err != nil {
