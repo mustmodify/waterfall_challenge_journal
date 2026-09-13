@@ -142,3 +142,26 @@ recorded but left out of the arithmetic.
 The 12 disputes are all known: six one-degree longitude slips, Twin Falls SC,
 Eastatoe Narrows, and four falls where hikingwnc and OpenStreetMap differ by
 500-800 m. Every one has our chosen value recorded as the accepted claim.
+
+## Sources
+
+| source | groups | what it brings |
+| --- | --- | --- |
+| hikingwnc | 943 | the catalogue: coordinates, beauty, photo, solitude, distance |
+| openstreetmap | 640 | a field reading of most points, plus alternate names and viewpoints |
+| ncwaterfalls | 147 | Kevin Adams, author of the Adams lists: falls and trailhead coordinates, beauty 1-10, height, elevation |
+| dwhike | 153 | vertical gain and route distance, which nobody else publishes, plus his own Petzoldt ratings |
+| the rest | 12 | our own corrections, Google Maps readings, waterfallshiker |
+
+Pages from ncwaterfalls.com and the Wayback copies of dwhike.com are cached
+under `data/spider-cache` (gitignored) by `script/spider`, so re-parsing never
+costs another fetch.
+
+### Why the rating sits on the route
+
+`route_ratings` computes Petzoldt per claim group, never per feature. dwhike
+reaches Cedar Rock Falls on a 13.8 mile loop climbing 2,800 feet; hikingwnc
+walks 1.6 miles straight to it. Pairing one source's gain with the other's
+mileage produced d=7.20, a number describing no hike anyone has taken. Of the
+31 ratings dwhike publishes outright, 29 match ours exactly and two differ by
+0.10.
