@@ -79,7 +79,7 @@ FROM (VALUES
   ('ncwaterfalls|909', 'height_ft',    '5',   true, NULL),
   ('ncwaterfalls|909', 'elevation_ft', '135', true, NULL),
   ('ncwaterfalls|909', 'beauty_rating', '4',  true,
-   'Accepted on the assumption that ncwaterfalls scores out of ten like hikingwnc, the source of every other rating here. Unverified.'),
+   'Kevin Adams rates beauty 1 to 10, stated on ncwaterfalls.com/learning/classifying, so this sits on the same scale as every hikingwnc rating here.'),
   ('ncwaterfalls|909', 'hike_distance', '"About 0.6 miles"', true,
    'One way. Stored as 1.2 round trip in features. The two coordinates are 0.39 miles apart in a straight line, which fits a 0.6 mile walk and rules out 0.6 being the round trip.'),
   ('ncwaterfalls|909', 'accessibility', '"Moderate"', true,

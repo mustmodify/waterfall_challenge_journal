@@ -4,7 +4,7 @@ Written with a flush after every page, and read with a tolerance for a
 truncated tail, because a spider that is killed mid-write should cost you the
 page it was fetching and nothing else.
 """
-import gzip, json, os
+import gzip, json, os, zlib
 
 def read(path):
     if not os.path.exists(path):
@@ -19,8 +19,8 @@ def read(path):
                     yield json.loads(line)
                 except ValueError:
                     continue          # a half-written last line
-    except EOFError:
-        return                        # the stream itself was cut short
+    except (EOFError, zlib.error, gzip.BadGzipFile):
+        return                        # cut short, or still being appended to
 
 def urls(path):
     return {rec['url'] for rec in read(path) if 'url' in rec}
