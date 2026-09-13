@@ -20,120 +20,13 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="/static/ratings.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --pine: #16302a;
-      --pine-90: rgba(22, 48, 42, 0.92);
-      --moss: #24473c;
-      --mist: #f2f6f2;
-      --haze: rgba(242, 246, 242, 0.65);
-      --accent: #2dd4bf;
-      --accent-deep: #14b8a6;
-      --on-accent: #04302c;
-      --line: rgba(242, 246, 242, 0.14);
-      --danger: #d96b4f;
-      --radius: 14px;
-      --shadow: 0 10px 30px rgba(10, 24, 20, 0.35);
-      --field-bg: rgba(0, 0, 0, 0.25);
-      --dot-off: rgba(242, 246, 242, 0.18);
-      --dot-ring: rgba(10, 20, 16, 0.55);
-      --ok: #7fd49a;
-      --on-accent: #ffffff;
-      --on-visited: #f2f6f2;
-      /* map marker palette — read by JS as well as by the legend swatches */
-      --c-visited: #14532d;
-      --c-azure: #007fff;
-      --c-tower: #8a6a4f;
-      --c-sel: #f2f6f2;
-      /* Rating ramp is purple: it has to stay clear of blue (status), brown
-         (towers), green (the watercolor basemap) and amber (--accent). */
-      --r1: #a865e0;
-      --r2: #b983e8;
-      --r3: #caa0ef;
-      --r4: #dabdf4;
-      --r5: #eddcfa;
-      color-scheme: dark;
-      font-size: 16px;
-    }
-
-    /* Moon: dark basemap. The chrome above is already the dark set, but the
-       markers need lifting — navy and deep blues vanish on a near-black map. */
-    :root[data-theme="dark"] {
-      --c-visited: #4ade80;
-      --c-azure: #3fa0ff;
-      --c-tower: #c7a07c;
-      --c-sel: #ffffff;
-      --on-visited: #06280f;
-      /* purple, lifted for a near-black basemap */
-      --r1: #a865e0;
-      --r2: #b983e8;
-      --r3: #caa0ef;
-      --r4: #dabdf4;
-      --r5: #eddcfa;
-    }
-
-    /* Sun and paintbrush both sit on a light basemap, so they share a palette. */
-    :root[data-theme="light"],
-    :root[data-theme="watercolor"] {
-      --pine: #eef1ec;
-      --pine-90: rgba(252, 253, 251, 0.93);
-      --moss: rgba(22, 48, 42, 0.08);
-      --mist: #16302a;
-      --haze: rgba(22, 48, 42, 0.62);
-      --accent: #0f766e;
-      --accent-deep: #115e59;
-      --line: rgba(22, 48, 42, 0.16);
-      --danger: #b4432a;
-      --shadow: 0 10px 30px rgba(22, 48, 42, 0.16);
-      --field-bg: rgba(22, 48, 42, 0.06);
-      --dot-off: rgba(22, 48, 42, 0.16);
-      --dot-ring: rgba(255, 255, 255, 0.85);
-      --ok: #2e7d4f;
-      --on-visited: #f7faf7;
-      --c-sel: #16302a;
-      --r1: #5e1687;
-      --r2: #7d35a6;
-      --r3: #9d63c2;
-      --r4: #bf96da;
-      --r5: #e0cdee;
-      color-scheme: light;
-    }
-
-    /* Paintbrush: warm the panels toward paper so they sit on the watercolor. */
-    :root[data-theme="watercolor"] {
-      --pine: #f4efe4;
-      --pine-90: rgba(253, 250, 242, 0.94);
-    }
-
-    * { box-sizing: border-box; }
-
-    /* Any author `display` rule outranks the UA stylesheet's
-       [hidden]{display:none}, so every element toggled via .hidden that also
-       has a display of its own silently stops hiding. Say it once, loudly. */
-    [hidden] { display: none !important; }
-
-    body {
-      margin: 0;
-      font-family: 'Archivo', system-ui, sans-serif;
-      color: var(--mist);
-      background: var(--pine);
-    }
 
     #map { position: fixed; inset: 0; z-index: 0; }
-
-    .panel {
-      position: fixed;
-      z-index: 1100;
-      background: var(--pine-90);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
 
     /* ---------- header / brand + filters ---------- */
     #topbar {
@@ -236,6 +129,20 @@
          the azure/brown/green distinction is hard to read. */
       box-shadow: 0 0 0 1.5px #fff;
     }
+
+    #area-pick {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+    }
+
+    #area-pick .row-label { min-width: auto; margin: 0; }
+
+    #area-current { flex: 1; min-width: 0; font-size: 0.82rem; font-weight: 600; }
+    #area-clear { padding: 4px 6px; }
 
     #challenge-pick {
       display: flex;
@@ -372,44 +279,6 @@
     .tile[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
     .tile[aria-pressed="true"] svg { color: var(--on-accent); }
 
-    button.quiet {
-      border: none;
-      background: transparent;
-      color: var(--haze);
-      font: inherit;
-      font-size: 0.8rem;
-      cursor: pointer;
-      padding: 4px 6px;
-      border-radius: 6px;
-    }
-
-    button.primary {
-      border: none;
-      background: var(--accent);
-      color: var(--on-accent);
-      font: inherit;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button.quiet:hover { color: var(--mist); background: var(--moss); }
-
-    button.primary:hover { background: var(--accent-deep); }
-
-    button.primary[disabled] { opacity: 0.55; cursor: default; }
-
-    label.rate {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--haze);
-    }
-
     #auth-card {
       top: 50%;
       left: 50%;
@@ -470,7 +339,7 @@
     #auth-sent .devnote { font-size: 0.7rem; word-break: break-all; color: var(--haze); }
 
     /* ---------- intro modal ---------- */
-    #intro-backdrop, #anon-backdrop, #rateby-backdrop {
+    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -482,7 +351,7 @@
       padding: 16px;
     }
 
-    #intro, #anon, #rateby {
+    #intro, #anon, #rateby, #fix {
       position: relative;
       width: min(460px, 100%);
       max-height: calc(100vh - 32px);
@@ -556,11 +425,11 @@
       color: var(--haze);
     }
 
-    #intro .close, #anon .close, #rateby .close { position: absolute; top: 12px; right: 12px; }
+    #intro .close, #anon .close, #rateby .close, #fix .close { position: absolute; top: 12px; right: 12px; }
 
     /* Focus moves to the dialog itself so Escape and screen readers work, but
        it is a container, not a control -- no ring. */
-    #intro:focus, #anon:focus, #rateby:focus { outline: none; }
+    #intro:focus, #anon:focus, #rateby:focus, #fix:focus { outline: none; }
 
     #rateby h2 {
       margin: 0 0 14px;
@@ -606,12 +475,13 @@
 
     #anon p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
     #anon .sig { color: var(--haze); margin-bottom: 0; }
-    #anon .actions, #rateby .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
+    #anon .actions, #rateby .actions, #fix .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
 
     /* Modal buttons are pills. The secondary keeps a border so it still reads
        as a button next to the filled one, rather than as a stray link. */
     #anon .actions button,
-    #rateby .actions button {
+    #rateby .actions button,
+    #fix .actions button {
       border-radius: 999px;
       padding: 9px 18px;
       font-size: 0.85rem;
@@ -620,19 +490,66 @@
     }
 
     #anon .actions button.quiet,
-    #rateby .actions button.quiet {
+    #rateby .actions button.quiet,
+    #fix .actions button.quiet {
       border: 1px solid var(--line);
       color: var(--mist);
       background: transparent;
     }
 
     #anon .actions button.quiet:hover,
-    #rateby .actions button.quiet:hover { background: var(--moss); }
+    #rateby .actions button.quiet:hover,
+    #fix .actions button.quiet:hover { background: var(--moss); }
 
-    #intro .sendoff { margin-bottom: 0; }
+    #fix h2 {
+      margin: 0 0 12px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      padding-right: 28px;
+    }
+
+    #fix > p { font-size: 0.88rem; line-height: 1.5; color: var(--haze); margin: 0 0 14px; }
+    #fix .fix-place { font-size: 0.85rem; color: var(--mist); margin: 0 0 4px; }
+
+    #fix label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--haze);
+      margin: 12px 0 4px;
+    }
+
+    #fix .opt { text-transform: none; letter-spacing: 0; opacity: 0.8; }
+
+    #fix select, #fix textarea, #fix input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+      font-size: 0.88rem;
+      color-scheme: inherit;
+    }
+
+    #fix textarea { resize: vertical; }
+    #fix-msg { font-size: 0.8rem; color: var(--danger); margin-top: 10px; min-height: 1em; }
+    #fix-thanks p { font-size: 0.9rem; line-height: 1.5; }
+
+    #intro .sendoff { margin-bottom: 14px; }
+
+    #intro .whereami {
+      margin: 0;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--haze);
+    }
 
     #intro a { color: var(--accent); }
-
 
     /* ---------- details drawer ---------- */
     #drawer {
@@ -708,6 +625,41 @@
     .rating-dots i.on { background: var(--accent); }
 
     #drawer hr { border: none; border-top: 1px solid var(--line); margin: 16px 0; }
+
+    /* Loud enough to stop someone driving two hours, quiet enough not to
+       shout on a fall that is merely changed rather than gone. */
+    .warn {
+      border: 1px solid var(--danger);
+      border-left-width: 3px;
+      border-radius: 8px;
+      padding: 9px 12px;
+      margin: 0 0 14px;
+      font-size: 0.85rem;
+    }
+
+    .warn strong { color: var(--danger); }
+    .warn p { margin: 5px 0 0; line-height: 1.45; color: var(--haze); }
+
+    .notes { margin-bottom: 14px; }
+
+    .note {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      padding: 8px 11px;
+      border-radius: 8px;
+      background: var(--field-bg);
+      margin-bottom: 6px;
+    }
+
+    /* A quoted source reads differently from something you wrote yourself. */
+    .note.sourced { border-left: 3px solid var(--line); color: var(--haze); }
+
+    .fix {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      text-decoration: underline;
+      padding-left: 0;
+    }
 
     .links { margin-top: 4px; }
 
@@ -904,8 +856,6 @@
 
     .goal-tip .tip-sub { color: var(--haze); font-size: 0.72rem; }
 
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
     @media (max-width: 720px) {
       #topbar { max-width: calc(100vw - 32px); }
 
@@ -935,7 +885,7 @@
       <h1>Wanderfall</h1>
       <span class="tagline">WNC challenge log</span>
     </div>
-    <input id="search" list="goal-names" placeholder="Find a waterfall or tower&hellip;" aria-label="Find a waterfall or tower" />
+    <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
     <datalist id="goal-names"></datalist>
     <div class="chip-row" role="group" aria-label="Show on the map">
       <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
@@ -952,6 +902,11 @@
       <button class="chip rating" data-rating="beauty" aria-pressed="false">Beauty</button>
       <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
       <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
+    </div>
+    <div id="area-pick" hidden>
+      <span class="row-label">Area</span>
+      <span id="area-current"></span>
+      <button type="button" class="quiet" id="area-clear" aria-label="Clear area filter">&#10005;</button>
     </div>
     <div id="challenge-pick" hidden>
       <label class="row-label" for="challenge-select">Challenge</label>
@@ -976,7 +931,7 @@
   <div id="menu" class="panel" hidden role="menu" aria-label="Wanderfall menu">
     <div id="menu-who" hidden><strong id="whoami"></strong></div>
     <div class="tiles">
-      <button class="tile" data-act="help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.5 2.7c-.6.2-1 .8-1 1.4v.4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span>Help</span></button>
+      <button class="tile" data-act="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.5 2.7c-.6.2-1 .8-1 1.4v.4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span>Info</span></button>
       <button class="tile" data-act="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg><span>Account</span></button>
       <button class="tile" data-act="challenges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 3M17 6h2.5a2.5 2.5 0 0 1-2.5 3"/><path d="M10 14v3h4v-3M8 20h8"/></svg><span>Challenges</span></button>
       <button class="tile" data-act="bulk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Bulk Entry</span></button>
@@ -1017,6 +972,45 @@
       <p class="sendoff">I enjoy making stuff like this, but REALLY enjoy making stuff
         that gets used. Send feedback!
         <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
+      <p class="whereami">You can get back to this card any time from the
+        <strong>Actions</strong> button &rsaquo; <strong>Info</strong>.</p>
+    </div>
+  </div>
+
+  <div id="fix-backdrop" hidden>
+    <div id="fix" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="fix-title">
+      <button class="close quiet" id="fix-close" aria-label="Close">&#10005;</button>
+      <h2 id="fix-title">Something Wrong?</h2>
+      <p>None of this data is mine &mdash; it comes from HikingWNC, the Carolina
+        Mountain Club and Kevin Adams' lists, and some of it is wrong. Six
+        waterfalls were a full degree of longitude out when I checked. If you
+        have stood somewhere and it does not match, tell me.</p>
+      <form id="fix-form">
+        <p class="fix-place">About: <strong id="fix-place"></strong></p>
+        <label for="fix-field">What's wrong</label>
+        <select id="fix-field">
+          <option value="location">The map pin is in the wrong place</option>
+          <option value="name">The name is wrong</option>
+          <option value="access">Access has changed</option>
+          <option value="gone">It is not there any more</option>
+          <option value="rating">A rating is wrong</option>
+          <option value="other">Something else</option>
+        </select>
+        <label for="fix-comment">What did you find?</label>
+        <textarea id="fix-comment" rows="4" required
+          placeholder="As much or as little as you like."></textarea>
+        <label for="fix-suggested">What should it say? <span class="opt">&mdash; optional</span></label>
+        <input type="text" id="fix-suggested" autocomplete="off" />
+        <div class="actions">
+          <button type="submit" class="primary" id="fix-submit">Send</button>
+          <button type="button" class="quiet" id="fix-cancel">Cancel</button>
+        </div>
+        <div id="fix-msg" role="status"></div>
+      </form>
+      <div id="fix-thanks" hidden>
+        <p>Thank you &mdash; that's logged. No account needed, so I can't write
+          back, but I read them.</p>
+      </div>
     </div>
   </div>
 
@@ -1118,6 +1112,7 @@
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
       challenge: 'all',
+      area: '',
       visitStatus: 'all',
       ratings: new Set(),
       selected: null,
@@ -1217,6 +1212,7 @@
           setIntro(true);
         }
         renderChallenges();
+        renderAreas();
         renderDatalist();
         renderMarkers(true);
         if (state.selected) {
@@ -1265,6 +1261,7 @@
 
     function inScope(goal) {
       const matchesKind = state.showKinds.has(kindOf(goal));
+      const matchesArea = !state.area || (goal.areas || []).includes(state.area);
       const matchesChallenge = state.challenge === 'all' ||
         (goal.challenges || []).includes(state.challenge);
       const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
@@ -1272,7 +1269,8 @@
       // Towers have no ratings at all, and a few dozen falls are unrated; both
       // used to sit on the map in a color that implied a score they lack.
       const matchesRated = state.ratings.size === 0 || hasSelectedRating(goal);
-      return matchesKind && matchesChallenge && matchesVisitStatus && matchesRated;
+      return matchesKind && matchesArea && matchesChallenge &&
+        matchesVisitStatus && matchesRated;
     }
 
     // 900 undifferentiated points is a smear, so that case draws as density.
@@ -1457,6 +1455,14 @@
 
     const LINK_LABELS = { hikingwnc: 'HikingWNC' };
 
+    const DEPRECATED_LABELS = {
+      destroyed: 'This waterfall is gone',
+      damaged: 'Changed by a storm',
+      private_property: 'No public access',
+      access_closed: 'Access closed',
+      hazard: 'Known hazard',
+    };
+
     function linkHost(url) {
       try { return new URL(url).hostname.replace(/^www\./, ''); }
       catch (e) { return 'Link'; }
@@ -1474,6 +1480,14 @@
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
       html += '</div>';
 
+      if (goal.deprecated_reason) {
+        html += '<div class="warn"><strong>' +
+          escapeHtml(DEPRECATED_LABELS[goal.deprecated_reason] || goal.deprecated_reason) +
+          '</strong>';
+        if (goal.deprecated_note) html += '<p>' + escapeHtml(goal.deprecated_note) + '</p>';
+        html += '</div>';
+      }
+
       html += '<div class="fact-grid">';
       html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;') + '</div></div>';
       html += '<div class="fact"><div class="k">Last visited</div><div class="v">' + (goal.last_visited ? escapeHtml(goal.last_visited) : 'Never') + '</div></div>';
@@ -1482,6 +1496,15 @@
       html += '<div class="fact"><div class="k">Solitude</div>' + dots(goal.solitude_rating) + '</div>';
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
+
+      if ((goal.notes || []).length) {
+        html += '<div class="notes">';
+        goal.notes.forEach((n) => {
+          html += '<div class="note' + (n.source ? ' sourced' : '') + '">' +
+            escapeHtml(n.text) + '</div>';
+        });
+        html += '</div>';
+      }
 
       // hikingwnc has the directions, the photos and the current state of the
       // trail. Sending people there beats pretending we know any of that.
@@ -1528,7 +1551,11 @@
         html += '<div class="signin-nudge"><button class="quiet" id="nudge-signin">Sign in</button> to log a visit.</div>';
       }
 
+      html += '<button type="button" class="quiet fix" id="report-fix">' +
+        'Something wrong here?</button>';
+
       $('drawer-body').innerHTML = html;
+      $('report-fix').addEventListener('click', () => setFix(true, goal));
       $('drawer').classList.add('open');
 
       const form = $('log-visit');
@@ -1579,12 +1606,25 @@
     function submitVisit(e) {
       e.preventDefault();
       const msg = $('visit-msg');
+      const when = $('visit-date').value;
+
+      // The database refuses one visit per place per day. Catching it here
+      // means a plain sentence instead of a constraint violation, and no
+      // pointless round trip.
+      const already = (state.visits || []).some((v) =>
+        v.feature_id === state.selected.id && v.visited_on === when);
+      if (already) {
+        msg.className = 'err';
+        msg.textContent = 'You already logged a visit here on that date.';
+        return;
+      }
+
       fetch('/visits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           feature_id: state.selected.id,
-          visited_on: $('visit-date').value,
+          visited_on: when,
           beauty_rating: ratingValue('rate-beauty'),
           photo_rating: ratingValue('rate-photo'),
           solitude_rating: ratingValue('rate-solitude'),
@@ -1654,16 +1694,52 @@
       renderMarkers(true);
     });
 
+    // Areas live in the same box as places. "Linville Falls" is both a
+    // waterfall and an area, so areas are listed with an "(area)" suffix and a
+    // bare name resolves to the place.
+    const AREA_SUFFIX = ' (area)';
+    let areaNames = new Set();
+
+    function renderAreas() {
+      areaNames = new Set();
+      state.features.forEach((g) => (g.areas || []).forEach((a) => areaNames.add(a)));
+      if (state.area && !areaNames.has(state.area)) setArea('');
+    }
+
+    function setArea(value) {
+      state.area = value;
+      $('area-pick').hidden = !value;
+      $('area-current').textContent = value;
+      renderMarkers(true);
+    }
+
+    $('area-clear').addEventListener('click', () => setArea(''));
+
     function renderDatalist() {
-      $('goal-names').innerHTML = state.features
-        .map((g) => '<option value="' + escapeHtml(g.name) + '"></option>')
-        .join('');
+      const places = state.features
+        .map((g) => '<option value="' + escapeHtml(g.name) + '"></option>');
+      const areas = [...areaNames].sort()
+        .map((a) => '<option value="' + escapeHtml(a + AREA_SUFFIX) + '"></option>');
+      $('goal-names').innerHTML = places.concat(areas).join('');
     }
 
     $('search').addEventListener('change', () => {
-      const goal = state.features.find((g) => g.name === $('search').value);
+      const typed = $('search').value.trim();
+      if (!typed) return;
+
+      if (typed.endsWith(AREA_SUFFIX)) {
+        const area = typed.slice(0, -AREA_SUFFIX.length);
+        if (areaNames.has(area)) { setArea(area); $('search').value = ''; }
+        return;
+      }
+
+      // A place wins a tie: someone typing "Linville Falls" wants the waterfall.
+      const goal = state.features.find((g) => g.name === typed);
       if (goal) {
         openDrawer(goal, true);
+        $('search').value = '';
+      } else if (areaNames.has(typed)) {
+        setArea(typed);
         $('search').value = '';
       }
     });
@@ -1793,6 +1869,55 @@
       if (e.target === $('rateby-backdrop')) setRateby(false);
     });
 
+    let fixTarget = null;
+
+    function setFix(open, goal) {
+      $('fix-backdrop').hidden = !open;
+      if (!open) return;
+      fixTarget = goal || null;
+      $('fix-place').textContent = goal ? goal.name : 'this map';
+      $('fix-form').hidden = false;
+      $('fix-thanks').hidden = true;
+      $('fix-msg').textContent = '';
+      $('fix-comment').value = '';
+      $('fix-suggested').value = '';
+      $('fix').focus();
+    }
+
+    $('fix-close').addEventListener('click', () => setFix(false));
+    $('fix-cancel').addEventListener('click', () => setFix(false));
+    $('fix-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('fix-backdrop')) setFix(false);
+    });
+
+    $('fix-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      $('fix-msg').textContent = '';
+      $('fix-submit').disabled = true;
+      fetch('/corrections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          feature_id: fixTarget ? fixTarget.id : null,
+          subject: fixTarget ? null : 'the map',
+          field: $('fix-field').value,
+          suggested_value: $('fix-suggested').value,
+          comment: $('fix-comment').value,
+        }),
+      }).then((r) => {
+        $('fix-submit').disabled = false;
+        if (!r.ok) {
+          r.text().then((t) => { $('fix-msg').textContent = t.trim() || 'Could not send that.'; });
+          return;
+        }
+        $('fix-form').hidden = true;
+        $('fix-thanks').hidden = false;
+      }).catch(() => {
+        $('fix-submit').disabled = false;
+        $('fix-msg').textContent = 'Could not reach the server.';
+      });
+    });
+
     function setAnon(open) {
       $('anon-backdrop').hidden = !open;
       if (open) $('anon').focus();
@@ -1824,7 +1949,7 @@
     });
 
     const MENU_ACTIONS = {
-      help:       () => { setIntro(true); },
+      info:       () => { setIntro(true); },
       account:    () => { window.location.href = '/account'; },
       challenges: () => { window.location.href = '/account#challenges'; },
       bulk:       () => { window.location.href = '/bulk'; },
@@ -1846,7 +1971,8 @@
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       // the modal is on top, so it gets the key first
-      if (!$('rateby-backdrop').hidden) setRateby(false);
+      if (!$('fix-backdrop').hidden) setFix(false);
+      else if (!$('rateby-backdrop').hidden) setRateby(false);
       else if (!$('anon-backdrop').hidden) setAnon(false);
       else if (!$('intro-backdrop').hidden) setIntro(false);
       else closeDrawer();

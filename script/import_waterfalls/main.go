@@ -1,5 +1,3 @@
-//go:build ignore
-
 // Import spidered waterfalls into features, matching on coordinates.
 //
 //	go run script/import_waterfalls.go              # dry run, prints the plan

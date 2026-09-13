@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sort"
 	"strings"
 
 	"github.com/gorilla/mux"
@@ -41,25 +42,39 @@ type Location struct {
 }
 
 type Feature struct {
-	ID                int       `json:"id"`
-	Name              string    `json:"name"`
-	Kind              string    `json:"kind"`
-	FeatureLocationID *int      `json:"feature_location_id"`
-	ParkingLocationID *int      `json:"parking_location_id"`
-	RtHikeDistance    *string   `json:"rt_hike_distance,omitempty"`
-	DifficultyRating  *string   `json:"difficulty_rating,omitempty"`
-	Accessibility     *string   `json:"accessibility,omitempty"`
-	HeightFt          *int      `json:"height_ft,omitempty"`
-	BeautyRating      *int      `json:"beauty_rating,omitempty"`
-	PhotoRating       *int      `json:"photo_rating,omitempty"`
-	SolitudeRating    *int      `json:"solitude_rating,omitempty"`
-	HwncID            *int      `json:"hwnc_id,omitempty"`
-	CmcHikeNo         *int      `json:"cmc_hike_no,omitempty"`
-	BookPage          *int      `json:"book_page,omitempty"`
-	Location          *Location `json:"location,omitempty"`
-	LastVisited       *string   `json:"last_visited,omitempty"`
-	Challenges        []string  `json:"challenges"`
-	Links             []Link    `json:"links"`
+	ID                int           `json:"id"`
+	Name              string        `json:"name"`
+	Kind              string        `json:"kind"`
+	FeatureLocationID *int          `json:"feature_location_id"`
+	ParkingLocationID *int          `json:"parking_location_id"`
+	RtHikeDistance    *string       `json:"rt_hike_distance,omitempty"`
+	DifficultyRating  *string       `json:"difficulty_rating,omitempty"`
+	Accessibility     *string       `json:"accessibility,omitempty"`
+	HeightFt          *int          `json:"height_ft,omitempty"`
+	BeautyRating      *int          `json:"beauty_rating,omitempty"`
+	PhotoRating       *int          `json:"photo_rating,omitempty"`
+	SolitudeRating    *int          `json:"solitude_rating,omitempty"`
+	HwncID            *int          `json:"hwnc_id,omitempty"`
+	CmcHikeNo         *int          `json:"cmc_hike_no,omitempty"`
+	BookPage          *int          `json:"book_page,omitempty"`
+	Location          *Location     `json:"location,omitempty"`
+	LastVisited       *string       `json:"last_visited,omitempty"`
+	Challenges        []string      `json:"challenges"`
+	Links             []Link        `json:"links"`
+	Areas             []string      `json:"areas"`
+	Notes             []FeatureNote `json:"notes"`
+	Owner             *string       `json:"owner,omitempty"`
+	DeprecatedReason  *string       `json:"deprecated_reason,omitempty"`
+	DeprecatedNote    *string       `json:"deprecated_note,omitempty"`
+	DeprecatedOn      *string       `json:"deprecated_on,omitempty"`
+}
+
+// FeatureNote is the trimmed form of a note carried inside a Feature. Source
+// is empty for the account owner's own notes and names the publication
+// otherwise, so an editorial warning is not mistaken for something you wrote.
+type FeatureNote struct {
+	Text   string `json:"text"`
+	Source string `json:"source,omitempty"`
 }
 
 // Link is an outside page about a feature -- almost always its hikingwnc.com
@@ -187,7 +202,17 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			-- character occurs in either column, so the split is unambiguous.
 			(SELECT string_agg(coalesce(links.rel, '') || E'\t' || links.url, E'\n'
 				ORDER BY links.id)
-				FROM links WHERE links.feature_id = features.id) AS link_rows
+				FROM links WHERE links.feature_id = features.id) AS link_rows,
+			(SELECT string_agg(DISTINCT areas.name, E'\n')
+				FROM feature_areas JOIN areas ON areas.id = feature_areas.area_id
+				WHERE feature_areas.feature_id = features.id) AS area_names,
+			-- JSON rather than a delimiter: note text is free-form and could
+			-- contain whatever character we picked to split on.
+			(SELECT json_agg(json_build_object('text', notes.text, 'source',
+				coalesce(notes.source, '')) ORDER BY notes.id)
+				FROM notes WHERE notes.feature_id = features.id) AS note_json,
+			features.owner, deprecated_reason, deprecated_note,
+			deprecated_on::text
 		FROM features LEFT JOIN locations ON locations.id = features.feature_location_id
 	`, args...)
 	if err != nil {
@@ -204,6 +229,8 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var lastVisited sql.NullString
 		var challengeNames sql.NullString
 		var linkRows sql.NullString
+		var areaNames sql.NullString
+		var noteJSON []byte
 
 		err := rows.Scan(
 			&f.ID,
@@ -227,6 +254,12 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&lastVisited,
 			&challengeNames,
 			&linkRows,
+			&areaNames,
+			&noteJSON,
+			&f.Owner,
+			&f.DeprecatedReason,
+			&f.DeprecatedNote,
+			&f.DeprecatedOn,
 		)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -240,6 +273,20 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		f.Challenges = []string{}
 		if challengeNames.Valid && challengeNames.String != "" {
 			f.Challenges = strings.Split(challengeNames.String, ",")
+		}
+
+		f.Areas = []string{}
+		if areaNames.Valid && areaNames.String != "" {
+			f.Areas = strings.Split(areaNames.String, "\n")
+			sort.Strings(f.Areas)
+		}
+
+		f.Notes = []FeatureNote{}
+		if len(noteJSON) > 0 {
+			if err := json.Unmarshal(noteJSON, &f.Notes); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
 		}
 
 		f.Links = []Link{}
@@ -327,6 +374,7 @@ func main() {
 	r.HandleFunc("/auth/request", requestMagicLink).Methods("POST")
 	r.HandleFunc("/auth/callback", consumeMagicLink).Methods("GET")
 	r.HandleFunc("/challenges", getChallenges).Methods("GET")
+	r.HandleFunc("/corrections", createCorrection).Methods("POST")
 	r.HandleFunc("/visits", createVisit).Methods("POST")
 	r.HandleFunc("/visits/batch", createVisits).Methods("POST")
 	r.HandleFunc("/visits", getVisits).Methods("GET")

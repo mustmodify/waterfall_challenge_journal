@@ -1,7 +1,5 @@
 /* Shared tokens and primitives.
-   NOTE: index.html still carries its own copy of these inline. Until that is
-   removed, changes here must be mirrored there or the map and the other pages
-   will drift apart. */
+   Loaded by every page, index.html included. This is the only copy. */
 
 :root {
   --pine: #16302a;
@@ -11,6 +9,7 @@
   --haze: rgba(242, 246, 242, 0.65);
   --accent: #2dd4bf;
   --accent-deep: #14b8a6;
+  --on-accent: #04302c;
   --line: rgba(242, 246, 242, 0.14);
   --danger: #d96b4f;
   --radius: 14px;
@@ -19,7 +18,7 @@
   --dot-off: rgba(242, 246, 242, 0.18);
   --dot-ring: rgba(10, 20, 16, 0.55);
   --ok: #7fd49a;
-  --on-accent: #04302c;
+  --on-accent: #ffffff;
   --on-visited: #f2f6f2;
   /* map marker palette — read by JS as well as by the legend swatches */
   --c-visited: #14532d;
@@ -61,8 +60,8 @@
   --moss: rgba(22, 48, 42, 0.08);
   --mist: #16302a;
   --haze: rgba(22, 48, 42, 0.62);
-  --accent: #0d9488;
-  --accent-deep: #0f766e;
+  --accent: #0f766e;
+  --accent-deep: #115e59;
   --line: rgba(22, 48, 42, 0.16);
   --danger: #b4432a;
   --shadow: 0 10px 30px rgba(22, 48, 42, 0.16);
@@ -89,7 +88,9 @@
 * { box-sizing: border-box; }
 
 /* Any author `display` rule outranks the UA stylesheet's
-   [hidden]{display:none}, so every element toggled via .hidden that also
+   [hidden]{display:none}
+
+, so every element toggled via .hidden that also
    has a display of its own silently stops hiding. Say it once, loudly. */
 [hidden] { display: none !important; }
 
