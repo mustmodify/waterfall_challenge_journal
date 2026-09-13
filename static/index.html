@@ -1089,13 +1089,13 @@
     </div>
     <div id="spectrum" hidden>
       <div class="bar">
-        <span style="background:var(--r5)" title="under 3"></span>
-        <span style="background:var(--r4)" title="3 to 4"></span>
-        <span style="background:var(--r3)" title="5 to 6"></span>
-        <span style="background:var(--r2)" title="7 to 8"></span>
-        <span style="background:var(--r1)" title="9 and up"></span>
+        <span style="background:var(--r5)" title="lowest"></span>
+        <span style="background:var(--r4)" title="low"></span>
+        <span style="background:var(--r3)" title="middling"></span>
+        <span style="background:var(--r2)" title="high"></span>
+        <span style="background:var(--r1)" title="highest"></span>
       </div>
-      <div class="ends"><span>Lowest</span><span>Best (9+)</span></div>
+      <div class="ends"><span>Lowest</span><span>Best</span></div>
     </div>
     <div id="showing"></div>
   </header>
@@ -1759,11 +1759,9 @@
     }
 
     // ---------- drawer ----------
-    function dots(n) {
-      if (n === undefined || n === null) return '<span class="v">&mdash;</span>';
-      let out = '<span class="rating-dots" aria-label="' + n + ' out of 10">';
-      for (let i = 1; i <= 10; i++) out += '<i class="' + (i <= n ? 'on' : '') + '"></i>';
-      return out + '</span>';
+    function band(key, n) {
+      const word = window.wjBand(key, n);
+      return '<span class="v">' + (word || '&mdash;') + '</span>';
     }
 
     const LINK_LABELS = { hikingwnc: 'HikingWNC' };
@@ -1804,9 +1802,9 @@
       html += '<div class="fact-grid">';
       html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;') + '</div></div>';
       html += '<div class="fact"><div class="k">Last visited</div><div class="v">' + (goal.last_visited ? escapeHtml(goal.last_visited) : 'Never') + '</div></div>';
-      html += '<div class="fact"><div class="k">Beauty</div>' + dots(goal.beauty_rating) + '</div>';
-      html += '<div class="fact"><div class="k">Photo</div>' + dots(goal.photo_rating) + '</div>';
-      html += '<div class="fact"><div class="k">Solitude</div>' + dots(goal.solitude_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Beauty</div>' + band('beauty', goal.beauty_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Photo</div>' + band('photo', goal.photo_rating) + '</div>';
+      html += '<div class="fact"><div class="k">Solitude</div>' + band('solitude', goal.solitude_rating) + '</div>';
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
 

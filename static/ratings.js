@@ -9,7 +9,7 @@
 window.WJ_RATINGS = {
   beauty:   { label: 'Beauty',   options: ['disappointing', 'fine', 'beautiful', 'unforgettable'] },
   photo:    { label: 'Photo',    options: ['nope', 'mediocre', 'nice!', 'stunning'] },
-  solitude: { label: 'Solitude', options: ['crowded', 'a few people', 'had it to myself', 'bushwhacked'] },
+  solitude: { label: 'Solitude', options: ['crowded', 'a few people', 'had it to myself', 'pristine'] },
 };
 
 // <select> with a blank first option, so "no opinion" stays the default and
@@ -29,6 +29,27 @@ window.wjRatingOptions = function (key, id) {
 window.wjRatingSelect = function (key, id) {
   return '<label class="rate" for="' + id + '">' + window.WJ_RATINGS[key].label +
     window.wjRatingOptions(key, id) + '</label>';
+};
+
+// hikingwnc rates 1-10. Those numbers are his work and stay out of the page
+// until he gives permission, so a score is spoken in our own words instead.
+//
+// The cuts differ by axis because the distributions do. Beauty uses three of
+// the four words: nothing he published is labelled disappointing, since that is
+// our word for how a visit felt, not a verdict to hang on someone else's work.
+const WJ_BANDS = {
+  beauty:   [[9, 3], [7, 2], [0, 1]],
+  photo:    [[10, 3], [8, 2], [6, 1], [0, 0]],
+  solitude: [[10, 3], [8, 2], [6, 1], [0, 0]],
+};
+
+window.wjBand = function (key, score) {
+  if (score === null || score === undefined) return '';
+  const spec = window.WJ_RATINGS[key];
+  for (const [floor, option] of WJ_BANDS[key]) {
+    if (score >= floor) return spec.options[option];
+  }
+  return '';
 };
 
 window.wjRatingText = function (key, value) {

@@ -7,7 +7,7 @@
 --
 --   beauty    1 disappointing  2 fine       3 beautiful     4 unforgettable
 --   photo     1 nope           2 mediocre   3 nice!         4 stunning
---   solitude  1 crowded        2 a few      3 had it to self 4 bushwhacked
+--   solitude  1 crowded        2 a few      3 had it to self 4 pristine
 --
 -- Beauty keeps a genuine floor. A scale whose lowest option is "eh" collects
 -- nothing but praise, because nobody picks "eh" for somewhere they drove two
