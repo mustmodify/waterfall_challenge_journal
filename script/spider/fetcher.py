@@ -6,7 +6,7 @@ status code -- the first sign is ECONNREFUSED on every request. Backing off and
 waiting is the only thing that helps, so a refusal is retried rather than
 counted as a missing page.
 """
-import time, urllib.error, urllib.request
+import sys, time, urllib.error, urllib.request
 
 UA = {'User-Agent': 'wanderfall-research/0.1 (+https://wanderfall.app)'}
 
@@ -15,6 +15,12 @@ class Fetcher:
         self.pause = pause
         self.tries = tries
         self.timeout = timeout
+
+    def backoff(self, wait, err, url):
+        wait = min(max(wait * 4, 5), 60)
+        print('  retrying in %gs after %s: %s' % (wait, type(err).__name__, url[:90]),
+              file=sys.stderr)
+        return wait
 
     def get(self, url):
         wait = self.pause
@@ -26,12 +32,12 @@ class Fetcher:
                     return f.read()
             except urllib.error.HTTPError as e:
                 if e.code in (429, 503, 504) and attempt < self.tries - 1:
-                    wait = max(wait * 4, 10)
+                    wait = self.backoff(wait, e, url)
                     continue
                 raise
-            except (urllib.error.URLError, OSError):
+            except (urllib.error.URLError, OSError) as e:
                 if attempt < self.tries - 1:
-                    wait = max(wait * 4, 10)
+                    wait = self.backoff(wait, e, url)
                     continue
                 raise
         return None

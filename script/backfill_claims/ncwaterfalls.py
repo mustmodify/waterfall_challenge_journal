@@ -56,7 +56,7 @@ for line in open(sys.argv[1], encoding='utf-8'):
 
 groups, rows = [], []
 pages = named = placed = 0
-for rec in cache.read(CACHE):
+for rec in cache.latest(CACHE):
     if '/waterfalls/' not in rec['url']:
         continue
     text = text_of(rec['html'])
