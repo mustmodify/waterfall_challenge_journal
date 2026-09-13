@@ -368,6 +368,18 @@ func deleteFeature(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// index.html and the scripts it loads are edited together and have to arrive
+// together. A browser holding yesterday's ratings.js against today's page
+// throws "wjBand is not a function" and the details drawer stops opening.
+// no-cache still allows a 304, so this costs a conditional request, not a
+// download.
+func noCache(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache")
+		h.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	r := mux.NewRouter()
 
@@ -399,7 +411,7 @@ func main() {
 	r.HandleFunc("/visits", getVisits).Methods("GET")
 	r.HandleFunc("/visits/{id}", deleteVisit).Methods("DELETE")
 
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", noCache(http.FileServer(http.Dir("static/")))))
 
 	r.HandleFunc("/bulk", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/bulk.html")

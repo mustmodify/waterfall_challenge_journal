@@ -1,3 +1,5 @@
+// Executes index.html's inline scripts against stubs with the real 900-feature
+// payload, then drives the pin/heat rule through each filter combination.
 const fs = require('fs'), vm = require('vm');
 const html = fs.readFileSync(process.argv[2], 'utf8');
 const FEATURES = JSON.parse(fs.readFileSync(process.argv[3], 'utf8'));
@@ -7,11 +9,14 @@ let pins = 0, added = 0, icons = [], clusterOpts = null, mapOpts = {}, made = []
 const els = new Map();
 const el = (id) => {
   if (!els.has(id)) els.set(id, { id, hidden: false, value: '', innerHTML: '', textContent: '',
-    dataset: {}, classList: { add(){}, remove(){}, toggle(){} }, setAttribute(){},
-    getAttribute: () => null, addEventListener(){}, querySelectorAll: () => [] });
+    dataset: {}, classList: { add(){}, remove(){}, toggle(){}, contains: () => false }, setAttribute(){}, offsetWidth: 0,
+    getAttribute: () => null, addEventListener(){}, querySelectorAll: () => [],
+    appendChild(){}, insertBefore(){}, focus(){}, closest: () => null,
+    querySelector: () => ({ classList:{add(){},remove(){}}, offsetWidth: 0 }) });
   return els.get(id);
 };
-const bounds = { isValid: () => true, extend(){}, contains: () => true };
+const bounds = { isValid: () => true, extend(){}, contains: () => true,
+  getCenter: () => ({ lat: 35.4, lng: -82.8 }) };
 const stub = () => ({ addTo(){ return this; }, setUrl(){}, remove(){}, bindTooltip(){ return this; }, on(){ return this; } });
 const L = {
   map: (id, opts) => { mapOpts = opts || {}; return map; },
@@ -29,6 +34,7 @@ const L = {
 };
 const Z = Number(process.argv[4] || 8);
 const map = { setView(){ return map; }, removeLayer(){}, on(){}, getZoom: () => Z,
+  setZoom(){}, getCenter: () => ({ lat: 35.4, lng: -82.8 }),
   getBounds: () => bounds, fitBounds(){}, flyTo(){}, getMaxZoom: () => 20,
   createPane: (n) => { panes.push(n); return { style: {} }; }, getPane: () => ({ style: {} }),
   latLngToContainerPoint: ([lat, lon]) => {
@@ -37,8 +43,8 @@ const map = { setView(){ return map; }, removeLayer(){}, on(){}, getZoom: () => 
              y: (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n };
   } };
 
-const sandbox = { L, console,
-  window: { matchMedia: () => ({ matches: true }) },
+const sandbox = { L, console, setTimeout: () => 0, clearTimeout: () => {},
+  window: { matchMedia: () => ({ matches: false, addEventListener(){} }), addEventListener(){} },
   self: null,
   localStorage: { getItem: () => null, setItem(){} },
   getComputedStyle: () => ({ getPropertyValue: (n) => (({'--c-visited':'#5e6462','--c-azure':'#007fff','--c-tower':'#8a6a4f','--c-sel':'#16302a','--r1':'#5e1687','--r2':'#7d35a6','--r3':'#9d63c2','--r4':'#bf96da','--r5':'#e0cdee'})[n] || '#000') }),
@@ -46,14 +52,19 @@ const sandbox = { L, console,
     json: () => Promise.resolve(u === '/features' ? FEATURES : []), text: () => Promise.resolve('') }),
   document: { documentElement: { dataset: {} }, getElementById: el,
     querySelector: () => el('generic'),
+    createElement: () => ({ classList: { add(){}, contains: () => false },
+      addEventListener(){}, appendChild(){}, insertBefore(){}, style: {}, dataset: {} }),
     querySelectorAll: (s) => (s.includes('theme-set') || s.includes('tile')) ? [el('t1'), el('t2'), el('t3')] : [],
     addEventListener(){} },
 };
 vm.createContext(sandbox);
+// index.html expects the globals ratings.js defines
 vm.runInContext(fs.readFileSync('static/ratings.js','utf8'), sandbox, {filename:'ratings.js'});
+// in a browser window.foo is also a bare global; the sandbox's window is not
+Object.keys(sandbox.window).forEach((k) => { if (!(k in sandbox)) sandbox[k] = sandbox.window[k]; });
 blocks.forEach((b, i) => {
   const src = i === blocks.length - 1
-    ? b + '\n;globalThis.__t = { state, renderMarkers, visibleGoals, colorOf: markerColor };'
+    ? b + '\n;globalThis.__t = { state, renderMarkers, visibleGoals, colorOf: markerColor, openDrawer };'
     : b;
   try { vm.runInContext(src, sandbox, { filename: `block${i}` }); }
   catch (e) { console.error(`block ${i} THREW: ${e.constructor.name}: ${e.message}\n${e.stack}`); process.exit(1); }
@@ -70,7 +81,8 @@ setTimeout(() => {
     t.renderMarkers(false);
     const n = t.visibleGoals().length;
     console.log('%-34s %4d shown -> %s', label, n,
-      `clustered ${added} in ${perGroup.length} group(s)${perGroup.length?' ['+perGroup.join('+')+']':''}, ${plainAdded} unclustered`);
+      `clustered ${added} in ${perGroup.length} group(s)${perGroup.length?' ['+perGroup.join('+')+']':''}, ${plainAdded} unclustered`,
+    '| card says:', el('showing').innerHTML);
   };
   run('Everything, no filters', () => {});
   run('Challenge: WC100', (s) => { s.challenge = 'WC100'; });
@@ -90,6 +102,7 @@ setTimeout(() => {
   console.log('\npanes created:', panes.join(', ') || '(none)');
   console.log('cluster opts (last group):', JSON.stringify(clusterOpts, (k,v) => typeof v === 'function' ? '[fn]' : v));
   const ic = clusterOpts.iconCreateFunction;
+  // real child markers, so pieFill tallies actual markerColor output
   // cycle with a stride so a sample cluster spans several categories
   const kids = (n) => Array.from({ length: n },
     (_, i) => made[(i * 7) % made.length]);
@@ -115,3 +128,16 @@ setTimeout(() => {
   console.log('');
   probe(tower, 'tower'); probe(fall, 'waterfall');
 }, 150);
+
+// opening the drawer is the one path the filter runs never touch
+setTimeout(() => {
+  const t = sandbox.__t;
+  if (!t || !t.openDrawer) { console.error('openDrawer not exported'); return; }
+  const pick = t.state.features.find((f) => f.beauty_rating) || t.state.features[0];
+  try {
+    t.openDrawer(pick, false);
+    console.log('\nopenDrawer("%s") ok', pick.name);
+  } catch (e) {
+    console.error('\nopenDrawer THREW: %s: %s\n%s', e.constructor.name, e.message, e.stack.split('\n').slice(0,4).join('\n'));
+  }
+}, 60);
