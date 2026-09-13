@@ -201,6 +201,16 @@
 
     #spectrum { margin-top: 8px; }
 
+    /* Stays in the card at every width: with the filters behind a button on a
+       phone, this is the only thing that says whether they did anything. */
+    #showing {
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid var(--line);
+      font-size: 0.74rem;
+      color: var(--haze);
+    }
+
     #spectrum .bar {
       display: flex;
       height: 10px;
@@ -1007,6 +1017,7 @@
       </div>
       <div class="ends"><span>Lowest</span><span>Best (9+)</span></div>
     </div>
+    <div id="showing"></div>
   </header>
 
   <div id="filters-backdrop" hidden>
@@ -1530,6 +1541,10 @@
 
     function renderMarkers(fit) {
       const goals = visibleGoals();
+      $('showing').textContent = goals.length === 1
+        ? 'Showing 1 adventure'
+        : 'Showing ' + goals.length.toLocaleString() + ' adventures';
+
       clusterGroups.forEach((g) => g.clearLayers());
       state.markers.clear();
 
