@@ -2164,7 +2164,7 @@
       if (narrowScreen.matches) {
         $('filters-slot').appendChild(controls);
       } else {
-        $('topbar').appendChild(controls);
+        $('topbar').insertBefore(controls, $('spectrum'));
         setFilters(false);
       }
       $('filter-button').hidden = !narrowScreen.matches;
