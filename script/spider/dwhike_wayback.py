@@ -28,6 +28,32 @@ pages = Fetcher(pause=1.5, timeout=120)
 def fetch(url, timeout=90):
     return index.get(url)
 
+def waterfall_sections(best):
+    """The Waterfalls tree, which is organised by waterfall rather than by hike.
+
+    A hike gallery has to be reasoned about -- a 13.8 mile loop that passes a
+    fall is not the walk to it -- while these pages are about the waterfall
+    itself.
+    """
+    url = ('https://web.archive.org/cdx/search/cdx?url=dwhike.com/Waterfalls*'
+           '&output=json&fl=original,timestamp,statuscode'
+           '&filter=statuscode:200&collapse=urlkey')
+    try:
+        rows = json.loads(index.get(url).decode())[1:]
+    except urllib.error.HTTPError as e:
+        print('cdx waterfalls: %s' % e, file=sys.stderr)
+        return best
+    for original, timestamp, _ in rows:
+        path = original.split('dwhike.com')[-1].split('?')[0].rstrip('/')
+        if '/i-' in path or '!' in path or path.endswith(('.jpg', '.json', '.xml')):
+            continue
+        if not 1 <= path.strip('/').count('/') <= 3:
+            continue
+        if path not in best or timestamp > best[path][0]:
+            best[path] = (timestamp, original)
+    print('waterfall sections: %d pages so far' % len(best))
+    return best
+
 def newest_snapshots():
     """Gallery pages only: .../Hikes-in-the-South/<state>/<area>/<gallery>."""
     best = {}
@@ -49,7 +75,7 @@ def newest_snapshots():
             if path not in best or timestamp > best[path][0]:
                 best[path] = (timestamp, original)
         print('%s: %d galleries so far' % (region, len(best)))
-    return best
+    return waterfall_sections(best)
 
 def main():
     done = cache.urls(CACHE)
