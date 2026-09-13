@@ -19,6 +19,7 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="/static/ratings.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -29,8 +30,9 @@
       --moss: #24473c;
       --mist: #f2f6f2;
       --haze: rgba(242, 246, 242, 0.65);
-      --blaze: #e6a53c;
-      --blaze-deep: #c9871e;
+      --accent: #2dd4bf;
+      --accent-deep: #14b8a6;
+      --on-accent: #04302c;
       --line: rgba(242, 246, 242, 0.14);
       --danger: #d96b4f;
       --radius: 14px;
@@ -39,7 +41,7 @@
       --dot-off: rgba(242, 246, 242, 0.18);
       --dot-ring: rgba(10, 20, 16, 0.55);
       --ok: #7fd49a;
-      --on-blaze: #1d1608;
+      --on-accent: #ffffff;
       --on-visited: #f2f6f2;
       /* map marker palette — read by JS as well as by the legend swatches */
       --c-visited: #14532d;
@@ -47,7 +49,7 @@
       --c-tower: #8a6a4f;
       --c-sel: #f2f6f2;
       /* Rating ramp is purple: it has to stay clear of blue (status), brown
-         (towers), green (the watercolor basemap) and amber (--blaze). */
+         (towers), green (the watercolor basemap) and amber (--accent). */
       --r1: #a865e0;
       --r2: #b983e8;
       --r3: #caa0ef;
@@ -81,8 +83,8 @@
       --moss: rgba(22, 48, 42, 0.08);
       --mist: #16302a;
       --haze: rgba(22, 48, 42, 0.62);
-      --blaze: #b8761a;
-      --blaze-deep: #9a6112;
+      --accent: #0f766e;
+      --accent-deep: #115e59;
       --line: rgba(22, 48, 42, 0.16);
       --danger: #b4432a;
       --shadow: 0 10px 30px rgba(22, 48, 42, 0.16);
@@ -206,9 +208,9 @@
     .chip:hover { background: var(--moss); }
 
     .chip[aria-pressed="true"] {
-      background: var(--blaze);
-      border-color: var(--blaze);
-      color: var(--on-blaze);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--on-accent);
       font-weight: 600;
     }
 
@@ -221,29 +223,6 @@
       gap: 6px;
     }
 
-    .legend-item {
-      font: inherit;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      color: var(--haze);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 3px 10px 3px 7px;
-      white-space: nowrap;
-    }
-
-    .legend-item:hover { color: var(--mist); background: var(--moss); }
-
-    .legend-item[aria-pressed="true"] {
-      background: var(--blaze);
-      border-color: var(--blaze);
-      color: var(--on-blaze);
-      font-weight: 600;
-    }
-
     .chip .dot {
       width: 8px;
       height: 8px;
@@ -251,13 +230,35 @@
       display: inline-block;
       margin-right: 6px;
       vertical-align: -1px;
+      flex: none;
+      /* Outside the dot, so the color keeps its full 8px. Without it the
+         swatch sits straight on the teal fill when the chip is pressed and
+         the azure/brown/green distinction is hard to read. */
+      box-shadow: 0 0 0 1.5px #fff;
     }
 
-    .legend-item .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      flex: none;
+    #challenge-pick {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+    }
+
+    #challenge-pick .row-label { min-width: auto; margin: 0; }
+
+    #challenge-select {
+      flex: 1;
+      min-width: 0;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+      font-size: 0.8rem;
+      color-scheme: inherit;
     }
 
     #spectrum { margin-top: 8px; }
@@ -281,55 +282,95 @@
     }
 
     /* ---------- auth ---------- */
-    #auth-corner {
-      top: 16px;
-      right: 16px;
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    #theme-switch {
-      display: flex;
-      gap: 2px;
-      padding: 2px;
-      border: 1px solid var(--line);
+    /* Bottom-left: the only corner nothing else claims. The topbar owns the
+       top-left, the drawer the whole right edge, the zoom control bottom-right. */
+    /* A translucent panel with a teal glyph disappeared against a pale
+       basemap. Filled accent with a label reads at a glance and says what it
+       does, which a bare gear never quite does. */
+    #fab {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      z-index: 1200;
+      height: 46px;
+      padding: 0 18px 0 15px;
       border-radius: 999px;
-    }
-
-    #theme-switch button {
       border: none;
-      background: transparent;
-      color: var(--haze);
-      font-size: 0.95rem;
-      line-height: 1;
-      padding: 5px 7px;
-      border-radius: 999px;
+      background: var(--accent);
+      color: var(--on-accent);
+      box-shadow: var(--shadow);
       cursor: pointer;
-    }
-
-    #theme-switch button:hover { color: var(--mist); background: var(--moss); }
-
-    #theme-switch button[aria-pressed="true"] {
-      background: var(--blaze);
-      color: var(--on-blaze);
-    }
-
-    #theme-switch svg { display: block; width: 15px; height: 15px; }
-
-    #auth-corner .signed-in {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    #fab svg { width: 20px; height: 20px; flex: none; }
+    #fab:hover { background: var(--accent-deep); }
+    #fab[aria-expanded="true"] { background: var(--accent-deep); }
+
+    #menu {
+      left: 16px;
+      bottom: 76px;
+      z-index: 1200;
+      padding: 12px;
+      width: min(310px, calc(100vw - 32px));
+    }
+
+    #menu-who {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 2px 6px 10px;
       font-size: 0.85rem;
     }
 
-    #auth-corner .progress {
-      color: var(--blaze);
-      font-weight: 600;
-      white-space: nowrap;
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
     }
+
+    .tiles.themes { margin-top: 6px; }
+
+    .menu-label {
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--haze);
+      margin-top: 10px;
+      padding: 10px 6px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 4px 10px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--mist);
+      font: inherit;
+      font-size: 0.72rem;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* Icon carries the accent; the label stays body text so the tile does not
+       turn into a block of color. */
+    .tile svg { width: 22px; height: 22px; color: var(--accent); }
+
+    .tile:hover { background: var(--moss); border-color: var(--line); }
+
+    .tile[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+    .tile[aria-pressed="true"] svg { color: var(--on-accent); }
 
     button.quiet {
       border: none;
@@ -342,12 +383,10 @@
       border-radius: 6px;
     }
 
-    button.quiet:hover { color: var(--mist); background: var(--moss); }
-
     button.primary {
       border: none;
-      background: var(--blaze);
-      color: var(--on-blaze);
+      background: var(--accent);
+      color: var(--on-accent);
       font: inherit;
       font-weight: 600;
       padding: 8px 14px;
@@ -355,17 +394,34 @@
       cursor: pointer;
     }
 
-    button.primary:hover { background: var(--blaze-deep); }
+    button.quiet:hover { color: var(--mist); background: var(--moss); }
+
+    button.primary:hover { background: var(--accent-deep); }
+
+    button.primary[disabled] { opacity: 0.55; cursor: default; }
+
+    label.rate {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--haze);
+    }
 
     #auth-card {
-      top: 64px;
-      right: 16px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1300;
       width: min(300px, calc(100vw - 32px));
       padding: 16px;
       display: none;
     }
 
     #auth-card.open { display: block; }
+    #auth-card .close { position: absolute; top: 10px; right: 10px; }
 
     #auth-card h2 {
       margin: 0 0 12px;
@@ -407,11 +463,14 @@
       min-height: 1em;
     }
 
-    .name-field { display: none; }
-    #auth-card.signup-mode .name-field { display: block; }
+    .auth-lede { font-size: 0.85rem; line-height: 1.5; color: var(--haze); margin: 0 0 4px; }
+    #auth-card .opt { text-transform: none; letter-spacing: 0; opacity: 0.8; }
+    #auth-card .actions { justify-content: flex-start; }
+    #auth-sent p { font-size: 0.85rem; margin: 10px 0 0; }
+    #auth-sent .devnote { font-size: 0.7rem; word-break: break-all; color: var(--haze); }
 
     /* ---------- intro modal ---------- */
-    #intro-backdrop {
+    #intro-backdrop, #anon-backdrop, #rateby-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -423,7 +482,7 @@
       padding: 16px;
     }
 
-    #intro {
+    #intro, #anon, #rateby {
       position: relative;
       width: min(460px, 100%);
       max-height: calc(100vh - 32px);
@@ -497,34 +556,101 @@
       color: var(--haze);
     }
 
-    #intro .close { position: absolute; top: 12px; right: 12px; }
+    #intro .close, #anon .close, #rateby .close { position: absolute; top: 12px; right: 12px; }
+
+    /* Focus moves to the dialog itself so Escape and screen readers work, but
+       it is a container, not a control -- no ring. */
+    #intro:focus, #anon:focus, #rateby:focus { outline: none; }
+
+    #rateby h2 {
+      margin: 0 0 14px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      padding-right: 28px;
+    }
+
+    #rateby p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
+
+    #rateby .demo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 14px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    #rateby .demo p { margin: 0; font-size: 0.85rem; color: var(--haze); }
+    #rateby .demo .cluster { flex: none; box-shadow: none; }
+
+    #rateby .ramp { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 4px; }
+    #rateby .ramp span { flex: 1; }
+
+    #rateby .ramp-ends {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--haze);
+      margin-bottom: 14px;
+    }
+
+    #anon h2 {
+      margin: 0 0 14px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      padding-right: 28px;
+    }
+
+    #anon p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
+    #anon .sig { color: var(--haze); margin-bottom: 0; }
+    #anon .actions, #rateby .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
+
+    /* Modal buttons are pills. The secondary keeps a border so it still reads
+       as a button next to the filled one, rather than as a stray link. */
+    #intro .actions button,
+    #anon .actions button,
+    #rateby .actions button {
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    #intro .actions button.quiet,
+    #anon .actions button.quiet,
+    #rateby .actions button.quiet {
+      border: 1px solid var(--line);
+      color: var(--mist);
+      background: transparent;
+    }
+
+    #intro .actions button.quiet:hover,
+    #anon .actions button.quiet:hover,
+    #rateby .actions button.quiet:hover { background: var(--moss); }
 
     #intro .sendoff { margin-bottom: 0; }
 
-    #intro a { color: var(--blaze); }
-
-    #help-button {
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--haze);
-      font: inherit;
-      font-size: 0.8rem;
-      font-weight: 600;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      cursor: pointer;
-      flex: none;
+    #intro .actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    #help-button:hover { color: var(--mist); background: var(--moss); }
+    #intro a { color: var(--accent); }
+
 
     /* ---------- details drawer ---------- */
     #drawer {
       top: 16px;
       right: 16px;
       bottom: 16px;
-      width: min(340px, calc(100vw - 32px));
+      width: min(380px, calc(100vw - 32px));
       padding: 20px;
       overflow-y: auto;
       transform: translateX(calc(100% + 24px));
@@ -560,7 +686,7 @@
       color: var(--haze);
     }
 
-    .badge.challenge { border-color: var(--blaze); color: var(--blaze); }
+    .badge.challenge { border-color: var(--accent); color: var(--accent); }
     .badge.visited { background: var(--c-visited); border-color: var(--c-visited); color: var(--on-visited); font-weight: 600; }
     .badge.diff-E { border-color: #59b07f; color: #59b07f; }
     .badge.diff-M { border-color: #dfa94f; color: #dfa94f; }
@@ -590,7 +716,7 @@
       background: var(--dot-off);
     }
 
-    .rating-dots i.on { background: var(--blaze); }
+    .rating-dots i.on { background: var(--accent); }
 
     #drawer hr { border: none; border-top: 1px solid var(--line); margin: 16px 0; }
 
@@ -640,9 +766,12 @@
       opacity: 0.7;
     }
 
+    /* One per line, label left. Three across cannot hold "had it to myself"
+       at drawer width, and truncating the option text defeats the point of
+       wording the scale rather than numbering it. */
     .rate-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
       gap: 8px;
       margin-top: 6px;
     }
@@ -650,10 +779,15 @@
     /* outspecifies the blanket `#log-visit label { display: block }` above */
     #log-visit .rate-grid .rate {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
       margin-bottom: 0;
     }
+
+    #log-visit .rate-grid .rate select { flex: 1; min-width: 0; }
+
+    #log-visit .rate-grid .rate { min-width: 0; }
 
     .rate-grid select {
       padding: 7px 8px;
@@ -718,7 +852,7 @@
       border-color: var(--c-sel);
     }
 
-    /* The ring is a conic-gradient pie of the pin colours inside the cluster;
+    /* The ring is a conic-gradient pie of the pin colors inside the cluster;
        the core punches a hole in it so the count stays readable. */
     .cluster {
       display: grid;
@@ -755,7 +889,7 @@
 
     .goal-tip .tip-sub { color: var(--haze); font-size: 0.72rem; }
 
-    :focus-visible { outline: 2px solid var(--blaze); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     @media (max-width: 720px) {
       #topbar { max-width: calc(100vw - 32px); }
@@ -788,18 +922,15 @@
     </div>
     <input id="search" list="goal-names" placeholder="Find a waterfall or tower&hellip;" aria-label="Find a waterfall or tower" />
     <datalist id="goal-names"></datalist>
-    <div class="chip-row" role="group" aria-label="Challenge filter">
-      <span class="row-label">Type</span>
-      <button class="chip kind" data-kind="all" aria-pressed="true">All</button>
-      <button class="chip kind" data-kind="waterfall" aria-pressed="false"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
-      <button class="chip kind" data-kind="tower" aria-pressed="false"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
+    <div class="chip-row" role="group" aria-label="Show on the map">
+      <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
+      <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
     </div>
-    <div class="chip-row" id="challenge-row" role="group" aria-label="Challenge filter" hidden></div>
-    <div class="chip-row" role="group" aria-label="Visit status filter">
-      <span class="row-label">Status</span>
-      <button class="chip visit-status" data-status="all" aria-pressed="true">All places</button>
-      <button class="chip visit-status" data-status="to-visit" aria-pressed="false">To visit</button>
-      <button class="chip visit-status" data-status="visited" aria-pressed="false"><span class="dot" style="background:var(--c-visited)"></span>Visited</button>
+    <div class="chip-row" id="visited-row" role="group" aria-label="How to draw places you have visited">
+      <span class="row-label">Visited</span>
+      <button class="chip visited" data-visited="show" aria-pressed="false">Show</button>
+      <button class="chip visited" data-visited="hide" aria-pressed="false">Hide</button>
+      <button class="chip visited" data-visited="mute" aria-pressed="true"><span class="dot" style="background:var(--c-visited)"></span>Mute</button>
     </div>
     <div class="chip-row" role="group" aria-label="Color markers by rating">
       <span class="row-label">Rate by</span>
@@ -807,10 +938,11 @@
       <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
       <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
     </div>
-    <div id="legend">
-      <button class="legend-item" data-kind="waterfall" aria-pressed="false"><span class="dot" style="background:var(--c-azure)"></span>Waterfall</button>
-      <button class="legend-item" data-kind="tower" aria-pressed="false"><span class="dot" style="background:var(--c-tower)"></span>Tower</button>
-      <button class="legend-item" data-status="visited" aria-pressed="false"><span class="dot" style="background:var(--c-visited)"></span>Visited</button>
+    <div id="challenge-pick" hidden>
+      <label class="row-label" for="challenge-select">Challenge</label>
+      <select id="challenge-select">
+        <option value="all">All challenges</option>
+      </select>
     </div>
     <div id="spectrum" hidden>
       <div class="bar">
@@ -824,29 +956,34 @@
     </div>
   </header>
 
-  <div id="auth-corner" class="panel">
-    <button id="help-button" aria-label="About Wanderfall" title="About Wanderfall">?</button>
-    <div id="theme-switch" role="group" aria-label="Map theme">
-      <button data-theme-set="light" aria-pressed="false" title="Daylight" aria-label="Daylight map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg></button>
-      <button data-theme-set="dark" aria-pressed="false" title="Night" aria-label="Night map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></button>
-      <button data-theme-set="watercolor" aria-pressed="false" title="Watercolor" aria-label="Watercolor map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L14 13l-3 1 1-3z"/><path d="M9 11c-2.5 0-4 1.5-4 4 0 1.2-.5 2.2-2 3 1 .8 2.3 1.5 4 1.5 2.8 0 5-2.2 5-5"/></svg></button>
+  <button id="fab" aria-expanded="false" title="Actions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9h-.2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10.4 2v-.2a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.2a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z"/></svg><span>Actions</span></button>
+
+  <div id="menu" class="panel" hidden role="menu" aria-label="Wanderfall menu">
+    <div id="menu-who" hidden><strong id="whoami"></strong></div>
+    <div class="tiles">
+      <button class="tile" data-act="help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.5 2.7c-.6.2-1 .8-1 1.4v.4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span>Help</span></button>
+      <button class="tile" data-act="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg><span>Account</span></button>
+      <button class="tile" data-act="challenges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 3M17 6h2.5a2.5 2.5 0 0 1-2.5 3"/><path d="M10 14v3h4v-3M8 20h8"/></svg><span>Challenges</span></button>
+      <button class="tile" data-act="bulk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Bulk Entry</span></button>
+      <button class="tile" data-act="signin" id="tile-signin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/><path d="M20 12h-9m0 0 3-3m-3 3 3 3"/></svg><span>Sign In</span></button>
+      <button class="tile" data-act="signout" id="tile-signout" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/><path d="M11 12h9m0 0-3-3m3 3-3 3"/></svg><span>Sign Out</span></button>
     </div>
-    <button id="signin-button" class="primary">Sign in</button>
-    <div class="signed-in" hidden>
-      <span id="whoami"></span>
-      <span class="progress" id="progress"></span>
-      <button id="signout-button" class="quiet">Sign out</button>
+    <div class="menu-label" id="style-label">Map Style</div>
+    <div class="tiles themes" role="group" aria-labelledby="style-label">
+      <button class="tile" data-theme-set="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg><span>Daylight</span></button>
+      <button class="tile" data-theme-set="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg><span>Night</span></button>
+      <button class="tile" data-theme-set="watercolor" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L14 13l-3 1 1-3z"/><path d="M9 11c-2.5 0-4 1.5-4 4 0 1.2-.5 2.2-2 3 1 .8 2.3 1.5 4 1.5 2.8 0 5-2.2 5-5"/></svg><span>Watercolor</span></button>
     </div>
   </div>
 
   <div id="intro-backdrop" hidden>
-    <div id="intro" class="panel" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <div id="intro" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="intro-title">
       <button class="close quiet" id="intro-close" aria-label="Close">&#10005;</button>
       <h2 id="intro-title">Welcome to Wanderfall!</h2>
       <p class="byline">A hobby project by jw.</p>
-      <p>This is a list of waterfalls and other quests in Western North Carolina.
-        No account needed; if you do create one, you'll be able to track which
-        features you visit and rate them.</p>
+      <p>This is a list of waterfalls and other amazing quests in Western North
+        Carolina. No account needed; if you do create one, you'll be able to
+        track which places you visit and rate them.</p>
       <p>Wanderfall also lists several challenges. Visit the entire list and you
         get a badge!</p>
       <div class="how">Here's how to read the map</div>
@@ -865,25 +1002,80 @@
       <p class="sendoff">I enjoy making stuff like this, but REALLY enjoy making stuff
         that gets used. Send feedback!
         <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
+      <div class="actions">
+        <button type="button" class="primary" id="intro-signup">Create an account</button>
+        <button type="button" class="quiet" id="intro-signin">I have one</button>
+        <button type="button" class="quiet" id="intro-browse">Just browsing</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="rateby-backdrop" hidden>
+    <div id="rateby" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="rateby-title">
+      <button class="close quiet" id="rateby-close" aria-label="Close">&#10005;</button>
+      <h2 id="rateby-title">Coloring by Rating</h2>
+      <p>Most of these waterfalls come with ratings from HikingWNC &mdash; how
+        good they look, how well they photograph, and how much solitude you get.
+        Pick one and every pin is shaded by it.</p>
+      <div class="ramp">
+        <span style="background:var(--r5)"></span><span style="background:var(--r4)"></span>
+        <span style="background:var(--r3)"></span><span style="background:var(--r2)"></span>
+        <span style="background:var(--r1)"></span>
+      </div>
+      <div class="ramp-ends"><span>lowest</span><span>best</span></div>
+      <div class="demo">
+        <span class="cluster" style="width:46px;height:46px;background:conic-gradient(var(--r3) 0% 40%, var(--r2) 40% 66%, var(--r4) 66% 88%, var(--r1) 88% 100%)"><span class="cluster-core"></span></span>
+        <p>A group is sliced by what it holds, so you can tell a cluster of
+          middling falls from one hiding a couple of great ones &mdash; without
+          zooming into every single bubble.</p>
+      </div>
+      <p>Pick <strong>two</strong> &mdash; say Solitude and Beauty &mdash; and each
+        fall is scored on the average of both. A stunning roadside fall full of
+        people drops to the middle, and somewhere merely pretty that you'll have
+        entirely to yourself climbs above it.</p>
+      <p>Anything without the rating you picked drops off the map rather than
+        being drawn in a color implying a score it hasn't got. That includes
+        every lookout tower, which have no ratings at all.</p>
+      <div class="actions"><button type="button" class="primary" id="rateby-ok">Got It</button></div>
+    </div>
+  </div>
+
+  <div id="anon-backdrop" hidden>
+    <div id="anon" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="anon-title">
+      <button class="close quiet" id="anon-close" aria-label="Close">&#10005;</button>
+      <h2 id="anon-title">Hi, Anonymous Visitor!</h2>
+      <p>I don't know who you are and I don't have a list of waterfalls you've
+        visited. So for now, this doesn't do anything.</p>
+      <p>If you decide to create an account then enter waterfalls, either in bulk
+        or as you visit them, I can show you which ones you've been to &hellip;
+        or <em>not</em> show them, so you can go to new ones.</p>
+      <p class="sig">Good hiking! &mdash;jw</p>
+      <div class="actions">
+        <button type="button" class="primary" id="anon-signup">Create an account</button>
+        <button type="button" class="quiet" id="anon-dismiss">Maybe later</button>
+      </div>
     </div>
   </div>
 
   <div id="auth-card" class="panel">
-    <h2 id="auth-title">Sign in</h2>
+    <button class="close quiet" id="auth-close" aria-label="Close">&#10005;</button>
+    <h2 id="auth-title">Sign In</h2>
     <form id="auth-form">
-      <div class="name-field">
-        <label for="auth-name">Name</label>
-        <input type="text" id="auth-name" autocomplete="name" />
-      </div>
+      <p class="auth-lede">No password. Give me an email address and I'll send
+        you a link that signs you in. If you've not been here before, following
+        it creates your account.</p>
       <label for="auth-email">Email</label>
       <input type="email" id="auth-email" autocomplete="email" required />
-      <label for="auth-password">Password</label>
-      <input type="password" id="auth-password" autocomplete="current-password" required minlength="8" />
+      <label for="auth-name">Name <span class="opt">&mdash; optional, new accounts only</span></label>
+      <input type="text" id="auth-name" autocomplete="name" />
       <div class="actions">
-        <button type="button" id="auth-toggle" class="quiet">Create an account</button>
-        <button type="submit" class="primary" id="auth-submit">Sign in</button>
+        <button type="submit" class="primary" id="auth-submit">Email Me a Link</button>
       </div>
       <div id="auth-error" role="alert"></div>
+      <div id="auth-sent" hidden>
+        <p>Link sent. It's good for 20 minutes and works once.</p>
+        <p class="devnote" id="auth-devlink" hidden></p>
+      </div>
     </form>
   </div>
 
@@ -893,7 +1085,7 @@
   </aside>
 
   <script>
-    // Marker colours live in CSS so the legend swatches and the map cannot drift apart.
+    // Marker colors live in CSS so the legend swatches and the map cannot drift apart.
     const C = { visited: '', azure: '', tower: '', sel: '', scale: [] };
 
     function readThemeColors() {
@@ -909,7 +1101,12 @@
     const state = {
       user: null,
       features: [],
-      kind: 'all',
+      // Type is a category, visited is a status -- orthogonal, so they get
+      // separate controls. Both kinds on to start; visited muted, not hidden.
+      showKinds: new Set(['waterfall', 'tower']),
+      // Signed out nothing is visited, so muting would advertise a treatment
+      // that is not being applied. renderAuth moves this to 'mute' on sign-in.
+      visited: 'show',
       challenge: 'all',
       visitStatus: 'all',
       ratings: new Set(),
@@ -965,17 +1162,30 @@
         labelLayer = L.tileLayer(theme.labels, { minZoom: 0, maxZoom: 20, maxNativeZoom: 18 }).addTo(map);
       }
 
-      document.querySelectorAll('#theme-switch button').forEach((b) =>
+      document.querySelectorAll('#menu [data-theme-set]').forEach((b) =>
         b.setAttribute('aria-pressed', String(b.dataset.themeSet === name)));
 
       readThemeColors();
       renderMarkers(false);
     }
 
-    document.querySelectorAll('#theme-switch button').forEach((b) =>
+    document.querySelectorAll('#menu [data-theme-set]').forEach((b) =>
       b.addEventListener('click', () => applyTheme(b.dataset.themeSet, true)));
 
     const $ = (id) => document.getElementById(id);
+
+    // USGS Fenneman physiographic divisions, BLUE RIDGE province. Drawn to see
+    // where the region actually ends -- the escarpment on its south-east edge
+    // is why Transylvania County has hundreds of falls in a few square miles.
+    let blueRidge = null;
+    fetch('/static/blue-ridge.geojson').then((r) => r.json()).then((gj) => {
+      // Built but not added: `blueRidge.addTo(map)` from the console draws it.
+      blueRidge = L.geoJSON(gj, {
+        style: { color: 'var(--accent)', weight: 2, dashArray: '6 4',
+                 fill: true, fillOpacity: 0.06, interactive: false },
+        pane: 'shadowPane',
+      });
+    }).catch(() => {});
 
     // ---------- data ----------
     let introAutoShown = false;
@@ -1026,10 +1236,12 @@
 
     function markerColor(goal) {
       // Rate by wins over everything: the ramp only reads as a scale if every
-      // pin is on it. Visited is a filter you can apply, not a colour that
+      // pin is on it. Visited is a filter you can apply, not a color that
       // punches holes in the gradient.
       if (state.ratings.size > 0) return ratingColor(goal);
-      if (goal.last_visited) return C.visited;
+      // One muted color for anything visited -- a visited tower and a visited
+      // fall are both just "done", and splitting them bought nothing.
+      if (goal.last_visited && state.visited === 'mute') return C.visited;
       if (isTower(goal)) return C.tower;
       return C.azure;
     }
@@ -1042,15 +1254,13 @@
     }
 
     function inScope(goal) {
-      const matchesKind = state.kind === 'all' || kindOf(goal) === state.kind;
+      const matchesKind = state.showKinds.has(kindOf(goal));
       const matchesChallenge = state.challenge === 'all' ||
         (goal.challenges || []).includes(state.challenge);
-      const matchesVisitStatus = state.visitStatus === 'all' ||
-        (state.visitStatus === 'to-visit' && !goal.last_visited) ||
-        (state.visitStatus === 'visited' && !!goal.last_visited);
-      // Colouring by a rating only says something about things that carry one.
+      const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
+      // Coloring by a rating only says something about things that carry one.
       // Towers have no ratings at all, and a few dozen falls are unrated; both
-      // used to sit on the map in a colour that implied a score they lack.
+      // used to sit on the map in a color that implied a score they lack.
       const matchesRated = state.ratings.size === 0 || hasSelectedRating(goal);
       return matchesKind && matchesChallenge && matchesVisitStatus && matchesRated;
     }
@@ -1107,7 +1317,7 @@
       if (!clusterGroups.has(kind)) {
         // There are 22 towers against 935 falls. Clustering them bought nothing
         // and cost a lot: a tower bubble landing on a waterfall bubble read as
-        // one two-coloured group. Plain markers can't be mistaken for a group.
+        // one two-colored group. Plain markers can't be mistaken for a group.
         const group = kind === 'tower'
           ? L.layerGroup()
           : L.markerClusterGroup(clusterOptsFor(kind));
@@ -1235,15 +1445,6 @@
       return out + '</span>';
     }
 
-    // Blank first, so logging a visit stays a one-field action and an unset
-    // rating posts as null rather than defaulting to some number.
-    function rateField(id, label) {
-      let opts = '<option value="">&mdash;</option>';
-      for (let i = 1; i <= 10; i++) opts += '<option>' + i + '</option>';
-      return '<label class="rate" for="' + id + '">' + label +
-        '<select id="' + id + '">' + opts + '</select></label>';
-    }
-
     function openDrawer(goal, flyTo) {
       state.selected = goal;
       const d = goal.difficulty_rating ? goal.difficulty_rating.trim() : '';
@@ -1273,9 +1474,9 @@
         if (visits.length) {
           html += '<div class="visit-history"><div class="k">Your visits</div><ul>';
           visits.forEach((v) => {
-            const scored = [['B', v.beauty_rating], ['P', v.photo_rating], ['S', v.solitude_rating]]
-              .filter(([, n]) => n !== null && n !== undefined)
-              .map(([k, n]) => k + '&thinsp;' + n).join(' &middot; ');
+            const scored = ['beauty', 'photo', 'solitude']
+              .map((k) => wjRatingText(k, v[k + '_rating']))
+              .filter(Boolean).join(' &middot; ');
             html += '<li><span>' + escapeHtml(v.visited_on) +
               (scored ? '<span class="visit-rates">' + scored + '</span>' : '') + '</span>' +
               '<button class="quiet remove-visit" data-id="' + v.id + '" aria-label="Remove visit on ' + escapeHtml(v.visited_on) + '">&#10005;</button></li>';
@@ -1288,9 +1489,9 @@
           '<input type="date" id="visit-date" required value="' + todayStr() + '" />' +
           '<div class="rate-row"><span class="k">Your ratings <em>&mdash; optional</em></span>' +
           '<div class="rate-grid">' +
-          rateField('rate-beauty', 'Beauty') +
-          rateField('rate-photo', 'Photo') +
-          rateField('rate-solitude', 'Solitude') +
+          wjRatingSelect('beauty', 'rate-beauty') +
+          wjRatingSelect('photo', 'rate-photo') +
+          wjRatingSelect('solitude', 'rate-solitude') +
           '</div></div>' +
           '<button type="submit" class="primary full">Save</button>' +
           '<div id="visit-msg" role="status"></div></form>';
@@ -1371,12 +1572,8 @@
     }
 
     // ---------- search ----------
-    // In rating mode every pin is on the purple ramp, so none of the swatches
-    // describe anything on the map. The spectrum bar takes over as the key.
     function renderLegend() {
-      const rating = state.ratings.size > 0;
-      $('spectrum').hidden = !rating;
-      $('legend').hidden = rating;
+      $('spectrum').hidden = state.ratings.size === 0;
     }
 
     // Display names for the terse codes the DB stores.
@@ -1405,36 +1602,28 @@
 
     // A challenge you have never touched is noise, so the row only lists the
     // ones you are actually on -- and hides entirely until you are on one.
+    // A dropdown rather than chips: there are four lists now and more coming,
+    // and a wrapping row of them was crowding the card.
     function renderChallenges() {
       const names = startedChallenges();
-      const row = $('challenge-row');
-      row.hidden = names.length === 0;
+      const box = $('challenge-pick');
+      box.hidden = names.length === 0;
       if (state.challenge !== 'all' && !names.includes(state.challenge)) {
         state.challenge = 'all';
       }
-      if (!names.length) { row.innerHTML = ''; return; }
+      if (!names.length) return;
 
-      const chip = (value, label) =>
-        '<button class="chip challenge" data-challenge="' + escapeHtml(value) +
-        '" aria-pressed="' + (state.challenge === value) + '">' + escapeHtml(label) + '</button>';
-
-      row.innerHTML = '<span class="row-label">Challenge</span>' +
-        names.map((n) => chip(n, CHALLENGE_LABELS[n] || n)).join('');
-
-      // Each chip is its own toggle, and turning one on turns the rest off.
-      // Turning the active one off means no challenge filter, so there is
-      // nothing for an "All" chip to do.
-      row.querySelectorAll('.chip.challenge').forEach((c) => {
-        c.addEventListener('click', () => {
-          const picked = c.dataset.challenge;
-          state.challenge = state.challenge === picked ? 'all' : picked;
-          row.querySelectorAll('.chip.challenge').forEach((o) =>
-            o.setAttribute('aria-pressed',
-              String(o.dataset.challenge === state.challenge)));
-          renderMarkers(true);
-        });
-      });
+      $('challenge-select').innerHTML =
+        '<option value="all">All challenges</option>' +
+        names.map((n) => '<option value="' + escapeHtml(n) + '"' +
+          (state.challenge === n ? ' selected' : '') + '>' +
+          escapeHtml(CHALLENGE_LABELS[n] || n) + '</option>').join('');
     }
+
+    $('challenge-select').addEventListener('change', (e) => {
+      state.challenge = e.target.value;
+      renderMarkers(true);
+    });
 
     function renderDatalist() {
       $('goal-names').innerHTML = state.features
@@ -1451,42 +1640,33 @@
     });
 
     // ---------- filters ----------
-    // The chip rows and the key are two controls over the same two values, so
-    // pressed state is derived from state rather than set at each click site.
     function syncFilters() {
       document.querySelectorAll('.chip.kind').forEach((c) =>
-        c.setAttribute('aria-pressed', String(c.dataset.kind === state.kind)));
-      document.querySelectorAll('.chip.visit-status').forEach((c) =>
-        c.setAttribute('aria-pressed', String(c.dataset.status === state.visitStatus)));
-      document.querySelectorAll('#legend .legend-item').forEach((c) => {
-        const on = c.dataset.kind ? c.dataset.kind === state.kind
-                                  : c.dataset.status === state.visitStatus;
-        c.setAttribute('aria-pressed', String(on));
-      });
+        c.setAttribute('aria-pressed', String(state.showKinds.has(c.dataset.kind))));
+      document.querySelectorAll('.chip.visited').forEach((c) =>
+        c.setAttribute('aria-pressed', String(c.dataset.visited === state.visited)));
     }
 
-    function setKind(kind) {
-      state.kind = state.kind === kind ? 'all' : kind;
-      syncFilters();
-      renderMarkers(true);
-    }
-
-    function setStatus(status) {
-      state.visitStatus = state.visitStatus === status ? 'all' : status;
-      syncFilters();
-      renderMarkers(true);
-    }
-
+    // Kinds are independent on/off; visited is one of three.
     document.querySelectorAll('.chip.kind').forEach((chip) =>
-      chip.addEventListener('click', () => setKind(chip.dataset.kind)));
+      chip.addEventListener('click', () => {
+        const k = chip.dataset.kind;
+        if (state.showKinds.has(k)) state.showKinds.delete(k);
+        else state.showKinds.add(k);
+        syncFilters();
+        renderMarkers(true);
+      }));
 
-    document.querySelectorAll('.chip.visit-status').forEach((chip) =>
-      chip.addEventListener('click', () => setStatus(chip.dataset.status)));
-
-    document.querySelectorAll('#legend .legend-item').forEach((item) =>
-      item.addEventListener('click', () => (item.dataset.kind
-        ? setKind(item.dataset.kind)
-        : setStatus(item.dataset.status))));
+    document.querySelectorAll('.chip.visited').forEach((chip) =>
+      chip.addEventListener('click', () => {
+        // Signed out there is nothing to show, hide or mute. Saying so beats a
+        // control that silently does nothing.
+        if (!state.user) { setAnon(true); return; }
+        visitedTouched = true;
+        state.visited = chip.dataset.visited;
+        syncFilters();
+        renderMarkers(true);
+      }));
 
     document.querySelectorAll('.chip.rating').forEach((chip) => {
       chip.addEventListener('click', () => {
@@ -1495,72 +1675,143 @@
         chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
         renderLegend();
         renderMarkers(false);
+        // after rendering, so closing the modal reveals the colored map
+        maybeExplainRateby();
       });
     });
 
     // ---------- auth ----------
-    let signupMode = false;
+    // Once you pick a visited treatment yourself, signing in or out stops
+    // overriding it.
+    let visitedTouched = false;
+
+    // Sign-in and sign-up are one act now, so there is no mode to toggle.
+    function toggleAuthCard(open) {
+      $('auth-card').classList.toggle('open', open);
+      if (open) {
+        $('auth-error').textContent = '';
+        $('auth-sent').hidden = true;
+        $('auth-email').focus();
+      }
+    }
+
+    function openAuth() { toggleAuthCard(true); }
 
     function renderAuth() {
       const signedIn = !!state.user;
-      $('signin-button').hidden = signedIn;
-      document.querySelector('#auth-corner .signed-in').hidden = !signedIn;
+      $('tile-signin').hidden = signedIn;
+      $('tile-signout').hidden = !signedIn;
+      $('menu-who').hidden = !signedIn;
+      if (!visitedTouched) state.visited = signedIn ? 'mute' : 'show';
+      syncFilters();
       if (signedIn) {
         $('whoami').textContent = state.user.name;
-        const wc = state.features.filter((f) => (f.challenges || []).includes('WC100'));
-        const done = wc.filter((g) => g.last_visited).length;
-        $('progress').textContent = 'WC100 ' + done + '/' + wc.length;
         toggleAuthCard(false);
       }
     }
 
-    function toggleAuthCard(open) {
-      $('auth-card').classList.toggle('open', open);
-      if (open) $('auth-email').focus();
-    }
-
-    $('signin-button').addEventListener('click', () =>
-      toggleAuthCard(!$('auth-card').classList.contains('open')));
-
-    $('auth-toggle').addEventListener('click', () => {
-      signupMode = !signupMode;
-      $('auth-card').classList.toggle('signup-mode', signupMode);
-      $('auth-title').textContent = signupMode ? 'Create an account' : 'Sign in';
-      $('auth-submit').textContent = signupMode ? 'Create account' : 'Sign in';
-      $('auth-toggle').textContent = signupMode ? 'I have an account' : 'Create an account';
-      $('auth-name').required = signupMode;
-    });
-
     $('auth-form').addEventListener('submit', (e) => {
       e.preventDefault();
       $('auth-error').textContent = '';
-      fetch(signupMode ? '/signup' : '/login', {
+      $('auth-submit').disabled = true;
+      fetch('/auth/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: $('auth-name').value,
-          email: $('auth-email').value,
-          password: $('auth-password').value,
-        }),
+        body: JSON.stringify({ email: $('auth-email').value, name: $('auth-name').value }),
       }).then((r) => {
-        if (r.ok) { $('auth-password').value = ''; loadAll(); }
-        else r.text().then((t) => { $('auth-error').textContent = t.trim(); });
+        $('auth-submit').disabled = false;
+        if (!r.ok) {
+          r.text().then((t) => { $('auth-error').textContent = t.trim() || 'Could not send that.'; });
+          return;
+        }
+        r.json().then((body) => {
+          $('auth-sent').hidden = false;
+          // Only present when the server is started with WANDERFALL_ECHO_LINKS=1.
+          if (body.link) {
+            $('auth-devlink').hidden = false;
+            $('auth-devlink').innerHTML = 'Dev: <a href="' + escapeHtml(body.link) + '">' +
+              escapeHtml(body.link) + '</a>';
+          }
+        });
+      }).catch(() => {
+        $('auth-submit').disabled = false;
+        $('auth-error').textContent = 'Could not reach the server.';
       });
     });
 
-    $('signout-button').addEventListener('click', () => {
-      fetch('/logout', { method: 'POST' }).then(() => loadAll());
+    $('auth-close').addEventListener('click', () => toggleAuthCard(false));
+    $('drawer-close').addEventListener('click', closeDrawer);
+
+    // Shown on the first Rate by click of each page load, not once ever. The
+    // scale, the sliced groups and the two-at-once averaging are all
+    // non-obvious, and a reload is a cheap way to see the explanation again.
+    let ratebyShown = false;
+
+    function setRateby(open) {
+      $('rateby-backdrop').hidden = !open;
+      if (open) $('rateby').focus();
+    }
+
+    function maybeExplainRateby() {
+      if (ratebyShown) return;
+      ratebyShown = true;
+      setRateby(true);
+    }
+
+    $('rateby-close').addEventListener('click', () => setRateby(false));
+    $('rateby-ok').addEventListener('click', () => setRateby(false));
+    $('rateby-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('rateby-backdrop')) setRateby(false);
     });
 
-    $('drawer-close').addEventListener('click', closeDrawer);
+    function setAnon(open) {
+      $('anon-backdrop').hidden = !open;
+      if (open) $('anon').focus();
+    }
+
+    $('anon-close').addEventListener('click', () => setAnon(false));
+    $('anon-dismiss').addEventListener('click', () => setAnon(false));
+    $('anon-signup').addEventListener('click', () => { setAnon(false); openAuth(); });
+    $('anon-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('anon-backdrop')) setAnon(false);
+    });
 
     function setIntro(open) {
       $('intro-backdrop').hidden = !open;
-      if (open) $('intro-close').focus();
+      if (open) $('intro').focus();
     }
 
-    $('help-button').addEventListener('click', () => setIntro(true));
+    // The menu is the only chrome on the map now, so it drives everything.
+    function setMenu(open) {
+      $('menu').hidden = !open;
+      $('fab').setAttribute('aria-expanded', String(open));
+    }
+
+    $('fab').addEventListener('click', () => setMenu($('menu').hidden));
+
+    document.addEventListener('click', (e) => {
+      if ($('menu').hidden) return;
+      if (!e.target.closest('#menu') && !e.target.closest('#fab')) setMenu(false);
+    });
+
+    const MENU_ACTIONS = {
+      help:       () => { setIntro(true); },
+      account:    () => { window.location.href = '/account'; },
+      challenges: () => { window.location.href = '/account#challenges'; },
+      bulk:       () => { window.location.href = '/bulk'; },
+      signin:     () => { openAuth(); },
+      signout:    () => { fetch('/logout', { method: 'POST' }).then(() => loadAll()); },
+    };
+
+    document.querySelectorAll('#menu .tile[data-act]').forEach((t) =>
+      t.addEventListener('click', () => {
+        setMenu(false);
+        MENU_ACTIONS[t.dataset.act]();
+      }));
     $('intro-close').addEventListener('click', () => setIntro(false));
+    $('intro-browse').addEventListener('click', () => setIntro(false));
+    $('intro-signup').addEventListener('click', () => { setIntro(false); openAuth(); });
+    $('intro-signin').addEventListener('click', () => { setIntro(false); openAuth(); });
     // click the backdrop, but not the panel sitting on it
     $('intro-backdrop').addEventListener('click', (e) => {
       if (e.target === $('intro-backdrop')) setIntro(false);
@@ -1569,7 +1820,9 @@
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       // the modal is on top, so it gets the key first
-      if (!$('intro-backdrop').hidden) setIntro(false);
+      if (!$('rateby-backdrop').hidden) setRateby(false);
+      else if (!$('anon-backdrop').hidden) setAnon(false);
+      else if (!$('intro-backdrop').hidden) setIntro(false);
       else closeDrawer();
     });
 

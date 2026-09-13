@@ -40,7 +40,10 @@ func startSession(w http.ResponseWriter, userID int) error {
 		Path:     "/",
 		HttpOnly: true,
 		SameSite: http.SameSiteLaxMode,
-		Expires:  time.Now().Add(365 * 24 * time.Hour),
+		// Ten years. There is no server-side expiry either: a session row lives
+		// until sign-out. Losing a session here costs someone their waterfall
+		// list, not their bank account.
+		Expires: time.Now().Add(10 * 365 * 24 * time.Hour),
 	})
 	return nil
 }

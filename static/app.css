@@ -1,0 +1,155 @@
+/* Shared tokens and primitives.
+   NOTE: index.html still carries its own copy of these inline. Until that is
+   removed, changes here must be mirrored there or the map and the other pages
+   will drift apart. */
+
+:root {
+  --pine: #16302a;
+  --pine-90: rgba(22, 48, 42, 0.92);
+  --moss: #24473c;
+  --mist: #f2f6f2;
+  --haze: rgba(242, 246, 242, 0.65);
+  --accent: #2dd4bf;
+  --accent-deep: #14b8a6;
+  --line: rgba(242, 246, 242, 0.14);
+  --danger: #d96b4f;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(10, 24, 20, 0.35);
+  --field-bg: rgba(0, 0, 0, 0.25);
+  --dot-off: rgba(242, 246, 242, 0.18);
+  --dot-ring: rgba(10, 20, 16, 0.55);
+  --ok: #7fd49a;
+  --on-accent: #04302c;
+  --on-visited: #f2f6f2;
+  /* map marker palette — read by JS as well as by the legend swatches */
+  --c-visited: #14532d;
+  --c-azure: #007fff;
+  --c-tower: #8a6a4f;
+  --c-sel: #f2f6f2;
+  /* Rating ramp is purple: it has to stay clear of blue (status), brown
+     (towers), green (the watercolor basemap) and amber (--accent). */
+  --r1: #a865e0;
+  --r2: #b983e8;
+  --r3: #caa0ef;
+  --r4: #dabdf4;
+  --r5: #eddcfa;
+  color-scheme: dark;
+  font-size: 16px;
+}
+
+/* Moon: dark basemap. The chrome above is already the dark set, but the
+   markers need lifting — navy and deep blues vanish on a near-black map. */
+:root[data-theme="dark"] {
+  --c-visited: #4ade80;
+  --c-azure: #3fa0ff;
+  --c-tower: #c7a07c;
+  --c-sel: #ffffff;
+  --on-visited: #06280f;
+  /* purple, lifted for a near-black basemap */
+  --r1: #a865e0;
+  --r2: #b983e8;
+  --r3: #caa0ef;
+  --r4: #dabdf4;
+  --r5: #eddcfa;
+}
+
+/* Sun and paintbrush both sit on a light basemap, so they share a palette. */
+:root[data-theme="light"],
+:root[data-theme="watercolor"] {
+  --pine: #eef1ec;
+  --pine-90: rgba(252, 253, 251, 0.93);
+  --moss: rgba(22, 48, 42, 0.08);
+  --mist: #16302a;
+  --haze: rgba(22, 48, 42, 0.62);
+  --accent: #0d9488;
+  --accent-deep: #0f766e;
+  --line: rgba(22, 48, 42, 0.16);
+  --danger: #b4432a;
+  --shadow: 0 10px 30px rgba(22, 48, 42, 0.16);
+  --field-bg: rgba(22, 48, 42, 0.06);
+  --dot-off: rgba(22, 48, 42, 0.16);
+  --dot-ring: rgba(255, 255, 255, 0.85);
+  --ok: #2e7d4f;
+  --on-visited: #f7faf7;
+  --c-sel: #16302a;
+  --r1: #5e1687;
+  --r2: #7d35a6;
+  --r3: #9d63c2;
+  --r4: #bf96da;
+  --r5: #e0cdee;
+  color-scheme: light;
+}
+
+/* Paintbrush: warm the panels toward paper so they sit on the watercolor. */
+:root[data-theme="watercolor"] {
+  --pine: #f4efe4;
+  --pine-90: rgba(253, 250, 242, 0.94);
+}
+
+* { box-sizing: border-box; }
+
+/* Any author `display` rule outranks the UA stylesheet's
+   [hidden]{display:none}, so every element toggled via .hidden that also
+   has a display of its own silently stops hiding. Say it once, loudly. */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: 'Archivo', system-ui, sans-serif;
+  color: var(--mist);
+  background: var(--pine);
+}
+
+.panel {
+  position: fixed;
+  z-index: 1100;
+  background: var(--pine-90);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+button.quiet {
+  border: none;
+  background: transparent;
+  color: var(--haze);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+button.primary {
+  border: none;
+  background: var(--accent);
+  color: var(--on-accent);
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.quiet:hover { color: var(--mist); background: var(--moss); }
+
+button.primary:hover { background: var(--accent-deep); }
+
+button.primary[disabled] { opacity: 0.55; cursor: default; }
+
+/* Rating control: the caller decides whether the label shows, because a table
+   column header already says "Beauty" and repeating it inside every cell was
+   what knocked the fields out of line. */
+label.rate {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--haze);
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

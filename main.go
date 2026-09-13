@@ -298,11 +298,22 @@ func main() {
 	r.HandleFunc("/logout", logout).Methods("POST")
 	r.HandleFunc("/me", me).Methods("GET")
 
+	r.HandleFunc("/auth/request", requestMagicLink).Methods("POST")
+	r.HandleFunc("/auth/callback", consumeMagicLink).Methods("GET")
+	r.HandleFunc("/challenges", getChallenges).Methods("GET")
 	r.HandleFunc("/visits", createVisit).Methods("POST")
+	r.HandleFunc("/visits/batch", createVisits).Methods("POST")
 	r.HandleFunc("/visits", getVisits).Methods("GET")
 	r.HandleFunc("/visits/{id}", deleteVisit).Methods("DELETE")
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
+
+	r.HandleFunc("/bulk", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/bulk.html")
+	}).Methods("GET")
+	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/account.html")
+	}).Methods("GET")
 
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/index.html")
