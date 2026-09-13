@@ -32,15 +32,45 @@
     #topbar {
       top: 16px;
       left: 16px;
+      right: 16px;
       max-width: min(430px, calc(100vw - 32px));
-      padding: 14px 16px 12px;
+      padding: 12px 14px;
     }
+
+    /* Search and the way to the filters, side by side. The brand needs the
+       full width above them -- there is no room for it beside the field. */
+    .find { display: flex; gap: 8px; align-items: stretch; }
+    .find #search { margin-bottom: 0; }
+
+    #filter-button {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 13px;
+      white-space: nowrap;
+    }
+
+    #filter-count {
+      background: var(--accent);
+      color: var(--on-accent);
+      border-radius: 999px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      min-width: 17px;
+      height: 17px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0 4px;
+    }
+
+    #filter-button[aria-expanded="true"] { background: var(--moss); }
 
     #brand {
       display: flex;
       align-items: baseline;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     #brand h1 {
@@ -107,7 +137,9 @@
       font-weight: 600;
     }
 
-    .chip-row + .chip-row { margin-top: 8px; }
+    .chip-row + .chip-row { margin-top: 10px; }
+    #filters .chip-row { align-items: center; }
+    #filters #area-pick, #filters #challenge-pick { margin-top: 12px; padding-top: 12px; }
 
     #legend {
       margin-top: 10px;
@@ -339,7 +371,7 @@
     #auth-sent .devnote { font-size: 0.7rem; word-break: break-all; color: var(--haze); }
 
     /* ---------- intro modal ---------- */
-    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop {
+    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -351,15 +383,50 @@
       padding: 16px;
     }
 
-    #intro, #anon, #rateby, #fix {
+    /* Three regions, not one scrolling box: the title and the buttons stay put
+       while the middle scrolls, so the way out is never scrolled off. 70vh so a
+       long card is visibly cut off and reads as scrollable. */
+    .modal {
       position: relative;
+      display: flex;
+      flex-direction: column;
       width: min(460px, 100%);
-      /* 70vh rather than the full height so a long card is visibly cut off and
-         reads as scrollable, instead of filling the screen and looking whole. */
       max-height: 70vh;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 20px 24px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-head h2 { flex: 1; margin: 0; padding: 0; }
+    .modal-head .close { position: static; flex: none; margin: -4px -6px 0 0; }
+
+    .modal-body {
       overflow-y: auto;
       overscroll-behavior: contain;
-      padding: 24px 26px;
+      padding: 16px 24px;
+      min-height: 0;
+    }
+
+    .modal-foot {
+      padding: 12px 24px 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .modal-foot .actions { margin-top: 0; }
+
+    /* the form spans body and footer, so it has to be the flex parent of both */
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
     }
 
     #intro h2 {
@@ -367,7 +434,6 @@
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.5rem;
-      padding-right: 28px;
     }
 
     #intro .byline {
@@ -428,18 +494,15 @@
       color: var(--haze);
     }
 
-    #intro .close, #anon .close, #rateby .close, #fix .close { position: absolute; top: 12px; right: 12px; }
-
     /* Focus moves to the dialog itself so Escape and screen readers work, but
        it is a container, not a control -- no ring. */
-    #intro:focus, #anon:focus, #rateby:focus, #fix:focus { outline: none; }
+    .modal:focus { outline: none; }
 
     #rateby h2 {
-      margin: 0 0 14px;
+      margin: 0;
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.25rem;
-      padding-right: 28px;
     }
 
     #rateby p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
@@ -469,11 +532,10 @@
     }
 
     #anon h2 {
-      margin: 0 0 14px;
+      margin: 0;
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.25rem;
-      padding-right: 28px;
     }
 
     #anon p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
@@ -482,6 +544,7 @@
        back at the left margin. The two-button modals keep their pairing left,
        so the primary and the way out stay next to each other. */
     #intro .actions, #rateby .actions { justify-content: flex-end; }
+    #filters .actions { justify-content: space-between; }
 
     #intro .actions, #anon .actions, #rateby .actions, #fix .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
 
@@ -515,10 +578,9 @@
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.25rem;
-      padding-right: 28px;
     }
 
-    #fix > p { font-size: 0.88rem; line-height: 1.5; color: var(--haze); margin: 0 0 14px; }
+    #fix .modal-body > p { font-size: 0.88rem; line-height: 1.5; color: var(--haze); margin: 0 0 14px; }
     #fix .fix-place { font-size: 0.85rem; color: var(--mist); margin: 0 0 4px; }
 
     #fix label {
@@ -586,7 +648,6 @@
       font-weight: 600;
       font-size: 1.45rem;
       line-height: 1.2;
-      padding-right: 28px;
     }
 
     #drawer .badges { margin: 8px 0 14px; display: flex; flex-wrap: wrap; gap: 6px; }
@@ -894,8 +955,22 @@
       <h1>Wanderfall</h1>
       <span class="tagline">WNC challenge log</span>
     </div>
-    <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
-    <datalist id="goal-names"></datalist>
+    <div class="find">
+      <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
+      <datalist id="goal-names"></datalist>
+      <button type="button" class="chip" id="filter-button" aria-expanded="false">
+        Filters<span id="filter-count" hidden></span>
+      </button>
+    </div>
+  </header>
+
+  <div id="filters-backdrop" hidden>
+    <div id="filters" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="filters-title">
+      <div class="modal-head">
+        <h2 id="filters-title">Filters</h2>
+        <button class="close quiet" id="filters-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
     <div class="chip-row" role="group" aria-label="Show on the map">
       <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
       <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
@@ -932,8 +1007,15 @@
         <span style="background:var(--r1)" title="9 and up"></span>
       </div>
       <div class="ends"><span>Lowest</span><span>Best (9+)</span></div>
+      </div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="button" class="primary" id="filters-done">Done</button>
+          <button type="button" class="quiet" id="filters-reset">Reset</button>
+        </div>
+      </div>
     </div>
-  </header>
+  </div>
 
   <button id="fab" aria-expanded="false" title="Actions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9h-.2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10.4 2v-.2a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.2a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z"/></svg><span>Actions</span></button>
 
@@ -957,9 +1039,12 @@
   </div>
 
   <div id="intro-backdrop" hidden>
-    <div id="intro" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="intro-title">
-      <button class="close quiet" id="intro-close" aria-label="Close">&#10005;</button>
-      <h2 id="intro-title">Welcome to Wanderfall!</h2>
+    <div id="intro" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="intro-title">
+      <div class="modal-head">
+        <h2 id="intro-title">Welcome to Wanderfall!</h2>
+        <button class="close quiet" id="intro-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
       <p class="byline">A hobby project by jw.</p>
       <p>This is a list of waterfalls and other amazing quests in Western North
         Carolina. No account needed; if you do create one, you'll be able to
@@ -984,21 +1069,27 @@
         <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
       <p class="whereami">You can get back to this card any time from the
         <strong>Actions</strong> button &rsaquo; <strong>Info</strong>.</p>
-      <div class="actions">
-        <button type="button" class="primary" id="intro-go">Let's Go! &rsaquo;</button>
+      </div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="button" class="primary" id="intro-go">Let's Go! &rsaquo;</button>
+        </div>
       </div>
     </div>
   </div>
 
   <div id="fix-backdrop" hidden>
-    <div id="fix" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="fix-title">
-      <button class="close quiet" id="fix-close" aria-label="Close">&#10005;</button>
-      <h2 id="fix-title">Something Wrong?</h2>
+    <div id="fix" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="fix-title">
+      <div class="modal-head">
+        <h2 id="fix-title">Something Wrong?</h2>
+        <button class="close quiet" id="fix-close" aria-label="Close">&#10005;</button>
+      </div>
+      <form id="fix-form" class="modal-form">
+      <div class="modal-body">
       <p>None of this data is mine &mdash; it comes from HikingWNC, the Carolina
         Mountain Club and Kevin Adams' lists, and some of it is wrong. Six
         waterfalls were a full degree of longitude out when I checked. If you
         have stood somewhere and it does not match, tell me.</p>
-      <form id="fix-form">
         <p class="fix-place">About: <strong id="fix-place"></strong></p>
         <label for="fix-field">What's wrong</label>
         <select id="fix-field">
@@ -1014,13 +1105,16 @@
           placeholder="As much or as little as you like."></textarea>
         <label for="fix-suggested">What should it say? <span class="opt">&mdash; optional</span></label>
         <input type="text" id="fix-suggested" autocomplete="off" />
+      </div>
+      <div class="modal-foot">
         <div class="actions">
           <button type="submit" class="primary" id="fix-submit">Send</button>
           <button type="button" class="quiet" id="fix-cancel">Cancel</button>
         </div>
         <div id="fix-msg" role="status"></div>
+      </div>
       </form>
-      <div id="fix-thanks" hidden>
+      <div id="fix-thanks" class="modal-body" hidden>
         <p>Thank you &mdash; that's logged. No account needed, so I can't write
           back, but I read them.</p>
       </div>
@@ -1028,9 +1122,12 @@
   </div>
 
   <div id="rateby-backdrop" hidden>
-    <div id="rateby" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="rateby-title">
-      <button class="close quiet" id="rateby-close" aria-label="Close">&#10005;</button>
-      <h2 id="rateby-title">Coloring by Rating</h2>
+    <div id="rateby" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="rateby-title">
+      <div class="modal-head">
+        <h2 id="rateby-title">Coloring by Rating</h2>
+        <button class="close quiet" id="rateby-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
       <p>Most of these waterfalls come with ratings from HikingWNC &mdash; how
         good they look, how well they photograph, and how much solitude you get.
         Pick one and every pin is shaded by it.</p>
@@ -1053,23 +1150,32 @@
       <p>Anything without the rating you picked drops off the map rather than
         being drawn in a color implying a score it hasn't got. That includes
         every lookout tower, which have no ratings at all.</p>
-      <div class="actions"><button type="button" class="primary" id="rateby-ok">Got It</button></div>
+      </div>
+      <div class="modal-foot">
+        <div class="actions"><button type="button" class="primary" id="rateby-ok">Got It</button></div>
+      </div>
     </div>
   </div>
 
   <div id="anon-backdrop" hidden>
-    <div id="anon" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="anon-title">
-      <button class="close quiet" id="anon-close" aria-label="Close">&#10005;</button>
-      <h2 id="anon-title">Hi, Anonymous Visitor!</h2>
+    <div id="anon" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="anon-title">
+      <div class="modal-head">
+        <h2 id="anon-title">Hi, Anonymous Visitor!</h2>
+        <button class="close quiet" id="anon-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
       <p>I don't know who you are and I don't have a list of waterfalls you've
         visited. So for now, this doesn't do anything.</p>
       <p>If you decide to create an account then enter waterfalls, either in bulk
         or as you visit them, I can show you which ones you've been to &hellip;
         or <em>not</em> show them, so you can go to new ones.</p>
       <p class="sig">Good hiking! &mdash;jw</p>
-      <div class="actions">
-        <button type="button" class="primary" id="anon-signup">Create an account</button>
-        <button type="button" class="quiet" id="anon-dismiss">Maybe later</button>
+      </div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="button" class="primary" id="anon-signup">Create an account</button>
+          <button type="button" class="quiet" id="anon-dismiss">Maybe later</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1704,6 +1810,7 @@
 
     $('challenge-select').addEventListener('change', (e) => {
       state.challenge = e.target.value;
+      syncFilterButton();
       renderMarkers(true);
     });
 
@@ -1723,6 +1830,7 @@
       state.area = value;
       $('area-pick').hidden = !value;
       $('area-current').textContent = value;
+      syncFilterButton();
       renderMarkers(true);
     }
 
@@ -1763,6 +1871,7 @@
         c.setAttribute('aria-pressed', String(state.showKinds.has(c.dataset.kind))));
       document.querySelectorAll('.chip.visited').forEach((c) =>
         c.setAttribute('aria-pressed', String(c.dataset.visited === state.visited)));
+      syncFilterButton();
     }
 
     // Kinds are independent on/off; visited is one of three.
@@ -1793,6 +1902,7 @@
         chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
         renderLegend();
         renderMarkers(false);
+        syncFilterButton();
         // after rendering, so closing the modal reveals the colored map
         maybeExplainRateby();
       });
@@ -1884,6 +1994,51 @@
     });
 
     let fixTarget = null;
+
+    function activeFilterCount() {
+      let n = 0;
+      if (state.showKinds.size !== 2) n++;
+      if (state.visited !== (state.user ? 'mute' : 'show')) n++;
+      if (state.ratings.size) n++;
+      if (state.area) n++;
+      if (state.challenge !== 'all') n++;
+      return n;
+    }
+
+    function syncFilterButton() {
+      const n = activeFilterCount();
+      $('filter-count').hidden = n === 0;
+      $('filter-count').textContent = n;
+    }
+
+    function setFilters(open) {
+      $('filters-backdrop').hidden = !open;
+      $('filter-button').setAttribute('aria-expanded', String(open));
+      if (open) $('filters').focus();
+      else syncFilterButton();
+    }
+
+    $('filter-button').addEventListener('click', () => setFilters(true));
+    $('filters-close').addEventListener('click', () => setFilters(false));
+    $('filters-done').addEventListener('click', () => setFilters(false));
+    $('filters-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('filters-backdrop')) setFilters(false);
+    });
+
+    $('filters-reset').addEventListener('click', () => {
+      state.showKinds = new Set(['waterfall', 'tower']);
+      state.visited = state.user ? 'mute' : 'show';
+      state.ratings = new Set();
+      state.challenge = 'all';
+      document.querySelectorAll('.chip.rating').forEach((c) =>
+        c.setAttribute('aria-pressed', 'false'));
+      setArea('');
+      syncFilters();
+      renderLegend();
+      renderChallenges();
+      renderMarkers(true);
+      syncFilterButton();
+    });
 
     function setFix(open, goal) {
       $('fix-backdrop').hidden = !open;
@@ -1987,7 +2142,8 @@
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       // the modal is on top, so it gets the key first
-      if (!$('fix-backdrop').hidden) setFix(false);
+      if (!$('filters-backdrop').hidden) setFilters(false);
+      else if (!$('fix-backdrop').hidden) setFix(false);
       else if (!$('rateby-backdrop').hidden) setRateby(false);
       else if (!$('anon-backdrop').hidden) setAnon(false);
       else if (!$('intro-backdrop').hidden) setIntro(false);
