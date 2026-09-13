@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
+  <script src="/static/analytics.js"></script>
   <title>Wanderfall</title>
   <script>
     // Resolve the theme before first paint so there is no flash of the wrong one.
@@ -32,15 +35,47 @@
     #topbar {
       top: 16px;
       left: 16px;
+      right: 16px;
       max-width: min(430px, calc(100vw - 32px));
-      padding: 14px 16px 12px;
+      padding: 12px 14px;
     }
+
+    /* Search and the way to the filters, side by side. The brand needs the
+       full width above them -- there is no room for it beside the field. */
+    .find { display: flex; gap: 8px; align-items: stretch; }
+    #filter-controls { margin-top: 10px; }
+    #filters-slot #filter-controls { margin-top: 0; }
+    .find #search { margin-bottom: 0; }
+
+    #filter-button {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 13px;
+      white-space: nowrap;
+    }
+
+    #filter-count {
+      background: var(--accent);
+      color: var(--on-accent);
+      border-radius: 999px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      min-width: 17px;
+      height: 17px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0 4px;
+    }
+
+    #filter-button[aria-expanded="true"] { background: var(--moss); }
 
     #brand {
       display: flex;
       align-items: baseline;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     #brand h1 {
@@ -78,14 +113,14 @@
       align-items: center;
     }
 
-    .chip-row .row-label {
+    .row-label {
       font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--haze);
-      margin-right: 2px;
-      min-width: 52px;
     }
+
+    .chip-row .row-label { margin-right: 2px; min-width: 52px; }
 
     .chip {
       border: 1px solid var(--line);
@@ -107,7 +142,9 @@
       font-weight: 600;
     }
 
-    .chip-row + .chip-row { margin-top: 8px; }
+    .chip-row + .chip-row { margin-top: 10px; }
+    #filters .chip-row { align-items: center; }
+    #filters #area-pick, #filters #challenge-pick { margin-top: 10px; }
 
     #legend {
       margin-top: 10px;
@@ -135,11 +172,8 @@
       align-items: center;
       gap: 8px;
       margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--line);
     }
 
-    #area-pick .row-label { min-width: auto; margin: 0; }
 
     #area-current { flex: 1; min-width: 0; font-size: 0.82rem; font-weight: 600; }
     #area-clear { padding: 4px 6px; }
@@ -149,11 +183,8 @@
       align-items: center;
       gap: 8px;
       margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--line);
     }
 
-    #challenge-pick .row-label { min-width: auto; margin: 0; }
 
     #challenge-select {
       flex: 1;
@@ -169,6 +200,34 @@
     }
 
     #spectrum { margin-top: 8px; }
+
+    /* Stays in the card at every width: with the filters behind a button on a
+       phone, this is the only thing that says whether they did anything. */
+    #showing {
+      margin-top: 10px;
+      padding: 9px 8px 3px;
+      border-top: 1px solid var(--line);
+      font-size: 0.78rem;
+      color: var(--mist);
+      border-radius: 0 0 8px 8px;
+      margin-left: -8px;
+      margin-right: -8px;
+    }
+
+    #showing b { font-weight: 700; }
+
+    /* Fires only when the number actually changes, so it reads as a response
+       to what you just did rather than decoration. */
+    @keyframes showing-bump {
+      0%   { background: var(--accent); color: var(--on-accent); }
+      100% { background: transparent; color: var(--mist); }
+    }
+
+    #showing.bump { animation: showing-bump 900ms ease-out; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #showing.bump { animation: none; }
+    }
 
     #spectrum .bar {
       display: flex;
@@ -339,7 +398,7 @@
     #auth-sent .devnote { font-size: 0.7rem; word-break: break-all; color: var(--haze); }
 
     /* ---------- intro modal ---------- */
-    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop {
+    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -351,12 +410,86 @@
       padding: 16px;
     }
 
-    #intro, #anon, #rateby, #fix {
+    /* Three regions, not one scrolling box: the title and the buttons stay put
+       while the middle scrolls, so the way out is never scrolled off. 70vh so a
+       long card is visibly cut off and reads as scrollable. */
+    .modal {
       position: relative;
+      display: flex;
+      flex-direction: column;
       width: min(460px, 100%);
-      max-height: calc(100vh - 32px);
+      max-height: 70vh;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 20px 24px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-head h2 { flex: 1; margin: 0; padding: 0; }
+    .modal-head .close { position: static; flex: none; margin: -4px -6px 0 0; }
+
+    .modal-body {
       overflow-y: auto;
-      padding: 24px 26px;
+      overscroll-behavior: contain;
+      padding: 16px 24px;
+      min-height: 0;
+    }
+
+    /* Only while there is something below. Fading unconditionally would dim
+       the last line of a card that has already been read to the end. */
+    .modal-body[data-more="1"] {
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 3.5rem), transparent);
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 3.5rem), transparent);
+    }
+
+    .modal-foot {
+      position: relative;
+      padding: 12px 24px 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Sits on the seam between the scrolling body and the footer, half in
+       each. In the footer rather than the body because anything inside the
+       body scrolls away with the content it is advertising. */
+    .more-pill {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--pine-90);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: var(--shadow);
+      color: var(--haze);
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .more-pill:hover { color: var(--mist); }
+
+    .modal-foot .actions { margin-top: 0; }
+
+    /* the form spans body and footer, so it has to be the flex parent of both */
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
     }
 
     #intro h2 {
@@ -364,7 +497,6 @@
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.5rem;
-      padding-right: 28px;
     }
 
     #intro .byline {
@@ -425,18 +557,15 @@
       color: var(--haze);
     }
 
-    #intro .close, #anon .close, #rateby .close, #fix .close { position: absolute; top: 12px; right: 12px; }
-
     /* Focus moves to the dialog itself so Escape and screen readers work, but
        it is a container, not a control -- no ring. */
-    #intro:focus, #anon:focus, #rateby:focus, #fix:focus { outline: none; }
+    .modal:focus { outline: none; }
 
     #rateby h2 {
-      margin: 0 0 14px;
+      margin: 0;
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.25rem;
-      padding-right: 28px;
     }
 
     #rateby p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
@@ -466,19 +595,25 @@
     }
 
     #anon h2 {
-      margin: 0 0 14px;
+      margin: 0;
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.25rem;
-      padding-right: 28px;
     }
 
     #anon p { margin: 0 0 13px; font-size: 0.92rem; line-height: 1.55; }
     #anon .sig { color: var(--haze); margin-bottom: 0; }
-    #anon .actions, #rateby .actions, #fix .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
+    /* One button that ends the card sits where you finish reading, rather than
+       back at the left margin. The two-button modals keep their pairing left,
+       so the primary and the way out stay next to each other. */
+    #intro .actions, #rateby .actions { justify-content: flex-end; }
+    #filters .actions { justify-content: space-between; }
+
+    #intro .actions, #anon .actions, #rateby .actions, #fix .actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
 
     /* Modal buttons are pills. The secondary keeps a border so it still reads
        as a button next to the filled one, rather than as a stray link. */
+    #intro .actions button,
     #anon .actions button,
     #rateby .actions button,
     #fix .actions button {
@@ -506,10 +641,9 @@
       font-family: 'Fraunces', serif;
       font-weight: 600;
       font-size: 1.25rem;
-      padding-right: 28px;
     }
 
-    #fix > p { font-size: 0.88rem; line-height: 1.5; color: var(--haze); margin: 0 0 14px; }
+    #fix .modal-body > p { font-size: 0.88rem; line-height: 1.5; color: var(--haze); margin: 0 0 14px; }
     #fix .fix-place { font-size: 0.85rem; color: var(--mist); margin: 0 0 4px; }
 
     #fix label {
@@ -577,7 +711,6 @@
       font-weight: 600;
       font-size: 1.45rem;
       line-height: 1.2;
-      padding-right: 28px;
     }
 
     #drawer .badges { margin: 8px 0 14px; display: flex; flex-wrap: wrap; gap: 6px; }
@@ -869,6 +1002,10 @@
       }
 
       #drawer.open { transform: none; }
+
+      /* Centre the modals above the Actions button rather than over it. */
+      #intro-backdrop, #anon-backdrop, #rateby-backdrop,
+      #fix-backdrop, #filters-backdrop { padding-bottom: 84px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -885,8 +1022,14 @@
       <h1>Wanderfall</h1>
       <span class="tagline">WNC challenge log</span>
     </div>
-    <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
-    <datalist id="goal-names"></datalist>
+    <div class="find">
+      <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
+      <datalist id="goal-names"></datalist>
+      <button type="button" class="chip" id="filter-button" aria-expanded="false" hidden>
+        Filters<span id="filter-count" hidden></span>
+      </button>
+    </div>
+    <div id="filter-controls">
     <div class="chip-row" role="group" aria-label="Show on the map">
       <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
       <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
@@ -898,7 +1041,7 @@
       <button class="chip visited" data-visited="mute" aria-pressed="true"><span class="dot" style="background:var(--c-visited)"></span>Mute</button>
     </div>
     <div class="chip-row" role="group" aria-label="Color markers by rating">
-      <span class="row-label">Rate by</span>
+      <span class="row-label">Ratings</span>
       <button class="chip rating" data-rating="beauty" aria-pressed="false">Beauty</button>
       <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
       <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
@@ -914,6 +1057,7 @@
         <option value="all">All challenges</option>
       </select>
     </div>
+    </div>
     <div id="spectrum" hidden>
       <div class="bar">
         <span style="background:var(--r5)" title="under 3"></span>
@@ -924,7 +1068,24 @@
       </div>
       <div class="ends"><span>Lowest</span><span>Best (9+)</span></div>
     </div>
+    <div id="showing"></div>
   </header>
+
+  <div id="filters-backdrop" hidden>
+    <div id="filters" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="filters-title">
+      <div class="modal-head">
+        <h2 id="filters-title">Filters</h2>
+        <button class="close quiet" id="filters-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body" id="filters-slot"></div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="button" class="primary" id="filters-done">Done</button>
+          <button type="button" class="quiet" id="filters-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <button id="fab" aria-expanded="false" title="Actions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9h-.2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10.4 2v-.2a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.2a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z"/></svg><span>Actions</span></button>
 
@@ -934,6 +1095,7 @@
       <button class="tile" data-act="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.5 2.7c-.6.2-1 .8-1 1.4v.4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span>Info</span></button>
       <button class="tile" data-act="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg><span>Account</span></button>
       <button class="tile" data-act="challenges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 3M17 6h2.5a2.5 2.5 0 0 1-2.5 3"/><path d="M10 14v3h4v-3M8 20h8"/></svg><span>Challenges</span></button>
+      <button class="tile" data-act="queue" id="tile-queue" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="20" cy="6" r="2.5" fill="currentColor" stroke="none"/></svg><span>Corrections</span></button>
       <button class="tile" data-act="bulk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Bulk Entry</span></button>
       <button class="tile" data-act="signin" id="tile-signin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/><path d="M20 12h-9m0 0 3-3m-3 3 3 3"/></svg><span>Sign In</span></button>
       <button class="tile" data-act="signout" id="tile-signout" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/><path d="M11 12h9m0 0-3-3m3 3-3 3"/></svg><span>Sign Out</span></button>
@@ -947,9 +1109,12 @@
   </div>
 
   <div id="intro-backdrop" hidden>
-    <div id="intro" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="intro-title">
-      <button class="close quiet" id="intro-close" aria-label="Close">&#10005;</button>
-      <h2 id="intro-title">Welcome to Wanderfall!</h2>
+    <div id="intro" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="intro-title">
+      <div class="modal-head">
+        <h2 id="intro-title">Welcome to Wanderfall!</h2>
+        <button class="close quiet" id="intro-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
       <p class="byline">A hobby project by jw.</p>
       <p>This is a list of waterfalls and other amazing quests in Western North
         Carolina. No account needed; if you do create one, you'll be able to
@@ -974,18 +1139,27 @@
         <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
       <p class="whereami">You can get back to this card any time from the
         <strong>Actions</strong> button &rsaquo; <strong>Info</strong>.</p>
+      </div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="button" class="primary" id="intro-go">Let's Go! &rsaquo;</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <div id="fix-backdrop" hidden>
-    <div id="fix" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="fix-title">
-      <button class="close quiet" id="fix-close" aria-label="Close">&#10005;</button>
-      <h2 id="fix-title">Something Wrong?</h2>
+    <div id="fix" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="fix-title">
+      <div class="modal-head">
+        <h2 id="fix-title">Something Wrong?</h2>
+        <button class="close quiet" id="fix-close" aria-label="Close">&#10005;</button>
+      </div>
+      <form id="fix-form" class="modal-form">
+      <div class="modal-body">
       <p>None of this data is mine &mdash; it comes from HikingWNC, the Carolina
         Mountain Club and Kevin Adams' lists, and some of it is wrong. Six
         waterfalls were a full degree of longitude out when I checked. If you
         have stood somewhere and it does not match, tell me.</p>
-      <form id="fix-form">
         <p class="fix-place">About: <strong id="fix-place"></strong></p>
         <label for="fix-field">What's wrong</label>
         <select id="fix-field">
@@ -1001,13 +1175,16 @@
           placeholder="As much or as little as you like."></textarea>
         <label for="fix-suggested">What should it say? <span class="opt">&mdash; optional</span></label>
         <input type="text" id="fix-suggested" autocomplete="off" />
+      </div>
+      <div class="modal-foot">
         <div class="actions">
           <button type="submit" class="primary" id="fix-submit">Send</button>
           <button type="button" class="quiet" id="fix-cancel">Cancel</button>
         </div>
         <div id="fix-msg" role="status"></div>
+      </div>
       </form>
-      <div id="fix-thanks" hidden>
+      <div id="fix-thanks" class="modal-body" hidden>
         <p>Thank you &mdash; that's logged. No account needed, so I can't write
           back, but I read them.</p>
       </div>
@@ -1015,9 +1192,12 @@
   </div>
 
   <div id="rateby-backdrop" hidden>
-    <div id="rateby" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="rateby-title">
-      <button class="close quiet" id="rateby-close" aria-label="Close">&#10005;</button>
-      <h2 id="rateby-title">Coloring by Rating</h2>
+    <div id="rateby" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="rateby-title">
+      <div class="modal-head">
+        <h2 id="rateby-title">Coloring by Rating</h2>
+        <button class="close quiet" id="rateby-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
       <p>Most of these waterfalls come with ratings from HikingWNC &mdash; how
         good they look, how well they photograph, and how much solitude you get.
         Pick one and every pin is shaded by it.</p>
@@ -1040,23 +1220,32 @@
       <p>Anything without the rating you picked drops off the map rather than
         being drawn in a color implying a score it hasn't got. That includes
         every lookout tower, which have no ratings at all.</p>
-      <div class="actions"><button type="button" class="primary" id="rateby-ok">Got It</button></div>
+      </div>
+      <div class="modal-foot">
+        <div class="actions"><button type="button" class="primary" id="rateby-ok">Got It</button></div>
+      </div>
     </div>
   </div>
 
   <div id="anon-backdrop" hidden>
-    <div id="anon" class="panel" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="anon-title">
-      <button class="close quiet" id="anon-close" aria-label="Close">&#10005;</button>
-      <h2 id="anon-title">Hi, Anonymous Visitor!</h2>
+    <div id="anon" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="anon-title">
+      <div class="modal-head">
+        <h2 id="anon-title">Hi, Anonymous Visitor!</h2>
+        <button class="close quiet" id="anon-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
       <p>I don't know who you are and I don't have a list of waterfalls you've
         visited. So for now, this doesn't do anything.</p>
       <p>If you decide to create an account then enter waterfalls, either in bulk
         or as you visit them, I can show you which ones you've been to &hellip;
         or <em>not</em> show them, so you can go to new ones.</p>
       <p class="sig">Good hiking! &mdash;jw</p>
-      <div class="actions">
-        <button type="button" class="primary" id="anon-signup">Create an account</button>
-        <button type="button" class="quiet" id="anon-dismiss">Maybe later</button>
+      </div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="button" class="primary" id="anon-signup">Create an account</button>
+          <button type="button" class="quiet" id="anon-dismiss">Maybe later</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1125,8 +1314,14 @@
     // layer happens to be attached: markercluster reads maxZoom off the map the
     // moment it is added, and the base layer is not attached until applyTheme
     // runs at the end of this script.
-    const map = L.map('map', { zoomControl: false, minZoom: 0, maxZoom: 20 })
-      .setView([35.4, -82.8], 8);
+    // A phone at z7 shows 400 km where a desktop shows 1500. Same floor on
+    // both would mean a phone could never pull back far enough to see the
+    // whole region, so it gets a looser one.
+    const map = L.map('map', {
+      zoomControl: false,
+      minZoom: window.matchMedia('(max-width: 720px)').matches ? 5 : 7,
+      maxZoom: 20,
+    }).setView([35.4, -82.8], 8);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     const THEMES = {
       light: {
@@ -1401,8 +1596,20 @@
       );
     }
 
+    let lastShownCount = null;
+
     function renderMarkers(fit) {
       const goals = visibleGoals();
+      const showing = $('showing');
+      showing.innerHTML = 'Showing <b>' + goals.length.toLocaleString() + '</b> ' +
+        (goals.length === 1 ? 'adventure' : 'adventures');
+      if (lastShownCount !== null && lastShownCount !== goals.length) {
+        showing.classList.remove('bump');
+        void showing.offsetWidth;          // restart the animation
+        showing.classList.add('bump');
+      }
+      lastShownCount = goals.length;
+
       clusterGroups.forEach((g) => g.clearLayers());
       state.markers.clear();
 
@@ -1650,7 +1857,7 @@
     // the Adams lists smallest first. Anything not listed sorts in after.
     const CHALLENGE_LABELS = {
       WC100: 'CMC WC100',
-      LTC: 'Lookout Towers',
+      LTC: 'Tower Challenge',
       ADAMS100: 'Adams 100',
       ADAMS500: 'Adams 500',
     };
@@ -1691,6 +1898,7 @@
 
     $('challenge-select').addEventListener('change', (e) => {
       state.challenge = e.target.value;
+      syncFilterButton();
       renderMarkers(true);
     });
 
@@ -1710,6 +1918,7 @@
       state.area = value;
       $('area-pick').hidden = !value;
       $('area-current').textContent = value;
+      syncFilterButton();
       renderMarkers(true);
     }
 
@@ -1750,6 +1959,7 @@
         c.setAttribute('aria-pressed', String(state.showKinds.has(c.dataset.kind))));
       document.querySelectorAll('.chip.visited').forEach((c) =>
         c.setAttribute('aria-pressed', String(c.dataset.visited === state.visited)));
+      syncFilterButton();
     }
 
     // Kinds are independent on/off; visited is one of three.
@@ -1780,6 +1990,7 @@
         chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
         renderLegend();
         renderMarkers(false);
+        syncFilterButton();
         // after rendering, so closing the modal reveals the colored map
         maybeExplainRateby();
       });
@@ -1807,6 +2018,7 @@
       $('tile-signin').hidden = signedIn;
       $('tile-signout').hidden = !signedIn;
       $('menu-who').hidden = !signedIn;
+      $('tile-queue').hidden = !(signedIn && state.user.is_admin);
       if (!visitedTouched) state.visited = signedIn ? 'mute' : 'show';
       syncFilters();
       if (signedIn) {
@@ -1854,7 +2066,7 @@
 
     function setRateby(open) {
       $('rateby-backdrop').hidden = !open;
-      if (open) $('rateby').focus();
+      if (open) { $('rateby').focus(); refreshFades(); }
     }
 
     function maybeExplainRateby() {
@@ -1871,6 +2083,103 @@
 
     let fixTarget = null;
 
+    function activeFilterCount() {
+      let n = 0;
+      if (state.showKinds.size !== 2) n++;
+      if (state.visited !== (state.user ? 'mute' : 'show')) n++;
+      if (state.ratings.size) n++;
+      if (state.area) n++;
+      if (state.challenge !== 'all') n++;
+      return n;
+    }
+
+    function syncFilterButton() {
+      const n = activeFilterCount();
+      $('filter-count').hidden = n === 0;
+      $('filter-count').textContent = n;
+    }
+
+    // The mask is measured against the visible box, so it has to be recomputed
+    // whenever the box or its contents change: on open, on scroll, on resize.
+    function markScrollable(el) {
+      const more = el.scrollHeight - el.scrollTop - el.clientHeight > 4;
+      el.dataset.more = more ? '1' : '0';
+      if (el.wjPill) el.wjPill.hidden = !more;
+    }
+
+    function refreshFades() {
+      document.querySelectorAll('.modal-body').forEach(markScrollable);
+    }
+
+    // One pill per footer, paired with the body directly above it, built here
+    // rather than repeated in the markup of every modal.
+    document.querySelectorAll('.modal-foot').forEach((foot) => {
+      const body = foot.previousElementSibling;
+      if (!body || !body.classList.contains('modal-body')) return;
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'more-pill';
+      pill.hidden = true;
+      pill.innerHTML = 'More <span aria-hidden="true">&darr;</span>';
+      pill.addEventListener('click', () => {
+        body.scrollBy({ top: body.clientHeight * 0.8, behavior: 'smooth' });
+      });
+      foot.appendChild(pill);
+      body.wjPill = pill;
+    });
+
+    document.querySelectorAll('.modal-body').forEach((b) =>
+      b.addEventListener('scroll', () => markScrollable(b)));
+    window.addEventListener('resize', refreshFades);
+
+    function setFilters(open) {
+      $('filters-backdrop').hidden = !open;
+      $('filter-button').setAttribute('aria-expanded', String(open));
+      if (open) { $('filters').focus(); refreshFades(); }
+      else syncFilterButton();
+    }
+
+    // One set of controls, in two places. Desktop has room for them in the
+    // card; a phone does not, so they move into the modal rather than being
+    // duplicated -- two copies would need two sets of ids and could disagree.
+    const narrowScreen = window.matchMedia('(max-width: 720px)');
+
+    function placeFilters() {
+      const controls = $('filter-controls');
+      if (narrowScreen.matches) {
+        $('filters-slot').appendChild(controls);
+      } else {
+        $('topbar').appendChild(controls);
+        setFilters(false);
+      }
+      $('filter-button').hidden = !narrowScreen.matches;
+    }
+
+    narrowScreen.addEventListener('change', placeFilters);
+    placeFilters();
+
+    $('filter-button').addEventListener('click', () => setFilters(true));
+    $('filters-close').addEventListener('click', () => setFilters(false));
+    $('filters-done').addEventListener('click', () => setFilters(false));
+    $('filters-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('filters-backdrop')) setFilters(false);
+    });
+
+    $('filters-reset').addEventListener('click', () => {
+      state.showKinds = new Set(['waterfall', 'tower']);
+      state.visited = state.user ? 'mute' : 'show';
+      state.ratings = new Set();
+      state.challenge = 'all';
+      document.querySelectorAll('.chip.rating').forEach((c) =>
+        c.setAttribute('aria-pressed', 'false'));
+      setArea('');
+      syncFilters();
+      renderLegend();
+      renderChallenges();
+      renderMarkers(true);
+      syncFilterButton();
+    });
+
     function setFix(open, goal) {
       $('fix-backdrop').hidden = !open;
       if (!open) return;
@@ -1882,6 +2191,7 @@
       $('fix-comment').value = '';
       $('fix-suggested').value = '';
       $('fix').focus();
+      refreshFades();
     }
 
     $('fix-close').addEventListener('click', () => setFix(false));
@@ -1920,7 +2230,7 @@
 
     function setAnon(open) {
       $('anon-backdrop').hidden = !open;
-      if (open) $('anon').focus();
+      if (open) { $('anon').focus(); refreshFades(); }
     }
 
     $('anon-close').addEventListener('click', () => setAnon(false));
@@ -1932,7 +2242,7 @@
 
     function setIntro(open) {
       $('intro-backdrop').hidden = !open;
-      if (open) $('intro').focus();
+      if (open) { $('intro').focus(); refreshFades(); }
     }
 
     // The menu is the only chrome on the map now, so it drives everything.
@@ -1953,6 +2263,7 @@
       account:    () => { window.location.href = '/account'; },
       challenges: () => { window.location.href = '/account#challenges'; },
       bulk:       () => { window.location.href = '/bulk'; },
+      queue:      () => { window.location.href = '/corrections/queue'; },
       signin:     () => { openAuth(); },
       signout:    () => { fetch('/logout', { method: 'POST' }).then(() => loadAll()); },
     };
@@ -1962,7 +2273,21 @@
         setMenu(false);
         MENU_ACTIONS[t.dataset.act]();
       }));
-    $('intro-close').addEventListener('click', () => setIntro(false));
+    // On a phone the filters are behind a button, so the count is the only
+    // thing saying how much there is. Point at it once the card is gone.
+    function dismissIntro() {
+      setIntro(false);
+      if (!narrowScreen.matches) return;
+      setTimeout(() => {
+        const el = $('showing');
+        el.classList.remove('bump');
+        void el.offsetWidth;
+        el.classList.add('bump');
+      }, 3000);
+    }
+
+    $('intro-close').addEventListener('click', dismissIntro);
+    $('intro-go').addEventListener('click', dismissIntro);
     // click the backdrop, but not the panel sitting on it
     $('intro-backdrop').addEventListener('click', (e) => {
       if (e.target === $('intro-backdrop')) setIntro(false);
@@ -1971,7 +2296,8 @@
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       // the modal is on top, so it gets the key first
-      if (!$('fix-backdrop').hidden) setFix(false);
+      if (!$('filters-backdrop').hidden) setFilters(false);
+      else if (!$('fix-backdrop').hidden) setFix(false);
       else if (!$('rateby-backdrop').hidden) setRateby(false);
       else if (!$('anon-backdrop').hidden) setAnon(false);
       else if (!$('intro-backdrop').hidden) setIntro(false);

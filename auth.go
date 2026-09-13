@@ -13,9 +13,10 @@ import (
 )
 
 type User struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	ID      int    `json:"id"`
+	Name    string `json:"name"`
+	Email   string `json:"email"`
+	IsAdmin bool   `json:"is_admin"`
 }
 
 func generateToken() (string, error) {
@@ -55,10 +56,10 @@ func currentUser(r *http.Request) *User {
 	}
 	var u User
 	err = db.QueryRow(`
-		SELECT users.id, users.name, users.email
+		SELECT users.id, users.name, users.email, users.is_admin
 		FROM sessions JOIN users ON users.id = sessions.user_id
 		WHERE sessions.token = $1
-	`, c.Value).Scan(&u.ID, &u.Name, &u.Email)
+	`, c.Value).Scan(&u.ID, &u.Name, &u.Email, &u.IsAdmin)
 	if err != nil {
 		return nil
 	}

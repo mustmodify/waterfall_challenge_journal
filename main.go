@@ -375,6 +375,9 @@ func main() {
 	r.HandleFunc("/auth/callback", consumeMagicLink).Methods("GET")
 	r.HandleFunc("/challenges", getChallenges).Methods("GET")
 	r.HandleFunc("/corrections", createCorrection).Methods("POST")
+	r.HandleFunc("/corrections", listCorrections).Methods("GET")
+	r.HandleFunc("/corrections/{id}", updateCorrection).Methods("PATCH")
+	r.HandleFunc("/corrections/{id}", deleteCorrection).Methods("DELETE")
 	r.HandleFunc("/visits", createVisit).Methods("POST")
 	r.HandleFunc("/visits/batch", createVisits).Methods("POST")
 	r.HandleFunc("/visits", getVisits).Methods("GET")
@@ -385,6 +388,9 @@ func main() {
 	r.HandleFunc("/bulk", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/bulk.html")
 	}).Methods("GET")
+	r.HandleFunc("/corrections/queue", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/corrections.html")
+	}).Methods("GET")
 	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/account.html")
 	}).Methods("GET")
@@ -392,6 +398,8 @@ func main() {
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/index.html")
 	}).Methods("GET")
+
+	initMailer()
 
 	fmt.Println("Server running on http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
