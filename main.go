@@ -59,6 +59,15 @@ type Feature struct {
 	Location          *Location `json:"location,omitempty"`
 	LastVisited       *string   `json:"last_visited,omitempty"`
 	Challenges        []string  `json:"challenges"`
+	Links             []Link    `json:"links"`
+}
+
+// Link is an outside page about a feature -- almost always its hikingwnc.com
+// entry, which carries directions, photos and current trail conditions that
+// this app has no business duplicating.
+type Link struct {
+	URL string `json:"url"`
+	Rel string `json:"rel,omitempty"`
 }
 
 type Note struct {
@@ -173,7 +182,12 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			`+lastVisited+` AS last_visited,
 			(SELECT string_agg(challenges.name, ',') FROM goals
 				JOIN challenges ON challenges.id = goals.challenge_id
-				WHERE goals.feature_id = features.id) AS challenge_names
+				WHERE goals.feature_id = features.id) AS challenge_names,
+			-- rel and url joined per row, rows joined by newline. Neither
+			-- character occurs in either column, so the split is unambiguous.
+			(SELECT string_agg(coalesce(links.rel, '') || E'\t' || links.url, E'\n'
+				ORDER BY links.id)
+				FROM links WHERE links.feature_id = features.id) AS link_rows
 		FROM features LEFT JOIN locations ON locations.id = features.feature_location_id
 	`, args...)
 	if err != nil {
@@ -189,6 +203,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var locationID sql.NullInt64
 		var lastVisited sql.NullString
 		var challengeNames sql.NullString
+		var linkRows sql.NullString
 
 		err := rows.Scan(
 			&f.ID,
@@ -211,6 +226,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&latitude,
 			&lastVisited,
 			&challengeNames,
+			&linkRows,
 		)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -224,6 +240,16 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		f.Challenges = []string{}
 		if challengeNames.Valid && challengeNames.String != "" {
 			f.Challenges = strings.Split(challengeNames.String, ",")
+		}
+
+		f.Links = []Link{}
+		if linkRows.Valid && linkRows.String != "" {
+			for _, row := range strings.Split(linkRows.String, "\n") {
+				parts := strings.SplitN(row, "\t", 2)
+				if len(parts) == 2 && parts[1] != "" {
+					f.Links = append(f.Links, Link{Rel: parts[0], URL: parts[1]})
+				}
+			}
 		}
 
 		if latitude.Valid && longitude.Valid {
