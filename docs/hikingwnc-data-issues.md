@@ -157,6 +157,17 @@ Pages from ncwaterfalls.com and the Wayback copies of dwhike.com are cached
 under `data/spider-cache` (gitignored) by `script/spider`, so re-parsing never
 costs another fetch.
 
+### Attaching a hike to a waterfall
+
+Two tests, and the name alone fails both ways. "Cedar Rock Falls" and dwhike's
+"Cedar Rock" share every word that matters once Falls is set aside as generic,
+and they are a waterfall and a mountain -- so a gallery now has to say which
+kind of place it visited. And naming the fall is not the same as walking to it:
+where his route runs more than half again longer than the walk our other
+sources describe, he passed the waterfall on the way somewhere else, and the
+group is marked uncertain. His 8.5 mile Bursted Rock lollipop passes Cascades
+Falls, which hikingwnc reaches in 1.3 miles.
+
 ### Why the rating sits on the route
 
 `route_ratings` computes Petzoldt per claim group, never per feature. dwhike

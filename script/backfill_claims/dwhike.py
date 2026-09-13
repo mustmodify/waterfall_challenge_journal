@@ -41,15 +41,24 @@ def lit(s):
 
 feats = []
 for line in open(sys.argv[1], encoding='utf-8'):
-    fid, name, lat, lon = line.rstrip('\n').split('|')
+    fid, name, kind, lat, lon, ours = line.rstrip('\n').split('|')
     if lat:
-        feats.append((int(fid), name, float(lat), float(lon), set(norm(name).split()) - GENERIC))
+        miles = re.match(r'^([0-9]+(?:\.[0-9]+)?)', ours)
+        feats.append((int(fid), name, kind, float(lat), float(lon),
+                      set(norm(name).split()) - GENERIC,
+                      float(miles.group(1)) if miles else None))
+
+# "Cedar Rock Falls" and dwhike's "Cedar Rock" share every word that matters
+# once Falls is set aside as generic, and they are a mountain and a waterfall.
+# So the gallery has to say which kind of thing it visited.
+WATER = ('falls', 'waterfall', 'cascade', 'shoals')
+SUMMIT = ('lookout', 'tower', 'mountain', 'knob', 'bald', 'dome', 'top')
 
 STOP = (r'Route Type|Difficulty|Hike Length|Hike Duration|Trailhead Temp|Trail Traffic|'
         r'Min\. Elevation|Max\. Elevation|Total Vertical Gain|Avg\. Elevation|Trails Used|$')
 
 groups, rows = [], []
-parsed = matched = 0
+parsed = matched = loose = 0
 for rec in cache.latest(CACHE):
     text = flat(rec.get('html', ''))
     if 'Total Vertical Gain' not in text and 'Trailhead GPS' not in text:
@@ -66,22 +75,39 @@ for rec in cache.latest(CACHE):
     difficulty = field(text, 'Difficulty', STOP)
 
     words = set(norm(title + ' ' + slug).split()) - GENERIC
+    said = norm(title + ' ' + slug)
     hits = []
-    for fid, fname, flat_, flon, fwords in feats:
-        if fwords and fwords <= words:
-            d = km(trailhead[0], trailhead[1], flat_, flon) if trailhead else None
-            if d is None or d < 8:
-                hits.append((d if d is not None else 99, fid, fname))
+    for fid, fname, kind, flat_, flon, fwords, ourmiles in feats:
+        if not fwords or not fwords <= words:
+            continue
+        wanted = WATER if kind == 'waterfall' else SUMMIT
+        if not any(w in said for w in wanted):
+            continue
+        d = km(trailhead[0], trailhead[1], flat_, flon) if trailhead else None
+        if d is None or d < 8:
+            hits.append((d if d is not None else 99, fid, fname, ourmiles))
     if len(hits) != 1:
         continue
-    d, fid, fname = hits[0]
+    d, fid, fname, ourmiles = hits[0]
     matched += 1
+
+    # Naming the fall is not the same as walking to it. When his route is far
+    # longer than the walk our other sources describe, he passed the waterfall
+    # on the way to somewhere else, and his climb is not the climb to it.
+    certain, scale = 'true', ''
+    if length and ourmiles and length > ourmiles * 1.5:
+        certain = 'false'
+        scale = (' His route is %.1f miles against the %.1f miles our other sources '
+                 'give for this fall, so it passes it rather than going to it.'
+                 % (length, ourmiles))
+        loose += 1
     # the same gallery slug appears under more than one area
     ref = 'dwhike|%d|%s' % (fid, rec['path'].split('Hikes-in-the-South/')[-1])
     groups.append("(%s, %d, 'dwhike', %s, %s, %s)"
-                  % (lit(ref), fid, lit(rec['url']), 'true',
-                     lit('Gallery "%s", walked %s. Trailhead %s km from the fall.'
-                         % (title[:80], rec['timestamp'][:8], round(d, 1) if d < 99 else '?'))))
+                  % (lit(ref), fid, lit(rec['url']), certain,
+                     lit('Gallery "%s", walked %s. Trailhead %s km from the fall.%s'
+                         % (title[:80], rec['timestamp'][:8],
+                            round(d, 1) if d < 99 else '?', scale))))
 
     def add(f, v, note='NULL'):
         rows.append("(%s, '%s', %s, %s)" % (lit(ref), f, lit(v), note))
@@ -116,6 +142,9 @@ out.write("""-- Hike distance, vertical gain and trailheads, from dwhike's galle
 
 BEGIN;
 
+-- Regenerated in place: dropping this source's groups takes its claims with it.
+DELETE FROM claim_groups WHERE source = 'dwhike' AND ref LIKE 'dwhike|%|%/%';
+
 INSERT INTO claim_groups (ref, feature_id, source, url, identity_certain, note) VALUES
 """)
 out.write(',\n'.join(groups) + ';\n\n')
@@ -130,5 +159,5 @@ JOIN claim_groups g ON g.ref = v.ref;
 COMMIT;
 """)
 out.close()
-print('galleries with a data block %d | attached to one fall %d | groups %d, claims %d'
-      % (parsed, matched, len(groups), len(rows)))
+print('galleries with a data block %d | attached to one fall %d, of which %d only pass it'
+      ' | groups %d, claims %d' % (parsed, matched, loose, len(groups), len(rows)))
