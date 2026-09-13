@@ -1606,6 +1606,33 @@
       );
     }
 
+    // Coming back to where you left off is only useful if there is something
+    // there; a saved view over empty country is worse than the default fit.
+    function restoreSavedView(goals) {
+      let raw = null;
+      try { raw = localStorage.getItem('wj-view'); } catch (e) { /* private mode */ }
+      if (!raw) return false;
+      const [lat, lon, zoom] = raw.split(',').map(Number);
+      if (![lat, lon, zoom].every(Number.isFinite)) return false;
+      map.setView([lat, lon], zoom, { animate: false });
+      const box = map.getBounds();
+      let seen = 0;
+      for (const g of goals) {
+        if (box.contains([g.location.latitude, g.location.longitude]) && ++seen >= 5) return true;
+      }
+      return false;
+    }
+
+    map.on('moveend', () => {
+      const c = map.getCenter();
+      try {
+        localStorage.setItem('wj-view',
+          c.lat.toFixed(5) + ',' + c.lng.toFixed(5) + ',' + map.getZoom());
+      } catch (e) { /* private mode */ }
+    });
+
+    let triedSavedView = false;
+    let viewRestored = false;
     let lastShownCount = null;
 
     function renderMarkers(fit) {
@@ -1651,6 +1678,13 @@
       byKind.forEach((group, kind) => addAll(groupFor(kind), group));
 
       if (fit && layers.length) {
+        if (!triedSavedView) {
+          triedSavedView = true;
+          if (restoreSavedView(goals)) {
+            viewRestored = true;
+            return;
+          }
+        }
         const bounds = fitBoundsFor(goals);
         if (bounds.isValid()) {
           map.fitBounds(bounds, { padding: [40, 40] });
@@ -2319,7 +2353,7 @@
     function dismissIntro() {
       setIntro(false);
       if (!narrowScreen.matches) return;
-      map.setZoom(9);
+      if (!viewRestored) map.setZoom(9);
       setTimeout(() => confettiBurst($('showing')), 1500);
     }
 
