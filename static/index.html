@@ -410,6 +410,13 @@
       min-height: 0;
     }
 
+    /* Only while there is something below. Fading unconditionally would dim
+       the last line of a card that has already been read to the end. */
+    .modal-body[data-more="1"] {
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2rem), transparent);
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 2rem), transparent);
+    }
+
     .modal-foot {
       padding: 12px 24px 16px;
       border-top: 1px solid var(--line);
@@ -1976,7 +1983,7 @@
 
     function setRateby(open) {
       $('rateby-backdrop').hidden = !open;
-      if (open) $('rateby').focus();
+      if (open) { $('rateby').focus(); refreshFades(); }
     }
 
     function maybeExplainRateby() {
@@ -2009,10 +2016,25 @@
       $('filter-count').textContent = n;
     }
 
+    // The mask is measured against the visible box, so it has to be recomputed
+    // whenever the box or its contents change: on open, on scroll, on resize.
+    function markScrollable(el) {
+      const more = el.scrollHeight - el.scrollTop - el.clientHeight > 4;
+      el.dataset.more = more ? '1' : '0';
+    }
+
+    function refreshFades() {
+      document.querySelectorAll('.modal-body').forEach(markScrollable);
+    }
+
+    document.querySelectorAll('.modal-body').forEach((b) =>
+      b.addEventListener('scroll', () => markScrollable(b)));
+    window.addEventListener('resize', refreshFades);
+
     function setFilters(open) {
       $('filters-backdrop').hidden = !open;
       $('filter-button').setAttribute('aria-expanded', String(open));
-      if (open) $('filters').focus();
+      if (open) { $('filters').focus(); refreshFades(); }
       else syncFilterButton();
     }
 
@@ -2068,6 +2090,7 @@
       $('fix-comment').value = '';
       $('fix-suggested').value = '';
       $('fix').focus();
+      refreshFades();
     }
 
     $('fix-close').addEventListener('click', () => setFix(false));
@@ -2106,7 +2129,7 @@
 
     function setAnon(open) {
       $('anon-backdrop').hidden = !open;
-      if (open) $('anon').focus();
+      if (open) { $('anon').focus(); refreshFades(); }
     }
 
     $('anon-close').addEventListener('click', () => setAnon(false));
@@ -2118,7 +2141,7 @@
 
     function setIntro(open) {
       $('intro-backdrop').hidden = !open;
-      if (open) $('intro').focus();
+      if (open) { $('intro').focus(); refreshFades(); }
     }
 
     // The menu is the only chrome on the map now, so it drives everything.
