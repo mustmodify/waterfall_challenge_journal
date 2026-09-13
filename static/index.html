@@ -2319,6 +2319,7 @@
     function dismissIntro() {
       setIntro(false);
       if (!narrowScreen.matches) return;
+      map.setZoom(9);
       setTimeout(() => confettiBurst($('showing')), 1500);
     }
 
