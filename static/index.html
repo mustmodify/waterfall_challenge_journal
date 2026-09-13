@@ -205,10 +205,28 @@
        phone, this is the only thing that says whether they did anything. */
     #showing {
       margin-top: 10px;
-      padding-top: 9px;
+      padding: 9px 8px 3px;
       border-top: 1px solid var(--line);
-      font-size: 0.74rem;
-      color: var(--haze);
+      font-size: 0.78rem;
+      color: var(--mist);
+      border-radius: 0 0 8px 8px;
+      margin-left: -8px;
+      margin-right: -8px;
+    }
+
+    #showing b { font-weight: 700; }
+
+    /* Fires only when the number actually changes, so it reads as a response
+       to what you just did rather than decoration. */
+    @keyframes showing-bump {
+      0%   { background: var(--accent); color: var(--on-accent); }
+      100% { background: transparent; color: var(--mist); }
+    }
+
+    #showing.bump { animation: showing-bump 900ms ease-out; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #showing.bump { animation: none; }
     }
 
     #spectrum .bar {
@@ -1568,11 +1586,19 @@
       );
     }
 
+    let lastShownCount = null;
+
     function renderMarkers(fit) {
       const goals = visibleGoals();
-      $('showing').textContent = goals.length === 1
-        ? 'Showing 1 adventure'
-        : 'Showing ' + goals.length.toLocaleString() + ' adventures';
+      const showing = $('showing');
+      showing.innerHTML = 'Showing <b>' + goals.length.toLocaleString() + '</b> ' +
+        (goals.length === 1 ? 'adventure' : 'adventures');
+      if (lastShownCount !== null && lastShownCount !== goals.length) {
+        showing.classList.remove('bump');
+        void showing.offsetWidth;          // restart the animation
+        showing.classList.add('bump');
+      }
+      lastShownCount = goals.length;
 
       clusterGroups.forEach((g) => g.clearLayers());
       state.markers.clear();
