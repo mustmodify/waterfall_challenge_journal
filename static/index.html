@@ -2303,8 +2303,9 @@
         bit.style.left = (box.left + box.width * Math.random()) + 'px';
         bit.style.top = (box.top + box.height / 2) + 'px';
         document.body.appendChild(bit);
-        const angle = Math.random() * Math.PI * 2;
-        const dist = 45 + Math.random() * 80;
+        const down = Math.random() < 0.7;
+        const angle = (down ? Math.PI / 2 : -Math.PI / 2) + (Math.random() - 0.5) * 2.4;
+        const dist = (down ? 70 : 40) + Math.random() * 80;
         const spin = Math.round(Math.random() * 720 - 360);
         bit.animate([
           { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
