@@ -27,7 +27,15 @@ func generateToken() (string, error) {
 	return base64.RawURLEncoding.EncodeToString(b), nil
 }
 
-func startSession(w http.ResponseWriter, userID int) error {
+// A ten-year cookie that has travelled once over plain HTTP has been handed to
+// everyone on that network. Hosts terminate TLS ahead of the app, so the
+// request arrives looking unencrypted and only the forwarded header knows
+// better.
+func overTLS(r *http.Request) bool {
+	return r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https"
+}
+
+func startSession(w http.ResponseWriter, r *http.Request, userID int) error {
 	token, err := generateToken()
 	if err != nil {
 		return err
@@ -40,6 +48,7 @@ func startSession(w http.ResponseWriter, userID int) error {
 		Value:    token,
 		Path:     "/",
 		HttpOnly: true,
+		Secure:   overTLS(r),
 		SameSite: http.SameSiteLaxMode,
 		// Ten years. There is no server-side expiry either: a session row lives
 		// until sign-out. Losing a session here costs someone their waterfall
@@ -105,7 +114,7 @@ func signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := startSession(w, u.ID); err != nil {
+	if err := startSession(w, r, u.ID); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -135,7 +144,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := startSession(w, u.ID); err != nil {
+	if err := startSession(w, r, u.ID); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -147,7 +156,8 @@ func logout(w http.ResponseWriter, r *http.Request) {
 	if c, err := r.Cookie("session"); err == nil {
 		db.Exec(`DELETE FROM sessions WHERE token = $1`, c.Value)
 	}
-	http.SetCookie(w, &http.Cookie{Name: "session", Value: "", Path: "/", HttpOnly: true, MaxAge: -1})
+	http.SetCookie(w, &http.Cookie{Name: "session", Value: "", Path: "/", HttpOnly: true,
+		Secure: overTLS(r), MaxAge: -1})
 	w.WriteHeader(http.StatusNoContent)
 }
 

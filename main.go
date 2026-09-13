@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"sort"
 	"strings"
 
@@ -21,11 +22,20 @@ const (
 
 var db *sql.DB
 
+// A host hands you one connection string and expects the app to use it. The
+// constants above stay as the development fallback so a local checkout still
+// runs with no environment at all.
+func dbSource() string {
+	if url := os.Getenv("DATABASE_URL"); url != "" {
+		return url
+	}
+	return fmt.Sprintf("host=localhost user=%s password=%s dbname=%s sslmode=disable",
+		DB_USER, DB_PASSWORD, DB_NAME)
+}
+
 func init() {
 	var err error
-	dbInfo := fmt.Sprintf("host=localhost user=%s password=%s dbname=%s sslmode=disable",
-		DB_USER, DB_PASSWORD, DB_NAME)
-	db, err = sql.Open("postgres", dbInfo)
+	db, err = sql.Open("postgres", dbSource())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -399,10 +409,13 @@ func main() {
 	r.HandleFunc("/logout", logout).Methods("POST")
 	r.HandleFunc("/me", me).Methods("GET")
 
-	r.HandleFunc("/auth/request", requestMagicLink).Methods("POST")
+	signInLimit := newLimiter(5, 5)
+	fixLimit := newLimiter(10, 10)
+
+	r.HandleFunc("/auth/request", signInLimit.guard(requestMagicLink)).Methods("POST")
 	r.HandleFunc("/auth/callback", consumeMagicLink).Methods("GET")
 	r.HandleFunc("/challenges", getChallenges).Methods("GET")
-	r.HandleFunc("/corrections", createCorrection).Methods("POST")
+	r.HandleFunc("/corrections", fixLimit.guard(createCorrection)).Methods("POST")
 	r.HandleFunc("/corrections", listCorrections).Methods("GET")
 	r.HandleFunc("/corrections/{id}", updateCorrection).Methods("PATCH")
 	r.HandleFunc("/corrections/{id}", deleteCorrection).Methods("DELETE")
@@ -429,6 +442,10 @@ func main() {
 
 	initMailer()
 
-	fmt.Println("Server running on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	addr := ":8080"
+	if port := os.Getenv("PORT"); port != "" {
+		addr = ":" + port
+	}
+	log.Printf("Server running on http://localhost%s", addr)
+	log.Fatal(http.ListenAndServe(addr, r))
 }
