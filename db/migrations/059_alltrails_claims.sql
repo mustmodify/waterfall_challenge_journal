@@ -673,4 +673,48 @@ SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('2.5 mi'::text), false
   FROM claim_groups cg WHERE cg.ref = 'alltrails:10678429:333'
 ON CONFLICT DO NOTHING;
 
--- 27 groups: 19 certain, 8 recorded uncertain.
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:10264373:343', 343, 'alltrails', 'https://www.alltrails.com/trail/us/north-carolina/hickory-nut-falls-trail', DATE '2026-09-14', true, 'accept Trailhead 910 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Hickory Nut Falls Trail'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10264373:343'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'photos_count', to_jsonb(4434::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10264373:343'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'completed_hikes_count', to_jsonb(7564::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10264373:343'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'reviews_count', to_jsonb(2683::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10264373:343'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(328::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10264373:343'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('1.9 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10264373:343'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:10242215:334', 334, 'alltrails', NULL, DATE '2026-09-14', false, 'flag-multi-fall: names ours, plus Rainbow (393) and Drift (359), all three separate features here Trailhead 1364 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Rainbow Falls, Turtleback Falls, and Drift Falls'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10242215:334'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(767::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10242215:334'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('4.0 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10242215:334'
+ON CONFLICT DO NOTHING;
+
+-- 29 groups: 20 certain, 9 recorded uncertain.
