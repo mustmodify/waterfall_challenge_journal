@@ -104,9 +104,18 @@ def main():
                 if isinstance(value, (int, float))
                 else f"to_jsonb({literal}::text)"
             )
+            # accepted is named rather than left to the column default, even
+            # though the value is the same. It is a judgement -- "this is the
+            # reading the published columns reflect" -- and every one of these
+            # is false on purpose: AllTrails describes a ROUTE, and a route's
+            # gain and distance are not the waterfall's. Leaving it implicit
+            # would make a deliberate false indistinguishable from a forgotten
+            # one, and the alias matcher in migration 058 reads accepted across
+            # every source. An importer copying this pattern without the column
+            # would hand that matcher a name it never endorsed.
             out.append(
-                "INSERT INTO claims (group_id, feature_id, field, value)\n"
-                f"SELECT cg.id, cg.feature_id, {sql(field)}, {jsonb}\n"
+                "INSERT INTO claims (group_id, feature_id, field, value, accepted)\n"
+                f"SELECT cg.id, cg.feature_id, {sql(field)}, {jsonb}, false\n"
                 f"  FROM claim_groups cg WHERE cg.ref = {sql(ref)}\n"
                 "ON CONFLICT DO NOTHING;"
             )
