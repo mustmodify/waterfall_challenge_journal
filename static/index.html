@@ -1085,6 +1085,18 @@
       /* Centre the modals above the Actions button rather than over it. */
       #intro-backdrop, #anon-backdrop, #rateby-backdrop,
       #fix-backdrop, #filters-backdrop { padding-bottom: 84px; }
+
+      /* The drawer becomes a bottom sheet here, sharing the bottom-left corner
+         with the Actions button, which has the higher z-index and so covers
+         the last line or two of the card. The modals above dodge it by
+         reserving space; a sheet pinned to bottom:16px has nowhere to dodge
+         to, so the button gets out of the way instead.
+
+         :has() rather than a sibling combinator because #fab is written before
+         #drawer in the document, so there is nothing to select forward from.
+         Scoped to this media query on purpose: on a wide screen the drawer is
+         a right-hand panel and never reaches the button. */
+      body:has(#drawer.open) #fab { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
