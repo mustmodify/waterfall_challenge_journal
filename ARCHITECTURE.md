@@ -66,6 +66,9 @@ The sources themselves, how each was obtained and whether that was allowed, the
 matching pipeline and its failure modes are in
 [docs/sources-and-matching.md](docs/sources-and-matching.md).
 
+The rules for deciding whether a source's page is about one of our waterfalls
+are in [docs/MATCHING.md](docs/MATCHING.md).
+
 **`identity_certain` asks a different question from whether the data is
 right.** A group matched to its feature by name and never confirmed against a
 coordinate is marked uncertain — the source may be describing a different
