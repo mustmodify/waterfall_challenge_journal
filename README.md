@@ -139,8 +139,11 @@ admission and Bird Rock Falls is walked to daily. It means the question has an
 owner, and the answer is theirs. Two of the seven, English Falls and Twin Falls
 on the Thompson River, are recorded as having no public access at all.
 
-Where each source comes from, how a page on somebody else's site gets attached
-to one of our waterfalls, the four ways that goes wrong and what catches them:
+**How we decide whether two records describe the same waterfall** — why the
+names repeat, what evidence we hold, and every way it has gone wrong here:
+[docs/MATCHING.md](docs/MATCHING.md). Read that before touching any importer.
+
+Where each source comes from and whether reading it was allowed:
 [docs/sources-and-matching.md](docs/sources-and-matching.md).
 
 Known problems in the upstream data are written up in

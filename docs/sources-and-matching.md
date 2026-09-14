@@ -9,6 +9,11 @@ The short version of the hard part: **a name tells you what shares a name, not
 what a thing is.** Every serious data error in this project so far has come
 from treating those as the same question.
 
+> **The matching rules now live in [MATCHING.md](MATCHING.md)** — why waterfall
+> names repeat, what evidence there is, how it is combined, and what has gone
+> wrong. This document covers provenance: where each source came from and
+> whether reading it was allowed.
+
 ## The sources
 
 | Source | Groups | Features | What it contributes |
@@ -110,12 +115,13 @@ Three stages, and only the first is built today.
 
 Propose candidates by name, then require the source's own published coordinate
 to agree with ours. `script/import_links/ncwaterfalls.py` is the reference
-implementation:
+implementation.
 
-- under **2 km** — accept. Trailhead-versus-water accounts for the gap.
-- **2–20 km** — accept with a note. Shared-coordinate trailhead groups live
-  here legitimately.
-- over **20 km** — refuse. A different waterfall that happens to share a name.
+**The thresholds live in [MATCHING.md §3](MATCHING.md#3-the-rule) and are not
+repeated here.** They were duplicated in this document and the two copies had
+already drifted — this one said 2–20 km was an accept-with-a-note while the
+canonical rule flags it — which is the failure mode of consolidating without
+removing the old copy.
 
 Where neither side publishes a coordinate there is nothing to arbitrate with,
 and those go through unverified and flagged. They are also, by definition, the

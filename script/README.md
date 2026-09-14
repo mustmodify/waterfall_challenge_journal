@@ -44,8 +44,7 @@ running it.
 | `backfill_claims/` | turns cached pages and extracts into `claim_groups` and `claims`, one module per source |
 | `import_links/` | matches a source's pages to our features and publishes the URLs it is confident about |
 
-The matching rules these follow, and the four ways matching goes wrong, are in
-[docs/sources-and-matching.md](../docs/sources-and-matching.md). The short
-version: match by name to get candidates, then arbitrate on the coordinate the
+The matching rules these follow are in [docs/MATCHING.md](../docs/MATCHING.md),
+which any new importer should be read against. The short version: match by name to get candidates, then arbitrate on the coordinate the
 source itself publishes, and report what you rejected rather than only what you
 kept.
