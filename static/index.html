@@ -8,6 +8,29 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
   <script src="/static/analytics.js"></script>
   <title>Wanderfall</title>
+
+  <meta name="description" content="A map and logbook for the waterfalls and lookout towers of Western North Carolina. Find somewhere to go, record that you went, and track progress against the challenge lists.">
+
+  <!-- Link previews. og:image MUST be absolute — iMessage, Slack and the rest
+       will not follow a relative one, and the failure is a silent blank card. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Wanderfall">
+  <meta property="og:title" content="Wanderfall">
+  <meta property="og:description" content="A map and logbook for the waterfalls and lookout towers of Western North Carolina.">
+  <meta property="og:url" content="https://wanderfall.app/">
+  <meta property="og:image" content="https://wanderfall.app/static/wanderfall-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Wanderfall — a map pin holding a waterfall in forested mountains">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- The 16/32/48 icons are a SIMPLIFIED mark; the detailed one turns to mush
+       below about 24px. Anything 180 and up uses the detailed original. -->
+  <link rel="icon" href="/static/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="/static/favicon-16.png" sizes="16x16">
+  <link rel="icon" href="/static/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+
   <script>
     // Resolve the theme before first paint so there is no flash of the wrong one.
     (function () {
@@ -462,6 +485,31 @@
     }
 
     .modal-head h2 { flex: 1; margin: 0; padding: 0; }
+
+    /* Both logo files carry real alpha — the surround was flood-filled out
+       from the border — so the mark sits straight on the panel with no tile
+       or border behind it.
+
+       There are two files rather than one because the light mark's pin ring
+       is dark green and vanishes against the dark panel, leaving the pin as a
+       blob with no silhouette. Keyed on data-theme and not on
+       prefers-color-scheme, because the app has its own theme switcher and
+       the two disagree the moment anyone uses it. The default here is the
+       dark mark, mirroring app.css, where :root is the dark palette and light
+       and topo are the overrides — so if theme.js ever fails to run, the mark
+       and the palette are still wrong together rather than separately. */
+    #intro-mark {
+      float: right;
+      width: 96px;
+      height: 96px;
+      margin: -2px 0 6px 14px;
+      shape-outside: margin-box;
+      background: center / contain no-repeat url('/static/logo-dark-192.png');
+    }
+    :root[data-theme="light"] #intro-mark,
+    :root[data-theme="topo"] #intro-mark {
+      background-image: url('/static/logo-192.png');
+    }
     .modal-head .close { position: static; flex: none; margin: -4px -6px 0 0; }
 
     .modal-body {
@@ -1146,7 +1194,8 @@
       </div>
       <div class="modal-body">
       <p class="byline">A hobby project by jw.</p>
-      <p>This is a list of waterfalls and other amazing quests in Western North
+      <p><span id="intro-mark" aria-hidden="true"></span>
+        This is a list of waterfalls and other amazing quests in Western North
         Carolina. No account needed; if you do create one, you'll be able to
         track which places you visit and rate them.</p>
       <p>Wanderfall also lists several challenges. Visit the entire list and you
