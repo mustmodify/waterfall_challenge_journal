@@ -224,5 +224,25 @@ same reason `route_ratings` computes Petzoldt per claim group.
 - 170 of the 279 ncwaterfalls pages matched nothing of ours. That is name
   drift rather than absence, and it is the cheapest remaining win — the pages
   are already cached.
-- 54 links created before the coordinate check exists sit on groups later
-  marked uncertain, Silver Run Falls among them.
+- 54 links sit on groups marked `identity_certain = false`, which reads worse
+  than it is. They were **checked on 2026-09-14 and every one holds**: the
+  distance from our coordinate to the coordinate Kevin Adams publishes on the
+  linked page runs 0 to 196 m, mean 42 m. None is beyond 2 km. They are
+  uncertain because the *name* comparison failed, not the position — Adams
+  titles his pages "Silver Run Falls-Visit Guide, Photos" and the matcher was
+  comparing that against "Silver Run Falls". All 54 carry a note saying
+  "matched on position, with no name agreement".
+
+  The genuinely wrong matches were never published. Seven ncwaterfalls groups
+  sit more than 20 km from the feature they hang on — the Silver Run Falls on
+  the Cape Fear River is 396 km out — and **none of the seven has a link**.
+  Migration 052's `identity_certain` filter did exactly what it was built for.
+  That is worth recording, because a safeguard nobody checks is
+  indistinguishable from one that does not work.
+
+  What remains is a judgement, not a cleanup: whether position agreement inside
+  200 m with no name agreement is enough to set `identity_certain = true`. If
+  it is, one re-arbitration migration settles all 54. The reason it is not
+  automatic is the mirror failure documented above — proximity gave Moore Cove
+  Falls a page about a different creek — though those failures were about a
+  kilometre out, not forty metres.
