@@ -224,7 +224,20 @@
       color-scheme: inherit;
     }
 
-    .walk-row { align-items: center; }
+    /* A grid, not the flex row the other filters use. The readout changes
+       length as you drag -- "Any distance" against "up to 2 miles, 25 with no
+       distance hidden" -- and as a flex sibling it stole that width from the
+       bar, so the bar grew and shrank while you were using it. Here it sits on
+       its own line and the bar's width depends on nothing but the panel. */
+    .walk-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 2px 8px;
+      /* The bar would otherwise run to the panel edge, where the right-hand
+         thumb has nowhere to sit and the last tick label hangs off. */
+      padding-right: 3rem;
+    }
 
     /* Two inputs stacked on one track: the browser has no two-handle range, and
        the pieces that would fake it (a div with drag handlers) lose the arrow
@@ -269,7 +282,17 @@
       white-space: nowrap;
     }
 
-    #walk-read { font-size: 0.78rem; color: var(--mist); min-width: 8.5rem; }
+    /* The end labels are centred on a point at the very edge, so half of each
+       would sit outside the bar. Hang them inward instead. */
+    .range-ticks span:first-child { transform: none; }
+    .range-ticks span:last-child { transform: translateX(-100%); }
+
+    #walk-read {
+      grid-column: 2;
+      font-size: 0.72rem;
+      color: var(--mist);
+      min-height: 1.1em;       /* no reflow when it is empty */
+    }
 
     #spectrum { margin-top: 8px; }
 
