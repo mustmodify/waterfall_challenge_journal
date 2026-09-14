@@ -153,6 +153,52 @@ project.
 - **The published set requires corroboration.** A waterfall reaches the map
   only when two independent sources agree on where it is.
 
+## AllTrails, and why the harvest is slow
+
+AllTrails publishes an MCP server at `https://www.alltrails.com/mcp`. No key.
+`get_trail_details` returns `total_user_content_stats` — `photos_count`,
+`completed_hikes_count`, `reviews_count` — which is what
+[migration 057](../db/migrations/057_alltrails_engagement_counts.sql) stores,
+and `elevation_gain_feet`, which is the field keeping `features.petzoldt` at 24
+of 955.
+
+**It has to be read through the MCP tools, not a crawler.** `robots.txt`
+disallows `ClaudeBot`, `Claude-User` and `Claude-SearchBot` from all of `/`,
+and `/api/` from everybody. The MCP server is the interface they built for this
+and the URLs it returns carry their own campaign tagging, so it is the
+sanctioned door — but it means the harvest runs one call at a time through a
+model rather than a loop, and 934 waterfalls is a long afternoon. Cache
+everything under `data/alltrails/` and never ask twice.
+
+### Matching a trail to a waterfall
+
+Name search is the wrong tool, exactly as elsewhere: `search_trails_by_name`
+for "Looking Glass Falls" returns **Looking Glass Rock Trail** first, a six
+mile climb with 1,699 feet of gain. `find_trails_near_location` with the
+`waterfall` attraction filter returns Looking Glass Waterfalls, 64 m away.
+
+`trail_head_distance_meters` is the arbiter, with one trap worth stating
+plainly: **it measures to the trailhead, not to the water.** A waterfall four
+miles up a trail has its trailhead four miles away, so a tight radius finds
+nothing. Ramsey Cascades and Eastatoe Falls both came back empty at 2 km. Two
+passes are needed — a tight radius that is precise, then a wide one that has to
+be corroborated by name.
+
+The attachment is many-to-many in both directions, which is the thing that
+breaks naive arithmetic:
+
+- **One fall, several routes.** Dry Falls has both "Dry Falls Trail" (42 m) and
+  "Dry Falls Viewing Platform" (57 m).
+- **One route, several falls.** "Cove Creek Falls and Toms Spring Falls" names
+  ours and visits another.
+- **One route that merely starts here.** "Jones Falls and Splash Dam Falls From
+  Elk River Falls" shares Elk River Falls' trailhead *to the metre* and walks
+  5.3 miles to somewhere else. Distance alone cannot tell it from the 0.3 mile
+  trail to the falls itself.
+
+So the counts are stored per route and never summed onto a feature, for the
+same reason `route_ratings` computes Petzoldt per claim group.
+
 ## Adding a new source
 
 1. Check `robots.txt` and honour it. If the site refuses crawlers, look for an
