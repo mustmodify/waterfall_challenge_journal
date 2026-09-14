@@ -49,3 +49,17 @@
   .facts { grid-template-columns: 1fr; gap: 2px 0; }
   .facts dd { margin-bottom: 8px; }
 }
+
+/* Landing pages: wider, because a two-column list of names reads faster than
+   one long column and these run to forty entries a section. */
+.sheet.wide { max-width: 58rem; }
+.group { margin: 30px 0; }
+.group h2 { font-size: 1.15rem; color: var(--ink); margin-bottom: 4px; }
+.blurb { color: var(--mist); margin: 0 0 12px; }
+.falls { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 28px; }
+.falls li { break-inside: avoid; padding: 5px 0; border-top: 1px solid var(--line); }
+.falls .meta { display: block; font-size: 0.78rem; color: var(--mist); }
+.more { margin: 10px 0 0; font-size: 0.88rem; }
+.note-foot { margin-top: 34px; color: var(--mist); font-size: 0.88rem; }
+
+@media (max-width: 620px) { .falls { columns: 1; } }

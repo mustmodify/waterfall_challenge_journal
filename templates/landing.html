@@ -1,0 +1,38 @@
+{{define "landing.html"}}<!doctype html>
+<html lang="en">
+<head>
+{{template "head" .}}
+</head>
+<body>
+{{template "chrome-top" .}}
+<main class="sheet wide">
+  <h1>{{.Heading}}</h1>
+  {{range .Intro}}<p class="lede">{{.}}</p>{{end}}
+
+  {{range .Groups}}
+    <section class="group">
+      <h2>{{.Heading}}</h2>
+      {{with .Blurb}}<p class="blurb">{{.}}</p>{{end}}
+      <ul class="falls">
+        {{range .Features}}
+          <li>
+            <a href="/{{kindPath .Kind}}/{{.Slug}}">{{.Name}}</a>
+            <span class="meta">
+              {{with .HikeDistance}}{{.}}{{end}}
+              {{with .HeightFt}} &middot; {{.}} ft{{end}}
+              {{with band "beauty" .Beauty}} &middot; {{.}}{{end}}
+              {{with .Areas}} &middot; {{(index . 0).Name}}{{end}}
+            </span>
+          </li>
+        {{end}}
+      </ul>
+      {{if .MoreLink}}<p class="more"><a href="{{.MoreLink}}">See {{.MoreText}}</a></p>{{end}}
+    </section>
+  {{end}}
+
+  {{with .Note}}<p class="note-foot">{{.}}</p>{{end}}
+</main>
+{{template "chrome-bottom" .}}
+</body>
+</html>
+{{end}}

@@ -375,6 +375,8 @@ func metaDescription(f *pageFeature) string {
 	return strings.Join(parts, ", ") + "."
 }
 
+func itoa(n int) string { return fmt.Sprintf("%d", n) }
+
 func render(w http.ResponseWriter, name string, data any) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := pageTemplates.ExecuteTemplate(w, name, data); err != nil {

@@ -427,6 +427,8 @@ func main() {
 	r.HandleFunc("/waterfalls/{slug}", featureHandler("waterfall")).Methods("GET")
 	r.HandleFunc("/towers/{slug}", featureHandler("tower")).Methods("GET")
 	r.HandleFunc("/areas/{slug}", areaHandler).Methods("GET")
+	r.HandleFunc("/blue-ridge-waterfalls", blueRidgeHandler).Methods("GET")
+	r.HandleFunc("/wnc-waterfalls", wncHandler).Methods("GET")
 
 	signInLimit := newLimiter(5, 5)
 	fixLimit := newLimiter(10, 10)
