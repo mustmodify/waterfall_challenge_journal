@@ -156,6 +156,7 @@ normalisation. Worth fixing before anything else depends on `name_core`.
 | Our name | `features.name` | proposing candidates | the name is a common one |
 | The source's name | `claims` where `field='name'` | confirming a candidate | page titles carry SEO tails |
 | Aliases | `claims` where `field='alias'` | alternate names | 43 claims, only 3 accepted |
+| Trail position | AllTrails `_meta.pins` | the arbiter for a trail match | it is a point on a ROUTE, median 653 m from the fall |
 | Trailhead position | AllTrails `trail_head_distance_meters` | proximity only | **is not the waterfall** — see §4 |
 | Hike distance | `claims`, `features.rt_hike_distance` | sanity-checking a route | one-way vs round-trip prose |
 | Elevation, height, gain | `claims` | weak corroboration | sparse, and sources disagree |
@@ -208,6 +209,39 @@ page about a different creek. **Position is the arbiter between candidates the
 name has already proposed. It is never the proposer.**
 
 ---
+
+## 3a. What kind of point a source publishes
+
+Measured against the 442 waterfalls whose coordinate two independent sources
+already agree on — a calibration set, since those points are known good:
+
+| source | field | n | median | p90 | within 250 m |
+|---|---|---|---:|---:|---:|
+| hikingwnc | `coordinate` | 432 | 0 m | 0 m | 432/432 |
+| openstreetmap | `coordinate` | 432 | 22 m | 72 m | 432/432 |
+| ncwaterfalls | `coordinate` | 31 | 24 m | 94 m | 31/31 |
+| dwhike | `coordinate` | 61 | 32 m | 109 m | 61/61 |
+| ncwaterfalls | `parking_coordinate` | 21 | 1,084 m | 90 km | 3/21 |
+| dwhike | `parking_coordinate` | 16 | 1,292 m | 2,950 m | 0/16 |
+| **alltrails** | **trail pin** | **106** | **653 m** | **1,657 m** | **24/106** |
+
+Four sources publish a point *for the waterfall* and agree to within about
+100 m. The route-shaped fields sit a kilometre out, and an AllTrails trail pin
+sits between the two at a median of 653 m — **not noise around a waterfall
+coordinate, a different quantity.**
+
+`coordinate_confidence` calls two waterfall sources *corroborated* at 250 m. A
+trail pin clears that less than a quarter of the time while being the right
+trail, so feeding pins into that view would reject three matches in four and
+promote almost nothing.
+
+**The schema already answers this, by field rather than by flag.** dwhike
+separates `coordinate` from `parking_coordinate`, and `coordinate_confidence`
+counts only the first — so route-shaped readings have been excluded by
+construction all along. A trail pin therefore wants its own field too, not a
+new confidence tier and not a `source_kind` column. Then pins cannot
+contaminate corroboration by accident, and promoting a feature on the strength
+of one becomes an explicit decision instead of something that happens quietly.
 
 ## 4. Trailhead distance is not a coordinate check
 
@@ -357,6 +391,43 @@ code in this repository calls a model.
 **170 of 279 ncwaterfalls pages matched nothing of ours.** Name drift rather
 than absence, and the pages are already cached, so it is the cheapest remaining
 win.
+
+**`identity_certain` is a group-level verdict established from one field.**
+The matcher checks the coordinate of the *waterfall*, the group passes, and
+every other claim in it — parking coordinate, elevation, owner, ratings —
+inherits a certainty from evidence that never touched it. The name says the
+group's identity is certain; what was established is that one field of it
+agreed.
+
+That is not hypothetical. **11 of 115 ncwaterfalls parking coordinates are a
+whole degree of longitude from the waterfall they belong to**, on groups marked
+certain:
+
+```
+Cascade Falls              longitude off by  -3.003
+Poundingmill Branch Falls                    -3.002
+Elk River Falls                              -3.001
+Catawba Falls                                -2.986
+Big Creek Falls                              -2.000
+No-Name Cove Falls                           -1.996
+...11 in total, every one with its latitude intact
+```
+
+They are the same defect class as the six hikingwnc records in
+[hikingwnc-data-issues.md](hikingwnc-data-issues.md) — a whole-degree
+transcription slip, latitude untouched — in a different source and a different
+field. No other source's parking coordinates are affected.
+
+They survived because nothing re-checks a field once its group is certain, so
+the absurdity had to be found by someone measuring a distribution for an
+unrelated reason. It was: a calibration set built to ask how far AllTrails
+trail pins sit from a known-good coordinate.
+
+The fix is per-field validation rather than per-group, or at minimum recording
+*which* field was arbitrated so a reader knows what the certainty covers. The
+11 look recoverable rather than wrong — the right fall with a parking
+coordinate a whole degree out — but they are recorded, not corrected, on the
+same principle as every other source defect here.
 
 **Our own list has internal collisions.** 74 features share 35 coordinates —
 trailheads recorded once per waterfall — and nine features are named
