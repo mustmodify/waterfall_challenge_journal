@@ -14,14 +14,16 @@ at, marked identity_certain = false with the reason in the note -- because a
 source saying something about the wrong waterfall is still a thing that source
 said, and deleting it invites the next importer to make the same match again.
 
-    python3 script/import_alltrails/build.py > db/migrations/0NN_alltrails_claims.sql
+    python3 script/alltrails/fetch.py      # responses to data/alltrails/raw/
+    python3 script/alltrails/match.py      # raw -> data/alltrails/verdicts.jsonl
+    python3 script/import_alltrails/build.py > db/migrations/059_alltrails_claims.sql
 """
 
 import json
 import pathlib
 import sys
 
-CACHE = pathlib.Path("data/alltrails/pilot.jsonl")
+CACHE = pathlib.Path("data/alltrails/verdicts.jsonl")
 SOURCE = "alltrails"
 
 
@@ -39,8 +41,7 @@ def certain(row):
     wrong and is not, usually trailhead-to-falls on a long route. A flag or a
     reject is recorded and left uncertain.
     """
-    verdict = row.get("verdict", "")
-    return verdict == "accept" or verdict.startswith("accept-note")
+    return row.get("verdict", "") == "accept"
 
 
 def main():
@@ -65,12 +66,17 @@ def main():
     for r in rows:
         ref = f"alltrails:{r['trail_id']}:{r['feature_id']}"
         url = f"https://www.alltrails.com/trail/{r['slug']}" if r.get("slug") else None
-        note_bits = [r.get("verdict", "")]
+        note_bits = [r.get("verdict", ""), r.get("why", "")]
         for key in ("correction", "counts_note", "description_note", "slug_note"):
             if r.get(key):
                 note_bits.append(r[key])
+        # Both distances are recorded and they answer different questions: the
+        # pin is the trail's own point and is what the match was decided on;
+        # the trailhead is where you park, which can be miles from the water.
+        if r.get("pin_km") is not None:
+            note_bits.append(f"Trail pin {r['pin_km']*1000:.0f} m from our coordinate.")
         if r.get("trailhead_m") is not None:
-            note_bits.append(f"Trailhead {r['trailhead_m']} m from our coordinate.")
+            note_bits.append(f"Trailhead {r['trailhead_m']} m.")
         note = " ".join(b for b in note_bits if b)
 
         out.append(
@@ -80,9 +86,26 @@ def main():
             f"{str(certain(r)).lower()}, {sql(note)})\nON CONFLICT (ref) DO NOTHING;"
         )
 
+        # A claim carries feature_id, so a claim says something about OUR
+        # waterfall -- not about the trail in the abstract. Writing this
+        # trail's photo count against a feature whose match we REFUSED would
+        # assert a number we have just decided is about somewhere else, and
+        # a feature with ten nearby candidates would end up asserting ten
+        # different photo counts about itself. So a refused group records
+        # only what the source called the place, plus the reason in the note.
         claims = []
         if r.get("trail"):
             claims.append(("name", sql(r["trail"])))
+        if not certain(r):
+            for field, value in claims:
+                jsonb = f"to_jsonb({value}::text)"
+                out.append(
+                    "INSERT INTO claims (group_id, feature_id, field, value, accepted)\n"
+                    f"SELECT cg.id, cg.feature_id, {sql(field)}, {jsonb}, false\n"
+                    f"  FROM claim_groups cg WHERE cg.ref = {sql(ref)}\n"
+                    "ON CONFLICT DO NOTHING;")
+            out.append("")
+            continue
         if r.get("photos") is not None:
             claims.append(("photos_count", r["photos"]))
         if r.get("hikes") is not None:
@@ -121,8 +144,28 @@ def main():
             )
         out.append("")
 
+    # The view in 057 does not filter on identity_certain, which is safe only
+    # while every group is a match. It is not: most groups here are candidates
+    # we refused, and an unfiltered view pairs a feature with every trail near
+    # it. Narrow it where the data that exposes the gap arrives.
+    out.append("""CREATE OR REPLACE VIEW trail_engagement AS
+SELECT cg.id AS group_id, cg.feature_id, f.name AS feature_name, cg.source, cg.url,
+       cg.identity_certain,
+       ((p.value #>> '{}')::integer) AS photos,
+       ((h.value #>> '{}')::integer) AS hikes,
+       ((r.value #>> '{}')::integer) AS reviews,
+       round(((p.value #>> '{}')::numeric) / ((h.value #>> '{}')::numeric), 4) AS photos_per_hike
+FROM claim_groups cg
+JOIN features f ON f.id = cg.feature_id
+JOIN claims p ON p.group_id = cg.id AND p.field = 'photos_count'
+JOIN claims h ON h.group_id = cg.id AND h.field = 'completed_hikes_count'
+LEFT JOIN claims r ON r.group_id = cg.id AND r.field = 'reviews_count'
+WHERE ((h.value #>> '{}')::numeric) > 0
+  AND cg.identity_certain;""")
+    out.append("")
     kept = sum(1 for r in rows if certain(r))
-    out.append(f"-- {len(rows)} groups: {kept} certain, {len(rows) - kept} recorded uncertain.")
+    out.append(f"-- {len(rows)} groups: {kept} certain with counts, "
+               f"{len(rows) - kept} recorded uncertain with a name and a reason.")
     print("\n".join(out))
 
 

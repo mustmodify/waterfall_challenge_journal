@@ -87,10 +87,25 @@ def names_agree(ours, theirs, aliases):
     for i in range(len(theirs) - len(ours) + 1):
         if theirs[i:i + len(ours)] == ours:
             return "contained"
+    
     for alias in aliases:
         if alias and (alias == theirs or theirs[:len(alias)] == alias):
             return "alias"
     return None
+
+
+def compound_route(trail_name, ours, theirs):
+    """A route that enumerates destinations rather than naming one.
+
+    "North Harper Creek, Kawana Road, and Raider Camp Creek Trail Loop" is a
+    17 mile backpacking circuit that happens to contain our creek's name. Bare
+    containment called that a match for Harper Creek Falls and handed it 111
+    completed hikes as if they were walks to the waterfall. A comma list, or a
+    name carrying several tokens more than ours, is a route with an itinerary.
+    """
+    if "," in trail_name:
+        return True
+    return len(theirs) - len(ours) > 2
 
 
 def multi_fall(trail_name):
@@ -159,6 +174,9 @@ def decide(feature, trail, pin, aliases):
     elif multi_fall(trail["name"]):
         row["verdict"] = "flag-multi-fall"
         row["why"] = "the route is named for more than one waterfall"
+    elif agreement == "contained" and compound_route(trail["name"], ours, theirs):
+        row["verdict"] = "flag-compound-route"
+        row["why"] = "our name appears inside a route that lists several destinations"
     else:
         row["verdict"] = "accept"
         row["why"] = f"{agreement} name agreement at {distance*1000:.0f} m"
@@ -200,13 +218,17 @@ def main():
             print(f"  {r['verdict']:22} {r.get('trail','-')[:46]:<46} {r['why']}")
         return
 
-    # One accept per feature: the closest. A second route to the same fall is
-    # real but its counts are a different walk, so it is kept and demoted.
+    # One accept per feature, chosen by the STRENGTH of the name evidence and
+    # only then by distance. Picking the nearest gave Harper Creek Falls a
+    # 17 mile loop whose pin happened to be closer than "Harper Creek Falls
+    # Trail" -- an exact name beats a coincidence of geography every time.
+    strength = {"exact": 3, "qualifier": 2, "alias": 2, "contained": 1}
     best = {}
     for r in rows:
         if r["verdict"] == "accept":
             prev = best.get(r["feature_id"])
-            if prev is None or r["pin_km"] < prev["pin_km"]:
+            mine = (strength.get(r["name_agreement"], 0), -r["pin_km"])
+            if prev is None or mine > (strength.get(prev["name_agreement"], 0), -prev["pin_km"]):
                 best[r["feature_id"]] = r
     for r in rows:
         if r["verdict"] == "accept" and best[r["feature_id"]]["trail_id"] != r["trail_id"]:
