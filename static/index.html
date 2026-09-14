@@ -1838,10 +1838,20 @@
       return '<span class="v">' + (word || '&mdash;') + '</span>';
     }
 
+    // One entry per claim_groups.source that carries a URL. Unlabelled sources
+    // still render — linkHost() falls back to the hostname — so a new importer
+    // shows up looking rough rather than not at all, which is the right way
+    // round.
     const LINK_LABELS = {
       hikingwnc: 'HikingWNC',
+      'hikingwnc-supplement': 'HikingWNC',
       ncwaterfalls: 'NC Waterfalls',
-      waterfallshiker: 'Waterfall Shiker',
+      openstreetmap: 'OpenStreetMap',
+      dwhike: 'dwhike',
+      // Read off the site's own <title> and og:site_name. This branch and main
+      // had independently guessed "Waterfall Hiker" and "Waterfall Shiker",
+      // and it is neither.
+      waterfallshiker: 'Waterfalls Hiker',
     };
 
     const DEPRECATED_LABELS = {
@@ -1897,6 +1907,8 @@
 
       // The sources have the directions, the photos and the current state of
       // the trail. Sending people there beats pretending we know any of that.
+      // Since 052 this list is whatever the claims layer holds a *certain* URL
+      // for, so most falls now offer two or three rather than one.
       if ((goal.links || []).length) {
         html += '<div class="links"><div class="k">More about this place</div>';
         goal.links.forEach((l) => {
