@@ -2121,6 +2121,7 @@
       // Kuwohi. Resolving on the id means every link ever shared keeps
       // working and simply redirects to the current spelling.
       if (goal.slug) setPath(placePath(goal), goal.name);
+      fetch(`/features/${goal.id}/view`, { method: 'POST' });
       drawerSource = 'pin';
       const d = goal.difficulty_rating ? goal.difficulty_rating.trim() : '';
       const diffName = { E: 'Easy', M: 'Moderate', D: 'Difficult' }[d];
