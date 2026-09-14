@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
+  <script src="/static/analytics.js"></script>
+  <title>Accounts &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; padding: 20px 0 6px;
+    }
+    header.bar h1 {
+      margin: 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem;
+    }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; }
+
+    .filters { display: flex; gap: 6px; margin: 14px 0 18px; flex-wrap: wrap; }
+
+    .person {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+      margin-bottom: 10px;
+    }
+    .person.stranded { border-color: var(--accent); }
+
+    .person .top {
+      display: flex; align-items: baseline; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 7px;
+    }
+    .person .who { font-weight: 600; }
+    .person .mail { color: var(--haze); font-size: 0.85rem; }
+    .person .when { margin-left: auto; color: var(--haze); font-size: 0.78rem; white-space: nowrap; }
+    .person .facts { font-size: 0.85rem; color: var(--haze); margin: 0; }
+
+    .badge {
+      font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em;
+      border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
+    }
+    .badge.stranded { border-color: var(--accent); color: var(--accent); }
+
+    .empty, .note { color: var(--haze); font-size: 0.9rem; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1>Accounts</h1>
+      <nav><a href="/">Map</a><a href="/corrections/queue">Corrections</a><a href="/account">Account</a></nav>
+    </header>
+
+    <div id="denied" class="empty" hidden>
+      This list is for whoever looks after the site.
+      <a href="/">Sign in on the map</a> if that's you.
+    </div>
+
+    <div id="content" hidden>
+      <p class="note">Everyone who has asked for a sign-in link. <strong>Stranded</strong>
+        means they asked and never got in &mdash; which for anyone who signed up before
+        14 September 2026 means the link was never actually mailed to them.</p>
+      <div class="filters" id="filters">
+        <button class="chip" data-show="" aria-pressed="true">All</button>
+        <button class="chip" data-show="stranded" aria-pressed="false">Stranded</button>
+        <button class="chip" data-show="in" aria-pressed="false">Signed in</button>
+        <button class="chip" data-show="admin" aria-pressed="false">Admins</button>
+      </div>
+      <div id="list"></div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let show = '';
+    let everyone = [];
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // Asked for a link, never used one. The interesting row.
+    const stranded = (u) => !u.signed_in && u.links_issued > 0;
+
+    const plural = (n, one) => n + ' ' + one + (n === 1 ? '' : 's');
+
+    function load() {
+      fetch('/users')
+        .then((r) => {
+          if (r.status === 401 || r.status === 403) { $('denied').hidden = false; $('content').hidden = true; return null; }
+          return r.json();
+        })
+        .then((rows) => { if (rows) { everyone = rows; render(); } });
+    }
+
+    function render() {
+      $('denied').hidden = true;
+      $('content').hidden = false;
+      const rows = everyone.filter((u) =>
+        show === 'stranded' ? stranded(u) :
+        show === 'in' ? u.signed_in :
+        show === 'admin' ? u.is_admin : true);
+
+      if (!rows.length) { $('list').innerHTML = '<p class="empty">Nobody here.</p>'; return; }
+
+      $('list').innerHTML = rows.map((u) => {
+        const out = stranded(u);
+        const facts = [];
+        facts.push(plural(u.links_issued, 'link') + ' issued');
+        if (u.links_used) facts.push(plural(u.links_used, 'link') + ' used');
+        if (u.sessions) facts.push(plural(u.sessions, 'session'));
+        if (u.visits) facts.push(plural(u.visits, 'visit') + ' logged');
+        if (u.last_link_at) facts.push('last asked ' + u.last_link_at.slice(0, 10));
+        return '<div class="person' + (out ? ' stranded' : '') + '">' +
+          '<div class="top"><span class="who">' + esc(u.name) + '</span>' +
+          '<span class="mail">' + esc(u.email) + '</span>' +
+          (u.is_admin ? '<span class="badge">admin</span>' : '') +
+          (out ? '<span class="badge stranded">stranded</span>' : '') +
+          '<span class="when">joined ' + esc(u.created_at.slice(0, 10)) + '</span></div>' +
+          '<p class="facts">' + facts.map(esc).join(' &middot; ') + '</p>' +
+          '</div>';
+      }).join('');
+    }
+
+    $('filters').addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      show = e.target.dataset.show;
+      [...$('filters').children].forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === e.target)));
+      render();
+    });
+
+    load();
+  </script>
+</body>
+
+</html>
