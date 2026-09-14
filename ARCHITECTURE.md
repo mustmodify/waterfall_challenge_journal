@@ -10,8 +10,10 @@ auth.go        sessions, password signup/login (legacy), /me
 magiclink.go   passwordless sign-in
 visits.go      visits, batch visits, challenges
 static/        index.html (map), bulk.html, account.html + shared assets
-db/migrations/ numbered SQL, applied by hand with psql
-script/        one-off importers, not part of the server
+mailer.go      the Mailer interface and transport selection
+mailgun.go     the Mailgun HTTP transport
+db/migrations/ numbered SQL, applied by script/migrate
+script/        the migration runner, plus one-off importers
 ```
 
 ## Data model
@@ -124,7 +126,7 @@ legend swatches and the map cannot drift apart. JS reads them back via
 
 Passwordless. `POST /auth/request` creates the user if the address is unknown,
 issues a 32-byte token, stores **only its SHA-256**, and emits a link.
-`GET /auth/callback` consumes it — single use and 20-minute expiry enforced in
+`GET /auth/callback` consumes it — single use and a two-day expiry enforced in
 one `UPDATE ... WHERE used_at IS NULL AND expires_at > now() RETURNING`, so two
 simultaneous clicks cannot both succeed.
 
@@ -134,8 +136,18 @@ costs somebody their waterfall list and nothing else.
 `/signup` and `/login` still exist and still work; `users.password_digest` is
 nullable and unused by the new flow.
 
-**Not done:** no mail transport (links go to the log), and no rate limiting on
-`/auth/request`.
+Mail goes out through whichever transport `mailer.go` finds at startup. With
+`WANDERFALL_MAILGUN_DOMAIN` and `WANDERFALL_MAILGUN_KEY` set it is Mailgun's
+HTTP API, which is what production uses; with neither set the link is written
+to the log instead, which is the local-development path. The startup line says
+which one was chosen.
+
+Both endpoints that mail on an anonymous request are rate limited by client
+IP, in `ratelimit.go`: a token bucket of 5 burst / 5 per hour on
+`/auth/request` and 10 / 10 on `/corrections`, refusing with a 429 and a
+`Retry-After`. The limit is per IP rather than per address, so it caps how much
+mail one sender can cause rather than how often one mailbox can be targeted
+from everywhere.
 
 ## API
 

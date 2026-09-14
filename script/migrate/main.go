@@ -9,7 +9,7 @@
 //	go run ./script/migrate -baseline  record every file as applied, run none
 //	go run ./script/migrate -status    list what has run and what has not
 //
-// -baseline is for the development database, which already has all 47 applied
+// -baseline is for the development database, which already has all 53 applied
 // by hand: it writes the ledger without touching the schema.
 package main
 

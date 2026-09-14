@@ -28,21 +28,39 @@ A hobby project by jw. Feedback: <jw@mustmodify.com>
 
 Requires Go 1.25+ and PostgreSQL.
 
+`db/migrations` is the history of how this database changed, not a recipe for
+building one — migration 001 adds users to a schema that already had
+`features`, `goals` and `locations` in it, so replaying it against an empty
+database fails on the first file. Build from the dumps instead, then record the
+migrations as already applied:
+
 ```sh
 createdb wc_journey_db
-for f in db/migrations/*.sql; do psql -d wc_journey_db -v ON_ERROR_STOP=1 -f "$f"; done
+psql -d wc_journey_db -v ON_ERROR_STOP=1 -f db/schema.sql
+psql -d wc_journey_db -v ON_ERROR_STOP=1 -f db/reference_data.sql
+DATABASE_URL="postgres:///wc_journey_db?host=/var/run/postgresql&sslmode=disable" \
+  go run ./script/migrate -baseline
 go run .
 ```
 
 Then <http://localhost:8080>.
 
-Database connection details are constants at the top of `main.go`
-(`DB_USER`, `DB_PASSWORD`, `DB_NAME`) — change them there for now.
+`db/schema.sql` carries every table, view, index and constraint;
+`db/reference_data.sql` carries the waterfalls. No account data is in either,
+so users, sessions, visits and magic links start empty. [DEPLOY.md](DEPLOY.md)
+has the rest, including how to regenerate both dumps after a schema change.
+
+The server reads `DATABASE_URL` when it is set and otherwise falls back to the
+constants at the top of `main.go` (`DB_USER`, `DB_PASSWORD`, `DB_NAME`), which
+is why `go run .` needs no environment locally. The migration runner has no
+such fallback — it requires `DATABASE_URL`, hence the longer line above. On a
+local socket install, `host=/var/run/postgresql` is what gets you peer
+authentication; `postgres://user:pass@host/db` works anywhere else.
 
 ### Signing in
 
 Sign-in is passwordless. Enter an email address and the server issues a
-single-use link that expires in 20 minutes; following it signs you in, and
+single-use link that expires in two days; following it signs you in, and
 creates the account if the address is new.
 
 **With no mail transport configured**, the link is written to the server log:

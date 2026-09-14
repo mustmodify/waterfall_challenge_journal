@@ -14,10 +14,14 @@ import (
 	"time"
 )
 
-// linkTTL is deliberately short. The session it creates lasts years; the link
-// that creates it should not, because it travels through email and lands in
-// logs, forwards and browser history.
-const linkTTL = 20 * time.Minute
+// A sign-in link is a key to the account for as long as it lasts, and it
+// travels through email -- so it sits in an inbox, in forwards, and in
+// whatever the mail provider keeps. Two days is a deliberate trade of that
+// exposure for not making somebody ask twice because they read their mail
+// after lunch. It is still single use, so the window closes the moment it is
+// followed, and the hour it is most exposed is the hour it is most likely to
+// already have been spent.
+const linkTTL = 48 * time.Hour
 
 var emailish = regexp.MustCompile(`^[^@\s]+@[^@\s.]+\.[^@\s]+$`)
 
@@ -92,9 +96,20 @@ func requestMagicLink(w http.ResponseWriter, r *http.Request) {
 	link := scheme + "://" + r.Host + "/auth/callback?token=" + url.QueryEscape(token)
 
 	// A link in the log is a sign-in credential sitting in plain text for its
-	// whole twenty minutes. Worth it on a laptop with no mail transport, where
+	// whole lifetime. Worth it on a laptop with no mail transport, where
 	// the alternative is no way to sign in at all; never once mail works.
 	if mailConfigured() {
+		// Synchronous, unlike the correction notice. A correction is already
+		// saved by the time the mail goes out, so losing it costs a
+		// notification; a sign-in link that is never delivered leaves somebody
+		// waiting on a mail that is not coming. They have to be told.
+		subject, body := magicLinkEmail(link)
+		if err := mailer.Send(email, subject, body); err != nil {
+			log.Printf("magic link to %s failed: %v", email, err)
+			http.Error(w, "Could not send the sign-in email. Please try again in a moment.",
+				http.StatusBadGateway)
+			return
+		}
 		log.Printf("magic link sent to %s", email)
 	} else {
 		log.Printf("magic link for %s: %s", email, link)
