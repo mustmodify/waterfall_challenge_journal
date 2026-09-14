@@ -155,7 +155,7 @@ normalisation. Worth fixing before anything else depends on `name_core`.
 | The source's own published coordinate | `claims` where `field='coordinate'`, per `claim_group` | the arbiter | the source publishes none |
 | Our name | `features.name` | proposing candidates | the name is a common one |
 | The source's name | `claims` where `field='name'` | confirming a candidate | page titles carry SEO tails |
-| Aliases | `claims` where `field='alias'` | alternate names | 45 claims, all `accepted=false` |
+| Aliases | `claims` where `field='alias'` | alternate names | 43 claims, only 3 accepted |
 | Trailhead position | AllTrails `trail_head_distance_meters` | proximity only | **is not the waterfall** — see §4 |
 | Hike distance | `claims`, `features.rt_hike_distance` | sanity-checking a route | one-way vs round-trip prose |
 | Elevation, height, gain | `claims` | weak corroboration | sparse, and sources disagree |
@@ -333,12 +333,20 @@ tolerate should scale with how many things carry the name — and the frequency
 should be computed across the *sources'* names too, not only our 934, since a
 name unique in our corner may be common statewide.
 
-**Aliases are all unaccepted.** All 45 alias claims carry `accepted = false`,
-including ones written deliberately to record a *conflict* — Adams calls our
-Quarry Falls "Bust-Your-Butt Falls", a name we hold on Drift Falls 27 km east.
-So "an alias matched" cannot currently distinguish a name we endorse from a
-name we are disputing. Any rule consuming aliases must filter on `accepted`
-until that is resolved.
+**Almost every alias is unaccepted.** Of 43 alias claims, **3 are accepted** —
+Reedy Cove Falls for Twin Falls (SC), and two names for Shacktown Falls — and
+40 are not. The unaccepted 40 include ones written deliberately to record a
+*conflict*: Adams calls our Quarry Falls "Bust-Your-Butt Falls", a name we hold
+on Drift Falls 27 km east.
+
+So **any rule consuming aliases must filter on `accepted`**, or a name we are
+disputing counts as a name we endorse. The three accepted rows are also what
+keeps such a filter from being dead code — a point worth checking before
+anyone "simplifies" it away.
+
+Separately: the committed dumps hold 43 alias claims and 3 accepted, while the
+development database holds 45 and 5. The dumps have drifted and should be
+regenerated — see DEPLOY.md.
 
 **Stage 2, an AI pass, is designed and not built.** A second pass over what
 distance and name cannot settle: different names for the same fall, a page
