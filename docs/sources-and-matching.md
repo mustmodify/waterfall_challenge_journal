@@ -9,6 +9,11 @@ The short version of the hard part: **a name tells you what shares a name, not
 what a thing is.** Every serious data error in this project so far has come
 from treating those as the same question.
 
+> **The matching rules now live in [MATCHING.md](MATCHING.md)** — why waterfall
+> names repeat, what evidence there is, how it is combined, and what has gone
+> wrong. This document covers provenance: where each source came from and
+> whether reading it was allowed.
+
 ## The sources
 
 | Source | Groups | Features | What it contributes |
