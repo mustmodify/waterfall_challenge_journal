@@ -59,13 +59,19 @@ WITH candidate AS (
            name_key(f.name) AS ours,
            name_key((SELECT c.value #>> '{}' FROM claims c
                       WHERE c.group_id = cg.id AND c.field = 'name' LIMIT 1)) AS theirs,
-           -- accepted matters here. Every alias claim in the reference data
-           -- carries accepted = false, and the last statement in this file
-           -- deliberately writes another one to record a DISPUTE: Adams calls
-           -- our Quarry Falls "Bust-Your-Butt Falls", a name we hold on Drift
-           -- Falls 27 km east. Without this filter the first statement would
-           -- read a contested name as agreement, which is the opposite of what
-           -- the last statement wrote it down to mean.
+           -- accepted matters here. Of the 43 alias claims in the reference
+           -- data, 3 are accepted -- Reedy Cove Falls for Twin Falls (SC), and
+           -- two names for Shacktown Falls -- and 40 are not. This clause
+           -- narrows the evidence to those 3, which is the point of it: an
+           -- unaccepted alias is a name somebody recorded, not a name we
+           -- endorse, and the last statement in this file deliberately writes
+           -- one to record a DISPUTE. Adams calls our Quarry Falls
+           -- "Bust-Your-Butt Falls", a name we hold on Drift Falls 27 km east.
+           -- Without the filter, that contested name would count as agreement,
+           -- which is the opposite of what writing it down meant.
+           --
+           -- The 3 accepted rows are also why this is a filter and not a
+           -- deletion: the branch stays reachable.
            (SELECT array_agg(name_key(c.value #>> '{}')) FROM claims c
              WHERE c.feature_id = cg.feature_id AND c.field = 'alias'
                AND c.accepted) AS aliases,
