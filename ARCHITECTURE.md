@@ -60,6 +60,10 @@ it: **the published set is defined by corroboration.** Asking whether most of
 the published falls have two sources is asking what the publication rule is,
 and the answer is yes by construction.
 
+The sources themselves, how each was obtained and whether that was allowed, the
+matching pipeline and its failure modes are in
+[docs/sources-and-matching.md](docs/sources-and-matching.md).
+
 **`identity_certain` asks a different question from whether the data is
 right.** A group matched to its feature by name and never confirmed against a
 coordinate is marked uncertain — the source may be describing a different

@@ -100,6 +100,10 @@ recorded. A waterfall is published on the map only when two or more independent
 sources put it in the same place, which is why 464 of 956 places appear. The
 rest are real waterfalls we are not yet confident enough to send somebody to.
 
+Where each source comes from, how a page on somebody else's site gets attached
+to one of our waterfalls, the four ways that goes wrong and what catches them:
+[docs/sources-and-matching.md](docs/sources-and-matching.md).
+
 Known problems in the upstream data are written up in
 [docs/hikingwnc-data-issues.md](docs/hikingwnc-data-issues.md) — including six
 waterfalls recorded one degree of longitude too far east.
