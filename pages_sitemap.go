@@ -22,6 +22,8 @@ Allow: /
 Disallow: /account
 Disallow: /bulk
 Disallow: /corrections
+Disallow: /users
+Disallow: /admin/
 Disallow: /auth/
 
 Sitemap: https://wanderfall.app/sitemap.xml

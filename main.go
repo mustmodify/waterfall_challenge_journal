@@ -437,6 +437,7 @@ func main() {
 	r.HandleFunc("/corrections", listCorrections).Methods("GET")
 	r.HandleFunc("/corrections/{id}", updateCorrection).Methods("PATCH")
 	r.HandleFunc("/corrections/{id}", deleteCorrection).Methods("DELETE")
+	r.HandleFunc("/users", listUsers).Methods("GET")
 	r.HandleFunc("/visits", createVisit).Methods("POST")
 	r.HandleFunc("/visits/batch", createVisits).Methods("POST")
 	r.HandleFunc("/visits", getVisits).Methods("GET")
@@ -449,6 +450,9 @@ func main() {
 	}).Methods("GET")
 	r.HandleFunc("/corrections/queue", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/corrections.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/users", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/users.html")
 	}).Methods("GET")
 	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/account.html")
