@@ -112,6 +112,9 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the schema and how the pieces fit.
 
 ## Status
 
+What is deployed, what is unfinished, and what is worth knowing before picking
+this up again: [docs/state-of-play.md](docs/state-of-play.md).
+
 Early, and worked on for fun. Things that exist in the database but not yet in
 the interface: areas, landowner, deprecation reasons, notes, and user-submitted
 corrections.
