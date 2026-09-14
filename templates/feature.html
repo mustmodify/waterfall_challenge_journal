@@ -1,0 +1,79 @@
+{{define "feature.html"}}<!doctype html>
+<html lang="en">
+<head>
+{{template "head" .}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": {{if eq .Feature.Kind "tower"}}"TouristAttraction"{{else}}"BodyOfWater"{{end}},
+  "name": {{.Feature.Name}},
+  "url": {{.Canonical}}{{if .Feature.Latitude}},
+  "geo": { "@type": "GeoCoordinates", "latitude": {{.Feature.Latitude}}, "longitude": {{.Feature.Longitude}} }{{end}}
+}
+</script>
+</head>
+<body>
+{{template "chrome-top" .}}
+<main class="sheet">
+  <h1>{{.Feature.Name}}</h1>
+  {{with .Feature.Aliases}}<p class="also">Also known as {{join . ", "}}.</p>{{end}}
+
+  {{with .Feature.Deprecated}}<p class="warn">This one is flagged: {{.}}.</p>{{end}}
+
+  <dl class="facts">
+    {{with .Feature.Areas}}<dt>Area</dt><dd>{{range .}}<a href="/areas/{{.Slug}}">{{.Name}}</a> {{end}}</dd>{{end}}
+    {{with .Feature.Challenges}}<dt>Challenge</dt><dd>{{join . ", "}}</dd>{{end}}
+    {{with .Feature.HeightFt}}<dt>Height</dt><dd>{{.}} feet</dd>{{end}}
+    {{with .Feature.ElevationFt}}<dt>Elevation</dt><dd>{{.}} feet</dd>{{end}}
+    {{with .Feature.HikeDistance}}<dt>Round trip</dt><dd>{{.}}</dd>{{end}}
+    {{with .Feature.Difficulty}}<dt>Difficulty</dt><dd>{{.}}</dd>{{end}}
+    {{with band "beauty" .Feature.Beauty}}<dt>Beauty</dt><dd>{{.}}</dd>{{end}}
+    {{with band "photo" .Feature.Photo}}<dt>Photography</dt><dd>{{.}}</dd>{{end}}
+    {{with band "solitude" .Feature.Solitude}}<dt>Solitude</dt><dd>{{.}}</dd>{{end}}
+    {{with coord .Feature.Latitude .Feature.Longitude}}<dt>The falls</dt><dd>{{.}}</dd>{{end}}
+    {{with coord .Feature.ParkingLat .Feature.ParkingLon}}<dt>Parking</dt><dd>{{.}}</dd>{{end}}
+    {{with coord .Feature.ViewLat .Feature.ViewLon}}<dt>Viewpoint</dt><dd>{{.}}</dd>{{end}}
+  </dl>
+
+  {{with .Feature.Routes}}
+  <h2>Routes people have walked</h2>
+  <ul class="routes">
+    {{range .}}<li>{{printf "%.1f" .Miles}} miles, {{.GainFt}} feet of climb &mdash;
+      {{.Band}} (Petzoldt {{printf "%.2f" .Petzoldt}}), per {{.Source}}.</li>{{end}}
+  </ul>
+  {{end}}
+
+  {{with .Feature.Notes}}
+  <h2>Notes</h2>
+  {{range .}}<p class="note">{{.Text}}{{with .Source}} <span class="src">&mdash; {{.}}</span>{{end}}</p>{{end}}
+  {{end}}
+
+  {{if .Feature.Confidence}}
+  <h2>How well we know where this is</h2>
+  <p class="prov">
+    {{if eq (printf "%s" .Feature.Confidence) "confirmed"}}
+      Three independent sources place it within a hundred metres of each other.
+    {{else if eq (printf "%s" .Feature.Confidence) "corroborated"}}
+      Two sources agree on where it is{{with .Feature.SourcesApart}}, to within {{.}} metres{{end}}.
+    {{else if eq (printf "%s" .Feature.Confidence) "disputed"}}
+      Sources disagree about where this is{{with .Feature.SourcesApart}}, by {{.}} metres{{end}}.
+      Treat the coordinate as a starting point rather than a destination.
+    {{else if eq (printf "%s" .Feature.Confidence) "single source"}}
+      One source places it here, and nothing else we hold confirms it.
+    {{else}}
+      Our coordinate for this one is not confirmed by any source we hold.
+    {{end}}
+  </p>
+  {{end}}
+
+  {{with .Feature.Links}}
+  <h2>Elsewhere</h2>
+  <ul class="links">{{range .}}<li><a href="{{.URL}}" rel="nofollow noopener" target="_blank">{{if .Rel}}{{.Rel}}{{else}}source{{end}}</a></li>{{end}}</ul>
+  {{end}}
+
+  <p class="map-link"><a href="/#{{.Feature.Slug}}">See it on the map</a></p>
+</main>
+{{template "chrome-bottom" .}}
+</body>
+</html>
+{{end}}

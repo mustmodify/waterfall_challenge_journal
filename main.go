@@ -73,6 +73,7 @@ type Feature struct {
 	Links             []Link        `json:"links"`
 	Areas             []string      `json:"areas"`
 	Notes             []FeatureNote `json:"notes"`
+	Slug              string        `json:"slug"`
 	Confidence        *string       `json:"confidence,omitempty"`
 	Owner             *string       `json:"owner,omitempty"`
 	DeprecatedReason  *string       `json:"deprecated_reason,omitempty"`
@@ -223,7 +224,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			(SELECT json_agg(json_build_object('text', notes.text, 'source',
 				coalesce(notes.source, '')) ORDER BY notes.id)
 				FROM notes WHERE notes.feature_id = features.id) AS note_json,
-			confidence.tier,
+			features.slug, confidence.tier,
 			features.owner, deprecated_reason, deprecated_note,
 			deprecated_on::text
 		FROM features
@@ -276,6 +277,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&linkRows,
 			&areaNames,
 			&noteJSON,
+			&f.Slug,
 			&confidence,
 			&f.Owner,
 			&f.DeprecatedReason,
@@ -420,6 +422,11 @@ func main() {
 	r.HandleFunc("/logout", logout).Methods("POST")
 	r.HandleFunc("/me", me).Methods("GET")
 	r.HandleFunc("/config.js", clientConfig).Methods("GET")
+
+	initPages()
+	r.HandleFunc("/waterfalls/{slug}", featureHandler("waterfall")).Methods("GET")
+	r.HandleFunc("/towers/{slug}", featureHandler("tower")).Methods("GET")
+	r.HandleFunc("/areas/{slug}", areaHandler).Methods("GET")
 
 	signInLimit := newLimiter(5, 5)
 	fixLimit := newLimiter(10, 10)

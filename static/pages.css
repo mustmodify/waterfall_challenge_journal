@@ -1,0 +1,51 @@
+/* The server-rendered pages. They share app.css for colour and type, and add
+   only what a document needs and the map application does not. */
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 18px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-head .brand { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--ink); }
+.page-head nav { display: flex; gap: 14px; font-size: 0.85rem; }
+
+.sheet {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.sheet h1 { font-size: 1.7rem; margin: 0 0 6px; }
+.sheet h2 { font-size: 1rem; margin: 28px 0 8px; color: var(--mist); }
+.sheet .also { color: var(--mist); margin: 0 0 18px; }
+.sheet .lede { color: var(--mist); margin: 0 0 22px; }
+
+.facts { display: grid; grid-template-columns: 9rem 1fr; gap: 6px 14px; margin: 18px 0; }
+.facts dt { color: var(--mist); font-size: 0.82rem; }
+.facts dd { margin: 0; }
+
+.routes, .links { margin: 0; padding-left: 1.1rem; }
+.note { margin: 0 0 10px; }
+.note .src { color: var(--mist); font-size: 0.85rem; }
+.prov { color: var(--mist); }
+.warn { padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; }
+
+.listing { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.listing th { text-align: left; font-size: 0.78rem; color: var(--mist); padding: 0 10px 6px 0; }
+.listing td { padding: 7px 10px 7px 0; border-top: 1px solid var(--line); }
+
+.page-foot {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 18px 20px 40px;
+  color: var(--mist);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 520px) {
+  .facts { grid-template-columns: 1fr; gap: 2px 0; }
+  .facts dd { margin-bottom: 8px; }
+}

@@ -836,6 +836,7 @@
 
     .rating-dots i.on { background: var(--accent); }
 
+    #drawer .page-link { margin: 14px 0 0; font-size: 0.85rem; }
     #drawer hr { border: none; border-top: 1px solid var(--line); margin: 16px 0; }
 
     /* Loud enough to stop someone driving two hours, quiet enough not to
@@ -1918,6 +1919,15 @@
           '<div id="visit-msg" role="status"></div></form>';
       } else {
         html += '<div class="signin-nudge"><button class="quiet" id="nudge-signin">Sign in</button> to log a visit.</div>';
+      }
+
+      // The page is the crawlable copy of this card, and the only route a
+      // search engine has into any of them.
+      if (goal.slug) {
+        html += '<p class="page-link"><a href="/' +
+          (kindOf(goal) === 'tower' ? 'towers' : 'waterfalls') + '/' +
+          encodeURIComponent(goal.slug) + '">Open the full page for ' +
+          escapeHtml(goal.name) + '</a></p>';
       }
 
       html += '<button type="button" class="quiet fix" id="report-fix">' +

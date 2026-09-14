@@ -1,0 +1,29 @@
+{{define "area.html"}}<!doctype html>
+<html lang="en">
+<head>
+{{template "head" .}}
+</head>
+<body>
+{{template "chrome-top" .}}
+<main class="sheet">
+  <h1>Waterfalls in {{.Name}}</h1>
+  <p class="lede">{{len .Features}} waterfalls and towers, with what we know about
+  the walk to each.</p>
+  <table class="listing">
+    <thead><tr><th>Name</th><th>Round trip</th><th>Difficulty</th><th>Height</th></tr></thead>
+    <tbody>
+    {{range .Features}}
+      <tr>
+        <td><a href="/{{kindPath .Kind}}/{{.Slug}}">{{.Name}}</a></td>
+        <td>{{with .HikeDistance}}{{.}}{{else}}&mdash;{{end}}</td>
+        <td>{{with .Difficulty}}{{.}}{{else}}&mdash;{{end}}</td>
+        <td>{{with .HeightFt}}{{.}} ft{{else}}&mdash;{{end}}</td>
+      </tr>
+    {{end}}
+    </tbody>
+  </table>
+</main>
+{{template "chrome-bottom" .}}
+</body>
+</html>
+{{end}}

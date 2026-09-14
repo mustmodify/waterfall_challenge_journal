@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict tfYLP3hhBToKA6KFZC10EGRUvCBz0GdLF31VST9UO9t5GJUJEYG8Jgy5cNsobYq
+\restrict ZKGAyQTN9qBpaAzbkBb2jMbzuAMMxRVQ0afzaLhqNSTa3n0ZlAS2VigYnCNDoah
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -22,63 +22,63 @@ SET row_security = off;
 -- Data for Name: areas; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.areas (id, name, created_at) FROM stdin;
-1	Asheville	2026-09-12 22:53:37.463637
-2	Balsam Grove	2026-09-12 22:53:37.463637
-3	Big Creek & Harmon Den	2026-09-12 22:53:37.463637
-4	Big Ivy	2026-09-12 22:53:37.463637
-5	Blowing Rock	2026-09-12 22:53:37.463637
-6	Boone	2026-09-12 22:53:37.463637
-7	Brevard	2026-09-12 22:53:37.463637
-8	Brevard North	2026-09-12 22:53:37.463637
-9	Brevard South	2026-09-12 22:53:37.463637
-10	Bryson City	2026-09-12 22:53:37.463637
-11	Burnsville	2026-09-12 22:53:37.463637
-12	Cashiers	2026-09-12 22:53:37.463637
-13	Central and Eastern NC	2026-09-12 22:53:37.463637
-14	Cherokee	2026-09-12 22:53:37.463637
-15	Craggy Gardens	2026-09-12 22:53:37.463637
-16	Cullowhee	2026-09-12 22:53:37.463637
-17	Dupont Forest	2026-09-12 22:53:37.463637
-18	Elk Park	2026-09-12 22:53:37.463637
-19	Franklin	2026-09-12 22:53:37.463637
-20	GSMNP	2026-09-12 22:53:37.463637
-21	Grandfather Mountain	2026-09-12 22:53:37.463637
-22	Greenville County SC	2026-09-12 22:53:37.463637
-23	Hanging Rock & Mayo River	2026-09-12 22:53:37.463637
-24	Hickory Nut Gorge	2026-09-12 22:53:37.463637
-25	Highlands	2026-09-12 22:53:37.463637
-26	Hot Springs	2026-09-12 22:53:37.463637
-27	Lake Toxaway	2026-09-12 22:53:37.463637
-28	Lake Toxaway North	2026-09-12 22:53:37.463637
-29	Lake Toxaway South	2026-09-12 22:53:37.463637
-30	Linville Falls	2026-09-12 22:53:37.463637
-31	Linville Gorge	2026-09-12 22:53:37.463637
-32	Little Switzerland	2026-09-12 22:53:37.463637
-33	Maggie Valley	2026-09-12 22:53:37.463637
-34	Marion	2026-09-12 22:53:37.463637
-35	Morganton	2026-09-12 22:53:37.463637
-36	Mount Mitchell	2026-09-12 22:53:37.463637
-37	Murphy & Hayesville	2026-09-12 22:53:37.463637
-38	Nantahala Gorge	2026-09-12 22:53:37.463637
-39	Oconee County SC	2026-09-12 22:53:37.463637
-40	Old Fort	2026-09-12 22:53:37.463637
-41	Pickens County SC	2026-09-12 22:53:37.463637
-42	Robbinsville	2026-09-12 22:53:37.463637
-43	Rosman	2026-09-12 22:53:37.463637
-44	Saluda	2026-09-12 22:53:37.463637
-45	Saluda-Tryon-Columbus	2026-09-12 22:53:37.463637
-46	Shining Rock	2026-09-12 22:53:37.463637
-47	Shining Rock & Middle Prong	2026-09-12 22:53:37.463637
-48	South Mountains	2026-09-12 22:53:37.463637
-49	Spruce Pine	2026-09-12 22:53:37.463637
-50	Stone Mountain State Park	2026-09-12 22:53:37.463637
-51	Sylva	2026-09-12 22:53:37.463637
-52	Valdese	2026-09-12 22:53:37.463637
-53	West Jefferson	2026-09-12 22:53:37.463637
-54	Wilkesboro	2026-09-12 22:53:37.463637
-55	Wilson's Creek	2026-09-12 22:53:37.463637
-63	Elk Falls	2026-09-12 22:57:17.294796
+COPY public.areas (id, name, created_at, slug) FROM stdin;
+1	Asheville	2026-09-12 22:53:37.463637	asheville
+2	Balsam Grove	2026-09-12 22:53:37.463637	balsam-grove
+3	Big Creek & Harmon Den	2026-09-12 22:53:37.463637	big-creek-and-harmon-den
+4	Big Ivy	2026-09-12 22:53:37.463637	big-ivy
+5	Blowing Rock	2026-09-12 22:53:37.463637	blowing-rock
+6	Boone	2026-09-12 22:53:37.463637	boone
+7	Brevard	2026-09-12 22:53:37.463637	brevard
+8	Brevard North	2026-09-12 22:53:37.463637	brevard-north
+9	Brevard South	2026-09-12 22:53:37.463637	brevard-south
+10	Bryson City	2026-09-12 22:53:37.463637	bryson-city
+11	Burnsville	2026-09-12 22:53:37.463637	burnsville
+12	Cashiers	2026-09-12 22:53:37.463637	cashiers
+13	Central and Eastern NC	2026-09-12 22:53:37.463637	central-and-eastern-nc
+14	Cherokee	2026-09-12 22:53:37.463637	cherokee
+15	Craggy Gardens	2026-09-12 22:53:37.463637	craggy-gardens
+16	Cullowhee	2026-09-12 22:53:37.463637	cullowhee
+17	Dupont Forest	2026-09-12 22:53:37.463637	dupont-forest
+63	Elk Falls	2026-09-12 22:57:17.294796	elk-falls
+18	Elk Park	2026-09-12 22:53:37.463637	elk-park
+19	Franklin	2026-09-12 22:53:37.463637	franklin
+21	Grandfather Mountain	2026-09-12 22:53:37.463637	grandfather-mountain
+22	Greenville County SC	2026-09-12 22:53:37.463637	greenville-county-sc
+20	GSMNP	2026-09-12 22:53:37.463637	gsmnp
+23	Hanging Rock & Mayo River	2026-09-12 22:53:37.463637	hanging-rock-and-mayo-river
+24	Hickory Nut Gorge	2026-09-12 22:53:37.463637	hickory-nut-gorge
+25	Highlands	2026-09-12 22:53:37.463637	highlands
+26	Hot Springs	2026-09-12 22:53:37.463637	hot-springs
+27	Lake Toxaway	2026-09-12 22:53:37.463637	lake-toxaway
+28	Lake Toxaway North	2026-09-12 22:53:37.463637	lake-toxaway-north
+29	Lake Toxaway South	2026-09-12 22:53:37.463637	lake-toxaway-south
+30	Linville Falls	2026-09-12 22:53:37.463637	linville-falls
+31	Linville Gorge	2026-09-12 22:53:37.463637	linville-gorge
+32	Little Switzerland	2026-09-12 22:53:37.463637	little-switzerland
+33	Maggie Valley	2026-09-12 22:53:37.463637	maggie-valley
+34	Marion	2026-09-12 22:53:37.463637	marion
+35	Morganton	2026-09-12 22:53:37.463637	morganton
+36	Mount Mitchell	2026-09-12 22:53:37.463637	mount-mitchell
+37	Murphy & Hayesville	2026-09-12 22:53:37.463637	murphy-and-hayesville
+38	Nantahala Gorge	2026-09-12 22:53:37.463637	nantahala-gorge
+39	Oconee County SC	2026-09-12 22:53:37.463637	oconee-county-sc
+40	Old Fort	2026-09-12 22:53:37.463637	old-fort
+41	Pickens County SC	2026-09-12 22:53:37.463637	pickens-county-sc
+42	Robbinsville	2026-09-12 22:53:37.463637	robbinsville
+43	Rosman	2026-09-12 22:53:37.463637	rosman
+44	Saluda	2026-09-12 22:53:37.463637	saluda
+45	Saluda-Tryon-Columbus	2026-09-12 22:53:37.463637	saluda-tryon-columbus
+46	Shining Rock	2026-09-12 22:53:37.463637	shining-rock
+47	Shining Rock & Middle Prong	2026-09-12 22:53:37.463637	shining-rock-and-middle-prong
+48	South Mountains	2026-09-12 22:53:37.463637	south-mountains
+49	Spruce Pine	2026-09-12 22:53:37.463637	spruce-pine
+50	Stone Mountain State Park	2026-09-12 22:53:37.463637	stone-mountain-state-park
+51	Sylva	2026-09-12 22:53:37.463637	sylva
+52	Valdese	2026-09-12 22:53:37.463637	valdese
+53	West Jefferson	2026-09-12 22:53:37.463637	west-jefferson
+54	Wilkesboro	2026-09-12 22:53:37.463637	wilkesboro
+55	Wilson's Creek	2026-09-12 22:53:37.463637	wilson-s-creek
 \.
 
 
@@ -1117,963 +1117,963 @@ COPY public.locations (id, latitude, longitude) FROM stdin;
 -- Data for Name: features; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.features (id, name, parking_location_id, feature_location_id, visited, rt_hike_distance, difficulty_rating, beauty_rating, photo_rating, solitude_rating, hwnc_id, cmc_hike_no, book_page, kind, accessibility, height_ft, owner, deprecated_reason, deprecated_note, deprecated_on, elevation_ft, view_location_id, elevation_gain_ft) FROM stdin;
-459	Upper Batson Creek Falls	\N	241	f	Approx .3 mile each way	\N	5	5	8	\N	\N	\N	waterfall	Easy/Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-366	Tom Springs (Daniel Ridge) Falls	\N	105	f	1.00	E	7	5	5	\N	174	53	waterfall	\N	\N	Federal	\N	\N	\N	\N	\N	\N
-378	Looking Glass Falls	\N	94	f	Roadside	E	9	9	2	\N	55	\N	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N
-336	Lee Falls	\N	149	f	2.90	E	7	8	7	248	\N	\N	waterfall	Easy	100	Federal	\N	\N	\N	\N	\N	\N
-404	Station Cove Falls	\N	146	f	0.75	E	7	8	8	\N	\N	\N	waterfall	\N	\N	Federal	\N	\N	\N	\N	\N	\N
-436	Spruce Flats Falls	\N	218	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	GSMNP	\N	\N	\N	\N	\N	\N
-379	Twin Falls (Henry Branch)	\N	103	f	4.00	E	9	8	7	\N	160	58	waterfall	Moderate	80	Federal	\N	\N	\N	\N	\N	\N
-313	Cove Creek Falls	\N	104	f	2.72	E	8	9	8	\N	173	52	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N
-350	Second Falls	\N	106	f	0.4 Miles (out and back)	E	8	7	5	\N	213	61	waterfall	Easy	55	Federal	\N	\N	\N	\N	\N	\N
-427	Upper & Lower Bubbling Springs	\N	209	f	0.5 (out and back)	\N	6	6	6	\N	\N	\N	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N
-349	Dill Falls	\N	109	f	0.60	E	8	8	7	48	217	92	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N
-364	Bird Rock Falls	\N	110	f	0.50	E	8	6	5	\N	228	71	waterfall	Moderate	\N	Private	\N	\N	\N	\N	\N	\N
-481	Shoal Creek Falls	\N	255	f	0.7	\N	6	5	4	\N	\N	\N	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N
-340	Catheys Creek Falls	\N	193	f	0.2	E	7	7	6	54	48	\N	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N
-324	Mingo Falls	\N	112	f	0.50	E	8	8	6	\N	390	108	waterfall	Easy+	120	Cherokee	\N	\N	\N	\N	\N	\N
-352	Indian Creek Falls	\N	113	f	3.20	M	6	6	9	\N	401	105	waterfall	Easy+	25	GSMNP	\N	\N	\N	\N	\N	\N
-383	Grogan Creek Falls	\N	115	f	5.20	M	10	9	9	\N	172	50	waterfall	Moderate	20	Federal	\N	\N	\N	\N	\N	\N
-407	Courthouse Falls	\N	117	f	0.70	E	9	8	8	\N	224	69	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N
-385	Logging Road Falls	\N	118	f	2.00	E	5	6	7	\N	170	173	waterfall	Easy	80	Federal	\N	\N	\N	\N	\N	\N
-343	Hickory Nut Falls	\N	119	f	2.00	E	8	7	5	\N	33	\N	waterfall	Easy+	351	State	\N	\N	\N	\N	\N	\N
-408	Pearson's Falls	\N	126	f	0.5 (out and back)	E	8	7	6	\N	\N	\N	waterfall	Easy	\N	Private	\N	\N	\N	\N	\N	\N
-424	Melrose Falls	\N	206	f	1.3 (out and back)	\N	7	5	8	\N	\N	\N	waterfall	Medium (Difficult to get to the base)	\N	Conservancy	\N	\N	\N	\N	\N	\N
-345	Upper Sols Creek Falls	\N	127	f	0.7 (out and back)	\N	10	10	10	\N	\N	\N	waterfall	Difficult	\N	Federal	\N	\N	\N	\N	\N	\N
-392	Flat Creek Falls	\N	128	f	6.4 (out and back)	\N	10	6	10	\N	\N	\N	waterfall	Difficult	\N	Federal	\N	\N	\N	\N	\N	\N
-410	Little Bradley Falls	\N	130	f	1.94	E	8	8	6	\N	\N	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N
-426	Mt Hardy Falls	\N	208	f	1.65 (out and back to overlook + bushwhack to base)	\N	5	3	7	\N	\N	\N	waterfall	Moderate	80	Federal	\N	\N	\N	\N	\N	\N
-362	High Falls- Thompson River	\N	131	f	3.0 (out and back)	M	6	6	5	\N	276	251	waterfall	Moderate	55	Federal	\N	\N	\N	\N	\N	\N
-347	Yellow Branch Falls	\N	136	f	2.60 (out and back)	E	8	7	5	\N	\N	\N	waterfall	Moderate	35	Federal	\N	\N	\N	\N	\N	\N
-402	Riley Moore Falls	\N	151	f	2.00	E	6	8	3	\N	\N	\N	waterfall	Moderate	12	Federal	\N	\N	\N	\N	\N	\N
-398	Tom's Creek Falls	\N	137	f	1.0 (out and back)	E	6	7	5	\N	25	\N	waterfall	Easy	60	Federal	\N	\N	\N	\N	\N	\N
-405	Catawba Falls	\N	140	f	2.2 (out and back)	M	9	10	10	\N	26	\N	waterfall	Easy+	120	Federal	\N	\N	\N	\N	\N	\N
-396	Crabtree Falls	\N	141	f	2.3 (out and back)	E	8	7	5	\N	22	\N	waterfall	Moderate	70	Federal	\N	\N	\N	\N	\N	\N
-422	Hickory Branch Falls	\N	204	f	1.2 (out and back)	\N	6	4	8	\N	\N	\N	waterfall	Medium	30	Federal	\N	\N	\N	\N	\N	\N
-399	Roaring Fork Falls	\N	142	f	1.3 (out and back)	E	8	8	5	\N	28	\N	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N
-400	Setrock Creek Falls	\N	143	f	1.1 (out and back)	E	4	5	4	\N	29	29	waterfall	Easy+	58	Federal	\N	\N	\N	\N	\N	\N
-370	Nellie's Falls	\N	145	f	1.6 (out and back)	\N	7	5	8	\N	\N	\N	waterfall	Medium	\N	Federal	\N	\N	\N	\N	\N	\N
-338	Cody Falls	\N	144	f	0.75	E	7	8	8	\N	\N	\N	waterfall	Medium	\N	Federal	\N	\N	\N	\N	\N	\N
-337	Brasstown Falls	\N	147	f	0.60	E	9	8	7	\N	\N	\N	waterfall	Medium+	\N	Federal	\N	\N	\N	\N	\N	\N
-330	Picklesimer Rockhouse Falls	\N	153	f	1.20	\N	3	8	5	\N	\N	\N	waterfall	Moderate	45	Federal	\N	\N	\N	\N	\N	\N
-368	Scotsman Falls	\N	155	f	0.2 - Scramble	\N	8	5	6	301	\N	\N	waterfall	Medium+	\N	Federal	\N	\N	\N	\N	\N	\N
-433	Sassafras Falls- Snowbird Creek	\N	215	f	7.4	\N	7	6	7	\N	\N	\N	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N
-643	Big Falls (Snowbird Creek)	\N	398	f	7.4	\N	5	6	7	\N	\N	\N	waterfall	Difficult	\N	Federal	\N	\N	\N	\N	\N	\N
-644	Upper Falls (Snowbird Creek)	\N	399	f	14.6 w/3 deep creek wades	\N	3	4	10	\N	\N	\N	waterfall	Difficult+	\N	Federal	\N	\N	\N	\N	\N	\N
-319	Wolf Creek Falls	\N	157	f	0.4 (out and back)	D	9	9	4	\N	\N	\N	waterfall	Difficult+	\N	Federal	\N	\N	\N	\N	\N	\N
-325	Soco Falls	\N	111	f	0.40	E	8	8	6	\N	397	109	waterfall	Easy+	35	Cherokee	\N	\N	\N	\N	998	\N
-331	Glen Falls	\N	154	f	1.4 (out and back) all 4 falls	\N	7	8	7	261	\N	\N	waterfall	Moderate	15	Federal	\N	\N	\N	\N	999	\N
-460	Middle Batson Creek Falls	\N	242	f	Approx 0.6 mile each way	\N	7	7	8	\N	\N	\N	waterfall	Easy/Moderate	14	\N	\N	\N	\N	\N	\N	\N
-406	Twin Falls (SC)	121	992	f	1.00	M	10	9	7	\N	\N	\N	waterfall	\N	\N	Federal	\N	\N	\N	\N	1008	\N
-461	Batson Creek Falls	\N	243	f	Approx 1.4 mile each way	\N	7	3	8	\N	\N	\N	waterfall	Easy/Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-462	Connestee Falls	\N	244	f	Approx 1.4 mile each way	\N	9	9	8	\N	\N	\N	waterfall	Easy/Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-463	Sliding Rock	\N	245	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N
-464	Slickrock Falls	\N	246	f	0.1 (out and back)	\N	7	6	5	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N
-353	Triple Falls	\N	92	f	Approx 0.5 mile each way	E	7	6	3	\N	40	\N	waterfall	Average	\N	State	\N	\N	\N	\N	\N	\N
-380	Moore Cove Falls	\N	95	f	1.20	E	9	9	5	\N	164	56	waterfall	Easy	50	Federal	\N	\N	\N	\N	\N	\N
-354	Bridalveil Falls (DuPont)- Little River	\N	191	f	4	E	8	6	6	15	154	42	waterfall	Moderate	12	State	\N	\N	\N	\N	\N	\N
-333	Stairway Falls	\N	97	f	2.0 Miles (out and back)	M	7	8	8	\N	270	242	waterfall	Moderate+	50	State	\N	\N	\N	\N	\N	\N
-341	Shuck Ridge Creek Falls	\N	148	f	9.00	M	7	7	6	\N	176	170	waterfall	Moderate+	12	Federal	\N	\N	\N	\N	\N	\N
-332	Secret Falls (Highlands)	\N	133	f	1.60 (out and back)	\N	9	8	6	\N	\N	\N	waterfall	Moderate+	12	Federal	\N	\N	\N	\N	\N	\N
-393	Rainbow Falls- Horsepasture River	\N	181	f	3.2	M	10	8	8	\N	266	77	waterfall	Moderate+	125	State	\N	\N	\N	\N	\N	\N
-334	Turtleback Falls- Horsepasture River	\N	183	f	4	M	7	8	6	23	268	76	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N
-318	White Owl Falls	\N	100	f	0.6 Miles (out and back)	E	9	9	8	26	284	78	waterfall	Easy	16	Federal	\N	\N	\N	\N	\N	\N
-390	Grotto Falls	\N	196	f	6	M	5	5	2	1014	50	\N	waterfall	\N	\N	GSMNP	\N	\N	\N	\N	\N	\N
-421	Jones Falls	\N	203	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	Federal	\N	\N	\N	\N	\N	\N
-312	Long Creek Falls	\N	158	f	3.0 (out and back)	E	10	10	5	\N	\N	\N	waterfall	Depends	\N	Federal	\N	\N	\N	\N	\N	\N
-326	Big Laurel Falls	\N	159	f	1.20	E	7	8	6	333	92	\N	waterfall	Medium	25	Federal	\N	\N	\N	\N	\N	\N
-401	Douglas Falls	\N	160	f	1.10	E	7	8	6	\N	103	31	waterfall	Moderate	70	Federal	\N	\N	\N	\N	\N	\N
-357	Moonshine Falls	\N	161	f	2.90	M	9	6	5	\N	\N	\N	waterfall	Moderate	40	State	\N	\N	\N	\N	\N	\N
-363	High Shoals Falls	\N	162	f	2.00	E	7	6	3	\N	24	\N	waterfall	Moderate	55	State	\N	\N	\N	\N	\N	\N
-327	Rufus Morgan Falls	\N	163	f	1.00	\N	7	8	6	\N	\N	\N	waterfall	Moderate	60	Federal	\N	\N	\N	\N	\N	\N
-432	Alarka Falls	\N	214	f	0.9	\N	7	6	7	\N	\N	\N	waterfall	Moderate+	120	Federal	\N	\N	\N	\N	\N	\N
-423	Little Bearwallow Falls	\N	205	f	2.2 (out and back)	\N	5	4	3	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N
-376	Hebron Colony Falls	\N	166	f	3.2 (out and back)	M	7	2	1	\N	136	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N
-314	Elk River Falls	\N	167	f	0.2 (out and back)	E	8	9	4	\N	19	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N
-419	Crab Orchard Falls	\N	201	f	1.4	\N	3	2	3	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N
-361	Bearcamp Falls (Hillard Falls)	\N	168	f	14.4 (out and back)	D	6	6	5	\N	\N	\N	waterfall	Moderate (unless you go to Splash Dam too)	\N	State	\N	\N	\N	\N	\N	\N
-355	North Harper Creek Falls	\N	169	f	2.2 (out and back)	M	6	6	6	\N	14	\N	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N
-374	South Harper Creek Falls	\N	170	f	3.9 (out and back) overlook	M	5	3	5	\N	52	15	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N
-387	Hunt Fish Falls	\N	173	f	1.8 (out and back)	E	7	6	5	\N	57	12	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N
-388	Middle Gragg Prong Falls	\N	174	f	2.7 (out and back if you skip Gragg Prong Falls)	M	7	6	5	\N	57	10	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N
-367	Harper Creek Falls	\N	176	f	3.00	M	7	5	3	\N	16	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N
-838	Sam Branch Falls	\N	591	f	2.0 (out and back)	\N	9	7	9	\N	\N	\N	waterfall	Hard*	90	Federal	\N	\N	\N	\N	\N	\N
-397	Mouse Creek Falls	\N	177	f	4.00	E	6	7	2	\N	113	\N	waterfall	Easy+	\N	GSMNP	\N	\N	\N	\N	\N	\N
-429	Lower Bearwallow Falls	\N	211	f	3.4	\N	10	8	10	\N	\N	\N	waterfall	Moderate	35	State	\N	\N	\N	\N	\N	\N
-359	Drift Falls (Bust-Your-Butt Falls)	\N	182	f	4.2	M	5	6	6	24	\N	\N	waterfall	Moderate+	25	State	\N	\N	\N	\N	1000	\N
-372	Raven Cliff Falls	\N	101	f	5.2 (out and back)	M	7	4	7	\N	\N	\N	waterfall	Moderate	320	State	\N	\N	\N	\N	1003	\N
-377	Waterfall on Log Hollow Branch	\N	190	f	0.8	E	8	9	8	11	167	174	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N
-465	Small Waterfall on Rockhouse Creek	\N	\N	f	Roadside	\N	5	8	4	\N	\N	\N	waterfall	Easy	10	\N	\N	\N	\N	\N	\N	\N
-466	Upper Waterfall on Cedar Rock Creek	\N	\N	f	1.9	\N	6	6	6	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N
-394	Whitewater Falls	\N	99	f	0.5 Miles (out and back)	E	9	9	6	\N	289	80	waterfall	Easy	345	State	\N	\N	\N	\N	1006	\N
-467	Wildcat Wayside (Wildcat Branch Falls)	\N	\N	f	Roadside	\N	8	8	4	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N
-468	Toxaway Falls	\N	247	f	Roadside / 0.50 miles if staying at condos (out and back)	\N	10	8	7	\N	\N	\N	waterfall	Moderate	290	\N	\N	\N	\N	\N	\N	\N
-469	Bearwallow Falls	\N	248	f	1.0 Miles (out and back)	\N	6	4	7	\N	\N	\N	waterfall	Moderate+	45	\N	\N	\N	\N	\N	\N	\N
-323	Silver Run Falls	\N	96	f	0.50	\N	8	8	5	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N
-470	Falls Park on the Reedy	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-471	Upper Silver Run Falls	\N	249	f	0.7	\N	8	8	9	\N	\N	\N	waterfall	Moderate+	20	\N	\N	\N	\N	\N	\N	\N
-472	Unnamed Waterfall on Looking Glass Creek #1	\N	250	f	0.1 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-473	Little Wildcat Falls	\N	\N	f	0.1 (out and back)	\N	6	5	3	\N	\N	\N	waterfall	Easy	16	\N	\N	\N	\N	\N	\N	\N
-416	Lower Rhapsodie Falls	\N	187	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-474	Waterfall on West Fork of the Pigeon River	\N	251	f	0.1 (out and back)	\N	8	7	4	\N	\N	\N	waterfall	Easy	80	\N	\N	\N	\N	\N	\N	\N
-505	Little Moore Cove Falls	\N	276	f	1.2	\N	5	5	6	\N	\N	\N	waterfall	Easy+	40	\N	\N	\N	\N	\N	1009	\N
-458	Moores Knob	\N	240	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N
-444	Shuckstack	\N	226	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N
-446	Mt. Cammerer	\N	228	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N
-475	Pothole Cascade on Cove Creek	\N	\N	f	0.6	\N	7	6	7	\N	\N	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N
-476	Rockslide on Cove Creek	\N	\N	f	1	\N	6	6	5	\N	\N	\N	waterfall	Easy	15	\N	\N	\N	\N	\N	\N	\N
-477	Waterfall on Caney Bottom Loop	\N	252	f	4	\N	6	4	9	\N	\N	\N	waterfall	Difficult+	30	\N	\N	\N	\N	\N	\N	\N
-478	Waterfall on Barnett Branch	\N	253	f	1	\N	6	5	6	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N
-365	Upper Falls @ Graveyard Fields	\N	107	f	3.0 Miles (out and back)	M	6	6	6	\N	215	62	waterfall	Moderate	40	\N	\N	\N	\N	\N	\N	\N
-411	Waterfall on Sam Branch	\N	108	f	0.8 (out and back)	E	8	7	7	\N	198	65	waterfall	Moderate	80	\N	\N	\N	\N	\N	\N	\N
-479	Split Falls on Wildcat Trail	\N	\N	f	0.6 (out and back)	\N	6	6	6	\N	\N	\N	waterfall	Easy+	12	\N	\N	\N	\N	\N	\N	\N
-428	Wildcat Falls (Flat Laurel Creek)	\N	210	f	1.5 (out and back)	\N	8	7	7	\N	\N	\N	waterfall	Easy+	60	\N	\N	\N	\N	\N	\N	\N
-480	French Broad Falls	\N	254	f	0.25	\N	7	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-482	Merry Falls	\N	256	f	Approx 0.2 (out and back)	\N	7	8	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-483	Juney Whank Falls	\N	257	f	2.5	\N	6	4	5	\N	\N	\N	waterfall	Easy+	80	\N	\N	\N	\N	\N	\N	\N
-484	Tom Branch Falls	\N	258	f	2.5	\N	6	4	5	\N	\N	\N	waterfall	Easy+	80	\N	\N	\N	\N	\N	\N	\N
-485	Waterfall on Clawhammer Creek	\N	\N	f	2	\N	6	2	10	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N
-486	Waterfall on Avery Creek	\N	259	f	1	\N	8	8	6	\N	\N	\N	waterfall	Easy+	12	\N	\N	\N	\N	\N	\N	\N
-382	Waterfall on Long Branch	\N	114	f	2.00	E	6	5	8	\N	166	\N	waterfall	Easy	15	\N	\N	\N	\N	\N	\N	\N
-487	Lower Bubbling Springs Branch	\N	260	f	1.25 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N
-488	Upper Bubbling Springs Branch	\N	261	f	1.25 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	30	\N	\N	\N	\N	\N	\N	\N
-489	Little Bird Falls	\N	262	f	0.5 (out and back)	\N	8	7	9	\N	\N	\N	waterfall	Easy+	30	\N	\N	\N	\N	\N	\N	\N
-490	Waterfall on Flat Laurel Creek	\N	263	f	4.0 (out and back)	\N	6	5	5	\N	\N	\N	waterfall	Moderate	350	\N	\N	\N	\N	\N	\N	\N
-491	Upper Cascade Falls	\N	264	f	0.45	\N	7	6	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-492	Hidden Falls	\N	265	f	1.2	\N	9	7	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-493	Window Falls	\N	266	f	1.2	\N	9	7	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-494	Torys Den Falls	\N	267	f	0.4	\N	5	3	8	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-495	Lower Cascade Falls	\N	268	f	0.8	\N	8	7	6	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-321	Eastatoe Falls	\N	116	f	0.20	M	10	9	7	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N
-496	Upper Courthouse Falls	\N	269	f	1.6	\N	6	5	9	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-497	Waterfall below Red Rock Falls	\N	\N	f	1.9	\N	7	5	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-348	Middle Falls- Snowbird Creek	\N	156	f	10.20	M	7	7	7	305	100	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N
-499	Upper Falls on Barnett Branch	\N	\N	f	2	\N	7	5	7	\N	\N	\N	waterfall	Easy	60	\N	\N	\N	\N	\N	\N	\N
-500	Unnamed Waterfall on Looking Glass Creek #3	\N	271	f	0.1 (out and back)	\N	7	9	4	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-418	Upper Log Hollow Falls	\N	189	f	1.4	\N	5	6	10	\N	\N	\N	waterfall	Moderate+	20	\N	\N	\N	\N	\N	\N	\N
-501	Discovery Falls	\N	272	f	0.9	\N	7	6	9	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N
-502	Unnamed Waterfall on Looking Glass Creek #2	\N	273	f	0.1 (out and back)	\N	5	6	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-503	Upper Dill Falls	\N	274	f	0.7	\N	10	10	10	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-504	Sunburst Falls	\N	275	f	0.2 (out and back)	\N	7	5	4	\N	\N	\N	waterfall	Easy+	18	\N	\N	\N	\N	\N	\N	\N
-412	Wash Hollow Falls	\N	120	f	1.0 (out and back)	E	8	7	9	\N	200	66	waterfall	Moderate	45	\N	\N	\N	\N	\N	\N	\N
-339	Skinny Dip Falls	\N	102	f	1.0 Miles (out and back)	E	7	8	4	\N	208	60	waterfall	Easy+	30	\N	damaged	Severely damaged during Tropical Storm Fred, Aug 11-17 2021 (CMC WC100 form, rev. 18 Feb 2024). Reported still present, but no longer the feature it was -- worth setting expectations rather than skipping. Still listed on the Kevin Adams 500 and 100.	2021-08-11	\N	\N	\N
-453	Little Snowball	\N	235	f	7.6	\N	\N	\N	\N	\N	\N	\N	tower	\N	21	\N	\N	\N	\N	4740	\N	\N
-451	Fryingpan Mountain	\N	233	f	1.4	\N	\N	\N	\N	\N	\N	\N	tower	\N	70	\N	\N	\N	\N	5340	\N	\N
-437	Wayah Bald	\N	219	f	1.8	\N	\N	\N	\N	\N	\N	\N	tower	\N	14	\N	\N	\N	\N	5342	\N	\N
-449	Rich Mountain	\N	231	f	5.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	3670	\N	\N
-450	Camp Creek Bald	\N	232	f	10.7	\N	\N	\N	\N	\N	\N	\N	tower	\N	21	\N	\N	\N	\N	4843	\N	\N
-454	Mt. Mitchell	\N	236	f	2.7	\N	\N	\N	\N	\N	\N	\N	tower	\N	12	\N	\N	\N	\N	6684	\N	\N
-452	Bearwallow Mountain	\N	234	f	2.4	\N	\N	\N	\N	\N	\N	\N	tower	\N	47	\N	\N	\N	\N	4230	\N	\N
-440	Albert Mountain	\N	222	f	6.5	\N	\N	\N	\N	\N	\N	\N	tower	\N	43	\N	\N	\N	\N	5220	\N	\N
-457	Rendezvous Mountain	\N	239	f	4.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	59	\N	\N	\N	\N	2500	\N	\N
-447	Mt. Sterling	\N	229	f	5.7	\N	\N	\N	\N	\N	\N	\N	tower	\N	60	\N	\N	\N	\N	5842	\N	\N
-506	Wintergreen Falls (DuPont)	\N	277	f	2.95	\N	9	8	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-509	Middle Falls at Stone Mountain	\N	280	f	2	\N	6	6	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-511	Shower Falls	\N	282	f	Roadside	\N	5	5	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-512	Yellowstone Falls	\N	283	f	1.60 Miles (out and back)	\N	9	9	10	\N	\N	\N	waterfall	Hard+	125	\N	\N	\N	\N	\N	\N	\N
-513	Middle Wildcat Branch Falls	\N	284	f	Roadside	\N	6	8	5	\N	\N	\N	waterfall	Easy	10	\N	\N	\N	\N	\N	\N	\N
-514	Fourth Falls on Tributary of Wildcat Branch	\N	285	f	0.76	\N	5	4	6	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N
-516	Upper Wildcat Branch Falls	\N	287	f	1.1	\N	7	5	7	\N	\N	\N	waterfall	Average	\N	\N	\N	\N	\N	\N	\N	\N
-517	Waterfall on Devil's Fork Creek	\N	288	f	Roadside	\N	6	4	5	\N	\N	\N	waterfall	Average	\N	\N	\N	\N	\N	\N	\N	\N
-346	John's Jump Falls	\N	122	f	0.20	\N	8	7	8	118	\N	\N	waterfall	Average	\N	\N	\N	\N	\N	\N	\N	\N
-518	Middle Falls on Rockhouse Creek	\N	289	f	1	\N	6	4	7	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-519	Waterfall on Tributary of Rockhouse Creek	\N	290	f	1	\N	6	4	7	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-317	Slippery Witch Falls	\N	124	f	.3 (out and back)	\N	8	9	9	123	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-520	Waterfall on Rockhouse Creek	\N	291	f	3.8	\N	5	2	6	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-521	Waterfall on Trib #1 of Toxaway River	\N	292	f	1.6	\N	6	6	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-522	Waterfall on Cold Mountain Branch	\N	293	f	1.6	\N	8	7	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-523	Raven Rock Falls	\N	294	f	1.6	\N	9	9	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-524	The Chute	\N	295	f	2.4	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-525	Halfway Falls	\N	296	f	2.8	\N	9	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-526	Carlton Falls	\N	297	f	3.6	\N	9	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-413	Aunt Sally's Falls	\N	184	f	1.0 (out and back)	\N	6	4	10	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-527	Falls on Double Branch	\N	298	f	1.0 (out and back)	\N	6	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-316	DEW Falls	\N	123	f	0.44	\N	8	9	8	122	\N	\N	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N
-415	Lower Dismal Falls	\N	186	f	3.0 (out and back)	\N	8	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-528	Widow's Creek Falls	\N	299	f	0.30 Miles (Out and Back)	\N	8	8	6	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-529	Lower Falls at Stone Mountain	\N	300	f	2.8.30 Miles (Out and Back)	\N	7	6	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-530	Middle Cascade Falls	\N	301	f	0.40 Miles (Out and Back)	\N	8	8	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-531	Lemon Falls	\N	302	f	Scramble down from road	\N	7	8	6	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-532	Herrin Knob Falls	\N	303	f	0.9 (out and back)	\N	8	8	9	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-533	Falls on Billy Branch	\N	304	f	0.9 (out and back)	\N	8	8	9	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-534	Pigpen Falls	\N	305	f	1.2 (out and back)	\N	5	5	6	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-414	Dismal Falls	\N	185	f	5.6 (out and back)	\N	8	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-536	Lower Wildcat Falls	\N	307	f	0.5 mile out and back	\N	6	8	7	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-515	Lower Whitewater Falls	\N	286	f	4.5	\N	8	8	8	\N	\N	\N	waterfall	Moderate	275	\N	\N	\N	\N	\N	1010	\N
-537	Big Bradley Falls	\N	308	f	4.75	\N	10	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-320	Big Falls- Thompson River	\N	129	f	7.00	D	10	9	10	158	281	247	waterfall	Hard (Very)	\N	\N	\N	\N	\N	\N	\N	\N
-538	Standing Stone Falls	\N	309	f	7	\N	8	8	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-539	Rich Falls	\N	310	f	7	\N	9	9	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-540	Simon's Falls	\N	311	f	7	\N	6	8	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-541	Reid Branch Falls	\N	312	f	1.90 (out and back)	\N	6	3	9	\N	\N	\N	waterfall	Moderate	18	\N	\N	\N	\N	\N	\N	\N
-543	Maple Springs Branch Falls	\N	314	f	5.40 (out and back)	\N	8	6	10	\N	\N	\N	waterfall	Moderate+	75	\N	\N	\N	\N	\N	\N	\N
-544	Pigeon Branch Falls	\N	315	f	0.70 (out and back)	\N	7	6	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N
-545	Bernie's Falls	\N	316	f	5.5 (out and back)	\N	9	7	9	\N	\N	\N	waterfall	Moderate+	55	\N	\N	\N	\N	\N	\N	\N
-546	Woods Cove Falls	\N	\N	f	0.3 (out and back)	\N	6	6	6	\N	\N	\N	waterfall	Easy (finding the parking area will be hard)	40	\N	\N	\N	\N	\N	\N	\N
-547	Cold Creek Falls	\N	\N	f	0.60 (out and back)	\N	2	3	8	\N	\N	\N	waterfall	Moderate+	25	\N	\N	\N	\N	\N	\N	\N
-548	Bennett Cove Falls	\N	317	f	2.1 (out and back)	\N	6	5	10	\N	\N	\N	waterfall	Moderate+	30	\N	\N	\N	\N	\N	\N	\N
-549	Rough Run Falls	\N	318	f	3.40 (out and back)	\N	7	3	4	\N	\N	\N	waterfall	Easy	80	\N	\N	\N	\N	\N	\N	\N
-310	Rhapsodie Falls	\N	125	f	3.2 (out and back)	\N	8	8	8	\N	\N	\N	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N
-434	Virginia Hawkins Falls	\N	216	f	3.0 Miles (out and back)	\N	8	8	6	\N	\N	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N
-535	Licklog Falls	\N	306	f	1.2 (out and back)	\N	5	5	6	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	1011	\N
-550	Cullasaja Falls	\N	319	f	Roadside or 150 feet (almost straight down)	\N	8	8	3	\N	\N	\N	waterfall	Easy or Deadly	180	\N	\N	\N	\N	\N	\N	\N
-551	Quarry Falls	\N	320	f	Roadside / Rock Hop	\N	5	3	3	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N
-552	Scadin Falls	\N	321	f	0.2 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Moderate+	30	\N	\N	\N	\N	\N	\N	\N
-553	Bridle Veil Falls (Highlands)	\N	322	f	0.10 (out and back)	\N	5	6	2	\N	\N	\N	waterfall	Roadside	60	\N	\N	\N	\N	\N	\N	\N
-554	Grandmas Kitchen Falls	\N	\N	f	3.0 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	30	\N	\N	\N	\N	\N	\N	\N
-555	Grandmas Pantry Falls	\N	\N	f	3.0 (shuttle hike)	\N	7	7	10	\N	\N	\N	waterfall	Hard+	15	\N	\N	\N	\N	\N	\N	\N
-556	Talus Cave Falls	\N	\N	f	3.0 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	10	\N	\N	\N	\N	\N	\N	\N
-557	Bonas Defeat Falls	\N	\N	f	3.0 (shuttle hike)	\N	10	10	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N
-558	Waterfall on Slickens Creek	\N	\N	f	3.0 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N
-559	Terrace Falls	\N	\N	f	3.0 (shuttle hike)	\N	8	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N
-560	Nasty Falls	\N	\N	f	5.5 (shuttle hike)	\N	5	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N
-561	Entrance Falls	\N	\N	f	5.5 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	55	\N	\N	\N	\N	\N	\N	\N
-562	Exit Falls	\N	323	f	5.5 (shuttle hike)	\N	8	5	10	\N	\N	\N	waterfall	Hard+	28	\N	\N	\N	\N	\N	\N	\N
-563	Bedrock Betty Falls	\N	324	f	5.5 (shuttle hike)	\N	7	5	10	\N	\N	\N	waterfall	Hard+	18	\N	\N	\N	\N	\N	\N	\N
-564	Merge Lane Falls	\N	325	f	5.5 (shuttle hike)	\N	8	5	10	\N	\N	\N	waterfall	Hard+	18	\N	\N	\N	\N	\N	\N	\N
-565	55 M.P.H. Falls	\N	326	f	5.5 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	30	\N	\N	\N	\N	\N	\N	\N
-566	Relief Falls	\N	\N	f	5.5 (shuttle hike)	\N	3	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N
-567	Wheelchair Accessible Falls	\N	327	f	5.5 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N
-568	Portage Left Falls	\N	328	f	5.5 (shuttle hike)	\N	7	7	10	\N	\N	\N	waterfall	Hard+	18	\N	\N	\N	\N	\N	\N	\N
-569	Duggers Creek Falls	\N	329	f	0.3 (loop hike from visitor's center)	\N	8	7	6	\N	\N	\N	waterfall	Easy+	20	\N	\N	\N	\N	\N	\N	\N
-570	Lower Catawba Falls	\N	\N	f	2.0 (out and back)	\N	6	5	3	\N	\N	\N	waterfall	Easy (Moderate+ to get to base)	20	\N	\N	\N	\N	\N	\N	\N
-571	Grassy Creek Falls	\N	330	f	1.6 (out and back)	\N	5	8	7	\N	\N	\N	waterfall	Moderate+	25	\N	\N	\N	\N	\N	\N	\N
-572	Glassmine Falls	\N	331	f	Roadside	\N	1	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-573	Whiteoak Creek Falls	\N	332	f	0.2 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Medium	35	\N	\N	\N	\N	\N	\N	\N
-574	Kiesee Falls	\N	333	f	1.3	\N	8	9	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-575	Middle Wildcat Falls	\N	334	f	0.75	\N	5	4	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-576	Reese Place Falls	\N	335	f	1.52	\N	6	5	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-577	Summey Cove Falls	\N	336	f	0.1	\N	4	2	2	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-578	Upper Kiesee Falls	\N	337	f	1.76	\N	6	8	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-579	Beetree Fork Falls	\N	338	f	0.5	\N	5	6	7	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-580	Key Falls	\N	339	f	0.2	\N	5	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-582	Berry Branch Falls	\N	341	f	0.25	\N	4	5	5	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-583	Lower Slick Rock Falls	\N	342	f	0.3	\N	3	3	4	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N
-584	Saxifrage Falls	\N	343	f	6.3	\N	7	8	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-585	Milton Bradley Falls	\N	344	f	4	\N	7	8	8	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N
-586	Bradley Cooper Falls	\N	345	f	4.5	\N	7	8	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-587	Marilu Bradley Falls	\N	346	f	4.5	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-588	Cavern Falls	\N	347	f	5	\N	8	8	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-589	Emily Falls	\N	348	f	0.8	\N	5	8	7	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-911	Clark Park Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-590	Case Falls	\N	349	f	0.4	\N	1	1	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-591	Cashier's Sliding Rock	\N	350	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-592	Little Brasstown Falls	\N	351	f	0.4	\N	1	1	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-593	Upper Brasstown Falls	\N	352	f	0.5	\N	5	5	6	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-360	Dry Falls	\N	132	f	0.4 (out and back)	\N	8	6	2	\N	\N	\N	waterfall	Easy	65	Federal	\N	\N	\N	\N	1001	\N
-594	Poundingmill Branch Falls	\N	353	f	2.5 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-595	Cradle Falls	\N	354	f	1.4 mile (out and back)	\N	5	3	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-596	FR225 Falls	\N	355	f	0.4 (out and back)	\N	3	3	6	\N	\N	\N	waterfall	Easy+	25	\N	\N	\N	\N	\N	\N	\N
-597	Big Bend Falls	\N	356	f	6.9	\N	5	4	9	\N	\N	\N	waterfall	Moderate	12	\N	\N	\N	\N	\N	\N	\N
-335	Opossum Creek Falls	\N	150	f	4.00	E	7	8	7	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N
-375	King's Creek Falls	\N	195	f		E	4	3	10	359	\N	\N	waterfall	Moderate	75	Federal	\N	\N	\N	\N	\N	\N
-371	Spoonauger Falls	\N	134	f	0.64 (out and back)	E	7	5	6	\N	\N	\N	waterfall	Moderate	45	Federal	\N	\N	\N	\N	1002	\N
-598	Jones Gap Falls	\N	357	f	3.6	\N	5	8	5	\N	\N	\N	waterfall	Moderate	45	\N	\N	\N	\N	\N	\N	\N
-599	Falls Creek Falls	\N	358	f	2.5	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	50	\N	\N	\N	\N	\N	\N	\N
-600	Upper Falls Creek Falls	\N	359	f	2.5	\N	7	8	7	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N
-601	Cedar Falls (Fountain Inn)	\N	360	f	0.1 mile (out and back)	\N	5	5	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-602	Ranger Falls	\N	361	f	2.5	\N	6	4	4	\N	\N	\N	waterfall	Moderate	30	\N	\N	\N	\N	\N	\N	\N
-603	Chasm Falls	\N	362	f	0.4 (out and back)	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	20	\N	\N	\N	\N	\N	\N	\N
-604	Glen Falls Downstream	\N	363	f	1.4 (out and back) All 4 falls	\N	6	8	8	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N
-605	Waterfall on Trib of Brooks Creek	\N	364	f	Roadside	\N	4	4	3	\N	\N	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N
-606	Brooks Creek Falls	\N	365	f	Roadside	\N	7	8	5	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N
-607	Pinkie Falls	\N	366	f	0.1 (out and back)	\N	6	4	5	\N	\N	\N	waterfall	Easy	15	\N	\N	\N	\N	\N	\N	\N
-608	Waterfall on Skitty Creek	\N	367	f	Roadside	\N	3	4	2	\N	\N	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N
-609	Whiteoak Falls	\N	368	f	0.1 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Easy (Getting to a good picture vantage - Hard)	\N	\N	\N	\N	\N	\N	\N	\N
-610	Jagged Rock Falls	\N	369	f	Roadside	\N	4	5	2	\N	\N	\N	waterfall	Roadside (taking a good picture - dangerous)	\N	\N	\N	\N	\N	\N	\N	\N
-611	The Cascades on Nantahala River	\N	\N	f	Roadside	\N	5	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-612	Camp Branch Falls	\N	370	f	Roadside	\N	3	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-613	Wesser Falls (Worser Wesser)	\N	\N	f	0.3 (out and back)	\N	5	3	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-614	Rattlesnake Falls	\N	\N	f	Roadside	\N	3	1	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-615	Last Falls on Slickum	\N	371	f	0.1 (out and back)	\N	5	7	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-616	Sweet Thing on Slickum	\N	372	f	0.4 (out and back)	\N	9	9	9	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-617	Amelia Falls	\N	\N	f	NA	\N	8	8	6	\N	\N	\N	waterfall	Roadside (Private)	\N	\N	\N	\N	\N	\N	\N	\N
-618	Waterfall #1 on Pinnacle MTN Trail	\N	373	f	0.1 (out and back)	\N	4	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-619	Waterfall #2 on Pinnacle MTN Trail	\N	374	f	0.4 (out and back)	\N	3	3	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-620	Waterfall #3 on Pinnacle MTN Trail	\N	375	f	4.4 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-621	Waterfall #4 on Pinnacle MTN Trail	\N	376	f	4.8 (out and back)	\N	7	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-622	No-Name Cove Falls	\N	377	f	1.2 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Moderate++	\N	\N	\N	\N	\N	\N	\N	\N
-623	Lower Waterfall in Upper Bennett Cove	\N	378	f	4	\N	4	2	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-624	Middle Waterfall In Upper Bennett Cove	\N	379	f	4	\N	4	2	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-625	Upper Waterfall in Upper Bennett Cove	\N	380	f	4	\N	3	2	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-626	Lower Waterfall in Cherry Cove	\N	381	f	4	\N	2	4	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-627	Middle Waterfall in Cherry Cove	\N	382	f	1.6	\N	2	1	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-628	Upper Waterfall in Cherry Cove	\N	383	f	1.8	\N	5	5	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-629	Upper Middle Creek Falls	\N	384	f	0.4 out and back	\N	6	7	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-630	Middle Creek Falls	\N	385	f	0.5 (Rough trail and Bushwhack)	\N	7	5	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-631	Catstairs Falls	\N	386	f	Roadside or Scramble	\N	3	2	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-632	Potholes Falls	\N	387	f	Roadside Viewable or Scramble	\N	7	8	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-633	Lake Sequoyah Dam Falls	\N	388	f	Roadside Scramble	\N	5	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-634	Kalakaleskies Falls	\N	389	f	Roadside Scramble	\N	7	7	3	\N	\N	\N	waterfall	Sketchy	\N	\N	\N	\N	\N	\N	\N	\N
-635	Waterfall on Williamson Creek	\N	390	f	Roadside viewe or Scramble	\N	5	7	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-636	Glencannon Falls	\N	391	f	Roadside view - distant	\N	6	5	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-637	Turley Falls	\N	392	f	Roadside distant view	\N	4	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-638	Waterfall on Pearson Falls Road	\N	393	f	Roadside	\N	4	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-639	Stick Falls	\N	394	f	Trail and scramble	\N	6	7	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-640	Lower Stick Falls	\N	395	f	0.6 Trail/creekwalk/wade/bushwhack	\N	5	7	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-641	Slick Stick Falls	\N	396	f	0.7 - Trail/creekwalk/wade/bushwhack	\N	4	2	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-642	Upper Scotsman Falls	\N	397	f	0.2 Steep scramble and creek crossing	\N	5	6	7	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-646	McCall Mill Shoals	\N	401	f	Roadside	\N	3	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-647	Frozen Creek Shoals	\N	402	f	Roadside (lousy view)	\N	2	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-648	Diamond Creek Falls	\N	403	f	Roadside	\N	3	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-649	Pounding Mill Falls	\N	404	f	Roadside	\N	3	6	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-650	Pinhook Falls	\N	405	f	1	\N	6	6	8	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-651	Tanasee Creek Falls	\N	406	f	0.6 Miles (out and back)	\N	6	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-652	Gage Creek Falls	\N	407	f	1.0 Miles (out and back)	\N	8	9	10	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-653	Waterfall on Trib of Sols Creek	\N	408	f	0.2 (out and back)	\N	3	2	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-654	Roy Talyor Falls	\N	409	f	0.4 (out and back) w/creek walk	\N	7	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-655	Charleys Creek Falls	\N	410	f	2.6 (out and back) w/potential creek walk	\N	6	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-329	Rainbow Falls (Camp Greenville)	\N	152	f	5.00	M	7	8	5	\N	\N	\N	waterfall	Moderate+	90	State	\N	\N	\N	\N	\N	\N
-656	Moses Creek Falls	\N	411	f	2.7 (out and back)	\N	5	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-657	Sugar Creek Falls	\N	412	f	0.8 (out and back)	\N	6	6	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-658	Dryland Laurel Branch Falls	\N	413	f	0.8 (out and back)	\N	4	3	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-659	Upper Sugar Creek Falls	\N	414	f	1.4 (out and back)	\N	6	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-660	Rough Butt Creek Falls	\N	415	f	2.4 (out and back)	\N	8	9	7	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-662	Lower Thompson Ridge Falls	\N	417	f	1.60 (out and back)	\N	8	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-663	Upper Thompson Ridge Falls	\N	418	f	1.75 (out and back)	\N	5	5	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-664	Shunkawauken Falls	\N	419	f	Roadside	\N	8	5	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-665	Waterfall on East Fork of French Broad River	\N	420	f	0.1 Miles (Out and Back)	\N	6	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-666	Twin Boulder Falls	\N	421	f	5.9	\N	9	9	8	\N	\N	\N	waterfall	Difficult	75	\N	\N	\N	\N	\N	\N	\N
-667	Big Bearwallow Falls	\N	422	f	0.1	\N	6	6	5	\N	\N	\N	waterfall	Difficult+	35	\N	\N	\N	\N	\N	\N	\N
-668	Mooney Falls	\N	423	f	0.1	\N	6	6	5	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N
-669	Camp Branch Falls	\N	424	f	0.5	\N	6	6	5	\N	\N	\N	waterfall	Moderate	11	\N	\N	\N	\N	\N	\N	\N
-670	Upper Camp Branch Falls	\N	425	f	0.5	\N	7	8	6	\N	\N	\N	waterfall	Moderate	18	\N	\N	\N	\N	\N	\N	\N
-671	Walker Falls	\N	426	f	Roadside	\N	7	8	4	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N
-672	Waterfalls along FR74	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-674	Waterfall downstream from Moonshine Falls	\N	428	f	3	\N	6	7	5	\N	\N	\N	waterfall	Moderate	25	\N	\N	\N	\N	\N	\N	\N
-675	Confusion Falls	\N	429	f	3.1	\N	8	8	5	\N	\N	\N	waterfall	Moderate+	12	\N	\N	\N	\N	\N	\N	\N
-676	Piney Mountain Falls	\N	430	f	0.8 (out and back) Only this falls	\N	5	6	7	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-677	Bearwallow Falls	\N	431	f	1.6 (out and back) Both Falls	\N	8	9	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-678	Lower Abbs Creek Falls	\N	432	f	Roadside	\N	\N	\N	\N	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-679	Upper Abbs Creek Falls	\N	433	f	Roadside	\N	\N	\N	\N	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-680	Falls on Wolf Creek	\N	434	f	Roadside	\N	3	3	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-681	Falls on Cullowhee Creek	\N	435	f	Roadside	\N	\N	\N	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-682	Gemini Falls	\N	436	f	2	\N	7	4	8	\N	\N	\N	waterfall	Difficult+	80	\N	\N	\N	\N	\N	\N	\N
-683	Laurel Fork Falls	\N	437	f	1.1	\N	7	9	9	\N	\N	\N	waterfall	Difficult+	55	\N	\N	\N	\N	\N	\N	\N
-684	Unnamed Waterfall on Laurel Fork	\N	438	f	1	\N	6	9	8	\N	\N	\N	waterfall	Difficult	15	\N	\N	\N	\N	\N	\N	\N
-685	Pot Branch Falls	\N	439	f	0.9	\N	5	2	7	\N	\N	\N	waterfall	Moderate	25	\N	\N	\N	\N	\N	\N	\N
-686	Lower Waterfall on Green Creek (SC)	\N	440	f	2.0 (out and back)	\N	4	3	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-687	Slickum Falls	\N	\N	f	0.6 of a mile (out and back)	\N	3	2	3	\N	\N	\N	waterfall	Easy	75	\N	\N	\N	\N	\N	\N	\N
-688	Kings Creek Falls	\N	441	f	6.6	\N	4	3	10	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N
-689	Sassafras Knob Falls	\N	442	f	5.2	\N	4	3	8	\N	\N	\N	waterfall	Moderate+	16	\N	\N	\N	\N	\N	\N	\N
-690	Rockcliff Falls	\N	443	f	1.1	\N	5	5	6	\N	\N	\N	waterfall	Moderate	18	\N	\N	\N	\N	\N	\N	\N
-691	Firewater Falls	\N	444	f	2	\N	3	2	3	\N	\N	\N	waterfall	Moderate	14	\N	\N	\N	\N	\N	\N	\N
-692	Cliff Falls	\N	445	f	2.2	\N	7	6	5	\N	\N	\N	waterfall	Moderate+	40	\N	\N	\N	\N	\N	\N	\N
-693	Lower Barnett Branch Falls	\N	446	f	3.0 (out and back)	\N	4	3	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-694	Upper Barnett Branch Falls	\N	447	f	3.0 (out and back)	\N	4	3	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-695	South Laurel Fork Falls	\N	448	f	0.5 (out and back)	\N	7	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-696	Fungi Falls	\N	449	f	0.5 (out and back)	\N	7	4	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-697	Sillers Falls	\N	450	f	0.2 (out and back)	\N	3	5	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-698	Not Lower Big Bald Falls	\N	451	f	1.6	\N	3	3	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-699	Not Upper Big Bald Falls	\N	452	f	1.8 (out and back)	\N	2	1	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-322	Upper Logging Road Falls	\N	165	f	3.00	M	7	6	8	373	\N	\N	waterfall	Moderate+	60	\N	\N	\N	\N	\N	\N	\N
-700	Lower Big Bald Falls	\N	453	f	1.2	\N	6	6	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-701	Upper Big Bald Falls	\N	454	f	2.7	\N	\N	\N	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-702	Jack's Cove Falls	\N	455	f	1.8	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-703	Twin Falls (Toxaway River)	\N	456	f	1.6	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-704	Indian Creek Falls	\N	457	f	3.2	\N	6	6	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-705	Split Rock Falls	\N	458	f	3.2	\N	7	6	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-706	Chute Falls	\N	459	f	3.2	\N	4	6	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-707	Boulderfield Falls	\N	460	f	5.4	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-708	Waterfall on Little East Fork	\N	461	f	2.5	\N	6	5	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-709	Little Creek Falls (Highlands)	\N	462	f	0.9	\N	5	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-710	Cane Creek Falls	\N	463	f	1.5	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-711	Laceration Falls	\N	464	f	Less than 0.5 (out and back)	\N	4	3	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-712	Stillhouse Falls	\N	465	f	Less than 1.2 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-713	Lower Stillhouse Falls	\N	466	f	Less than 1.4 (out and back)	\N	4	3	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-714	Hidden Falls	\N	467	f	Less than 1.4 (out and back)	\N	6	3	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-715	Cleft Falls	\N	468	f	Less than 1.7 (out and back)	\N	8	8	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-716	Elmos Falls	\N	469	f	About 2.4 miles (out and back)	\N	8	6	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-717	Hurricane Falls	\N	470	f	Roadside	\N	4	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-718	Grassy Creek Falls	\N	471	f	0.1	\N	5	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-719	Fowler Creek Falls	\N	472	f	5.4	\N	7	6	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-720	Yellow Creek Falls	\N	473	f	0.8	\N	5	7	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-721	Lower Cold Branch Falls	\N	474	f	0.2	\N	5	4	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-722	Upper Cold Branch Falls	\N	475	f	0.2	\N	7	7	5	\N	\N	\N	waterfall	Moderate +	\N	\N	\N	\N	\N	\N	\N	\N
-723	(Gimmie) Three Steps Falls	\N	476	f	0.2	\N	7	7	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-724	Verlie Falls	\N	477	f	0	\N	2	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-725	Falls on Blacksnake Branch	\N	478	f	0	\N	3	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-726	Falls on Grassy Branch	\N	479	f	0	\N	3	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-727	Lower Satula Falls	\N	480	f	0	\N	5	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-728	Satula Falls	\N	481	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-729	Highlands Falls	\N	482	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-730	Katies Falls	\N	483	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-731	Buck Creek Falls	\N	484	f	1	\N	7	5	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-732	Waterfall on Oil Camp Creek Trib	\N	485	f	1.2	\N	4	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-733	Oil Camp Falls	\N	486	f	1.5	\N	4	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-734	Horseshoe Falls	\N	487	f	2.8	\N	8	8	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-735	Lower Cavern Falls	\N	488	f	6.4	\N	7	6	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-736	Cavern Falls	\N	489	f	2.6	\N	5	3	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-737	Dome Falls	\N	490	f	2.6	\N	5	3	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-738	Spicoli Falls	\N	491	f	2.6	\N	6	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-739	Bull Cove Falls	\N	492	f	2	\N	5	8	6	\N	\N	\N	waterfall	Moderate+ (due to creek crossings)	\N	\N	\N	\N	\N	\N	\N	\N
-740	High Falls (Beech Creek)	\N	493	f	5.2	\N	9	8	8	\N	\N	\N	waterfall	Difficult (due to creek crossings and elevation gain)	\N	\N	\N	\N	\N	\N	\N	\N
-741	New Falls	\N	494	f	3.4	\N	7	8	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-742	Thomas Falls	\N	495	f	3.4	\N	8	4	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-743	Leatherwood Falls	\N	496	f	Roadside (or creek wade)	\N	5	5	1	\N	\N	\N	waterfall	Roadside+	\N	\N	\N	\N	\N	\N	\N	\N
-744	Lower Bald Springs Falls	\N	497	f	2.6	\N	7	8	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-745	Bald Springs Falls	\N	498	f	2.6	\N	8	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-746	Rain Forest Falls	\N	499	f	2.6	\N	8	10	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-747	Pinnacle Falls SC (Beech Bottom Falls)	\N	500	f	2	\N	2	1	5	\N	\N	\N	waterfall	Moderate (either route)	\N	\N	\N	\N	\N	\N	\N	\N
-748	Eastern Stream Falls	\N	501	f	2	\N	2	1	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-749	Misty Falls	\N	502	f	1.2	\N	4	3	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-750	Evans Falls	\N	503	f	1.2	\N	6	9	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-751	Mashbox Falls	\N	504	f	1.2	\N	8	9	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-752	Lower Buff Falls	\N	505	f	0.6	\N	6	6	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-753	Buff Falls	\N	506	f	1.6	\N	10	9	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-754	Sliding Waterfall near Buff Creek Road	\N	507	f	1.8	\N	5	3	2	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-755	Whiteoak Flats Falls	\N	508	f	1.8	\N	5	5	8	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-756	Black Mountain Falls	\N	509	f	12.2	\N	7	5	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-757	Fall Creek Falls	\N	510	f	3.4	\N	10	9	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-759	Townhouse Falls	\N	512	f	2.1 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-760	Hole in the Rock Falls	\N	513	f	6.0 (out and back)	\N	6	5	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-761	Bartram Falls	\N	514	f	6.0 (out and back)	\N	3	1	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-762	Cascade on the Nantahala	\N	515	f	Roadside	\N	4	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-763	Falls Upstream from Whiteoak Falls	\N	516	f	Roadside	\N	4	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-764	Queens Falls	\N	517	f	Roadside (or 0.3 mile walk)	\N	8	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-765	Silvervale Falls	\N	518	f	Roadside (out and back)	\N	5	4	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-766	Glen Marie Falls	\N	519	f	2.2 (out and back)	\N	6	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-767	The Cascades (Glenlevit Falls)	\N	520	f	2.2 (out and back)	\N	5	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-768	Thunderhole Falls	\N	521	f	1.0 (out and back)	\N	6	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-769	Lower Thunderhole Falls	\N	522	f	1.5 (out and back)	\N	6	8	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-770	Waterfalls Park Falls	\N	523	f	Roadside	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-771	Buckeye Falls	\N	524	f	1.0 (loop)	\N	5	6	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-772	Watauga Falls	\N	525	f	0.1 (out and back)	\N	2	2	3	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-773	Laurel Falls	\N	526	f	0.25 (out and back)	\N	6	6	3	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-774	Cascade Falls	\N	527	f	0.8	\N	6	5	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-775	Betseys Rock Falls	\N	528	f	Roadside	\N	3	3	3	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-776	Waterfall in Bullpen Cove	\N	529	f	Roadside	\N	4	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-777	Upper Buckeye Falls	\N	530	f	4.4	\N	6	3	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-778	Sheephead Falls	\N	531	f	4.4	\N	4	7	9	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-779	Buckeye Falls	\N	532	f	3.14	\N	8	8	9	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-780	Splash Dam Falls	\N	533	f	14.2 (out and back)	\N	8	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-758	Nantahala Falls	\N	511	f	Roadside	\N	4	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	1012	\N
-781	Chestnut Cove Branch Falls	\N	534	f	2.6	\N	4	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-420	Glen Burney Falls	\N	202	f	2.2 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N
-782	Upper Little Lost Cove Falls	\N	535	f	1.4 (out and back)	\N	7	7	6	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-356	Little Lost Cove Falls	\N	171	f	1.5 (out and back)	M	5	6	7	\N	138	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-783	Hunt Fish Sidekick Falls	\N	536	f	1.8 (out and back)	\N	5	4	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-784	Ten Foot Falls	\N	537	f	Roadside	\N	4	6	4	\N	\N	\N	waterfall	Roadside (but you can climb down)	\N	\N	\N	\N	\N	\N	\N	\N
-785	Phillips Branch Falls	\N	538	f	1.2 (out and back)	\N	6	7	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-786	Thorps Creek Falls	\N	539	f	1.1 (out and back)	\N	5	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-787	Gragg Prong Falls	\N	540	f	3.2	\N	6	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-788	Upper Gragg Prong Falls	\N	541	f	1.6 (out and back)	\N	7	7	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-789	Upper Steels Creek Falls	\N	542	f	0.2 (out and back)	\N	7	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-790	Newt Falls	\N	543	f	0.4 (out and back)	\N	7	6	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-791	Rip Breeches Falls	\N	544	f	1.8 (out and back)	\N	3	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-792	Zigzag Falls	\N	545	f	0.25 to overlook (out and back) or 0.40 to base (out and back)	\N	5	3	8	\N	\N	\N	waterfall	Hard or Very Hard (it's up to you)	\N	\N	\N	\N	\N	\N	\N	\N
-311	Steels Creek Falls	\N	175	f	2.0 (out and back)	D	10	10	6	\N	146	\N	waterfall	Moderate+ (with a sketchy rock bit to get a good view)	\N	\N	\N	\N	\N	\N	\N	\N
-793	Teacup Falls	\N	546	f	3.5 (loop)	\N	4	4	3	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-794	Beverly Hillbilly Falls	\N	547	f	2.8 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-795	Woodruff Branch Falls	\N	548	f	Roadside	\N	5	6	4	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-796	Cascade on Edgemont Road	\N	549	f	Roadside	\N	3	3	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-797	Walker Hollow Falls	\N	550	f	Roadside	\N	5	6	4	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-798	Tanawha Falls	\N	551	f	Roadside	\N	2	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-799	Green Mountain Falls	\N	552	f	Roadside	\N	5	6	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-800	Lower slide on Cane Creek	\N	553	f	4.0 (loop)	\N	3	6	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-801	Stepped Falls on Cane Creek	\N	554	f	4.0 (loop)	\N	3	4	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-802	Lower Cane Creek Falls	\N	555	f	4.0 (loop)	\N	5	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-803	Middle Cane Creek Falls	\N	556	f	4.0 (loop)	\N	5	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-804	Cane Creek Falls	\N	557	f	4.0 (loop)	\N	8	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-805	Yellow Patch Falls	\N	558	f	1.0 (out and back)	\N	6	8	9	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N
-806	Wolf Mountain Falls	\N	559	f	2.6 (loop)	\N	8	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-807	Upper Wolf Mountain Falls	\N	560	f	2.6 (loop)	\N	4	4	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-808	John Neal Falls	\N	561	f	4.0 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-809	Waterfall on Parker Creek	\N	562	f	4.0 (out and back)	\N	\N	3	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-810	Double Drop Falls	\N	563	f	3.2 (out and back)	\N	5	8	6	\N	\N	\N	waterfall	Easy+	30	\N	\N	\N	\N	\N	\N	\N
-811	Hidden Dome Falls	\N	564	f	5.4 (out and back)	\N	4	1	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-812	Burgan Creek Falls	\N	565	f	4.5	\N	7	7	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-813	Sand Creek Falls	\N	566	f	3.5	\N	3	4	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-814	Wolf Laurel Falls	\N	567	f	3.5	\N	8	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-815	Violet Falls	\N	568	f	0.4	\N	3	2	10	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-816	Mitchell Lick Falls	\N	569	f	6.25	\N	8	7	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-817	Hooper Falls	\N	570	f	6.25	\N	5	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-818	Blue Boar Falls	\N	571	f	6.25	\N	5	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-819	Wildcat Falls (Robbinsville)	\N	572	f	10.6	\N	5	8	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-820	Lower Falls (Robbinsville)	\N	573	f	10.6	\N	5	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-821	Upper Catawba Falls	\N	574	f	3.0 (out and back)	\N	9	7	6	\N	\N	\N	waterfall	Hard+	120	\N	\N	\N	\N	\N	\N	\N
-822	Upper Dark Prong Falls	\N	575	f	5.6 Miles (shuttle)	\N	6	5	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-823	Serpentine Falls	\N	576	f	5.6 Miles (shuttle)	\N	6	5	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-824	Dark Prong Falls	\N	577	f	5.6 Miles (shuttle)	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-825	Trillium Falls	\N	578	f	Roadside	\N	6	7	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-827	Little Sam Falls	\N	580	f	0.7 mile (out and back) including Middle and Lower Wildcat	\N	6	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-828	Woodfin Cascades	\N	581	f	Roadside	\N	3	1	2	\N	\N	\N	waterfall	Roadside (long range view)	\N	\N	\N	\N	\N	\N	\N	\N
-829	Sleepy Hollow Falls	\N	582	f	Roadside	\N	3	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-830	Mount Toxaway Falls	\N	583	f	Roadside	\N	1	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-831	McGilliard Falls	\N	584	f	0.2	\N	6	6	4	\N	\N	\N	waterfall	Easy or Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-832	Boomer Inn Falls	\N	585	f	0.8 mile (out and back) or 9.0 if the gate is closed	\N	6	5	10	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N
-833	Big Beartrap Falls	\N	586	f	3.2	\N	6	5	7	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N
-834	Middle Prong Falls	\N	587	f	1.2	\N	9	8	8	\N	\N	\N	waterfall	Difficult (dangerous)	\N	\N	\N	\N	\N	\N	\N	\N
-835	Red Rock Falls	\N	588	f	3	\N	6	7	6	\N	\N	\N	waterfall	Moderate+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N
-836	Big Bearpen Falls	\N	589	f	1	\N	7	7	5	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N
-837	Licklog Branch Falls	\N	590	f	1.7	\N	5	3	5	\N	\N	\N	waterfall	Moderate+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N
-839	Midnight Hole Falls	\N	592	f	3	\N	4	6	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-840	Waterfall on Gunter Fork	\N	593	f	15.8	\N	6	8	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-841	Gunter Fork Falls	\N	594	f	16.8	\N	3	2	4	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-842	Waterfall on Washington Creek	\N	595	f	Roadside	\N	2	2	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-843	Upper Mingo Falls	\N	596	f	1.0 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard (when the trail is open)	\N	\N	\N	\N	\N	\N	\N	\N
-358	Enloe Creek Falls	\N	179	f	6.60	M	3	6	5	\N	\N	\N	waterfall	Hard (due to elevation)	\N	\N	\N	\N	\N	\N	\N	\N
-844	Lichen Falls	\N	597	f	4.0 - 6.0 miles (out and back depending on route)	\N	8	7	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-845	Lower Camp Creek Falls (Green River)	\N	598	f	5.0	\N	5	6	7	\N	\N	\N	waterfall	Hard (river crossing)	\N	\N	\N	\N	\N	\N	\N	\N
-846	Scuplted Falls	\N	\N	f	5.5 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	15	\N	\N	\N	\N	\N	\N	\N
-847	Little Canyon Falls	\N	599	f	5.5 (shuttle hike)	\N	10	5	10	\N	\N	\N	waterfall	Hard+	8	\N	\N	\N	\N	\N	\N	\N
-848	Big Ledge Falls	\N	600	f	5.5 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N
-849	Pulliam Creek Falls	\N	601	f	3.2 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Moderate*	25	\N	\N	\N	\N	\N	\N	\N
-850	Sunshine Falls (Green River)	\N	602	f	3.2 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate*	18	\N	\N	\N	\N	\N	\N	\N
-851	Rainy Falls	\N	603	f	1.9	\N	7	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-852	Turtle Falls	\N	604	f	1.9	\N	7	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-855	Sidepocket Falls	\N	607	f	2.6	\N	7	8	10	\N	\N	\N	waterfall	Difficult	50	\N	\N	\N	\N	\N	\N	\N
-856	Waddle Branch Falls	\N	608	f	1.2	\N	5	4	7	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-857	Lower Waddle Branch Falls	\N	609	f	1.2	\N	5	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-858	J. Johnson Falls	\N	610	f	Roadside	\N	2	2	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-859	The Falls	\N	611	f	Roadside	\N	6	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-860	Little Creek Falls	\N	612	f	2.8	\N	6	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-861	Cliff Branch Falls	\N	613	f	Roadside	\N	4	4	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-862	Chasteen Creek Falls	\N	614	f	4.0 (out and back)	\N	\N	5	2	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-863	Campsite Falls	\N	615	f	2	\N	5	3	8	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N
-864	Bear Rock Falls	\N	616	f	2.2	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	40	\N	\N	\N	\N	\N	\N	\N
-866	Wolverine Falls	\N	618	f	3.2	\N	7	8	10	\N	\N	\N	waterfall	Difficult+	25	\N	\N	\N	\N	\N	\N	\N
-867	Hentail Falls	\N	619	f	3	\N	6	8	10	\N	\N	\N	waterfall	Difficult+	15	\N	\N	\N	\N	\N	\N	\N
-868	Rooster Tail Falls	\N	620	f	3.8	\N	9	8	10	\N	\N	\N	waterfall	Difficult+	50	\N	\N	\N	\N	\N	\N	\N
-869	Rocky Knob Falls	\N	621	f	3.2 Miles (out and back)	\N	1	1	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-870	Upper Greasy Cove Falls	\N	622	f	7.1 Miles (shuttle)	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-871	Ivestor Ridge Falls	\N	623	f	7.1 Miles (shuttle)	\N	10	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-872	GPS Falls	\N	624	f	7.1 Miles (shuttle)	\N	7	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-873	Lower Greasy Cove Falls	\N	625	f	7.1 Miles (shuttle)	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-874	Pristine Falls	\N	626	f	2.1 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	30	\N	\N	\N	\N	\N	\N	\N
-875	Lower Raines Mill Falls	\N	627	f	0.6	\N	2	3	5	\N	\N	\N	waterfall	Moderate (some cascade climbing)	\N	\N	\N	\N	\N	\N	\N	\N
-876	Middle Raines Mill Falls	\N	628	f	0.6	\N	2	3	5	\N	\N	\N	waterfall	Moderate (some cascade climbing)	\N	\N	\N	\N	\N	\N	\N	\N
-877	Upper Raines Mill Falls	\N	629	f	0.6	\N	4	3	5	\N	\N	\N	waterfall	Moderate (some cascade climbing)	\N	\N	\N	\N	\N	\N	\N	\N
-878	Laurel Fork Falls (Lake Jocasse)	\N	630	f	NA	\N	6	5	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N
-879	Mill Creek Falls	\N	631	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N
-880	Devil's Hole Falls	\N	632	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N
-881	Wright Creek Falls	\N	633	f	NA	\N	7	4	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N
-882	Bad Creek Falls	\N	634	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N
-883	North Shoal Creek Falls	\N	635	f	4	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-884	Tellico Falls	\N	636	f	1.2	\N	7	7	9	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N
-885	Buck Creek Falls (Marion)	\N	637	f	Roadside	\N	4	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-886	Emerald Village Falls	\N	638	f	Roadside	\N	3	3	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-887	Cascades Waterfall (Craggy)	\N	639	f	4.0 or 3.6 miles (out and back)	\N	3	1	5	\N	\N	\N	waterfall	Moderate	100	\N	\N	\N	\N	\N	\N	\N
-888	Big Creek Falls	\N	640	f	0.1	\N	7	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-889	Panthertown Creek Falls	\N	641	f	5.1	\N	5	8	6	\N	\N	\N	waterfall	Moderate+ (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-890	First Falls	\N	642	f	1.2 (out and back from the top)	\N	8	5	7	\N	\N	\N	waterfall	Moderate	35	\N	\N	\N	\N	\N	\N	\N
-891	Little River Falls	\N	643	f	3.5 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate+	50	\N	\N	\N	\N	\N	\N	\N
-892	Slick Falls	\N	644	f	1.8	\N	4	3	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-893	Johnnies Creek Falls	\N	645	f	5.2	\N	8	7	10	\N	\N	\N	waterfall	Hard+	50	\N	\N	\N	\N	\N	\N	\N
-894	Bruce Knob Falls	\N	646	f	5.2	\N	6	5	10	\N	\N	\N	waterfall	Hard+	90	\N	\N	\N	\N	\N	\N	\N
-897	Cutler Falls	\N	649	f	2.6	\N	7	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-898	Bear Den Falls	\N	650	f	Roadside (but the view stinks)	\N	4	6	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-899	Cathedral Falls	\N	651	f	4.1 (out and back)	\N	6	5	5	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N
-900	English Falls (access restricted)	\N	652	f	No access	\N	9	9	9	\N	\N	\N	waterfall	No access	\N	\N	\N	\N	\N	\N	\N	\N
-901	Mossy Ledge Falls	\N	653	f	5.8 (out and back)	\N	7	5	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-902	Mossy Chute Falls	\N	654	f	5.8 (out and back)	\N	6	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-903	Buck Creek Falls	\N	655	f	5.8 (out and back)	\N	6	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-904	Orange Rock Falls	\N	656	f	5.8 (out and back)	\N	5	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-905	Gina Falls	\N	657	f	4.4 (out and back)	\N	5	4	6	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-906	Fisher Falls	\N	658	f	2.2 (out and back)	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-908	Shacktown Falls	\N	995	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-907	Moravian Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-910	Lanier Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-914	Indian Branch Falls	\N	660	f	8.7	\N	6	8	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-915	Bluff Falls	\N	661	f	8.7	\N	7	9	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-916	Bear Canyon Falls	\N	662	f	8.7	\N	8	8	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-917	Horse Trail Falls	\N	663	f	3.0 (Lollipop Loop)	\N	2	1	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-918	Sassafras Ridge Falls	\N	664	f	3.0 (Lollipop Loop)	\N	4	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-919	Hurricane Creek Falls	\N	665	f	3.0 (Lollipop Loop)	\N	3	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-920	Factory Branch Falls	\N	666	f	Roadside	\N	4	1	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-921	Berties Falls	\N	667	f	Roadside (usually dry)	\N	1	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-922	Burningtown Falls	\N	668	f	Roadside (obstructed)	\N	7	1	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-923	Indian Camp Creek Falls	\N	669	f	2.2 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-924	Sweat Heifer Cascades	\N	670	f	7.4 (out and back) or 8.3 (thru-hike)	\N	5	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-925	Hazel Creek Cascades	\N	671	f	16.5 (out and back)	\N	4	3	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-926	Kuykendall Falls	\N	672	f	9.6 (out and back)	\N	8	5	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-927	Bee Branch Falls	\N	673	f	5.1 (out and back)	\N	7	7	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-928	Otter Falls	\N	674	f	1.2	\N	4	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-929	Bluff Mountain Falls	\N	675	f	Roadside (horrendous long distance view)	\N	1	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-930	Sharpes Falls	\N	676	f	Roadside	\N	2	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-931	Riverview Falls (Nana Falls)	\N	677	f	Roadside	\N	4	3	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-932	Falls on Horse Cove Branch tributary	\N	678	f	Roadside (long distance view)	\N	1	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-933	Fall Creek Falls (Hanging Rock)	\N	679	f	0.5	\N	5	7	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-934	Ledbetter Canyon Falls	\N	680	f	1.3	\N	7	7	8	\N	\N	\N	waterfall	Hard+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N
-935	Handpole Branch Falls	\N	681	f	2.4	\N	4	5	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-936	Bird Falls	\N	682	f	4.5 (out and back)	\N	7	6	4	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N
-937	The Energizer (Falls)	\N	683	f	11.8	\N	6	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-938	Upper Wintergreen Falls	\N	684	f	11.8	\N	8	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-939	Land Bridge Falls	\N	685	f	11.8	\N	7	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-940	Chub Line Falls	\N	686	f	11.8	\N	6	9	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-941	Step Around Falls	\N	687	f	11.8	\N	4	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-942	Rock Slab Falls	\N	688	f	18.53	\N	8	5	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-943	Steeltrap Creek Falls	\N	689	f	18.53	\N	10	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-944	Bear Creek Falls	\N	690	f	18.53	\N	8	9	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-946	Raven Cliff Falls	\N	692	f	5.2 (out and back)	\N	7	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-947	Upper Mouse Creek Falls	\N	693	f	8	\N	3	2	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-948	West Prong Mouse Creek Falls	\N	694	f	9	\N	4	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-949	Laurel Falls (Corbin Creek)	\N	695	f	2.2 Miles (out and back)	\N	5	5	5	\N	\N	\N	waterfall	Moderate	300	\N	\N	\N	\N	\N	\N	\N
-950	Clear Creek Falls	\N	696	f	1.9	\N	5	5	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-951	Secret Falls (DuPont)	\N	697	f	3.6	\N	7	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-952	4 X 4 Falls	\N	698	f	7.8	\N	2	1	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-953	Laurel Leap Falls	\N	699	f	4.8	\N	8	5	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-954	Laughing Falls	\N	700	f	0.75	\N	7	7	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-955	Upper Little More Cove Falls	\N	701	f	1.3	\N	8	9	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N
-956	Stillwater Branch Falls	\N	702	f	1.0 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-957	Justus Cove Falls	\N	703	f	0.4 mile (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-958	Lower Log Hollow Falls	\N	704	f	0.5	\N	8	8	8	\N	\N	\N	waterfall	Hard	30	\N	\N	\N	\N	\N	\N	\N
-959	Middle Log Hollow Falls	\N	705	f	0.5	\N	5	6	8	\N	\N	\N	waterfall	Hard	30	\N	\N	\N	\N	\N	\N	\N
-960	Jane Cantrell Falls	\N	706	f	6.8	\N	7	5	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-961	Hugh Heffner Falls	\N	707	f	7.4 (out and back) or 8.3 (thru-hike)	\N	5	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-962	Balsam Falls	\N	708	f	2.0 (out and back)	\N	5	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-963	Lower Balsam Falls	\N	709	f	2.0 (out and back)	\N	5	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-964	Patricia Falls	\N	710	f	2.0 (out and back)	\N	8	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-965	Upper Yucca Falls	\N	711	f	3.7	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-966	Yucca Falls	\N	712	f	3.7	\N	9	4	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-967	Lower Yucca Falls	\N	713	f	3.7	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-968	Rachel Creek Falls	\N	714	f	3.7	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-969	Middle Rachel Creek Falls	\N	715	f	3.7	\N	6	5	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-970	Magic School Bus Falls	\N	716	f	1.4	\N	1	1	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-971	Sign Post Falls (GA)	\N	717	f	Roadside	\N	5	3	1	\N	\N	\N	waterfall	Roadside (don't get run over)	\N	\N	\N	\N	\N	\N	\N	\N
-972	Deception Falls (Laurel Falls) SC	\N	718	f	4.6 Miles (loop)	\N	8	8	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-973	Waterfall on Trib of Laurel Creek	\N	719	f	4.6 Miles (loop)	\N	5	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-974	Ashmore Falls	\N	720	f	5.0 Miles (loop)	\N	7	2	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-975	Hamlin Falls	\N	721	f	5.0 Miles (loop)	\N	7	7	3	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-976	Waterfall #10 on Wattacoo Creek	\N	722	f	2.0 Miles (loop)	\N	3	4	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-977	Waterfall #9 on Wattacoo Creek	\N	723	f	2.0 Miles (loop)	\N	8	7	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-978	Waterfall #8 on Wattacoo Creek	\N	724	f	2.0 Miles (loop)	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-979	Devil's Canyon	\N	725	f	About 2.4 miles (out and back) to see everything or 0.8	\N	8	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-912	Uwharrie Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-980	Emily's Cascade	\N	726	f	About 2.4 miles (out and back)	\N	5	6	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-981	Sid's Falls	\N	727	f	3.2	\N	8	8	5	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N
-982	Sparkle Falls	\N	728	f	3.2	\N	5	6	7	\N	\N	\N	waterfall	Hard (creekwalk)	18	\N	\N	\N	\N	\N	\N	\N
-983	Maxie Duke Falls	\N	729	f	3.2	\N	4	4	7	\N	\N	\N	waterfall	Moderate+	60	\N	\N	\N	\N	\N	\N	\N
-984	22 Foot Falls	\N	730	f	1.6	\N	2	2	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-985	Drip Rock Falls	\N	731	f	Roadside	\N	2	2	\N	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-986	Lauren Falls	\N	732	f	2.0 (out and back)	\N	9	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-987	Weibeaux Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-988	Coon Dog Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-989	Dargans Cascade (Silver Steps Falls)	\N	733	f	3	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-990	Big Branch Falls	\N	734	f	8.8 (four waterfalls)	\N	2	1	4	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N
-991	Verde Falls	\N	735	f	8.8 (four waterfalls)	\N	5	7	6	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N
-992	Sols Creek Falls	\N	736	f	8.8 (four waterfalls)	\N	10	7	6	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N
-993	Baby Bradley Falls	\N	737	f	3.4	\N	5	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-994	Son of Bradley Falls	\N	738	f	4	\N	7	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-995	Waterfall on Ramsey Prong	\N	739	f	8	\N	6	7	3	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N
-996	Mr T's Cascade	\N	740	f	2.6 (loop)	\N	5	4	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-997	Climbing Wall Falls	\N	741	f	Roadside	\N	4	2	1	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-998	Bull Sluice	\N	742	f	0.4	\N	5	5	2	\N	\N	\N	waterfall	Easy (but it can be harder)	\N	\N	\N	\N	\N	\N	\N	\N
-999	Coyote Falls	\N	743	f	1	\N	8	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1000	Crevasse Falls (Split Rock Falls)	\N	744	f	1	\N	7	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1001	Upper Bear Creek Falls	\N	745	f	5.4	\N	3	3	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1002	Waterfall on Lost Cove Creek	\N	746	f	10.8	\N	4	3	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1003	Trackside Falls (Lost Cove)	\N	747	f	10.8	\N	5	3	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1004	Homer Falls (SC)	\N	748	f	1.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep scramble)	35	\N	\N	\N	\N	\N	\N	\N
-1005	Camp Branch Falls (SC)	\N	749	f	2.4	\N	6	6	7	\N	\N	\N	waterfall	Easy+ (creekwalk)	20	\N	\N	\N	\N	\N	\N	\N
-1007	Riverside Falls (Mills River)	\N	751	f	4	\N	2	2	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1008	Upper Little Creek Falls	\N	752	f	2.3	\N	7	5	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1009	Waterfall on Trib of Shuck Ridge Creek	\N	753	f	9.8	\N	4	4	8	\N	\N	\N	waterfall	Moderate	17	\N	\N	\N	\N	\N	\N	\N
-1010	Lulu Falls	\N	754	f	8	\N	7	3	8	\N	\N	\N	waterfall	Difficult	30	\N	\N	\N	\N	\N	\N	\N
-1011	Upper Lulu Falls	\N	755	f	8	\N	6	5	8	\N	\N	\N	waterfall	Difficult	20	\N	\N	\N	\N	\N	\N	\N
-1012	Lanning Branch Falls	\N	756	f	5	\N	4	4	8	\N	\N	\N	waterfall	Difficult	30	\N	\N	\N	\N	\N	\N	\N
-1013	Laurie's Falls	\N	757	f	2	\N	4	4	5	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-1014	Coon Hollow Falls	\N	758	f	2	\N	3	1	8	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N
-1015	Powerline Falls	\N	759	f	4	\N	6	5	8	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N
-1016	Upper Big Bearpen Falls	\N	760	f	3.6 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Moderate+	30	\N	\N	\N	\N	\N	\N	\N
-1017	Rough Rock Falls	\N	761	f	3.6 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N
-1018	Silver Ribbon Falls	\N	762	f	1.2	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1019	Homestead Falls	\N	763	f	3.9 (loop)	\N	8	7	8	\N	\N	\N	waterfall	Moderate+	25	\N	\N	\N	\N	\N	\N	\N
-1020	Upper Discovery Falls	\N	764	f	3.9	\N	4	6	8	\N	\N	\N	waterfall	Moderate+ Bushwhack	45	\N	\N	\N	\N	\N	\N	\N
-1021	Blue Wall Falls	\N	765	f	2.4	\N	4	5	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1022	Upper Blue Wall Falls	\N	766	f	2.4	\N	6	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1023	Cheohee Road Falls (SC)	\N	767	f	Roadside	\N	4	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1024	Miuka Falls	\N	768	f	2.5	\N	6	4	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1025	Little Miuka Falls	\N	769	f	4	\N	3	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1026	Secret Falls (SC)	\N	770	f	2.3	\N	6	3	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1027	Lower Crane Creek Falls	\N	771	f	0.8	\N	3	3	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-1032	Waterfall #1 on Wattacoo Creek	\N	776	f	2.1 Miles (loop)	\N	3	4	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1033	Waterfall #2 on Wattacoo Creek	\N	777	f	2.1 Miles (loop)	\N	6	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1034	Waterfall #3 on Wattacoo Creek	\N	778	f	2.1 Miles (loop)	\N	5	4	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1035	Waterfall #4 on Wattacoo Creek	\N	779	f	2.1 Miles (loop)	\N	9	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1036	Waterfall #5 on Wattacoo Creek	\N	780	f	2.1 Miles (loop)	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1037	Waterfall #6 on Wattacoo Creek	\N	781	f	2.1 Miles (loop)	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1038	Waterfall #7 on Wattacoo Creek	\N	782	f	2.1 Miles (loop)	\N	4	7	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1039	Mandible Falls	\N	783	f	2.1 Miles (loop)	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1040	Unnamed Waterfall on Reedy Cove Creek	\N	784	f	1.6 Miles (loop)	\N	5	6	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1041	Camp McCall Falls	\N	785	f	2.1 Miles (loop)	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1042	Devil's Fork Falls	\N	786	f	6	\N	5	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1043	Lower Resurrection Falls	\N	787	f	6	\N	5	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1044	Resurrection Falls	\N	788	f	6	\N	8	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1045	Bisection Falls	\N	789	f	6	\N	7	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1046	Insurrection Falls	\N	790	f	6	\N	5	4	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1047	Satan's Spoon Falls	\N	791	f	6	\N	3	4	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1048	Silver Creek Falls	\N	792	f	6	\N	6	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1049	Horseshoe Falls (SC)	\N	793	f	0.8	\N	3	3	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1050	Van Patton Shoals	\N	794	f	0.6	\N	4	3	3	\N	\N	\N	waterfall	Easy+ (river walk)	\N	\N	\N	\N	\N	\N	\N	\N
-1051	Fawn Branch Falls	\N	795	f	8	\N	4	4	8	\N	\N	\N	waterfall	Hard	30	\N	\N	\N	\N	\N	\N	\N
-1052	Warrior Falls	\N	796	f	8	\N	7	6	8	\N	\N	\N	waterfall	Hard	15	\N	\N	\N	\N	\N	\N	\N
-1053	Beautimus Falls	\N	797	f	4.6	\N	8	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1028	Mountain Cat Falls	994	772	f	8	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1054	Upper Beautimus Falls	\N	798	f	4.6	\N	5	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1055	Upper Brier Creek Falls	\N	799	f	4.6	\N	5	5	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1056	Puny Falls (waterfall on trib of Brier Creek)	\N	800	f	4.6	\N	4	3	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1057	Logjam Falls	\N	801	f	5.6	\N	2	4	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1058	Catamount Falls	\N	802	f	5.6	\N	9	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1059	Waterfall on Chastine Creek	\N	803	f	Scramble from the road	\N	5	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1060	Rocky Bottom Gorge Falls	\N	804	f	1.6	\N	7	7	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1061	Rock Bottom Falls	\N	805	f	1.6	\N	7	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1062	Sandy Bottom Falls (unofficial name)	\N	806	f	1.7	\N	6	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1063	Right Angle Falls (unofficial name)	\N	807	f	1.7	\N	5	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1064	Pace Yourself Falls	\N	808	f	1.7	\N	8	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1065	Green Wall Falls (unofficial name)	\N	809	f	3.0	\N	5	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1066	Gamelands Falls	\N	810	f	3.0	\N	8	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1067	Shot Pouch Falls	\N	811	f	0.5	\N	5	6	7	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1068	Locust Tree Lake Falls	\N	812	f	Roadside	\N	4	2	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1069	Rainbow Falls (Private along US64)	\N	813	f	Roadside	\N	4	1	\N	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1070	Bushwhack Falls (SC)	\N	814	f	2.2	\N	5	4	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1071	Upper Laurel Fork Falls (SC)	\N	815	f	2.6	\N	7	7	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N
-1072	Bella Falls (SC)	\N	816	f	4.2	\N	3	1	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N
-1073	Christopher Falls (SC)	\N	817	f	4.2	\N	8	6	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N
-1074	Evil Ducky Falls (SC)	\N	818	f	4.2	\N	3	3	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N
-1075	Waterfall #1 on Chucky Branch	\N	819	f	6.5 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1076	Waterfall #2 on Chucky Branch	\N	820	f	6.5 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1077	Waterfall #3 on Chucky Branch	\N	821	f	6.5 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1078	Waterfall #4 on Chucky Branch	\N	822	f	6.5 (out and back)	\N	7	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1079	Waterfall #5 on Chucky Branch	\N	823	f	6.5 (out and back)	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1080	Waterfall #6 on Chucky Branch	\N	824	f	6.5 (out and back)	\N	2	1	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1081	Waterfall #7 on Chucky Branch	\N	825	f	6.5 (out and back)	\N	4	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1082	Kinney Branch Falls	\N	826	f	6.5 (out and back)	\N	5	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1083	Middle Kinney Branch Falls	\N	827	f	6.5 (out and back)	\N	5	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1084	Upper Kinney Branch Falls	\N	828	f	6.5 (out and back)	\N	2	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1085	Narrow Canyon Falls	\N	829	f	6.5 (out and back)	\N	4	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1086	Divinity Falls	\N	830	f	6.5 (out and back)	\N	4	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1087	Never-Ending Falls	\N	831	f	6.5 (out and back)	\N	4	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1088	Duality Falls	\N	832	f	1.75	\N	3	3	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1089	Little Bully Falls	\N	833	f	1.75	\N	5	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1090	Big Bully Falls	\N	834	f	1.75	\N	6	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1091	Upper Trillium Valley Falls	\N	835	f	1.75	\N	4	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1092	Middle Trillium Valley Falls	\N	836	f	1.75	\N	6	7	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1093	Lower Trillium Valley Falls	\N	837	f	1.75	\N	6	7	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1094	Louie Falls (SC)	\N	838	f	0.4	\N	7	6	7	\N	\N	\N	waterfall	Hard (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N
-1095	Bonita Falls (SC)	\N	839	f	0.2	\N	7	8	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N
-1096	Abbey Falls (SC)	\N	840	f	0.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N
-1097	Deflection Falls (SC)	\N	841	f	0.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N
-1098	Overhang Falls (SC)	\N	842	f	0.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N
-1099	Upper Dam Falls	\N	843	f	3.4	\N	2	4	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-1100	Dam Falls	\N	844	f	3.2	\N	3	3	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-1102	Waterfall on Smith Creek (SC)	\N	846	f	Roadside	\N	4	4	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1103	Ben's Sluice	\N	847	f	4	\N	3	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1104	Toll Road Falls (SC)	\N	848	f	6.2	\N	3	3	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1105	Falling Water Branch Falls	\N	849	f	1.4	\N	5	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1106	Big Bear Falls	\N	850	f	1.4	\N	3	3	4	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N
-1107	Indian Camp Branch Falls (Gorges)	\N	851	f	5.0	\N	4	3	7	\N	\N	\N	waterfall	Hard (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1108	Upper Raven Cliff Falls (SC)	\N	852	f	8.8	\N	7	5	4	\N	\N	\N	waterfall	Moderate+ or Hard+ (depends on the route)	\N	\N	\N	\N	\N	\N	\N	\N
-1109	Tumblin' Fun Falls	\N	853	f	2.5 (out and back)	\N	7	6	8	\N	\N	\N	waterfall	Hard	50	\N	\N	\N	\N	\N	\N	\N
-1110	Twin Falls (Thompson River)	\N	854	f	Private	\N	7	6	1	\N	\N	\N	waterfall	Private	\N	\N	\N	\N	\N	\N	\N	\N
-1111	Jonas Creek Falls	\N	855	f	14.2	\N	4	3	1	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1112	Upper Shoal Creek Falls	\N	856	f	4	\N	6	5	7	\N	\N	\N	waterfall	Moderate+ (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1113	Shoal Creek Falls	\N	857	f	4	\N	4	5	7	\N	\N	\N	waterfall	Moderate+ (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N
-1114	Even Lower Greasy Cove Falls	\N	858	f	See Portage Left Falls	\N	3	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1115	Hornet Falls	\N	859	f	5.5	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1116	Green Party Falls	\N	860	f	5.5	\N	6	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1117	FR89 Falls	\N	861	f	5.5	\N	1	\N	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1118	Upper Blackberry Falls	\N	862	f	5.5	\N	1	\N	7	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1119	Lower Blackberry Falls	\N	863	f	5.5	\N	1	\N	7	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1120	Waterfall on trib above Portage Left	\N	864	f	See Portage Left Falls	\N	3	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1121	Notch Falls (SC)	\N	865	f	6.2	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1122	OMG Falls (SC)	\N	866	f	6.2	\N	5	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1123	Confluence Falls (SC)	\N	867	f	6.2	\N	1	1	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1124	Bluff Falls (SC)	\N	868	f	6.2	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1125	Thunder Falls (SC)	\N	869	f	6.2	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1126	Upper Toll Road Falls (SC)	\N	870	f	6.2	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1127	Lower Basin Creek Falls	\N	871	f	9	\N	5	6	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1128	Upper Basin Creek Falls	\N	872	f	9	\N	4	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1129	Mill Creek Falls (Table Rock Park)	\N	873	f	5.9 (out and back)	\N	6	5	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1130	Rocky Branch Falls (SC)	\N	874	f	2.1 (out and back)	\N	6	4	4	\N	\N	\N	waterfall	Moderate+ (steep/rocky trail)	\N	\N	\N	\N	\N	\N	\N	\N
-1131	Upper Woodfin Cascades	\N	875	f	0.1 (out and back)	\N	5	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1132	Old Dam Falls	\N	876	f	0.2	\N	3	4	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1133	Renzulli Falls (Bracken Preserve)	\N	877	f	3.0 (out and back)	\N	3	4	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1134	Tower Falls	\N	878	f	4.0 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1135	Lower Thompson Trib Falls (Lower Christmas Falls)	\N	879	f	6.2 (out and back)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1136	501 Falls	\N	880	f	1.6 (out and back)	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1137	Boomer Inn Falls (2nd Floor)	\N	881	f	3.1 (ending up being a loop)	\N	6	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1138	Boomer Inn Falls (3rd Floor)	\N	882	f	3.1 (ending up being a loop)	\N	6	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1139	Boomer Inn Falls (4th Floor)	\N	883	f	3.1 (ending up being a loop)	\N	4	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1140	Boomer Inn Trib Falls	\N	884	f	3.1 (ending up being a loop)	\N	3	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1141	Upper Limber Pole Falls	\N	885	f	0.6 (out and back)	\N	5	4	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1142	Rock Jaw Falls	\N	886	f	0.8 (out and back)	\N	3	4	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1143	Grandiose Falls	\N	887	f	0.8 (out and back)	\N	7	5	3	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1144	Used Falls (Wateroak Creek)	\N	888	f	3.2	\N	2	2	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-1145	Just Like New Falls	\N	\N	f	3.2	\N	6	5	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-1146	New and Improved Falls	\N	889	f	3.2	\N	5	6	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-1147	Upper Rough Butt Falls	\N	890	f	2.5 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1148	Prince Cove Falls	\N	891	f	1.0 (out and back)	\N	4	4	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1149	Enchanted Falls	\N	892	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1150	Forgotten Cove Falls	\N	893	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1151	Umbrella Rock Falls	\N	894	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1152	Bigger Fall on Small Trib Falls	\N	895	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1153	Distillery Falls	\N	896	f	2.4 (out and back)	\N	3	2	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1154	Upper Distillery Falls	\N	897	f	2.4 (out and back)	\N	4	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1155	Upland Laurel Falls (Dryland Laurel Branch)	\N	898	f	0.5 (from TH)	\N	6	6	8	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N
-1156	Woodland Laurel Falls (Dryland Laurel Branch)	\N	899	f	0.9 (one way)	\N	3	2	8	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N
-1157	Little Ledge Falls (Dryland Laurel Branch)	\N	900	f	1.0 (one way)	\N	6	5	9	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N
-1158	Rockland Laurel Falls (Dryland Laurel Branch)	\N	901	f	1.1 (one way)	\N	6	8	9	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N
-1159	Thompson Trib Falls (Keyhole Access Falls)	\N	902	f	0.2 (out and back)	\N	5	4	5	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1160	Musterground Road Falls	\N	903	f	Roadside	\N	5	4	5	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1161	Hal's Falls	\N	904	f	0.1 (out and back)	\N	5	4	5	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1162	Waterfall #1 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1163	Waterfall #2 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1164	Waterfall #3 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1165	Waterfall #4 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1166	Waterfall #5 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1167	Waterfall #6 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1168	Waterfall #7 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1169	Waterfall #8 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1170	Waterfall #9 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1171	Palmetto Trail Falls (SC)	\N	905	f	3.4(out and back)	\N	6	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1172	Mile High Falls	\N	906	f	5.0 (out and back)	\N	2	1	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1173	Alyssa Falls	\N	907	f	5.0 (out and back)	\N	5	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1174	Lyn Lowry Falls	\N	908	f	5.0 (out and back)	\N	5	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1175	Campbell Creek Falls	\N	909	f	5.0 (out and back)	\N	10	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1176	Lower Plott Hound Falls	\N	\N	f	5.0 (out and back)	\N	3	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1177	Doghobble Falls (West Campbell Creek)	\N	910	f	5.5 (out and back)	\N	5	6	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1178	Jootum Falls	\N	911	f	5.5 (out and back)	\N	5	6	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1179	West Campbell Creek Falls	\N	912	f	5.5 (out and back)	\N	8	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1180	Yurt Villiage Falls	\N	913	f	0.2 (out and back)	\N	4	3	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1181	Burgess Falls	\N	914	f	5.0 (out and back)	\N	9	5	2	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N
-1182	Sweat Heifer Falls	\N	\N	f	7.8 (shuttle)	\N	8	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1183	Slate Rock Creek Trib Falls	\N	915	f	9.0 (out and back)	\N	3	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1184	Queen Creek Falls	\N	916	f	3.7 (out and back)	\N	4	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1185	Lower Queen Creek Falls	\N	917	f	3.7 (out and back)	\N	5	7	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1186	Middle Queen Creek Falls	\N	918	f	3.7 (out and back)	\N	6	7	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1187	Upper Queen Creek Falls	\N	919	f	3.7 (out and back)	\N	3	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1188	Lower Boomer Inn Falls	\N	920	f	3.4 (ending up being a loop)	\N	6	4	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1189	Transylvania Falls	\N	921	f	0.4 (out and back)	\N	6	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1190	Upper Twin Falls on Henry Branch (Ugly Twin trib)	\N	922	f	6.2 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1191	Upper Falls Amos Creek (My Name)	\N	923	f	3.4 (ending up being a loop)	\N	4	4	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N
-1192	Cave Falls Amos Creek (My name)	\N	924	f	3.4 (ending up being a loop)	\N	3	1	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1193	Amos Creek Falls (My name)	\N	925	f	3.4 (ending up being a loop)	\N	8	8	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1194	Lower Falls Amos Creek (My name)	\N	926	f	3.4 (ending up being a loop)	\N	4	4	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1195	Crevasse Falls Amos Creek (My name)	\N	927	f	3.4 (ending up being a loop)	\N	6	3	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1196	Last Falls Amos Creek (My name)	\N	928	f	3.4 (ending up being a loop)	\N	6	4	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1197	Upper Bestos Falls	\N	929	f	1.8 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1198	Bestos Falls	\N	930	f	1.8 (out and back)	\N	4	\N	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1199	Joe Pack Falls	\N	931	f	1.8 (out and back)	\N	6	5	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1200	Coley Creek Falls	\N	932	f	6.6 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate (unless you go to Splash Dam too)	\N	\N	\N	\N	\N	\N	\N	\N
-1201	Cover Falls (Private)	\N	\N	f	1	\N	3	2	4	\N	\N	\N	waterfall	Moderate+ (thick and steep)	\N	\N	\N	\N	\N	\N	\N	\N
-1202	Radder Creek Falls	\N	933	f	Roadside	\N	4	4	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1203	Inside Passage Falls	\N	934	f	1.3	\N	6	7	8	\N	\N	\N	waterfall	Hard+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N
-1204	Middle John Neal Falls	\N	935	f	4.4	\N	4	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1205	Upper John Neal Falls	\N	936	f	4.4	\N	6	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1206	945 Big Cliff Falls etc. (SC)	\N	937	f	5.1 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1207	Unexpected Falls (US178	\N	938	f	Roadside	\N	4	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1208	950 Red Eft Falls etc.	\N	939	f	0.5 (out and back)	\N	6	7	5	\N	\N	\N	waterfall	Easy for Red Eft (hard for all of them)	\N	\N	\N	\N	\N	\N	\N	\N
-1209	Mill Branch Falls (281N)	\N	940	f	2.5 (out and back)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1210	Blythe Shoals (SC)	\N	941	f	Roadside	\N	2	1	1	\N	\N	\N	waterfall	Roadside*	\N	\N	\N	\N	\N	\N	\N	\N
-1211	Shining Trail Falls	\N	942	f	4.4	\N	4	3	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1212	Upper Maple Springs Branch Falls	\N	943	f	3.2	\N	4	3	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1213	Upper Fisher Hole Falls	\N	944	f	7.8	\N	7	8	10	\N	\N	\N	waterfall	Very Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1214	Lower Fisher Hole Falls	\N	945	f	7.2	\N	7	8	10	\N	\N	\N	waterfall	Very Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1215	Daniel Cove Falls	\N	946	f	4.2	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1216	Big Laurel Falls (TH)	\N	947	f	5.2	\N	7	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1217	Virgin Falls (TN)	\N	948	f	9	\N	9	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1218	Upper Sheep Cave Falls (TN)	\N	949	f	9.2	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1219	Lower Sheep Cave Falls (TN)	\N	950	f	9	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1220	Big Branch Falls (TN)	\N	951	f	2.8	\N	3	5	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1221	Upper Kiesee Creek	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N
-1222	Right Prong Ledge Creek Falls	\N	952	f	1.2	\N	7	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1223	Chesquaw Branch Falls	\N	953	f	36	\N	3	2	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1224	Right Prong South Toe River Falls	\N	954	f	1.5	\N	4	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1225	Double Spring Mountain Falls	\N	955	f	6.5	\N	6	5	8	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N
-1226	Henwallow Falls	\N	956	f	4.4	\N	5	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1227	Grassy Ridge Branch Falls	\N	957	f	4.8	\N	1	1	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1228	Baskins Creek Falls	\N	958	f	3.6	\N	6	7	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1229	Huskey Branch Falls	\N	959	f	4.2	\N	4	4	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1230	Upper Enloe Creek Falls	\N	\N	f	7.8	\N	5	3	3	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1231	Hitchin Post Falls	\N	960	f	5	\N	4	3	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1232	Laurel Falls	\N	961	f	2.5	\N	5	4	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1233	Cataract Falls	\N	962	f	1	\N	3	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1234	Meigs Creek Cascade	\N	963	f	3.8	\N	4	6	5	\N	\N	\N	waterfall	Moderate*	\N	\N	\N	\N	\N	\N	\N	\N
-1235	Abrams Falls	\N	964	f	5	\N	7	8	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1236	Old Flats Falls	\N	965	f	7.8	\N	6	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1237	Stairstep Falls	\N	966	f	2.6	\N	6	7	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1238	Coolidge Falls	\N	967	f	2	\N	2	1	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1239	Waterfall on Tobes Creek	\N	968	f	0.4	\N	6	7	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1240	Lower Waterfall on Mill Creek	\N	969	f	3.5	\N	8	7	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
-1241	Twenty Mile Cascades	\N	970	f	1.3 Miles (out and back)	\N	2	1	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1242	Meigs Falls	\N	971	f	Roadside	\N	7	4	1	\N	\N	\N	waterfall	Roadside*	\N	\N	\N	\N	\N	\N	\N	\N
-1243	Uppermost Waterfall on Road Prong	\N	972	f	6.0 Miles (out and back)	\N	5	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1244	Upper Waterfall on Road Prong	\N	973	f	6.0 Miles (out and back)	\N	3	2	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1245	Middle Waterfall on Road Prong	\N	974	f	6.0 Miles (out and back)	\N	8	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1246	Lower Waterfall on Road Prong	\N	975	f	6.0 Miles (out and back)	\N	8	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1247	The Sinks	\N	976	f	Roadside	\N	4	4	1	\N	\N	\N	waterfall	Roadside*	\N	\N	\N	\N	\N	\N	\N	\N
-1248	998 Lower Lynn Camp Falls	\N	977	f	0.8	\N	6	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1249	Waterfall on Trib of Middle Prong	\N	978	f	0.8	\N	6	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1250	Indian Flats Falls	\N	979	f	9	\N	8	8	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1251	Waterfall on Sweet Branch	\N	980	f	Roadside	\N	3	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1252	Bean Creek Falls	\N	981	f	Roadside	\N	5	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N
-1253	Anna Ruby Falls	\N	982	f	1	\N	8	3	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N
-1254	Rudi's Falls	\N	983	f	4.9 Miles (lollipop loop)	\N	4	2	4	\N	\N	\N	waterfall	Moderate (with a 4×4 and open gates)	\N	\N	\N	\N	\N	\N	\N	\N
-1255	Lower Limberpole Falls	\N	984	f	0.5 (out and back)	\N	6	3	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1256	Mac’s Falls	\N	985	f	4.0 miles (loop)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N
-1257	Pothole Falls	\N	986	f	4.0 miles (loop)	\N	8	7	7	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N
-1258	More Cave Falls	\N	\N	f	4.0 miles (loop)	\N	6	7	9	\N	\N	\N	waterfall	Moderate+	12	\N	\N	\N	\N	\N	\N	\N
-1259	Tranquility Falls	\N	\N	f	4.0 miles (loop)	\N	9	7	9	\N	\N	\N	waterfall	Moderate+	8	\N	\N	\N	\N	\N	\N	\N
-1260	Turbulent Falls	\N	\N	f	4.0 miles (loop)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	12	\N	\N	\N	\N	\N	\N	\N
-1261	Riding Ford Falls	\N	987	f	6.0 miles (out and back depending on route)	\N	7	5	8	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N
-1262	Elbow Falls	\N	988	f	6.0 miles (out and back depending on route)	\N	7	8	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N
-1263	Red Butt Falls	\N	\N	f	6.0 miles (out and back depending on route)	\N	9	9	10	\N	\N	\N	waterfall	Moderate	40	\N	\N	\N	\N	\N	\N	\N
-1264	Wilderness Falls	\N	989	f	3.2 miles (loop)	\N	6	4	8	\N	\N	\N	waterfall	Moderate	70	\N	\N	\N	\N	\N	\N	\N
-1265	Frolictown Falls	\N	990	f	3.2 miles (loop)	\N	8	6	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N
-1266	Granny Burrell Falls	\N	991	f	3.2 miles (loop)	\N	8	8	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N
-373	Little Fall Branch Falls	\N	178	f	0.30	E	3	4	5	\N	381	111	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N
-342	Wintergreen Falls (Dupont)	\N	200	f	10	D	7	7	10	645	227	\N	waterfall	Hard+	\N	State	\N	\N	\N	\N	\N	\N
-315	Ramsey Cascades (GSMNP)	\N	180	f	8.60	M	8	9	2	\N	\N	\N	waterfall	Moderate	100	GSMNP	\N	\N	\N	\N	\N	\N
-1101	Long Branch Falls (Mills River)	\N	845	f	2.2	\N	4	5	2	\N	\N	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N
-435	Rainbow Falls (GSMNP)	\N	217	f	6.4	\N	6	5	2	\N	\N	\N	waterfall	Moderate+	50	GSMNP	\N	\N	\N	\N	\N	\N
-344	Greenland Creek Falls	\N	199	f	2.0 miles (out and back)	\N	8	7	7	97	\N	\N	waterfall	Easy	45	Federal	\N	\N	\N	\N	\N	\N
-391	Schoolhouse Falls	\N	198	f	4.0 miles (loop)	E	9	6	5	102	\N	\N	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N
-430	Warden Falls (Jim Burrell Falls)	\N	212	f	6.0 miles (out and back depending on route)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	35	State	\N	\N	\N	\N	\N	\N
-369	Jawbone Falls	\N	197	f	6.0 miles (out and back depending on route)	\N	7	5	8	105	\N	\N	waterfall	Moderate	30	State	\N	\N	\N	\N	\N	\N
-1006	Eastatoe Narrows	750	993	f	5.4	\N	8	6	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-1029	Palmetto Trail Falls	994	773	f	6.8	\N	4	3	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1030	Vespa Falls	994	774	f	8	\N	5	3	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-1031	Eden Falls	994	775	f	8	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-384	High Falls- Little River	\N	93	f	Approx 1 mile each way	E	9	8	3	\N	41	\N	waterfall	Average	\N	State	\N	\N	\N	\N	1004	\N
-403	Issaqueena Falls	\N	135	f	0.4 (out and back)	E	3	3	5	\N	\N	\N	waterfall	Easy/Hard	100	Federal	\N	\N	\N	\N	1007	\N
-909	Jumping Fish Falls	997	996	f	1.2	\N	4	\N	\N	\N	\N	\N	waterfall	Moderate	5	State	\N	\N	\N	135	\N	\N
-328	Bard Falls	\N	172	f	3.8 (out and back)	M	9	8	7	\N	13	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N
-351	High Falls- South Fork Mills River	\N	192	f	4	E	9	6	7	150	183	59	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N
-381	Cedar Rock Falls	\N	194	f	1.6	E	8	9	6	\N	171	49	waterfall	Moderate	25	Federal	\N	\N	\N	\N	\N	\N
-386	Upper Creek Falls	\N	139	f	1.2 (out and back) or 1.7 (loop)	M	7	6	5	\N	17	\N	waterfall	Moderate	12	Federal	\N	\N	\N	\N	\N	\N
-389	Rainbow Falls (Gorges)	\N	98	f	3.0 Miles (out and back)	M	10	8	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	1005	\N
-395	Linville Falls	\N	138	f	5.5 (to reach all overlooks + the base starting at NC183 parking)	E	9	8	5	\N	77	20	waterfall	Moderate	120	Federal	\N	\N	\N	\N	\N	\N
-409	Bradley Creek Falls	\N	164	f	1.6 (out and back)	M	6	4	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-417	Hooker Falls	\N	188	f	Approx .3 mile each way	\N	6	7	3	\N	\N	\N	waterfall	Easy	\N	State	\N	\N	\N	\N	\N	\N
-425	Slate Rock Creek Falls	\N	207	f	1.58	\N	8	8	9	\N	\N	\N	waterfall	Easy	25	Federal	\N	\N	\N	\N	\N	\N
-431	High Falls (Cullowhee Falls)	\N	213	f	4.00 (out and back)	\N	8	6	7	\N	\N	\N	waterfall	Moderate	120	\N	\N	\N	\N	\N	\N	\N
-438	Panther Top	\N	220	f	1.9	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	2293	\N	\N
-439	Joanna Bald	\N	221	f	1.2	\N	\N	\N	\N	\N	\N	\N	tower	\N	31	\N	\N	\N	\N	4716	\N	\N
-441	Wesser Bald	\N	223	f	1.9	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	4626	\N	\N
-442	Cowee Bald	\N	224	f	1.2	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	4944	\N	\N
-443	Yellow Mountain	\N	225	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N
-445	Clingmans Dome	\N	227	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N
-448	Barnett Knob	\N	230	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N
-455	Green Knob	\N	237	f	1.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	21	\N	\N	\N	\N	5060	\N	\N
-456	Flat Top Mountain	\N	238	f	4.95	\N	\N	\N	\N	\N	\N	\N	tower	\N	40	\N	\N	\N	\N	4558	\N	\N
-498	Chestnut Falls	\N	270	f	1.88	\N	7	7	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-507	Grassy Creek Falls	\N	278	f	2.54	\N	6	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-508	Stone Mountain Falls (Little Falls)	\N	279	f	1.2	\N	8	6	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-542	Auger Fork Falls	\N	313	f	5.40 (out and back)	\N	8	8	10	\N	\N	\N	waterfall	Moderate+	50	\N	\N	\N	\N	\N	\N	\N
-581	East Fork Falls	\N	340	f	0.1	\N	5	8	5	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N
-645	Graveley Falls	\N	400	f	0.8 Miles (Out and Back)	\N	5	6	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-661	Cherry Cove Falls	\N	416	f	2.4 (out and back)	\N	7	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-673	Cascades Falls	\N	427	f	1.3	\N	3	6	3	\N	\N	\N	waterfall	Moderate	6	\N	\N	\N	\N	\N	\N	\N
-826	West Prong Hickey Fork Falls	\N	579	f	2.5 (out and back)	\N	5	5	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-853	Yellow Fork Falls	\N	605	f	2.0 (out and back)	\N	7	8	6	\N	\N	\N	waterfall	Moderate*	30	\N	\N	\N	\N	\N	\N	\N
-854	Still Falls	\N	606	f	2.6 (out and back)	\N	4	7	6	\N	\N	\N	waterfall	Moderate*	35	\N	\N	\N	\N	\N	\N	\N
-865	Windy Falls	\N	617	f	1.0 Miles (from Chestnut Mountain Road) 1.6 from Rainbow Falls Parking area	\N	10	8	8	\N	\N	\N	waterfall	Difficult+	70	\N	\N	\N	\N	\N	\N	\N
-895	Boxcar Falls	\N	647	f	2.5	\N	6	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N
-896	Graybeard Falls	\N	648	f	6.3	\N	4	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N
-913	Paw Paw Falls	\N	659	f	3.2	\N	6	5	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N
-945	Burnthouse Branch Falls	\N	691	f	5.2 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N
+COPY public.features (id, name, parking_location_id, feature_location_id, visited, rt_hike_distance, difficulty_rating, beauty_rating, photo_rating, solitude_rating, hwnc_id, cmc_hike_no, book_page, kind, accessibility, height_ft, owner, deprecated_reason, deprecated_note, deprecated_on, elevation_ft, view_location_id, elevation_gain_ft, slug) FROM stdin;
+461	Batson Creek Falls	\N	243	f	Approx 1.4 mile each way	\N	7	3	8	\N	\N	\N	waterfall	Easy/Moderate	\N	\N	\N	\N	\N	\N	\N	\N	batson-creek-falls
+643	Big Falls (Snowbird Creek)	\N	398	f	7.4	\N	5	6	7	\N	\N	\N	waterfall	Difficult	\N	Federal	\N	\N	\N	\N	\N	\N	big-falls-snowbird-creek
+364	Bird Rock Falls	\N	110	f	0.50	E	8	6	5	\N	228	71	waterfall	Moderate	\N	Private	\N	\N	\N	\N	\N	\N	bird-rock-falls
+337	Brasstown Falls	\N	147	f	0.60	E	9	8	7	\N	\N	\N	waterfall	Medium+	\N	Federal	\N	\N	\N	\N	\N	\N	brasstown-falls
+354	Bridalveil Falls (DuPont)- Little River	\N	191	f	4	E	8	6	6	15	154	42	waterfall	Moderate	12	State	\N	\N	\N	\N	\N	\N	bridalveil-falls-dupont-little-river
+405	Catawba Falls	\N	140	f	2.2 (out and back)	M	9	10	10	\N	26	\N	waterfall	Easy+	120	Federal	\N	\N	\N	\N	\N	\N	catawba-falls
+432	Alarka Falls	\N	214	f	0.9	\N	7	6	7	\N	\N	\N	waterfall	Moderate+	120	Federal	\N	\N	\N	\N	\N	\N	alarka-falls
+361	Bearcamp Falls (Hillard Falls)	\N	168	f	14.4 (out and back)	D	6	6	5	\N	\N	\N	waterfall	Moderate (unless you go to Splash Dam too)	\N	State	\N	\N	\N	\N	\N	\N	bearcamp-falls-hillard-falls
+421	Jones Falls	\N	203	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	Federal	\N	\N	\N	\N	\N	\N	jones-falls
+440	Albert Mountain	\N	222	f	6.5	\N	\N	\N	\N	\N	\N	\N	tower	\N	43	\N	\N	\N	\N	5220	\N	\N	albert-mountain
+413	Aunt Sally's Falls	\N	184	f	1.0 (out and back)	\N	6	4	10	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	aunt-sally-s-falls
+452	Bearwallow Mountain	\N	234	f	2.4	\N	\N	\N	\N	\N	\N	\N	tower	\N	47	\N	\N	\N	\N	4230	\N	\N	bearwallow-mountain
+537	Big Bradley Falls	\N	308	f	4.75	\N	10	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	big-bradley-falls
+450	Camp Creek Bald	\N	232	f	10.7	\N	\N	\N	\N	\N	\N	\N	tower	\N	21	\N	\N	\N	\N	4843	\N	\N	camp-creek-bald
+526	Carlton Falls	\N	297	f	3.6	\N	9	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	carlton-falls
+565	55 M.P.H. Falls	\N	326	f	5.5 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	30	\N	\N	\N	\N	\N	\N	\N	55-m-p-h-falls
+563	Bedrock Betty Falls	\N	324	f	5.5 (shuttle hike)	\N	7	5	10	\N	\N	\N	waterfall	Hard+	18	\N	\N	\N	\N	\N	\N	\N	bedrock-betty-falls
+579	Beetree Fork Falls	\N	338	f	0.5	\N	5	6	7	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	beetree-fork-falls
+548	Bennett Cove Falls	\N	317	f	2.1 (out and back)	\N	6	5	10	\N	\N	\N	waterfall	Moderate+	30	\N	\N	\N	\N	\N	\N	\N	bennett-cove-falls
+617	Amelia Falls	\N	\N	f	NA	\N	8	8	6	\N	\N	\N	waterfall	Roadside (Private)	\N	\N	\N	\N	\N	\N	\N	\N	amelia-falls
+606	Brooks Creek Falls	\N	365	f	Roadside	\N	7	8	5	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N	brooks-creek-falls
+677	Bearwallow Falls	\N	431	f	1.6 (out and back) Both Falls	\N	8	9	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	bearwallow-falls-2
+667	Big Bearwallow Falls	\N	422	f	0.1	\N	6	6	5	\N	\N	\N	waterfall	Difficult+	35	\N	\N	\N	\N	\N	\N	\N	big-bearwallow-falls
+864	Bear Rock Falls	\N	616	f	2.2	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	40	\N	\N	\N	\N	\N	\N	\N	bear-rock-falls
+836	Big Bearpen Falls	\N	589	f	1	\N	7	7	5	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N	big-bearpen-falls
+833	Big Beartrap Falls	\N	586	f	3.2	\N	6	5	7	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	big-beartrap-falls
+848	Big Ledge Falls	\N	600	f	5.5 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N	big-ledge-falls
+882	Bad Creek Falls	\N	634	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N	bad-creek-falls
+916	Bear Canyon Falls	\N	662	f	8.7	\N	8	8	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	bear-canyon-falls
+944	Bear Creek Falls	\N	690	f	18.53	\N	8	9	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	bear-creek-falls
+888	Big Creek Falls	\N	640	f	0.1	\N	7	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	big-creek-falls
+988	Coon Dog Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	coon-dog-falls
+1248	998 Lower Lynn Camp Falls	\N	977	f	0.8	\N	6	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	998-lower-lynn-camp-falls
+1235	Abrams Falls	\N	964	f	5	\N	7	8	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	abrams-falls
+1253	Anna Ruby Falls	\N	982	f	1	\N	8	3	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	anna-ruby-falls
+1252	Bean Creek Falls	\N	981	f	Roadside	\N	5	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	bean-creek-falls
+1233	Cataract Falls	\N	962	f	1	\N	3	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	cataract-falls
+1238	Coolidge Falls	\N	967	f	2	\N	2	1	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	coolidge-falls
+1006	Eastatoe Narrows	750	993	f	5.4	\N	8	6	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	eastatoe-narrows
+1031	Eden Falls	994	775	f	8	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	eden-falls
+1262	Elbow Falls	\N	988	f	6.0 miles (out and back depending on route)	\N	7	8	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	elbow-falls
+1265	Frolictown Falls	\N	990	f	3.2 miles (loop)	\N	8	6	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	frolictown-falls
+1266	Granny Burrell Falls	\N	991	f	3.2 miles (loop)	\N	8	8	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	granny-burrell-falls
+344	Greenland Creek Falls	\N	199	f	2.0 miles (out and back)	\N	8	7	7	97	\N	\N	waterfall	Easy	45	Federal	\N	\N	\N	\N	\N	\N	greenland-creek-falls
+384	High Falls- Little River	\N	93	f	Approx 1 mile each way	E	9	8	3	\N	41	\N	waterfall	Average	\N	State	\N	\N	\N	\N	1004	\N	high-falls-little-river
+1250	Indian Flats Falls	\N	979	f	9	\N	8	8	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	indian-flats-falls
+403	Issaqueena Falls	\N	135	f	0.4 (out and back)	E	3	3	5	\N	\N	\N	waterfall	Easy/Hard	100	Federal	\N	\N	\N	\N	1007	\N	issaqueena-falls
+369	Jawbone Falls	\N	197	f	6.0 miles (out and back depending on route)	\N	7	5	8	105	\N	\N	waterfall	Moderate	30	State	\N	\N	\N	\N	\N	\N	jawbone-falls
+542	Auger Fork Falls	\N	313	f	5.40 (out and back)	\N	8	8	10	\N	\N	\N	waterfall	Moderate+	50	\N	\N	\N	\N	\N	\N	\N	auger-fork-falls
+328	Bard Falls	\N	172	f	3.8 (out and back)	M	9	8	7	\N	13	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	bard-falls
+448	Barnett Knob	\N	230	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N	barnett-knob
+895	Boxcar Falls	\N	647	f	2.5	\N	6	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	boxcar-falls
+409	Bradley Creek Falls	\N	164	f	1.6 (out and back)	M	6	4	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	bradley-creek-falls
+673	Cascades Falls	\N	427	f	1.3	\N	3	6	3	\N	\N	\N	waterfall	Moderate	6	\N	\N	\N	\N	\N	\N	\N	cascades-falls
+381	Cedar Rock Falls	\N	194	f	1.6	E	8	9	6	\N	171	49	waterfall	Moderate	25	Federal	\N	\N	\N	\N	\N	\N	cedar-rock-falls
+661	Cherry Cove Falls	\N	416	f	2.4 (out and back)	\N	7	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	cherry-cove-falls
+498	Chestnut Falls	\N	270	f	1.88	\N	7	7	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	chestnut-falls
+445	Clingmans Dome	\N	227	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N	clingmans-dome
+442	Cowee Bald	\N	224	f	1.2	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	4944	\N	\N	cowee-bald
+581	East Fork Falls	\N	340	f	0.1	\N	5	8	5	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	east-fork-falls
+456	Flat Top Mountain	\N	238	f	4.95	\N	\N	\N	\N	\N	\N	\N	tower	\N	40	\N	\N	\N	\N	4558	\N	\N	flat-top-mountain
+507	Grassy Creek Falls	\N	278	f	2.54	\N	6	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	grassy-creek-falls
+645	Graveley Falls	\N	400	f	0.8 Miles (Out and Back)	\N	5	6	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	graveley-falls
+896	Graybeard Falls	\N	648	f	6.3	\N	4	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	graybeard-falls
+455	Green Knob	\N	237	f	1.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	21	\N	\N	\N	\N	5060	\N	\N	green-knob
+431	High Falls (Cullowhee Falls)	\N	213	f	4.00 (out and back)	\N	8	6	7	\N	\N	\N	waterfall	Moderate	120	\N	\N	\N	\N	\N	\N	\N	high-falls-cullowhee-falls
+351	High Falls- South Fork Mills River	\N	192	f	4	E	9	6	7	150	183	59	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N	high-falls-south-fork-mills-river
+417	Hooker Falls	\N	188	f	Approx .3 mile each way	\N	6	7	3	\N	\N	\N	waterfall	Easy	\N	State	\N	\N	\N	\N	\N	\N	hooker-falls
+439	Joanna Bald	\N	221	f	1.2	\N	\N	\N	\N	\N	\N	\N	tower	\N	31	\N	\N	\N	\N	4716	\N	\N	joanna-bald
+909	Jumping Fish Falls	997	996	f	1.2	\N	4	\N	\N	\N	\N	\N	waterfall	Moderate	5	State	\N	\N	\N	135	\N	\N	jumping-fish-falls
+395	Linville Falls	\N	138	f	5.5 (to reach all overlooks + the base starting at NC183 parking)	E	9	8	5	\N	77	20	waterfall	Moderate	120	Federal	\N	\N	\N	\N	\N	\N	linville-falls
+438	Panther Top	\N	220	f	1.9	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	2293	\N	\N	panther-top
+389	Rainbow Falls (Gorges)	\N	98	f	3.0 Miles (out and back)	M	10	8	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	1005	\N	rainbow-falls-gorges
+425	Slate Rock Creek Falls	\N	207	f	1.58	\N	8	8	9	\N	\N	\N	waterfall	Easy	25	Federal	\N	\N	\N	\N	\N	\N	slate-rock-creek-falls
+854	Still Falls	\N	606	f	2.6 (out and back)	\N	4	7	6	\N	\N	\N	waterfall	Moderate*	35	\N	\N	\N	\N	\N	\N	\N	still-falls
+508	Stone Mountain Falls (Little Falls)	\N	279	f	1.2	\N	8	6	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	stone-mountain-falls-little-falls
+386	Upper Creek Falls	\N	139	f	1.2 (out and back) or 1.7 (loop)	M	7	6	5	\N	17	\N	waterfall	Moderate	12	Federal	\N	\N	\N	\N	\N	\N	upper-creek-falls
+441	Wesser Bald	\N	223	f	1.9	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	4626	\N	\N	wesser-bald
+826	West Prong Hickey Fork Falls	\N	579	f	2.5 (out and back)	\N	5	5	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	west-prong-hickey-fork-falls
+865	Windy Falls	\N	617	f	1.0 Miles (from Chestnut Mountain Road) 1.6 from Rainbow Falls Parking area	\N	10	8	8	\N	\N	\N	waterfall	Difficult+	70	\N	\N	\N	\N	\N	\N	\N	windy-falls
+984	22 Foot Falls	\N	730	f	1.6	\N	2	2	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	22-foot-falls
+952	4 X 4 Falls	\N	698	f	7.8	\N	2	1	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	4-x-4-falls
+1136	501 Falls	\N	880	f	1.6 (out and back)	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	501-falls
+1206	945 Big Cliff Falls etc. (SC)	\N	937	f	5.1 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	945-big-cliff-falls-etc-sc
+1208	950 Red Eft Falls etc.	\N	939	f	0.5 (out and back)	\N	6	7	5	\N	\N	\N	waterfall	Easy for Red Eft (hard for all of them)	\N	\N	\N	\N	\N	\N	\N	\N	950-red-eft-falls-etc
+1096	Abbey Falls (SC)	\N	840	f	0.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N	abbey-falls-sc
+1173	Alyssa Falls	\N	907	f	5.0 (out and back)	\N	5	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	alyssa-falls
+1193	Amos Creek Falls (My name)	\N	925	f	3.4 (ending up being a loop)	\N	8	8	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	amos-creek-falls-my-name
+974	Ashmore Falls	\N	720	f	5.0 Miles (loop)	\N	7	2	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	ashmore-falls
+993	Baby Bradley Falls	\N	737	f	3.4	\N	5	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	baby-bradley-falls
+745	Bald Springs Falls	\N	498	f	2.6	\N	8	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	bald-springs-falls
+962	Balsam Falls	\N	708	f	2.0 (out and back)	\N	5	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	balsam-falls
+761	Bartram Falls	\N	514	f	6.0 (out and back)	\N	3	1	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	bartram-falls
+1228	Baskins Creek Falls	\N	958	f	3.6	\N	6	7	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	baskins-creek-falls
+898	Bear Den Falls	\N	650	f	Roadside (but the view stinks)	\N	4	6	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	bear-den-falls
+469	Bearwallow Falls	\N	248	f	1.0 Miles (out and back)	\N	6	4	7	\N	\N	\N	waterfall	Moderate+	45	\N	\N	\N	\N	\N	\N	\N	bearwallow-falls
+1053	Beautimus Falls	\N	797	f	4.6	\N	8	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	beautimus-falls
+927	Bee Branch Falls	\N	673	f	5.1 (out and back)	\N	7	7	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	bee-branch-falls
+1072	Bella Falls (SC)	\N	816	f	4.2	\N	3	1	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N	bella-falls-sc
+1103	Ben's Sluice	\N	847	f	4	\N	3	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	ben-s-sluice
+545	Bernie's Falls	\N	316	f	5.5 (out and back)	\N	9	7	9	\N	\N	\N	waterfall	Moderate+	55	\N	\N	\N	\N	\N	\N	\N	bernie-s-falls
+582	Berry Branch Falls	\N	341	f	0.25	\N	4	5	5	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	berry-branch-falls
+921	Berties Falls	\N	667	f	Roadside (usually dry)	\N	1	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	berties-falls
+1198	Bestos Falls	\N	930	f	1.8 (out and back)	\N	4	\N	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	bestos-falls
+775	Betseys Rock Falls	\N	528	f	Roadside	\N	3	3	3	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	betseys-rock-falls
+794	Beverly Hillbilly Falls	\N	547	f	2.8 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	beverly-hillbilly-falls
+1106	Big Bear Falls	\N	850	f	1.4	\N	3	3	4	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	big-bear-falls
+597	Big Bend Falls	\N	356	f	6.9	\N	5	4	9	\N	\N	\N	waterfall	Moderate	12	\N	\N	\N	\N	\N	\N	\N	big-bend-falls
+990	Big Branch Falls	\N	734	f	8.8 (four waterfalls)	\N	2	1	4	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	big-branch-falls
+1220	Big Branch Falls (TN)	\N	951	f	2.8	\N	3	5	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	big-branch-falls-tn
+1090	Big Bully Falls	\N	834	f	1.75	\N	6	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	big-bully-falls
+320	Big Falls- Thompson River	\N	129	f	7.00	D	10	9	10	158	281	247	waterfall	Hard (Very)	\N	\N	\N	\N	\N	\N	\N	\N	big-falls-thompson-river
+1152	Bigger Fall on Small Trib Falls	\N	895	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	bigger-fall-on-small-trib-falls
+326	Big Laurel Falls	\N	159	f	1.20	E	7	8	6	333	92	\N	waterfall	Medium	25	Federal	\N	\N	\N	\N	\N	\N	big-laurel-falls
+1216	Big Laurel Falls (TH)	\N	947	f	5.2	\N	7	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	big-laurel-falls-th
+936	Bird Falls	\N	682	f	4.5 (out and back)	\N	7	6	4	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	bird-falls
+1045	Bisection Falls	\N	789	f	6	\N	7	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	bisection-falls
+756	Black Mountain Falls	\N	509	f	12.2	\N	7	5	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	black-mountain-falls
+818	Blue Boar Falls	\N	571	f	6.25	\N	5	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	blue-boar-falls
+1021	Blue Wall Falls	\N	765	f	2.4	\N	4	5	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	blue-wall-falls
+915	Bluff Falls	\N	661	f	8.7	\N	7	9	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	bluff-falls
+1124	Bluff Falls (SC)	\N	868	f	6.2	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	bluff-falls-sc
+929	Bluff Mountain Falls	\N	675	f	Roadside (horrendous long distance view)	\N	1	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	bluff-mountain-falls
+1210	Blythe Shoals (SC)	\N	941	f	Roadside	\N	2	1	1	\N	\N	\N	waterfall	Roadside*	\N	\N	\N	\N	\N	\N	\N	\N	blythe-shoals-sc
+557	Bonas Defeat Falls	\N	\N	f	3.0 (shuttle hike)	\N	10	10	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N	bonas-defeat-falls
+1095	Bonita Falls (SC)	\N	839	f	0.2	\N	7	8	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N	bonita-falls-sc
+832	Boomer Inn Falls	\N	585	f	0.8 mile (out and back) or 9.0 if the gate is closed	\N	6	5	10	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	boomer-inn-falls
+1137	Boomer Inn Falls (2nd Floor)	\N	881	f	3.1 (ending up being a loop)	\N	6	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	boomer-inn-falls-2nd-floor
+1138	Boomer Inn Falls (3rd Floor)	\N	882	f	3.1 (ending up being a loop)	\N	6	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	boomer-inn-falls-3rd-floor
+1139	Boomer Inn Falls (4th Floor)	\N	883	f	3.1 (ending up being a loop)	\N	4	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	boomer-inn-falls-4th-floor
+1140	Boomer Inn Trib Falls	\N	884	f	3.1 (ending up being a loop)	\N	3	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	boomer-inn-trib-falls
+707	Boulderfield Falls	\N	460	f	5.4	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	boulderfield-falls
+586	Bradley Cooper Falls	\N	345	f	4.5	\N	7	8	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	bradley-cooper-falls
+553	Bridle Veil Falls (Highlands)	\N	322	f	0.10 (out and back)	\N	5	6	2	\N	\N	\N	waterfall	Roadside	60	\N	\N	\N	\N	\N	\N	\N	bridle-veil-falls-highlands
+894	Bruce Knob Falls	\N	646	f	5.2	\N	6	5	10	\N	\N	\N	waterfall	Hard+	90	\N	\N	\N	\N	\N	\N	\N	bruce-knob-falls
+731	Buck Creek Falls	\N	484	f	1	\N	7	5	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	buck-creek-falls
+903	Buck Creek Falls	\N	655	f	5.8 (out and back)	\N	6	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	buck-creek-falls-2
+885	Buck Creek Falls (Marion)	\N	637	f	Roadside	\N	4	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	buck-creek-falls-marion
+771	Buckeye Falls	\N	524	f	1.0 (loop)	\N	5	6	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	buckeye-falls
+779	Buckeye Falls	\N	532	f	3.14	\N	8	8	9	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	buckeye-falls-2
+753	Buff Falls	\N	506	f	1.6	\N	10	9	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	buff-falls
+739	Bull Cove Falls	\N	492	f	2	\N	5	8	6	\N	\N	\N	waterfall	Moderate+ (due to creek crossings)	\N	\N	\N	\N	\N	\N	\N	\N	bull-cove-falls
+998	Bull Sluice	\N	742	f	0.4	\N	5	5	2	\N	\N	\N	waterfall	Easy (but it can be harder)	\N	\N	\N	\N	\N	\N	\N	\N	bull-sluice
+812	Burgan Creek Falls	\N	565	f	4.5	\N	7	7	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	burgan-creek-falls
+1181	Burgess Falls	\N	914	f	5.0 (out and back)	\N	9	5	2	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	burgess-falls
+922	Burningtown Falls	\N	668	f	Roadside (obstructed)	\N	7	1	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	burningtown-falls
+945	Burnthouse Branch Falls	\N	691	f	5.2 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	burnthouse-branch-falls
+1070	Bushwhack Falls (SC)	\N	814	f	2.2	\N	5	4	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	bushwhack-falls-sc
+1175	Campbell Creek Falls	\N	909	f	5.0 (out and back)	\N	10	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	campbell-creek-falls
+612	Camp Branch Falls	\N	370	f	Roadside	\N	3	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	camp-branch-falls
+669	Camp Branch Falls	\N	424	f	0.5	\N	6	6	5	\N	\N	\N	waterfall	Moderate	11	\N	\N	\N	\N	\N	\N	\N	camp-branch-falls-2
+1005	Camp Branch Falls (SC)	\N	749	f	2.4	\N	6	6	7	\N	\N	\N	waterfall	Easy+ (creekwalk)	20	\N	\N	\N	\N	\N	\N	\N	camp-branch-falls-sc
+1041	Camp McCall Falls	\N	785	f	2.1 Miles (loop)	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	camp-mccall-falls
+863	Campsite Falls	\N	615	f	2	\N	5	3	8	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N	campsite-falls
+710	Cane Creek Falls	\N	463	f	1.5	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	cane-creek-falls
+804	Cane Creek Falls	\N	557	f	4.0 (loop)	\N	8	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	cane-creek-falls-2
+774	Cascade Falls	\N	527	f	0.8	\N	6	5	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	cascade-falls
+796	Cascade on Edgemont Road	\N	549	f	Roadside	\N	3	3	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	cascade-on-edgemont-road
+762	Cascade on the Nantahala	\N	515	f	Roadside	\N	4	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	cascade-on-the-nantahala
+887	Cascades Waterfall (Craggy)	\N	639	f	4.0 or 3.6 miles (out and back)	\N	3	1	5	\N	\N	\N	waterfall	Moderate	100	\N	\N	\N	\N	\N	\N	\N	cascades-waterfall-craggy
+590	Case Falls	\N	349	f	0.4	\N	1	1	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	case-falls
+591	Cashier's Sliding Rock	\N	350	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	cashier-s-sliding-rock
+1058	Catamount Falls	\N	802	f	5.6	\N	9	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	catamount-falls
+899	Cathedral Falls	\N	651	f	4.1 (out and back)	\N	6	5	5	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	cathedral-falls
+340	Catheys Creek Falls	\N	193	f	0.2	E	7	7	6	54	48	\N	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N	catheys-creek-falls
+631	Catstairs Falls	\N	386	f	Roadside or Scramble	\N	3	2	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	catstairs-falls
+1192	Cave Falls Amos Creek (My name)	\N	924	f	3.4 (ending up being a loop)	\N	3	1	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	cave-falls-amos-creek-my-name
+588	Cavern Falls	\N	347	f	5	\N	8	8	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	cavern-falls
+736	Cavern Falls	\N	489	f	2.6	\N	5	3	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	cavern-falls-2
+601	Cedar Falls (Fountain Inn)	\N	360	f	0.1 mile (out and back)	\N	5	5	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	cedar-falls-fountain-inn
+655	Charleys Creek Falls	\N	410	f	2.6 (out and back) w/potential creek walk	\N	6	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	charleys-creek-falls
+603	Chasm Falls	\N	362	f	0.4 (out and back)	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	20	\N	\N	\N	\N	\N	\N	\N	chasm-falls
+862	Chasteen Creek Falls	\N	614	f	4.0 (out and back)	\N	\N	5	2	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	chasteen-creek-falls
+1023	Cheohee Road Falls (SC)	\N	767	f	Roadside	\N	4	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	cheohee-road-falls-sc
+1223	Chesquaw Branch Falls	\N	953	f	36	\N	3	2	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	chesquaw-branch-falls
+781	Chestnut Cove Branch Falls	\N	534	f	2.6	\N	4	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	chestnut-cove-branch-falls
+1073	Christopher Falls (SC)	\N	817	f	4.2	\N	8	6	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N	christopher-falls-sc
+940	Chub Line Falls	\N	686	f	11.8	\N	6	9	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	chub-line-falls
+706	Chute Falls	\N	459	f	3.2	\N	4	6	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	chute-falls
+911	Clark Park Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	clark-park-falls
+950	Clear Creek Falls	\N	696	f	1.9	\N	5	5	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	clear-creek-falls
+715	Cleft Falls	\N	468	f	Less than 1.7 (out and back)	\N	8	8	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	cleft-falls
+861	Cliff Branch Falls	\N	613	f	Roadside	\N	4	4	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	cliff-branch-falls
+692	Cliff Falls	\N	445	f	2.2	\N	7	6	5	\N	\N	\N	waterfall	Moderate+	40	\N	\N	\N	\N	\N	\N	\N	cliff-falls
+997	Climbing Wall Falls	\N	741	f	Roadside	\N	4	2	1	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	climbing-wall-falls
+338	Cody Falls	\N	144	f	0.75	E	7	8	8	\N	\N	\N	waterfall	Medium	\N	Federal	\N	\N	\N	\N	\N	\N	cody-falls
+547	Cold Creek Falls	\N	\N	f	0.60 (out and back)	\N	2	3	8	\N	\N	\N	waterfall	Moderate+	25	\N	\N	\N	\N	\N	\N	\N	cold-creek-falls
+1200	Coley Creek Falls	\N	932	f	6.6 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate (unless you go to Splash Dam too)	\N	\N	\N	\N	\N	\N	\N	\N	coley-creek-falls
+1123	Confluence Falls (SC)	\N	867	f	6.2	\N	1	1	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	confluence-falls-sc
+675	Confusion Falls	\N	429	f	3.1	\N	8	8	5	\N	\N	\N	waterfall	Moderate+	12	\N	\N	\N	\N	\N	\N	\N	confusion-falls
+462	Connestee Falls	\N	244	f	Approx 1.4 mile each way	\N	9	9	8	\N	\N	\N	waterfall	Easy/Moderate	\N	\N	\N	\N	\N	\N	\N	\N	connestee-falls
+1014	Coon Hollow Falls	\N	758	f	2	\N	3	1	8	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	coon-hollow-falls
+407	Courthouse Falls	\N	117	f	0.70	E	9	8	8	\N	224	69	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	courthouse-falls
+313	Cove Creek Falls	\N	104	f	2.72	E	8	9	8	\N	173	52	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N	cove-creek-falls
+1201	Cover Falls (Private)	\N	\N	f	1	\N	3	2	4	\N	\N	\N	waterfall	Moderate+ (thick and steep)	\N	\N	\N	\N	\N	\N	\N	\N	cover-falls-private
+999	Coyote Falls	\N	743	f	1	\N	8	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	coyote-falls
+419	Crab Orchard Falls	\N	201	f	1.4	\N	3	2	3	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N	crab-orchard-falls
+396	Crabtree Falls	\N	141	f	2.3 (out and back)	E	8	7	5	\N	22	\N	waterfall	Moderate	70	Federal	\N	\N	\N	\N	\N	\N	crabtree-falls
+595	Cradle Falls	\N	354	f	1.4 mile (out and back)	\N	5	3	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	cradle-falls
+1195	Crevasse Falls Amos Creek (My name)	\N	927	f	3.4 (ending up being a loop)	\N	6	3	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	crevasse-falls-amos-creek-my-name
+1000	Crevasse Falls (Split Rock Falls)	\N	744	f	1	\N	7	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	crevasse-falls-split-rock-falls
+550	Cullasaja Falls	\N	319	f	Roadside or 150 feet (almost straight down)	\N	8	8	3	\N	\N	\N	waterfall	Easy or Deadly	180	\N	\N	\N	\N	\N	\N	\N	cullasaja-falls
+897	Cutler Falls	\N	649	f	2.6	\N	7	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	cutler-falls
+1100	Dam Falls	\N	844	f	3.2	\N	3	3	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	dam-falls
+1215	Daniel Cove Falls	\N	946	f	4.2	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	daniel-cove-falls
+989	Dargans Cascade (Silver Steps Falls)	\N	733	f	3	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	dargans-cascade-silver-steps-falls
+824	Dark Prong Falls	\N	577	f	5.6 Miles (shuttle)	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	dark-prong-falls
+972	Deception Falls (Laurel Falls) SC	\N	718	f	4.6 Miles (loop)	\N	8	8	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	deception-falls-laurel-falls-sc
+1097	Deflection Falls (SC)	\N	841	f	0.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N	deflection-falls-sc
+979	Devil's Canyon	\N	725	f	About 2.4 miles (out and back) to see everything or 0.8	\N	8	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	devil-s-canyon
+1042	Devil's Fork Falls	\N	786	f	6	\N	5	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	devil-s-fork-falls
+880	Devil's Hole Falls	\N	632	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N	devil-s-hole-falls
+316	DEW Falls	\N	123	f	0.44	\N	8	9	8	122	\N	\N	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	dew-falls
+648	Diamond Creek Falls	\N	403	f	Roadside	\N	3	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	diamond-creek-falls
+349	Dill Falls	\N	109	f	0.60	E	8	8	7	48	217	92	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	dill-falls
+501	Discovery Falls	\N	272	f	0.9	\N	7	6	9	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	discovery-falls
+414	Dismal Falls	\N	185	f	5.6 (out and back)	\N	8	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	dismal-falls
+1153	Distillery Falls	\N	896	f	2.4 (out and back)	\N	3	2	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	distillery-falls
+1086	Divinity Falls	\N	830	f	6.5 (out and back)	\N	4	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	divinity-falls
+1177	Doghobble Falls (West Campbell Creek)	\N	910	f	5.5 (out and back)	\N	5	6	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	doghobble-falls-west-campbell-creek
+737	Dome Falls	\N	490	f	2.6	\N	5	3	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	dome-falls
+810	Double Drop Falls	\N	563	f	3.2 (out and back)	\N	5	8	6	\N	\N	\N	waterfall	Easy+	30	\N	\N	\N	\N	\N	\N	\N	double-drop-falls
+1225	Double Spring Mountain Falls	\N	955	f	6.5	\N	6	5	8	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	double-spring-mountain-falls
+401	Douglas Falls	\N	160	f	1.10	E	7	8	6	\N	103	31	waterfall	Moderate	70	Federal	\N	\N	\N	\N	\N	\N	douglas-falls
+359	Drift Falls (Bust-Your-Butt Falls)	\N	182	f	4.2	M	5	6	6	24	\N	\N	waterfall	Moderate+	25	State	\N	\N	\N	\N	1000	\N	drift-falls-bust-your-butt-falls
+985	Drip Rock Falls	\N	731	f	Roadside	\N	2	2	\N	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	drip-rock-falls
+360	Dry Falls	\N	132	f	0.4 (out and back)	\N	8	6	2	\N	\N	\N	waterfall	Easy	65	Federal	\N	\N	\N	\N	1001	\N	dry-falls
+658	Dryland Laurel Branch Falls	\N	413	f	0.8 (out and back)	\N	4	3	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	dryland-laurel-branch-falls
+1088	Duality Falls	\N	832	f	1.75	\N	3	3	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	duality-falls
+569	Duggers Creek Falls	\N	329	f	0.3 (loop hike from visitor's center)	\N	8	7	6	\N	\N	\N	waterfall	Easy+	20	\N	\N	\N	\N	\N	\N	\N	duggers-creek-falls
+321	Eastatoe Falls	\N	116	f	0.20	M	10	9	7	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N	eastatoe-falls
+748	Eastern Stream Falls	\N	501	f	2	\N	2	1	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	eastern-stream-falls
+314	Elk River Falls	\N	167	f	0.2 (out and back)	E	8	9	4	\N	19	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N	elk-river-falls
+716	Elmos Falls	\N	469	f	About 2.4 miles (out and back)	\N	8	6	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	elmos-falls
+886	Emerald Village Falls	\N	638	f	Roadside	\N	3	3	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	emerald-village-falls
+589	Emily Falls	\N	348	f	0.8	\N	5	8	7	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	emily-falls
+980	Emily's Cascade	\N	726	f	About 2.4 miles (out and back)	\N	5	6	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	emily-s-cascade
+1149	Enchanted Falls	\N	892	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	enchanted-falls
+900	English Falls (access restricted)	\N	652	f	No access	\N	9	9	9	\N	\N	\N	waterfall	No access	\N	\N	\N	\N	\N	\N	\N	\N	english-falls-access-restricted
+358	Enloe Creek Falls	\N	179	f	6.60	M	3	6	5	\N	\N	\N	waterfall	Hard (due to elevation)	\N	\N	\N	\N	\N	\N	\N	\N	enloe-creek-falls
+561	Entrance Falls	\N	\N	f	5.5 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	55	\N	\N	\N	\N	\N	\N	\N	entrance-falls
+750	Evans Falls	\N	503	f	1.2	\N	6	9	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	evans-falls
+1114	Even Lower Greasy Cove Falls	\N	858	f	See Portage Left Falls	\N	3	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	even-lower-greasy-cove-falls
+1074	Evil Ducky Falls (SC)	\N	818	f	4.2	\N	3	3	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N	evil-ducky-falls-sc
+562	Exit Falls	\N	323	f	5.5 (shuttle hike)	\N	8	5	10	\N	\N	\N	waterfall	Hard+	28	\N	\N	\N	\N	\N	\N	\N	exit-falls
+920	Factory Branch Falls	\N	666	f	Roadside	\N	4	1	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	factory-branch-falls
+757	Fall Creek Falls	\N	510	f	3.4	\N	10	9	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	fall-creek-falls
+933	Fall Creek Falls (Hanging Rock)	\N	679	f	0.5	\N	5	7	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	fall-creek-falls-hanging-rock
+1105	Falling Water Branch Falls	\N	849	f	1.4	\N	5	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	falling-water-branch-falls
+599	Falls Creek Falls	\N	358	f	2.5	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	50	\N	\N	\N	\N	\N	\N	\N	falls-creek-falls
+533	Falls on Billy Branch	\N	304	f	0.9 (out and back)	\N	8	8	9	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	falls-on-billy-branch
+725	Falls on Blacksnake Branch	\N	478	f	0	\N	3	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	falls-on-blacksnake-branch
+681	Falls on Cullowhee Creek	\N	435	f	Roadside	\N	\N	\N	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	falls-on-cullowhee-creek
+527	Falls on Double Branch	\N	298	f	1.0 (out and back)	\N	6	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	falls-on-double-branch
+726	Falls on Grassy Branch	\N	479	f	0	\N	3	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	falls-on-grassy-branch
+932	Falls on Horse Cove Branch tributary	\N	678	f	Roadside (long distance view)	\N	1	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	falls-on-horse-cove-branch-tributary
+680	Falls on Wolf Creek	\N	434	f	Roadside	\N	3	3	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	falls-on-wolf-creek
+470	Falls Park on the Reedy	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	falls-park-on-the-reedy
+763	Falls Upstream from Whiteoak Falls	\N	516	f	Roadside	\N	4	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	falls-upstream-from-whiteoak-falls
+1051	Fawn Branch Falls	\N	795	f	8	\N	4	4	8	\N	\N	\N	waterfall	Hard	30	\N	\N	\N	\N	\N	\N	\N	fawn-branch-falls
+691	Firewater Falls	\N	444	f	2	\N	3	2	3	\N	\N	\N	waterfall	Moderate	14	\N	\N	\N	\N	\N	\N	\N	firewater-falls
+890	First Falls	\N	642	f	1.2 (out and back from the top)	\N	8	5	7	\N	\N	\N	waterfall	Moderate	35	\N	\N	\N	\N	\N	\N	\N	first-falls
+906	Fisher Falls	\N	658	f	2.2 (out and back)	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	fisher-falls
+392	Flat Creek Falls	\N	128	f	6.4 (out and back)	\N	10	6	10	\N	\N	\N	waterfall	Difficult	\N	Federal	\N	\N	\N	\N	\N	\N	flat-creek-falls
+1150	Forgotten Cove Falls	\N	893	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	forgotten-cove-falls
+514	Fourth Falls on Tributary of Wildcat Branch	\N	285	f	0.76	\N	5	4	6	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N	fourth-falls-on-tributary-of-wildcat-branch
+719	Fowler Creek Falls	\N	472	f	5.4	\N	7	6	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	fowler-creek-falls
+596	FR225 Falls	\N	355	f	0.4 (out and back)	\N	3	3	6	\N	\N	\N	waterfall	Easy+	25	\N	\N	\N	\N	\N	\N	\N	fr225-falls
+1117	FR89 Falls	\N	861	f	5.5	\N	1	\N	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	fr89-falls
+480	French Broad Falls	\N	254	f	0.25	\N	7	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	french-broad-falls
+647	Frozen Creek Shoals	\N	402	f	Roadside (lousy view)	\N	2	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	frozen-creek-shoals
+451	Fryingpan Mountain	\N	233	f	1.4	\N	\N	\N	\N	\N	\N	\N	tower	\N	70	\N	\N	\N	\N	5340	\N	\N	fryingpan-mountain
+696	Fungi Falls	\N	449	f	0.5 (out and back)	\N	7	4	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	fungi-falls
+652	Gage Creek Falls	\N	407	f	1.0 Miles (out and back)	\N	8	9	10	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	gage-creek-falls
+1066	Gamelands Falls	\N	810	f	3.0	\N	8	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	gamelands-falls
+682	Gemini Falls	\N	436	f	2	\N	7	4	8	\N	\N	\N	waterfall	Difficult+	80	\N	\N	\N	\N	\N	\N	\N	gemini-falls
+723	(Gimmie) Three Steps Falls	\N	476	f	0.2	\N	7	7	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	gimmie-three-steps-falls
+905	Gina Falls	\N	657	f	4.4 (out and back)	\N	5	4	6	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	gina-falls
+572	Glassmine Falls	\N	331	f	Roadside	\N	1	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	glassmine-falls
+420	Glen Burney Falls	\N	202	f	2.2 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N	glen-burney-falls
+636	Glencannon Falls	\N	391	f	Roadside view - distant	\N	6	5	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	glencannon-falls
+331	Glen Falls	\N	154	f	1.4 (out and back) all 4 falls	\N	7	8	7	261	\N	\N	waterfall	Moderate	15	Federal	\N	\N	\N	\N	999	\N	glen-falls
+604	Glen Falls Downstream	\N	363	f	1.4 (out and back) All 4 falls	\N	6	8	8	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N	glen-falls-downstream
+766	Glen Marie Falls	\N	519	f	2.2 (out and back)	\N	6	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	glen-marie-falls
+872	GPS Falls	\N	624	f	7.1 Miles (shuttle)	\N	7	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	gps-falls
+787	Gragg Prong Falls	\N	540	f	3.2	\N	6	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	gragg-prong-falls
+1143	Grandiose Falls	\N	887	f	0.8 (out and back)	\N	7	5	3	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	grandiose-falls
+554	Grandmas Kitchen Falls	\N	\N	f	3.0 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	30	\N	\N	\N	\N	\N	\N	\N	grandmas-kitchen-falls
+555	Grandmas Pantry Falls	\N	\N	f	3.0 (shuttle hike)	\N	7	7	10	\N	\N	\N	waterfall	Hard+	15	\N	\N	\N	\N	\N	\N	\N	grandmas-pantry-falls
+571	Grassy Creek Falls	\N	330	f	1.6 (out and back)	\N	5	8	7	\N	\N	\N	waterfall	Moderate+	25	\N	\N	\N	\N	\N	\N	\N	grassy-creek-falls-2
+718	Grassy Creek Falls	\N	471	f	0.1	\N	5	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	grassy-creek-falls-3
+1227	Grassy Ridge Branch Falls	\N	957	f	4.8	\N	1	1	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	grassy-ridge-branch-falls
+799	Green Mountain Falls	\N	552	f	Roadside	\N	5	6	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	green-mountain-falls
+1116	Green Party Falls	\N	860	f	5.5	\N	6	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	green-party-falls
+1065	Green Wall Falls (unofficial name)	\N	809	f	3.0	\N	5	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	green-wall-falls-unofficial-name
+383	Grogan Creek Falls	\N	115	f	5.20	M	10	9	9	\N	172	50	waterfall	Moderate	20	Federal	\N	\N	\N	\N	\N	\N	grogan-creek-falls
+390	Grotto Falls	\N	196	f	6	M	5	5	2	1014	50	\N	waterfall	\N	\N	GSMNP	\N	\N	\N	\N	\N	\N	grotto-falls
+841	Gunter Fork Falls	\N	594	f	16.8	\N	3	2	4	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	gunter-fork-falls
+525	Halfway Falls	\N	296	f	2.8	\N	9	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	halfway-falls
+1161	Hal's Falls	\N	904	f	0.1 (out and back)	\N	5	4	5	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	hal-s-falls
+975	Hamlin Falls	\N	721	f	5.0 Miles (loop)	\N	7	7	3	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	hamlin-falls
+935	Handpole Branch Falls	\N	681	f	2.4	\N	4	5	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	handpole-branch-falls
+367	Harper Creek Falls	\N	176	f	3.00	M	7	5	3	\N	16	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	harper-creek-falls
+925	Hazel Creek Cascades	\N	671	f	16.5 (out and back)	\N	4	3	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hazel-creek-cascades
+376	Hebron Colony Falls	\N	166	f	3.2 (out and back)	M	7	2	1	\N	136	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	hebron-colony-falls
+867	Hentail Falls	\N	619	f	3	\N	6	8	10	\N	\N	\N	waterfall	Difficult+	15	\N	\N	\N	\N	\N	\N	\N	hentail-falls
+1226	Henwallow Falls	\N	956	f	4.4	\N	5	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	henwallow-falls
+532	Herrin Knob Falls	\N	303	f	0.9 (out and back)	\N	8	8	9	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	herrin-knob-falls
+422	Hickory Branch Falls	\N	204	f	1.2 (out and back)	\N	6	4	8	\N	\N	\N	waterfall	Medium	30	Federal	\N	\N	\N	\N	\N	\N	hickory-branch-falls
+343	Hickory Nut Falls	\N	119	f	2.00	E	8	7	5	\N	33	\N	waterfall	Easy+	351	State	\N	\N	\N	\N	\N	\N	hickory-nut-falls
+811	Hidden Dome Falls	\N	564	f	5.4 (out and back)	\N	4	1	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hidden-dome-falls
+492	Hidden Falls	\N	265	f	1.2	\N	9	7	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	hidden-falls
+714	Hidden Falls	\N	467	f	Less than 1.4 (out and back)	\N	6	3	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	hidden-falls-2
+740	High Falls (Beech Creek)	\N	493	f	5.2	\N	9	8	8	\N	\N	\N	waterfall	Difficult (due to creek crossings and elevation gain)	\N	\N	\N	\N	\N	\N	\N	\N	high-falls-beech-creek
+362	High Falls- Thompson River	\N	131	f	3.0 (out and back)	M	6	6	5	\N	276	251	waterfall	Moderate	55	Federal	\N	\N	\N	\N	\N	\N	high-falls-thompson-river
+729	Highlands Falls	\N	482	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	highlands-falls
+363	High Shoals Falls	\N	162	f	2.00	E	7	6	3	\N	24	\N	waterfall	Moderate	55	State	\N	\N	\N	\N	\N	\N	high-shoals-falls
+1231	Hitchin Post Falls	\N	960	f	5	\N	4	3	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	hitchin-post-falls
+760	Hole in the Rock Falls	\N	513	f	6.0 (out and back)	\N	6	5	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hole-in-the-rock-falls
+1004	Homer Falls (SC)	\N	748	f	1.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep scramble)	35	\N	\N	\N	\N	\N	\N	\N	homer-falls-sc
+1019	Homestead Falls	\N	763	f	3.9 (loop)	\N	8	7	8	\N	\N	\N	waterfall	Moderate+	25	\N	\N	\N	\N	\N	\N	\N	homestead-falls
+817	Hooper Falls	\N	570	f	6.25	\N	5	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hooper-falls
+1115	Hornet Falls	\N	859	f	5.5	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hornet-falls
+734	Horseshoe Falls	\N	487	f	2.8	\N	8	8	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	horseshoe-falls
+1049	Horseshoe Falls (SC)	\N	793	f	0.8	\N	3	3	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	horseshoe-falls-sc
+917	Horse Trail Falls	\N	663	f	3.0 (Lollipop Loop)	\N	2	1	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	horse-trail-falls
+961	Hugh Heffner Falls	\N	707	f	7.4 (out and back) or 8.3 (thru-hike)	\N	5	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	hugh-heffner-falls
+387	Hunt Fish Falls	\N	173	f	1.8 (out and back)	E	7	6	5	\N	57	12	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	hunt-fish-falls
+783	Hunt Fish Sidekick Falls	\N	536	f	1.8 (out and back)	\N	5	4	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	hunt-fish-sidekick-falls
+919	Hurricane Creek Falls	\N	665	f	3.0 (Lollipop Loop)	\N	3	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hurricane-creek-falls
+717	Hurricane Falls	\N	470	f	Roadside	\N	4	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	hurricane-falls
+1229	Huskey Branch Falls	\N	959	f	4.2	\N	4	4	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	huskey-branch-falls
+914	Indian Branch Falls	\N	660	f	8.7	\N	6	8	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	indian-branch-falls
+1107	Indian Camp Branch Falls (Gorges)	\N	851	f	5.0	\N	4	3	7	\N	\N	\N	waterfall	Hard (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	indian-camp-branch-falls-gorges
+923	Indian Camp Creek Falls	\N	669	f	2.2 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	indian-camp-creek-falls
+352	Indian Creek Falls	\N	113	f	3.20	M	6	6	9	\N	401	105	waterfall	Easy+	25	GSMNP	\N	\N	\N	\N	\N	\N	indian-creek-falls
+704	Indian Creek Falls	\N	457	f	3.2	\N	6	6	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	indian-creek-falls-2
+1203	Inside Passage Falls	\N	934	f	1.3	\N	6	7	8	\N	\N	\N	waterfall	Hard+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N	inside-passage-falls
+1046	Insurrection Falls	\N	790	f	6	\N	5	4	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	insurrection-falls
+871	Ivestor Ridge Falls	\N	623	f	7.1 Miles (shuttle)	\N	10	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	ivestor-ridge-falls
+702	Jack's Cove Falls	\N	455	f	1.8	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	jack-s-cove-falls
+610	Jagged Rock Falls	\N	369	f	Roadside	\N	4	5	2	\N	\N	\N	waterfall	Roadside (taking a good picture - dangerous)	\N	\N	\N	\N	\N	\N	\N	\N	jagged-rock-falls
+960	Jane Cantrell Falls	\N	706	f	6.8	\N	7	5	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	jane-cantrell-falls
+858	J. Johnson Falls	\N	610	f	Roadside	\N	2	2	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	j-johnson-falls
+1199	Joe Pack Falls	\N	931	f	1.8 (out and back)	\N	6	5	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	joe-pack-falls
+808	John Neal Falls	\N	561	f	4.0 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	john-neal-falls
+893	Johnnies Creek Falls	\N	645	f	5.2	\N	8	7	10	\N	\N	\N	waterfall	Hard+	50	\N	\N	\N	\N	\N	\N	\N	johnnies-creek-falls
+346	John's Jump Falls	\N	122	f	0.20	\N	8	7	8	118	\N	\N	waterfall	Average	\N	\N	\N	\N	\N	\N	\N	\N	john-s-jump-falls
+1111	Jonas Creek Falls	\N	855	f	14.2	\N	4	3	1	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	jonas-creek-falls
+598	Jones Gap Falls	\N	357	f	3.6	\N	5	8	5	\N	\N	\N	waterfall	Moderate	45	\N	\N	\N	\N	\N	\N	\N	jones-gap-falls
+1178	Jootum Falls	\N	911	f	5.5 (out and back)	\N	5	6	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	jootum-falls
+483	Juney Whank Falls	\N	257	f	2.5	\N	6	4	5	\N	\N	\N	waterfall	Easy+	80	\N	\N	\N	\N	\N	\N	\N	juney-whank-falls
+1145	Just Like New Falls	\N	\N	f	3.2	\N	6	5	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	just-like-new-falls
+957	Justus Cove Falls	\N	703	f	0.4 mile (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	justus-cove-falls
+634	Kalakaleskies Falls	\N	389	f	Roadside Scramble	\N	7	7	3	\N	\N	\N	waterfall	Sketchy	\N	\N	\N	\N	\N	\N	\N	\N	kalakaleskies-falls
+730	Katies Falls	\N	483	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	katies-falls
+580	Key Falls	\N	339	f	0.2	\N	5	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	key-falls
+574	Kiesee Falls	\N	333	f	1.3	\N	8	9	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	kiesee-falls
+375	King's Creek Falls	\N	195	f		E	4	3	10	359	\N	\N	waterfall	Moderate	75	Federal	\N	\N	\N	\N	\N	\N	king-s-creek-falls
+688	Kings Creek Falls	\N	441	f	6.6	\N	4	3	10	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	kings-creek-falls
+1082	Kinney Branch Falls	\N	826	f	6.5 (out and back)	\N	5	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	kinney-branch-falls
+926	Kuykendall Falls	\N	672	f	9.6 (out and back)	\N	8	5	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	kuykendall-falls
+711	Laceration Falls	\N	464	f	Less than 0.5 (out and back)	\N	4	3	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	laceration-falls
+633	Lake Sequoyah Dam Falls	\N	388	f	Roadside Scramble	\N	5	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	lake-sequoyah-dam-falls
+939	Land Bridge Falls	\N	685	f	11.8	\N	7	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	land-bridge-falls
+910	Lanier Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	lanier-falls
+1012	Lanning Branch Falls	\N	756	f	5	\N	4	4	8	\N	\N	\N	waterfall	Difficult	30	\N	\N	\N	\N	\N	\N	\N	lanning-branch-falls
+1196	Last Falls Amos Creek (My name)	\N	928	f	3.4 (ending up being a loop)	\N	6	4	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	last-falls-amos-creek-my-name
+615	Last Falls on Slickum	\N	371	f	0.1 (out and back)	\N	5	7	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	last-falls-on-slickum
+954	Laughing Falls	\N	700	f	0.75	\N	7	7	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	laughing-falls
+773	Laurel Falls	\N	526	f	0.25 (out and back)	\N	6	6	3	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	laurel-falls
+1232	Laurel Falls	\N	961	f	2.5	\N	5	4	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	laurel-falls-2
+949	Laurel Falls (Corbin Creek)	\N	695	f	2.2 Miles (out and back)	\N	5	5	5	\N	\N	\N	waterfall	Moderate	300	\N	\N	\N	\N	\N	\N	\N	laurel-falls-corbin-creek
+683	Laurel Fork Falls	\N	437	f	1.1	\N	7	9	9	\N	\N	\N	waterfall	Difficult+	55	\N	\N	\N	\N	\N	\N	\N	laurel-fork-falls
+878	Laurel Fork Falls (Lake Jocasse)	\N	630	f	NA	\N	6	5	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N	laurel-fork-falls-lake-jocasse
+953	Laurel Leap Falls	\N	699	f	4.8	\N	8	5	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	laurel-leap-falls
+986	Lauren Falls	\N	732	f	2.0 (out and back)	\N	9	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lauren-falls
+1013	Laurie's Falls	\N	757	f	2	\N	4	4	5	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	laurie-s-falls
+743	Leatherwood Falls	\N	496	f	Roadside (or creek wade)	\N	5	5	1	\N	\N	\N	waterfall	Roadside+	\N	\N	\N	\N	\N	\N	\N	\N	leatherwood-falls
+934	Ledbetter Canyon Falls	\N	680	f	1.3	\N	7	7	8	\N	\N	\N	waterfall	Hard+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N	ledbetter-canyon-falls
+336	Lee Falls	\N	149	f	2.90	E	7	8	7	248	\N	\N	waterfall	Easy	100	Federal	\N	\N	\N	\N	\N	\N	lee-falls
+531	Lemon Falls	\N	302	f	Scramble down from road	\N	7	8	6	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	lemon-falls
+844	Lichen Falls	\N	597	f	4.0 - 6.0 miles (out and back depending on route)	\N	8	7	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	lichen-falls
+837	Licklog Branch Falls	\N	590	f	1.7	\N	5	3	5	\N	\N	\N	waterfall	Moderate+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N	licklog-branch-falls
+535	Licklog Falls	\N	306	f	1.2 (out and back)	\N	5	5	6	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	1011	\N	licklog-falls
+423	Little Bearwallow Falls	\N	205	f	2.2 (out and back)	\N	5	4	3	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N	little-bearwallow-falls
+489	Little Bird Falls	\N	262	f	0.5 (out and back)	\N	8	7	9	\N	\N	\N	waterfall	Easy+	30	\N	\N	\N	\N	\N	\N	\N	little-bird-falls
+410	Little Bradley Falls	\N	130	f	1.94	E	8	8	6	\N	\N	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N	little-bradley-falls
+592	Little Brasstown Falls	\N	351	f	0.4	\N	1	1	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	little-brasstown-falls
+1089	Little Bully Falls	\N	833	f	1.75	\N	5	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	little-bully-falls
+847	Little Canyon Falls	\N	599	f	5.5 (shuttle hike)	\N	10	5	10	\N	\N	\N	waterfall	Hard+	8	\N	\N	\N	\N	\N	\N	\N	little-canyon-falls
+860	Little Creek Falls	\N	612	f	2.8	\N	6	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	little-creek-falls
+709	Little Creek Falls (Highlands)	\N	462	f	0.9	\N	5	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	little-creek-falls-highlands
+373	Little Fall Branch Falls	\N	178	f	0.30	E	3	4	5	\N	381	111	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	little-fall-branch-falls
+1157	Little Ledge Falls (Dryland Laurel Branch)	\N	900	f	1.0 (one way)	\N	6	5	9	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N	little-ledge-falls-dryland-laurel-branch
+356	Little Lost Cove Falls	\N	171	f	1.5 (out and back)	M	5	6	7	\N	138	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	little-lost-cove-falls
+1025	Little Miuka Falls	\N	769	f	4	\N	3	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	little-miuka-falls
+505	Little Moore Cove Falls	\N	276	f	1.2	\N	5	5	6	\N	\N	\N	waterfall	Easy+	40	\N	\N	\N	\N	\N	1009	\N	little-moore-cove-falls
+891	Little River Falls	\N	643	f	3.5 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate+	50	\N	\N	\N	\N	\N	\N	\N	little-river-falls
+827	Little Sam Falls	\N	580	f	0.7 mile (out and back) including Middle and Lower Wildcat	\N	6	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	little-sam-falls
+453	Little Snowball	\N	235	f	7.6	\N	\N	\N	\N	\N	\N	\N	tower	\N	21	\N	\N	\N	\N	4740	\N	\N	little-snowball
+473	Little Wildcat Falls	\N	\N	f	0.1 (out and back)	\N	6	5	3	\N	\N	\N	waterfall	Easy	16	\N	\N	\N	\N	\N	\N	\N	little-wildcat-falls
+1068	Locust Tree Lake Falls	\N	812	f	Roadside	\N	4	2	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	locust-tree-lake-falls
+385	Logging Road Falls	\N	118	f	2.00	E	5	6	7	\N	170	173	waterfall	Easy	80	Federal	\N	\N	\N	\N	\N	\N	logging-road-falls
+1057	Logjam Falls	\N	801	f	5.6	\N	2	4	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	logjam-falls
+1101	Long Branch Falls (Mills River)	\N	845	f	2.2	\N	4	5	2	\N	\N	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N	long-branch-falls-mills-river
+312	Long Creek Falls	\N	158	f	3.0 (out and back)	E	10	10	5	\N	\N	\N	waterfall	Depends	\N	Federal	\N	\N	\N	\N	\N	\N	long-creek-falls
+378	Looking Glass Falls	\N	94	f	Roadside	E	9	9	2	\N	55	\N	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	looking-glass-falls
+1094	Louie Falls (SC)	\N	838	f	0.4	\N	7	6	7	\N	\N	\N	waterfall	Hard (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N	louie-falls-sc
+678	Lower Abbs Creek Falls	\N	432	f	Roadside	\N	\N	\N	\N	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	lower-abbs-creek-falls
+744	Lower Bald Springs Falls	\N	497	f	2.6	\N	7	8	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	lower-bald-springs-falls
+963	Lower Balsam Falls	\N	709	f	2.0 (out and back)	\N	5	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	lower-balsam-falls
+693	Lower Barnett Branch Falls	\N	446	f	3.0 (out and back)	\N	4	3	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-barnett-branch-falls
+1127	Lower Basin Creek Falls	\N	871	f	9	\N	5	6	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-basin-creek-falls
+429	Lower Bearwallow Falls	\N	211	f	3.4	\N	10	8	10	\N	\N	\N	waterfall	Moderate	35	State	\N	\N	\N	\N	\N	\N	lower-bearwallow-falls
+700	Lower Big Bald Falls	\N	453	f	1.2	\N	6	6	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-big-bald-falls
+1119	Lower Blackberry Falls	\N	863	f	5.5	\N	1	\N	7	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	lower-blackberry-falls
+1188	Lower Boomer Inn Falls	\N	920	f	3.4 (ending up being a loop)	\N	6	4	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	lower-boomer-inn-falls
+487	Lower Bubbling Springs Branch	\N	260	f	1.25 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N	lower-bubbling-springs-branch
+752	Lower Buff Falls	\N	505	f	0.6	\N	6	6	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	lower-buff-falls
+845	Lower Camp Creek Falls (Green River)	\N	598	f	5.0	\N	5	6	7	\N	\N	\N	waterfall	Hard (river crossing)	\N	\N	\N	\N	\N	\N	\N	\N	lower-camp-creek-falls-green-river
+802	Lower Cane Creek Falls	\N	555	f	4.0 (loop)	\N	5	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-cane-creek-falls
+495	Lower Cascade Falls	\N	268	f	0.8	\N	8	7	6	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	lower-cascade-falls
+570	Lower Catawba Falls	\N	\N	f	2.0 (out and back)	\N	6	5	3	\N	\N	\N	waterfall	Easy (Moderate+ to get to base)	20	\N	\N	\N	\N	\N	\N	\N	lower-catawba-falls
+735	Lower Cavern Falls	\N	488	f	6.4	\N	7	6	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	lower-cavern-falls
+721	Lower Cold Branch Falls	\N	474	f	0.2	\N	5	4	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-cold-branch-falls
+1027	Lower Crane Creek Falls	\N	771	f	0.8	\N	3	3	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	lower-crane-creek-falls
+415	Lower Dismal Falls	\N	186	f	3.0 (out and back)	\N	8	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	lower-dismal-falls
+1194	Lower Falls Amos Creek (My name)	\N	926	f	3.4 (ending up being a loop)	\N	4	4	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	lower-falls-amos-creek-my-name
+529	Lower Falls at Stone Mountain	\N	300	f	2.8.30 Miles (Out and Back)	\N	7	6	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	lower-falls-at-stone-mountain
+820	Lower Falls (Robbinsville)	\N	573	f	10.6	\N	5	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	lower-falls-robbinsville
+1214	Lower Fisher Hole Falls	\N	945	f	7.2	\N	7	8	10	\N	\N	\N	waterfall	Very Hard	\N	\N	\N	\N	\N	\N	\N	\N	lower-fisher-hole-falls
+873	Lower Greasy Cove Falls	\N	625	f	7.1 Miles (shuttle)	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	lower-greasy-cove-falls
+1255	Lower Limberpole Falls	\N	984	f	0.5 (out and back)	\N	6	3	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-limberpole-falls
+958	Lower Log Hollow Falls	\N	704	f	0.5	\N	8	8	8	\N	\N	\N	waterfall	Hard	30	\N	\N	\N	\N	\N	\N	\N	lower-log-hollow-falls
+1176	Lower Plott Hound Falls	\N	\N	f	5.0 (out and back)	\N	3	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	lower-plott-hound-falls
+1185	Lower Queen Creek Falls	\N	917	f	3.7 (out and back)	\N	5	7	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	lower-queen-creek-falls
+875	Lower Raines Mill Falls	\N	627	f	0.6	\N	2	3	5	\N	\N	\N	waterfall	Moderate (some cascade climbing)	\N	\N	\N	\N	\N	\N	\N	\N	lower-raines-mill-falls
+1043	Lower Resurrection Falls	\N	787	f	6	\N	5	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	lower-resurrection-falls
+416	Lower Rhapsodie Falls	\N	187	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	lower-rhapsodie-falls
+727	Lower Satula Falls	\N	480	f	0	\N	5	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	lower-satula-falls
+1219	Lower Sheep Cave Falls (TN)	\N	950	f	9	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	lower-sheep-cave-falls-tn
+583	Lower Slick Rock Falls	\N	342	f	0.3	\N	3	3	4	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	lower-slick-rock-falls
+800	Lower slide on Cane Creek	\N	553	f	4.0 (loop)	\N	3	6	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	lower-slide-on-cane-creek
+640	Lower Stick Falls	\N	395	f	0.6 Trail/creekwalk/wade/bushwhack	\N	5	7	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	lower-stick-falls
+713	Lower Stillhouse Falls	\N	466	f	Less than 1.4 (out and back)	\N	4	3	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	lower-stillhouse-falls
+662	Lower Thompson Ridge Falls	\N	417	f	1.60 (out and back)	\N	8	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-thompson-ridge-falls
+1135	Lower Thompson Trib Falls (Lower Christmas Falls)	\N	879	f	6.2 (out and back)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-thompson-trib-falls-lower-christmas-falls
+769	Lower Thunderhole Falls	\N	522	f	1.5 (out and back)	\N	6	8	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	lower-thunderhole-falls
+1093	Lower Trillium Valley Falls	\N	837	f	1.75	\N	6	7	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	lower-trillium-valley-falls
+857	Lower Waddle Branch Falls	\N	609	f	1.2	\N	5	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	lower-waddle-branch-falls
+626	Lower Waterfall in Cherry Cove	\N	381	f	4	\N	2	4	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-waterfall-in-cherry-cove
+623	Lower Waterfall in Upper Bennett Cove	\N	378	f	4	\N	4	2	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-waterfall-in-upper-bennett-cove
+686	Lower Waterfall on Green Creek (SC)	\N	440	f	2.0 (out and back)	\N	4	3	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	lower-waterfall-on-green-creek-sc
+1240	Lower Waterfall on Mill Creek	\N	969	f	3.5	\N	8	7	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	lower-waterfall-on-mill-creek
+1246	Lower Waterfall on Road Prong	\N	975	f	6.0 Miles (out and back)	\N	8	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-waterfall-on-road-prong
+515	Lower Whitewater Falls	\N	286	f	4.5	\N	8	8	8	\N	\N	\N	waterfall	Moderate	275	\N	\N	\N	\N	\N	1010	\N	lower-whitewater-falls
+536	Lower Wildcat Falls	\N	307	f	0.5 mile out and back	\N	6	8	7	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	lower-wildcat-falls
+967	Lower Yucca Falls	\N	713	f	3.7	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-yucca-falls
+1010	Lulu Falls	\N	754	f	8	\N	7	3	8	\N	\N	\N	waterfall	Difficult	30	\N	\N	\N	\N	\N	\N	\N	lulu-falls
+1174	Lyn Lowry Falls	\N	908	f	5.0 (out and back)	\N	5	3	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	lyn-lowry-falls
+1256	Mac’s Falls	\N	985	f	4.0 miles (loop)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N	mac-s-falls
+970	Magic School Bus Falls	\N	716	f	1.4	\N	1	1	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	magic-school-bus-falls
+1039	Mandible Falls	\N	783	f	2.1 Miles (loop)	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	mandible-falls
+543	Maple Springs Branch Falls	\N	314	f	5.40 (out and back)	\N	8	6	10	\N	\N	\N	waterfall	Moderate+	75	\N	\N	\N	\N	\N	\N	\N	maple-springs-branch-falls
+587	Marilu Bradley Falls	\N	346	f	4.5	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	marilu-bradley-falls
+751	Mashbox Falls	\N	504	f	1.2	\N	8	9	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	mashbox-falls
+983	Maxie Duke Falls	\N	729	f	3.2	\N	4	4	7	\N	\N	\N	waterfall	Moderate+	60	\N	\N	\N	\N	\N	\N	\N	maxie-duke-falls
+646	McCall Mill Shoals	\N	401	f	Roadside	\N	3	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	mccall-mill-shoals
+831	McGilliard Falls	\N	584	f	0.2	\N	6	6	4	\N	\N	\N	waterfall	Easy or Moderate	\N	\N	\N	\N	\N	\N	\N	\N	mcgilliard-falls
+1234	Meigs Creek Cascade	\N	963	f	3.8	\N	4	6	5	\N	\N	\N	waterfall	Moderate*	\N	\N	\N	\N	\N	\N	\N	\N	meigs-creek-cascade
+1242	Meigs Falls	\N	971	f	Roadside	\N	7	4	1	\N	\N	\N	waterfall	Roadside*	\N	\N	\N	\N	\N	\N	\N	\N	meigs-falls
+424	Melrose Falls	\N	206	f	1.3 (out and back)	\N	7	5	8	\N	\N	\N	waterfall	Medium (Difficult to get to the base)	\N	Conservancy	\N	\N	\N	\N	\N	\N	melrose-falls
+564	Merge Lane Falls	\N	325	f	5.5 (shuttle hike)	\N	8	5	10	\N	\N	\N	waterfall	Hard+	18	\N	\N	\N	\N	\N	\N	\N	merge-lane-falls
+482	Merry Falls	\N	256	f	Approx 0.2 (out and back)	\N	7	8	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	merry-falls
+460	Middle Batson Creek Falls	\N	242	f	Approx 0.6 mile each way	\N	7	7	8	\N	\N	\N	waterfall	Easy/Moderate	14	\N	\N	\N	\N	\N	\N	\N	middle-batson-creek-falls
+803	Middle Cane Creek Falls	\N	556	f	4.0 (loop)	\N	5	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	middle-cane-creek-falls
+530	Middle Cascade Falls	\N	301	f	0.40 Miles (Out and Back)	\N	8	8	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	middle-cascade-falls
+630	Middle Creek Falls	\N	385	f	0.5 (Rough trail and Bushwhack)	\N	7	5	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	middle-creek-falls
+509	Middle Falls at Stone Mountain	\N	280	f	2	\N	6	6	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	middle-falls-at-stone-mountain
+518	Middle Falls on Rockhouse Creek	\N	289	f	1	\N	6	4	7	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	middle-falls-on-rockhouse-creek
+348	Middle Falls- Snowbird Creek	\N	156	f	10.20	M	7	7	7	305	100	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N	middle-falls-snowbird-creek
+388	Middle Gragg Prong Falls	\N	174	f	2.7 (out and back if you skip Gragg Prong Falls)	M	7	6	5	\N	57	10	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N	middle-gragg-prong-falls
+1204	Middle John Neal Falls	\N	935	f	4.4	\N	4	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	middle-john-neal-falls
+1083	Middle Kinney Branch Falls	\N	827	f	6.5 (out and back)	\N	5	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	middle-kinney-branch-falls
+959	Middle Log Hollow Falls	\N	705	f	0.5	\N	5	6	8	\N	\N	\N	waterfall	Hard	30	\N	\N	\N	\N	\N	\N	\N	middle-log-hollow-falls
+834	Middle Prong Falls	\N	587	f	1.2	\N	9	8	8	\N	\N	\N	waterfall	Difficult (dangerous)	\N	\N	\N	\N	\N	\N	\N	\N	middle-prong-falls
+1186	Middle Queen Creek Falls	\N	918	f	3.7 (out and back)	\N	6	7	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	middle-queen-creek-falls
+969	Middle Rachel Creek Falls	\N	715	f	3.7	\N	6	5	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	middle-rachel-creek-falls
+876	Middle Raines Mill Falls	\N	628	f	0.6	\N	2	3	5	\N	\N	\N	waterfall	Moderate (some cascade climbing)	\N	\N	\N	\N	\N	\N	\N	\N	middle-raines-mill-falls
+1092	Middle Trillium Valley Falls	\N	836	f	1.75	\N	6	7	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	middle-trillium-valley-falls
+627	Middle Waterfall in Cherry Cove	\N	382	f	1.6	\N	2	1	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	middle-waterfall-in-cherry-cove
+624	Middle Waterfall In Upper Bennett Cove	\N	379	f	4	\N	4	2	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	middle-waterfall-in-upper-bennett-cove
+1245	Middle Waterfall on Road Prong	\N	974	f	6.0 Miles (out and back)	\N	8	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	middle-waterfall-on-road-prong
+513	Middle Wildcat Branch Falls	\N	284	f	Roadside	\N	6	8	5	\N	\N	\N	waterfall	Easy	10	\N	\N	\N	\N	\N	\N	\N	middle-wildcat-branch-falls
+575	Middle Wildcat Falls	\N	334	f	0.75	\N	5	4	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	middle-wildcat-falls
+839	Midnight Hole Falls	\N	592	f	3	\N	4	6	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	midnight-hole-falls
+1172	Mile High Falls	\N	906	f	5.0 (out and back)	\N	2	1	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	mile-high-falls
+1209	Mill Branch Falls (281N)	\N	940	f	2.5 (out and back)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	mill-branch-falls-281n
+879	Mill Creek Falls	\N	631	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N	mill-creek-falls
+1129	Mill Creek Falls (Table Rock Park)	\N	873	f	5.9 (out and back)	\N	6	5	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	mill-creek-falls-table-rock-park
+585	Milton Bradley Falls	\N	344	f	4	\N	7	8	8	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	milton-bradley-falls
+324	Mingo Falls	\N	112	f	0.50	E	8	8	6	\N	390	108	waterfall	Easy+	120	Cherokee	\N	\N	\N	\N	\N	\N	mingo-falls
+749	Misty Falls	\N	502	f	1.2	\N	4	3	4	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	misty-falls
+816	Mitchell Lick Falls	\N	569	f	6.25	\N	8	7	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	mitchell-lick-falls
+1024	Miuka Falls	\N	768	f	2.5	\N	6	4	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	miuka-falls
+668	Mooney Falls	\N	423	f	0.1	\N	6	6	5	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	mooney-falls
+357	Moonshine Falls	\N	161	f	2.90	M	9	6	5	\N	\N	\N	waterfall	Moderate	40	State	\N	\N	\N	\N	\N	\N	moonshine-falls
+380	Moore Cove Falls	\N	95	f	1.20	E	9	9	5	\N	164	56	waterfall	Easy	50	Federal	\N	\N	\N	\N	\N	\N	moore-cove-falls
+458	Moores Knob	\N	240	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N	moores-knob
+907	Moravian Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	moravian-falls
+1258	More Cave Falls	\N	\N	f	4.0 miles (loop)	\N	6	7	9	\N	\N	\N	waterfall	Moderate+	12	\N	\N	\N	\N	\N	\N	\N	more-cave-falls
+656	Moses Creek Falls	\N	411	f	2.7 (out and back)	\N	5	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	moses-creek-falls
+902	Mossy Chute Falls	\N	654	f	5.8 (out and back)	\N	6	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	mossy-chute-falls
+901	Mossy Ledge Falls	\N	653	f	5.8 (out and back)	\N	7	5	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	mossy-ledge-falls
+1028	Mountain Cat Falls	994	772	f	8	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	mountain-cat-falls
+830	Mount Toxaway Falls	\N	583	f	Roadside	\N	1	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	mount-toxaway-falls
+397	Mouse Creek Falls	\N	177	f	4.00	E	6	7	2	\N	113	\N	waterfall	Easy+	\N	GSMNP	\N	\N	\N	\N	\N	\N	mouse-creek-falls
+996	Mr T's Cascade	\N	740	f	2.6 (loop)	\N	5	4	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	mr-t-s-cascade
+446	Mt. Cammerer	\N	228	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N	mt-cammerer
+426	Mt Hardy Falls	\N	208	f	1.65 (out and back to overlook + bushwhack to base)	\N	5	3	7	\N	\N	\N	waterfall	Moderate	80	Federal	\N	\N	\N	\N	\N	\N	mt-hardy-falls
+454	Mt. Mitchell	\N	236	f	2.7	\N	\N	\N	\N	\N	\N	\N	tower	\N	12	\N	\N	\N	\N	6684	\N	\N	mt-mitchell
+447	Mt. Sterling	\N	229	f	5.7	\N	\N	\N	\N	\N	\N	\N	tower	\N	60	\N	\N	\N	\N	5842	\N	\N	mt-sterling
+1160	Musterground Road Falls	\N	903	f	Roadside	\N	5	4	5	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	musterground-road-falls
+758	Nantahala Falls	\N	511	f	Roadside	\N	4	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	1012	\N	nantahala-falls
+1085	Narrow Canyon Falls	\N	829	f	6.5 (out and back)	\N	4	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	narrow-canyon-falls
+560	Nasty Falls	\N	\N	f	5.5 (shuttle hike)	\N	5	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N	nasty-falls
+370	Nellie's Falls	\N	145	f	1.6 (out and back)	\N	7	5	8	\N	\N	\N	waterfall	Medium	\N	Federal	\N	\N	\N	\N	\N	\N	nellie-s-falls
+1087	Never-Ending Falls	\N	831	f	6.5 (out and back)	\N	4	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	never-ending-falls
+1146	New and Improved Falls	\N	889	f	3.2	\N	5	6	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	new-and-improved-falls
+741	New Falls	\N	494	f	3.4	\N	7	8	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	new-falls
+790	Newt Falls	\N	543	f	0.4 (out and back)	\N	7	6	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	newt-falls
+622	No-Name Cove Falls	\N	377	f	1.2 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Moderate++	\N	\N	\N	\N	\N	\N	\N	\N	no-name-cove-falls
+355	North Harper Creek Falls	\N	169	f	2.2 (out and back)	M	6	6	6	\N	14	\N	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N	north-harper-creek-falls
+883	North Shoal Creek Falls	\N	635	f	4	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	north-shoal-creek-falls
+1121	Notch Falls (SC)	\N	865	f	6.2	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	notch-falls-sc
+698	Not Lower Big Bald Falls	\N	451	f	1.6	\N	3	3	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	not-lower-big-bald-falls
+699	Not Upper Big Bald Falls	\N	452	f	1.8 (out and back)	\N	2	1	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	not-upper-big-bald-falls
+733	Oil Camp Falls	\N	486	f	1.5	\N	4	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	oil-camp-falls
+1132	Old Dam Falls	\N	876	f	0.2	\N	3	4	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	old-dam-falls
+1236	Old Flats Falls	\N	965	f	7.8	\N	6	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	old-flats-falls
+1122	OMG Falls (SC)	\N	866	f	6.2	\N	5	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	omg-falls-sc
+335	Opossum Creek Falls	\N	150	f	4.00	E	7	8	7	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	opossum-creek-falls
+904	Orange Rock Falls	\N	656	f	5.8 (out and back)	\N	5	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	orange-rock-falls
+928	Otter Falls	\N	674	f	1.2	\N	4	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	otter-falls
+1098	Overhang Falls (SC)	\N	842	f	0.3	\N	5	7	7	\N	\N	\N	waterfall	Hard (steep climb up andback down)	\N	\N	\N	\N	\N	\N	\N	\N	overhang-falls-sc
+1064	Pace Yourself Falls	\N	808	f	1.7	\N	8	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	pace-yourself-falls
+1029	Palmetto Trail Falls	994	773	f	6.8	\N	4	3	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	palmetto-trail-falls
+1171	Palmetto Trail Falls (SC)	\N	905	f	3.4(out and back)	\N	6	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	palmetto-trail-falls-sc
+889	Panthertown Creek Falls	\N	641	f	5.1	\N	5	8	6	\N	\N	\N	waterfall	Moderate+ (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	panthertown-creek-falls
+964	Patricia Falls	\N	710	f	2.0 (out and back)	\N	8	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	patricia-falls
+913	Paw Paw Falls	\N	659	f	3.2	\N	6	5	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	paw-paw-falls
+408	Pearson's Falls	\N	126	f	0.5 (out and back)	E	8	7	6	\N	\N	\N	waterfall	Easy	\N	Private	\N	\N	\N	\N	\N	\N	pearson-s-falls
+785	Phillips Branch Falls	\N	538	f	1.2 (out and back)	\N	6	7	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	phillips-branch-falls
+330	Picklesimer Rockhouse Falls	\N	153	f	1.20	\N	3	8	5	\N	\N	\N	waterfall	Moderate	45	Federal	\N	\N	\N	\N	\N	\N	picklesimer-rockhouse-falls
+544	Pigeon Branch Falls	\N	315	f	0.70 (out and back)	\N	7	6	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	pigeon-branch-falls
+534	Pigpen Falls	\N	305	f	1.2 (out and back)	\N	5	5	6	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	pigpen-falls
+676	Piney Mountain Falls	\N	430	f	0.8 (out and back) Only this falls	\N	5	6	7	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	piney-mountain-falls
+650	Pinhook Falls	\N	405	f	1	\N	6	6	8	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	pinhook-falls
+607	Pinkie Falls	\N	366	f	0.1 (out and back)	\N	6	4	5	\N	\N	\N	waterfall	Easy	15	\N	\N	\N	\N	\N	\N	\N	pinkie-falls
+747	Pinnacle Falls SC (Beech Bottom Falls)	\N	500	f	2	\N	2	1	5	\N	\N	\N	waterfall	Moderate (either route)	\N	\N	\N	\N	\N	\N	\N	\N	pinnacle-falls-sc-beech-bottom-falls
+568	Portage Left Falls	\N	328	f	5.5 (shuttle hike)	\N	7	7	10	\N	\N	\N	waterfall	Hard+	18	\N	\N	\N	\N	\N	\N	\N	portage-left-falls
+685	Pot Branch Falls	\N	439	f	0.9	\N	5	2	7	\N	\N	\N	waterfall	Moderate	25	\N	\N	\N	\N	\N	\N	\N	pot-branch-falls
+475	Pothole Cascade on Cove Creek	\N	\N	f	0.6	\N	7	6	7	\N	\N	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N	pothole-cascade-on-cove-creek
+1257	Pothole Falls	\N	986	f	4.0 miles (loop)	\N	8	7	7	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N	pothole-falls
+632	Potholes Falls	\N	387	f	Roadside Viewable or Scramble	\N	7	8	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	potholes-falls
+594	Poundingmill Branch Falls	\N	353	f	2.5 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	poundingmill-branch-falls
+649	Pounding Mill Falls	\N	404	f	Roadside	\N	3	6	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	pounding-mill-falls
+1015	Powerline Falls	\N	759	f	4	\N	6	5	8	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	powerline-falls
+1148	Prince Cove Falls	\N	891	f	1.0 (out and back)	\N	4	4	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	prince-cove-falls
+874	Pristine Falls	\N	626	f	2.1 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	30	\N	\N	\N	\N	\N	\N	\N	pristine-falls
+849	Pulliam Creek Falls	\N	601	f	3.2 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Moderate*	25	\N	\N	\N	\N	\N	\N	\N	pulliam-creek-falls
+1056	Puny Falls (waterfall on trib of Brier Creek)	\N	800	f	4.6	\N	4	3	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	puny-falls-waterfall-on-trib-of-brier-creek
+551	Quarry Falls	\N	320	f	Roadside / Rock Hop	\N	5	3	3	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	quarry-falls
+1184	Queen Creek Falls	\N	916	f	3.7 (out and back)	\N	4	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	queen-creek-falls
+764	Queens Falls	\N	517	f	Roadside (or 0.3 mile walk)	\N	8	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	queens-falls
+968	Rachel Creek Falls	\N	714	f	3.7	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	rachel-creek-falls
+1202	Radder Creek Falls	\N	933	f	Roadside	\N	4	4	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	radder-creek-falls
+329	Rainbow Falls (Camp Greenville)	\N	152	f	5.00	M	7	8	5	\N	\N	\N	waterfall	Moderate+	90	State	\N	\N	\N	\N	\N	\N	rainbow-falls-camp-greenville
+435	Rainbow Falls (GSMNP)	\N	217	f	6.4	\N	6	5	2	\N	\N	\N	waterfall	Moderate+	50	GSMNP	\N	\N	\N	\N	\N	\N	rainbow-falls-gsmnp
+393	Rainbow Falls- Horsepasture River	\N	181	f	3.2	M	10	8	8	\N	266	77	waterfall	Moderate+	125	State	\N	\N	\N	\N	\N	\N	rainbow-falls-horsepasture-river
+1069	Rainbow Falls (Private along US64)	\N	813	f	Roadside	\N	4	1	\N	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	rainbow-falls-private-along-us64
+746	Rain Forest Falls	\N	499	f	2.6	\N	8	10	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	rain-forest-falls
+851	Rainy Falls	\N	603	f	1.9	\N	7	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	rainy-falls
+315	Ramsey Cascades (GSMNP)	\N	180	f	8.60	M	8	9	2	\N	\N	\N	waterfall	Moderate	100	GSMNP	\N	\N	\N	\N	\N	\N	ramsey-cascades-gsmnp
+602	Ranger Falls	\N	361	f	2.5	\N	6	4	4	\N	\N	\N	waterfall	Moderate	30	\N	\N	\N	\N	\N	\N	\N	ranger-falls
+614	Rattlesnake Falls	\N	\N	f	Roadside	\N	3	1	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	rattlesnake-falls
+372	Raven Cliff Falls	\N	101	f	5.2 (out and back)	M	7	4	7	\N	\N	\N	waterfall	Moderate	320	State	\N	\N	\N	\N	1003	\N	raven-cliff-falls
+946	Raven Cliff Falls	\N	692	f	5.2 (out and back)	\N	7	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	raven-cliff-falls-2
+523	Raven Rock Falls	\N	294	f	1.6	\N	9	9	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	raven-rock-falls
+1263	Red Butt Falls	\N	\N	f	6.0 miles (out and back depending on route)	\N	9	9	10	\N	\N	\N	waterfall	Moderate	40	\N	\N	\N	\N	\N	\N	\N	red-butt-falls
+835	Red Rock Falls	\N	588	f	3	\N	6	7	6	\N	\N	\N	waterfall	Moderate+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N	red-rock-falls
+576	Reese Place Falls	\N	335	f	1.52	\N	6	5	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	reese-place-falls
+541	Reid Branch Falls	\N	312	f	1.90 (out and back)	\N	6	3	9	\N	\N	\N	waterfall	Moderate	18	\N	\N	\N	\N	\N	\N	\N	reid-branch-falls
+566	Relief Falls	\N	\N	f	5.5 (shuttle hike)	\N	3	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N	relief-falls
+457	Rendezvous Mountain	\N	239	f	4.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	59	\N	\N	\N	\N	2500	\N	\N	rendezvous-mountain
+1133	Renzulli Falls (Bracken Preserve)	\N	877	f	3.0 (out and back)	\N	3	4	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	renzulli-falls-bracken-preserve
+1044	Resurrection Falls	\N	788	f	6	\N	8	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	resurrection-falls
+310	Rhapsodie Falls	\N	125	f	3.2 (out and back)	\N	8	8	8	\N	\N	\N	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N	rhapsodie-falls
+539	Rich Falls	\N	310	f	7	\N	9	9	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	rich-falls
+449	Rich Mountain	\N	231	f	5.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	3670	\N	\N	rich-mountain
+1261	Riding Ford Falls	\N	987	f	6.0 miles (out and back depending on route)	\N	7	5	8	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N	riding-ford-falls
+1063	Right Angle Falls (unofficial name)	\N	807	f	1.7	\N	5	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	right-angle-falls-unofficial-name
+1222	Right Prong Ledge Creek Falls	\N	952	f	1.2	\N	7	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	right-prong-ledge-creek-falls
+1224	Right Prong South Toe River Falls	\N	954	f	1.5	\N	4	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	right-prong-south-toe-river-falls
+402	Riley Moore Falls	\N	151	f	2.00	E	6	8	3	\N	\N	\N	waterfall	Moderate	12	Federal	\N	\N	\N	\N	\N	\N	riley-moore-falls
+791	Rip Breeches Falls	\N	544	f	1.8 (out and back)	\N	3	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	rip-breeches-falls
+1007	Riverside Falls (Mills River)	\N	751	f	4	\N	2	2	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	riverside-falls-mills-river
+931	Riverview Falls (Nana Falls)	\N	677	f	Roadside	\N	4	3	3	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	riverview-falls-nana-falls
+399	Roaring Fork Falls	\N	142	f	1.3 (out and back)	E	8	8	5	\N	28	\N	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N	roaring-fork-falls
+1061	Rock Bottom Falls	\N	805	f	1.6	\N	7	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	rock-bottom-falls
+690	Rockcliff Falls	\N	443	f	1.1	\N	5	5	6	\N	\N	\N	waterfall	Moderate	18	\N	\N	\N	\N	\N	\N	\N	rockcliff-falls
+1142	Rock Jaw Falls	\N	886	f	0.8 (out and back)	\N	3	4	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	rock-jaw-falls
+1158	Rockland Laurel Falls (Dryland Laurel Branch)	\N	901	f	1.1 (one way)	\N	6	8	9	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N	rockland-laurel-falls-dryland-laurel-branch
+942	Rock Slab Falls	\N	688	f	18.53	\N	8	5	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	rock-slab-falls
+476	Rockslide on Cove Creek	\N	\N	f	1	\N	6	6	5	\N	\N	\N	waterfall	Easy	15	\N	\N	\N	\N	\N	\N	\N	rockslide-on-cove-creek
+1060	Rocky Bottom Gorge Falls	\N	804	f	1.6	\N	7	7	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	rocky-bottom-gorge-falls
+1130	Rocky Branch Falls (SC)	\N	874	f	2.1 (out and back)	\N	6	4	4	\N	\N	\N	waterfall	Moderate+ (steep/rocky trail)	\N	\N	\N	\N	\N	\N	\N	\N	rocky-branch-falls-sc
+869	Rocky Knob Falls	\N	621	f	3.2 Miles (out and back)	\N	1	1	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	rocky-knob-falls
+868	Rooster Tail Falls	\N	620	f	3.8	\N	9	8	10	\N	\N	\N	waterfall	Difficult+	50	\N	\N	\N	\N	\N	\N	\N	rooster-tail-falls
+660	Rough Butt Creek Falls	\N	415	f	2.4 (out and back)	\N	8	9	7	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	rough-butt-creek-falls
+1017	Rough Rock Falls	\N	761	f	3.6 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Moderate+	15	\N	\N	\N	\N	\N	\N	\N	rough-rock-falls
+549	Rough Run Falls	\N	318	f	3.40 (out and back)	\N	7	3	4	\N	\N	\N	waterfall	Easy	80	\N	\N	\N	\N	\N	\N	\N	rough-run-falls
+654	Roy Talyor Falls	\N	409	f	0.4 (out and back) w/creek walk	\N	7	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	roy-talyor-falls
+1254	Rudi's Falls	\N	983	f	4.9 Miles (lollipop loop)	\N	4	2	4	\N	\N	\N	waterfall	Moderate (with a 4×4 and open gates)	\N	\N	\N	\N	\N	\N	\N	\N	rudi-s-falls
+327	Rufus Morgan Falls	\N	163	f	1.00	\N	7	8	6	\N	\N	\N	waterfall	Moderate	60	Federal	\N	\N	\N	\N	\N	\N	rufus-morgan-falls
+838	Sam Branch Falls	\N	591	f	2.0 (out and back)	\N	9	7	9	\N	\N	\N	waterfall	Hard*	90	Federal	\N	\N	\N	\N	\N	\N	sam-branch-falls
+813	Sand Creek Falls	\N	566	f	3.5	\N	3	4	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	sand-creek-falls
+1062	Sandy Bottom Falls (unofficial name)	\N	806	f	1.7	\N	6	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	sandy-bottom-falls-unofficial-name
+433	Sassafras Falls- Snowbird Creek	\N	215	f	7.4	\N	7	6	7	\N	\N	\N	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N	sassafras-falls-snowbird-creek
+689	Sassafras Knob Falls	\N	442	f	5.2	\N	4	3	8	\N	\N	\N	waterfall	Moderate+	16	\N	\N	\N	\N	\N	\N	\N	sassafras-knob-falls
+918	Sassafras Ridge Falls	\N	664	f	3.0 (Lollipop Loop)	\N	4	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	sassafras-ridge-falls
+1047	Satan's Spoon Falls	\N	791	f	6	\N	3	4	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	satan-s-spoon-falls
+728	Satula Falls	\N	481	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	satula-falls
+584	Saxifrage Falls	\N	343	f	6.3	\N	7	8	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	saxifrage-falls
+552	Scadin Falls	\N	321	f	0.2 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Moderate+	30	\N	\N	\N	\N	\N	\N	\N	scadin-falls
+391	Schoolhouse Falls	\N	198	f	4.0 miles (loop)	E	9	6	5	102	\N	\N	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N	schoolhouse-falls
+368	Scotsman Falls	\N	155	f	0.2 - Scramble	\N	8	5	6	301	\N	\N	waterfall	Medium+	\N	Federal	\N	\N	\N	\N	\N	\N	scotsman-falls
+846	Scuplted Falls	\N	\N	f	5.5 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	15	\N	\N	\N	\N	\N	\N	\N	scuplted-falls
+350	Second Falls	\N	106	f	0.4 Miles (out and back)	E	8	7	5	\N	213	61	waterfall	Easy	55	Federal	\N	\N	\N	\N	\N	\N	second-falls
+951	Secret Falls (DuPont)	\N	697	f	3.6	\N	7	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	secret-falls-dupont
+332	Secret Falls (Highlands)	\N	133	f	1.60 (out and back)	\N	9	8	6	\N	\N	\N	waterfall	Moderate+	12	Federal	\N	\N	\N	\N	\N	\N	secret-falls-highlands
+1026	Secret Falls (SC)	\N	770	f	2.3	\N	6	3	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	secret-falls-sc
+823	Serpentine Falls	\N	576	f	5.6 Miles (shuttle)	\N	6	5	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	serpentine-falls
+400	Setrock Creek Falls	\N	143	f	1.1 (out and back)	E	4	5	4	\N	29	29	waterfall	Easy+	58	Federal	\N	\N	\N	\N	\N	\N	setrock-creek-falls
+908	Shacktown Falls	\N	995	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	shacktown-falls
+930	Sharpes Falls	\N	676	f	Roadside	\N	2	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	sharpes-falls
+778	Sheephead Falls	\N	531	f	4.4	\N	4	7	9	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	sheephead-falls
+1211	Shining Trail Falls	\N	942	f	4.4	\N	4	3	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	shining-trail-falls
+481	Shoal Creek Falls	\N	255	f	0.7	\N	6	5	4	\N	\N	\N	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	shoal-creek-falls
+1113	Shoal Creek Falls	\N	857	f	4	\N	4	5	7	\N	\N	\N	waterfall	Moderate+ (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	shoal-creek-falls-2
+1067	Shot Pouch Falls	\N	811	f	0.5	\N	5	6	7	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	shot-pouch-falls
+511	Shower Falls	\N	282	f	Roadside	\N	5	5	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	shower-falls
+341	Shuck Ridge Creek Falls	\N	148	f	9.00	M	7	7	6	\N	176	170	waterfall	Moderate+	12	Federal	\N	\N	\N	\N	\N	\N	shuck-ridge-creek-falls
+444	Shuckstack	\N	226	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N	shuckstack
+664	Shunkawauken Falls	\N	419	f	Roadside	\N	8	5	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	shunkawauken-falls
+855	Sidepocket Falls	\N	607	f	2.6	\N	7	8	10	\N	\N	\N	waterfall	Difficult	50	\N	\N	\N	\N	\N	\N	\N	sidepocket-falls
+981	Sid's Falls	\N	727	f	3.2	\N	8	8	5	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	sid-s-falls
+971	Sign Post Falls (GA)	\N	717	f	Roadside	\N	5	3	1	\N	\N	\N	waterfall	Roadside (don't get run over)	\N	\N	\N	\N	\N	\N	\N	\N	sign-post-falls-ga
+697	Sillers Falls	\N	450	f	0.2 (out and back)	\N	3	5	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	sillers-falls
+1048	Silver Creek Falls	\N	792	f	6	\N	6	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	silver-creek-falls
+1018	Silver Ribbon Falls	\N	762	f	1.2	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	silver-ribbon-falls
+323	Silver Run Falls	\N	96	f	0.50	\N	8	8	5	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N	silver-run-falls
+765	Silvervale Falls	\N	518	f	Roadside (out and back)	\N	5	4	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	silvervale-falls
+540	Simon's Falls	\N	311	f	7	\N	6	8	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	simon-s-falls
+339	Skinny Dip Falls	\N	102	f	1.0 Miles (out and back)	E	7	8	4	\N	208	60	waterfall	Easy+	30	\N	damaged	Severely damaged during Tropical Storm Fred, Aug 11-17 2021 (CMC WC100 form, rev. 18 Feb 2024). Reported still present, but no longer the feature it was -- worth setting expectations rather than skipping. Still listed on the Kevin Adams 500 and 100.	2021-08-11	\N	\N	\N	skinny-dip-falls
+1183	Slate Rock Creek Trib Falls	\N	915	f	9.0 (out and back)	\N	3	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	slate-rock-creek-trib-falls
+829	Sleepy Hollow Falls	\N	582	f	Roadside	\N	3	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	sleepy-hollow-falls
+892	Slick Falls	\N	644	f	1.8	\N	4	3	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	slick-falls
+464	Slickrock Falls	\N	246	f	0.1 (out and back)	\N	7	6	5	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	slickrock-falls
+641	Slick Stick Falls	\N	396	f	0.7 - Trail/creekwalk/wade/bushwhack	\N	4	2	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	slick-stick-falls
+687	Slickum Falls	\N	\N	f	0.6 of a mile (out and back)	\N	3	2	3	\N	\N	\N	waterfall	Easy	75	\N	\N	\N	\N	\N	\N	\N	slickum-falls
+463	Sliding Rock	\N	245	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	sliding-rock
+754	Sliding Waterfall near Buff Creek Road	\N	507	f	1.8	\N	5	3	2	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	sliding-waterfall-near-buff-creek-road
+317	Slippery Witch Falls	\N	124	f	.3 (out and back)	\N	8	9	9	123	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	slippery-witch-falls
+465	Small Waterfall on Rockhouse Creek	\N	\N	f	Roadside	\N	5	8	4	\N	\N	\N	waterfall	Easy	10	\N	\N	\N	\N	\N	\N	\N	small-waterfall-on-rockhouse-creek
+325	Soco Falls	\N	111	f	0.40	E	8	8	6	\N	397	109	waterfall	Easy+	35	Cherokee	\N	\N	\N	\N	998	\N	soco-falls
+992	Sols Creek Falls	\N	736	f	8.8 (four waterfalls)	\N	10	7	6	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	sols-creek-falls
+994	Son of Bradley Falls	\N	738	f	4	\N	7	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	son-of-bradley-falls
+374	South Harper Creek Falls	\N	170	f	3.9 (out and back) overlook	M	5	3	5	\N	52	15	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	south-harper-creek-falls
+695	South Laurel Fork Falls	\N	448	f	0.5 (out and back)	\N	7	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	south-laurel-fork-falls
+982	Sparkle Falls	\N	728	f	3.2	\N	5	6	7	\N	\N	\N	waterfall	Hard (creekwalk)	18	\N	\N	\N	\N	\N	\N	\N	sparkle-falls
+738	Spicoli Falls	\N	491	f	2.6	\N	6	7	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	spicoli-falls
+780	Splash Dam Falls	\N	533	f	14.2 (out and back)	\N	8	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	splash-dam-falls
+479	Split Falls on Wildcat Trail	\N	\N	f	0.6 (out and back)	\N	6	6	6	\N	\N	\N	waterfall	Easy+	12	\N	\N	\N	\N	\N	\N	\N	split-falls-on-wildcat-trail
+705	Split Rock Falls	\N	458	f	3.2	\N	7	6	9	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	split-rock-falls
+371	Spoonauger Falls	\N	134	f	0.64 (out and back)	E	7	5	6	\N	\N	\N	waterfall	Moderate	45	Federal	\N	\N	\N	\N	1002	\N	spoonauger-falls
+436	Spruce Flats Falls	\N	218	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	GSMNP	\N	\N	\N	\N	\N	\N	spruce-flats-falls
+1237	Stairstep Falls	\N	966	f	2.6	\N	6	7	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	stairstep-falls
+333	Stairway Falls	\N	97	f	2.0 Miles (out and back)	M	7	8	8	\N	270	242	waterfall	Moderate+	50	State	\N	\N	\N	\N	\N	\N	stairway-falls
+538	Standing Stone Falls	\N	309	f	7	\N	8	8	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	standing-stone-falls
+404	Station Cove Falls	\N	146	f	0.75	E	7	8	8	\N	\N	\N	waterfall	\N	\N	Federal	\N	\N	\N	\N	\N	\N	station-cove-falls
+311	Steels Creek Falls	\N	175	f	2.0 (out and back)	D	10	10	6	\N	146	\N	waterfall	Moderate+ (with a sketchy rock bit to get a good view)	\N	\N	\N	\N	\N	\N	\N	\N	steels-creek-falls
+943	Steeltrap Creek Falls	\N	689	f	18.53	\N	10	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	steeltrap-creek-falls
+941	Step Around Falls	\N	687	f	11.8	\N	4	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	step-around-falls
+801	Stepped Falls on Cane Creek	\N	554	f	4.0 (loop)	\N	3	4	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	stepped-falls-on-cane-creek
+639	Stick Falls	\N	394	f	Trail and scramble	\N	6	7	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	stick-falls
+712	Stillhouse Falls	\N	465	f	Less than 1.2 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	stillhouse-falls
+956	Stillwater Branch Falls	\N	702	f	1.0 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	stillwater-branch-falls
+657	Sugar Creek Falls	\N	412	f	0.8 (out and back)	\N	6	6	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	sugar-creek-falls
+577	Summey Cove Falls	\N	336	f	0.1	\N	4	2	2	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	summey-cove-falls
+504	Sunburst Falls	\N	275	f	0.2 (out and back)	\N	7	5	4	\N	\N	\N	waterfall	Easy+	18	\N	\N	\N	\N	\N	\N	\N	sunburst-falls
+850	Sunshine Falls (Green River)	\N	602	f	3.2 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate*	18	\N	\N	\N	\N	\N	\N	\N	sunshine-falls-green-river
+924	Sweat Heifer Cascades	\N	670	f	7.4 (out and back) or 8.3 (thru-hike)	\N	5	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	sweat-heifer-cascades
+1182	Sweat Heifer Falls	\N	\N	f	7.8 (shuttle)	\N	8	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	sweat-heifer-falls
+616	Sweet Thing on Slickum	\N	372	f	0.4 (out and back)	\N	9	9	9	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	sweet-thing-on-slickum
+556	Talus Cave Falls	\N	\N	f	3.0 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	10	\N	\N	\N	\N	\N	\N	\N	talus-cave-falls
+651	Tanasee Creek Falls	\N	406	f	0.6 Miles (out and back)	\N	6	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	tanasee-creek-falls
+798	Tanawha Falls	\N	551	f	Roadside	\N	2	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	tanawha-falls
+793	Teacup Falls	\N	546	f	3.5 (loop)	\N	4	4	3	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	teacup-falls
+884	Tellico Falls	\N	636	f	1.2	\N	7	7	9	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	tellico-falls
+784	Ten Foot Falls	\N	537	f	Roadside	\N	4	6	4	\N	\N	\N	waterfall	Roadside (but you can climb down)	\N	\N	\N	\N	\N	\N	\N	\N	ten-foot-falls
+559	Terrace Falls	\N	\N	f	3.0 (shuttle hike)	\N	8	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N	terrace-falls
+767	The Cascades (Glenlevit Falls)	\N	520	f	2.2 (out and back)	\N	5	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	the-cascades-glenlevit-falls
+611	The Cascades on Nantahala River	\N	\N	f	Roadside	\N	5	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	the-cascades-on-nantahala-river
+524	The Chute	\N	295	f	2.4	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	the-chute
+937	The Energizer (Falls)	\N	683	f	11.8	\N	6	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	the-energizer-falls
+859	The Falls	\N	611	f	Roadside	\N	6	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	the-falls
+1247	The Sinks	\N	976	f	Roadside	\N	4	4	1	\N	\N	\N	waterfall	Roadside*	\N	\N	\N	\N	\N	\N	\N	\N	the-sinks
+742	Thomas Falls	\N	495	f	3.4	\N	8	4	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	thomas-falls
+1159	Thompson Trib Falls (Keyhole Access Falls)	\N	902	f	0.2 (out and back)	\N	5	4	5	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	thompson-trib-falls-keyhole-access-falls
+786	Thorps Creek Falls	\N	539	f	1.1 (out and back)	\N	5	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	thorps-creek-falls
+1125	Thunder Falls (SC)	\N	869	f	6.2	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	thunder-falls-sc
+768	Thunderhole Falls	\N	521	f	1.0 (out and back)	\N	6	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	thunderhole-falls
+1104	Toll Road Falls (SC)	\N	848	f	6.2	\N	3	3	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	toll-road-falls-sc
+484	Tom Branch Falls	\N	258	f	2.5	\N	6	4	5	\N	\N	\N	waterfall	Easy+	80	\N	\N	\N	\N	\N	\N	\N	tom-branch-falls
+398	Tom's Creek Falls	\N	137	f	1.0 (out and back)	E	6	7	5	\N	25	\N	waterfall	Easy	60	Federal	\N	\N	\N	\N	\N	\N	tom-s-creek-falls
+366	Tom Springs (Daniel Ridge) Falls	\N	105	f	1.00	E	7	5	5	\N	174	53	waterfall	\N	\N	Federal	\N	\N	\N	\N	\N	\N	tom-springs-daniel-ridge-falls
+494	Torys Den Falls	\N	267	f	0.4	\N	5	3	8	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	torys-den-falls
+1134	Tower Falls	\N	878	f	4.0 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	tower-falls
+759	Townhouse Falls	\N	512	f	2.1 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	townhouse-falls
+468	Toxaway Falls	\N	247	f	Roadside / 0.50 miles if staying at condos (out and back)	\N	10	8	7	\N	\N	\N	waterfall	Moderate	290	\N	\N	\N	\N	\N	\N	\N	toxaway-falls
+1003	Trackside Falls (Lost Cove)	\N	747	f	10.8	\N	5	3	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	trackside-falls-lost-cove
+1259	Tranquility Falls	\N	\N	f	4.0 miles (loop)	\N	9	7	9	\N	\N	\N	waterfall	Moderate+	8	\N	\N	\N	\N	\N	\N	\N	tranquility-falls
+1189	Transylvania Falls	\N	921	f	0.4 (out and back)	\N	6	8	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	transylvania-falls
+825	Trillium Falls	\N	578	f	Roadside	\N	6	7	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	trillium-falls
+353	Triple Falls	\N	92	f	Approx 0.5 mile each way	E	7	6	3	\N	40	\N	waterfall	Average	\N	State	\N	\N	\N	\N	\N	\N	triple-falls
+1109	Tumblin' Fun Falls	\N	853	f	2.5 (out and back)	\N	7	6	8	\N	\N	\N	waterfall	Hard	50	\N	\N	\N	\N	\N	\N	\N	tumblin-fun-falls
+1260	Turbulent Falls	\N	\N	f	4.0 miles (loop)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	12	\N	\N	\N	\N	\N	\N	\N	turbulent-falls
+637	Turley Falls	\N	392	f	Roadside distant view	\N	4	1	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	turley-falls
+334	Turtleback Falls- Horsepasture River	\N	183	f	4	M	7	8	6	23	268	76	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N	turtleback-falls-horsepasture-river
+852	Turtle Falls	\N	604	f	1.9	\N	7	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	turtle-falls
+1241	Twenty Mile Cascades	\N	970	f	1.3 Miles (out and back)	\N	2	1	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	twenty-mile-cascades
+666	Twin Boulder Falls	\N	421	f	5.9	\N	9	9	8	\N	\N	\N	waterfall	Difficult	75	\N	\N	\N	\N	\N	\N	\N	twin-boulder-falls
+379	Twin Falls (Henry Branch)	\N	103	f	4.00	E	9	8	7	\N	160	58	waterfall	Moderate	80	Federal	\N	\N	\N	\N	\N	\N	twin-falls-henry-branch
+406	Twin Falls (SC)	121	992	f	1.00	M	10	9	7	\N	\N	\N	waterfall	\N	\N	Federal	\N	\N	\N	\N	1008	\N	twin-falls-sc
+1110	Twin Falls (Thompson River)	\N	854	f	Private	\N	7	6	1	\N	\N	\N	waterfall	Private	\N	\N	\N	\N	\N	\N	\N	\N	twin-falls-thompson-river
+703	Twin Falls (Toxaway River)	\N	456	f	1.6	\N	7	6	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	twin-falls-toxaway-river
+1151	Umbrella Rock Falls	\N	894	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	umbrella-rock-falls
+1207	Unexpected Falls (US178	\N	938	f	Roadside	\N	4	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	unexpected-falls-us178
+684	Unnamed Waterfall on Laurel Fork	\N	438	f	1	\N	6	9	8	\N	\N	\N	waterfall	Difficult	15	\N	\N	\N	\N	\N	\N	\N	unnamed-waterfall-on-laurel-fork
+472	Unnamed Waterfall on Looking Glass Creek #1	\N	250	f	0.1 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	unnamed-waterfall-on-looking-glass-creek-1
+502	Unnamed Waterfall on Looking Glass Creek #2	\N	273	f	0.1 (out and back)	\N	5	6	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	unnamed-waterfall-on-looking-glass-creek-2
+500	Unnamed Waterfall on Looking Glass Creek #3	\N	271	f	0.1 (out and back)	\N	7	9	4	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	unnamed-waterfall-on-looking-glass-creek-3
+1040	Unnamed Waterfall on Reedy Cove Creek	\N	784	f	1.6 Miles (loop)	\N	5	6	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	unnamed-waterfall-on-reedy-cove-creek
+1155	Upland Laurel Falls (Dryland Laurel Branch)	\N	898	f	0.5 (from TH)	\N	6	6	8	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N	upland-laurel-falls-dryland-laurel-branch
+679	Upper Abbs Creek Falls	\N	433	f	Roadside	\N	\N	\N	\N	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	upper-abbs-creek-falls
+427	Upper & Lower Bubbling Springs	\N	209	f	0.5 (out and back)	\N	6	6	6	\N	\N	\N	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N	upper-and-lower-bubbling-springs
+694	Upper Barnett Branch Falls	\N	447	f	3.0 (out and back)	\N	4	3	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-barnett-branch-falls
+1128	Upper Basin Creek Falls	\N	872	f	9	\N	4	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-basin-creek-falls
+459	Upper Batson Creek Falls	\N	241	f	Approx .3 mile each way	\N	5	5	8	\N	\N	\N	waterfall	Easy/Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-batson-creek-falls
+1001	Upper Bear Creek Falls	\N	745	f	5.4	\N	3	3	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-bear-creek-falls
+1054	Upper Beautimus Falls	\N	798	f	4.6	\N	5	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-beautimus-falls
+1197	Upper Bestos Falls	\N	929	f	1.8 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-bestos-falls
+701	Upper Big Bald Falls	\N	454	f	2.7	\N	\N	\N	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-big-bald-falls
+1016	Upper Big Bearpen Falls	\N	760	f	3.6 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Moderate+	30	\N	\N	\N	\N	\N	\N	\N	upper-big-bearpen-falls
+1118	Upper Blackberry Falls	\N	862	f	5.5	\N	1	\N	7	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	upper-blackberry-falls
+1022	Upper Blue Wall Falls	\N	766	f	2.4	\N	6	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-blue-wall-falls
+593	Upper Brasstown Falls	\N	352	f	0.5	\N	5	5	6	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	upper-brasstown-falls
+1055	Upper Brier Creek Falls	\N	799	f	4.6	\N	5	5	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-brier-creek-falls
+488	Upper Bubbling Springs Branch	\N	261	f	1.25 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	30	\N	\N	\N	\N	\N	\N	\N	upper-bubbling-springs-branch
+777	Upper Buckeye Falls	\N	530	f	4.4	\N	6	3	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	upper-buckeye-falls
+670	Upper Camp Branch Falls	\N	425	f	0.5	\N	7	8	6	\N	\N	\N	waterfall	Moderate	18	\N	\N	\N	\N	\N	\N	\N	upper-camp-branch-falls
+491	Upper Cascade Falls	\N	264	f	0.45	\N	7	6	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	upper-cascade-falls
+821	Upper Catawba Falls	\N	574	f	3.0 (out and back)	\N	9	7	6	\N	\N	\N	waterfall	Hard+	120	\N	\N	\N	\N	\N	\N	\N	upper-catawba-falls
+722	Upper Cold Branch Falls	\N	475	f	0.2	\N	7	7	5	\N	\N	\N	waterfall	Moderate +	\N	\N	\N	\N	\N	\N	\N	\N	upper-cold-branch-falls
+496	Upper Courthouse Falls	\N	269	f	1.6	\N	6	5	9	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	upper-courthouse-falls
+1099	Upper Dam Falls	\N	843	f	3.4	\N	2	4	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	upper-dam-falls
+822	Upper Dark Prong Falls	\N	575	f	5.6 Miles (shuttle)	\N	6	5	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	upper-dark-prong-falls
+503	Upper Dill Falls	\N	274	f	0.7	\N	10	10	10	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-dill-falls
+1020	Upper Discovery Falls	\N	764	f	3.9	\N	4	6	8	\N	\N	\N	waterfall	Moderate+ Bushwhack	45	\N	\N	\N	\N	\N	\N	\N	upper-discovery-falls
+1154	Upper Distillery Falls	\N	897	f	2.4 (out and back)	\N	4	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-distillery-falls
+1230	Upper Enloe Creek Falls	\N	\N	f	7.8	\N	5	3	3	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-enloe-creek-falls
+1191	Upper Falls Amos Creek (My Name)	\N	923	f	3.4 (ending up being a loop)	\N	4	4	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	upper-falls-amos-creek-my-name
+600	Upper Falls Creek Falls	\N	359	f	2.5	\N	7	8	7	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	upper-falls-creek-falls
+365	Upper Falls @ Graveyard Fields	\N	107	f	3.0 Miles (out and back)	M	6	6	6	\N	215	62	waterfall	Moderate	40	\N	\N	\N	\N	\N	\N	\N	upper-falls-graveyard-fields
+499	Upper Falls on Barnett Branch	\N	\N	f	2	\N	7	5	7	\N	\N	\N	waterfall	Easy	60	\N	\N	\N	\N	\N	\N	\N	upper-falls-on-barnett-branch
+644	Upper Falls (Snowbird Creek)	\N	399	f	14.6 w/3 deep creek wades	\N	3	4	10	\N	\N	\N	waterfall	Difficult+	\N	Federal	\N	\N	\N	\N	\N	\N	upper-falls-snowbird-creek
+1213	Upper Fisher Hole Falls	\N	944	f	7.8	\N	7	8	10	\N	\N	\N	waterfall	Very Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-fisher-hole-falls
+788	Upper Gragg Prong Falls	\N	541	f	1.6 (out and back)	\N	7	7	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-gragg-prong-falls
+870	Upper Greasy Cove Falls	\N	622	f	7.1 Miles (shuttle)	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	upper-greasy-cove-falls
+1205	Upper John Neal Falls	\N	936	f	4.4	\N	6	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-john-neal-falls
+1221	Upper Kiesee Creek	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	upper-kiesee-creek
+578	Upper Kiesee Falls	\N	337	f	1.76	\N	6	8	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	upper-kiesee-falls
+1084	Upper Kinney Branch Falls	\N	828	f	6.5 (out and back)	\N	2	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-kinney-branch-falls
+1071	Upper Laurel Fork Falls (SC)	\N	815	f	2.6	\N	7	7	7	\N	\N	\N	waterfall	Moderate+ (steep scramble)	\N	\N	\N	\N	\N	\N	\N	\N	upper-laurel-fork-falls-sc
+1141	Upper Limber Pole Falls	\N	885	f	0.6 (out and back)	\N	5	4	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-limber-pole-falls
+1008	Upper Little Creek Falls	\N	752	f	2.3	\N	7	5	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-little-creek-falls
+782	Upper Little Lost Cove Falls	\N	535	f	1.4 (out and back)	\N	7	7	6	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	upper-little-lost-cove-falls
+955	Upper Little More Cove Falls	\N	701	f	1.3	\N	8	9	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N	upper-little-more-cove-falls
+322	Upper Logging Road Falls	\N	165	f	3.00	M	7	6	8	373	\N	\N	waterfall	Moderate+	60	\N	\N	\N	\N	\N	\N	\N	upper-logging-road-falls
+418	Upper Log Hollow Falls	\N	189	f	1.4	\N	5	6	10	\N	\N	\N	waterfall	Moderate+	20	\N	\N	\N	\N	\N	\N	\N	upper-log-hollow-falls
+1011	Upper Lulu Falls	\N	755	f	8	\N	6	5	8	\N	\N	\N	waterfall	Difficult	20	\N	\N	\N	\N	\N	\N	\N	upper-lulu-falls
+1212	Upper Maple Springs Branch Falls	\N	943	f	3.2	\N	4	3	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-maple-springs-branch-falls
+629	Upper Middle Creek Falls	\N	384	f	0.4 out and back	\N	6	7	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-middle-creek-falls
+843	Upper Mingo Falls	\N	596	f	1.0 (out and back)	\N	7	6	7	\N	\N	\N	waterfall	Hard (when the trail is open)	\N	\N	\N	\N	\N	\N	\N	\N	upper-mingo-falls
+1243	Uppermost Waterfall on Road Prong	\N	972	f	6.0 Miles (out and back)	\N	5	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	uppermost-waterfall-on-road-prong
+947	Upper Mouse Creek Falls	\N	693	f	8	\N	3	2	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	upper-mouse-creek-falls
+1187	Upper Queen Creek Falls	\N	919	f	3.7 (out and back)	\N	3	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	upper-queen-creek-falls
+877	Upper Raines Mill Falls	\N	629	f	0.6	\N	4	3	5	\N	\N	\N	waterfall	Moderate (some cascade climbing)	\N	\N	\N	\N	\N	\N	\N	\N	upper-raines-mill-falls
+1108	Upper Raven Cliff Falls (SC)	\N	852	f	8.8	\N	7	5	4	\N	\N	\N	waterfall	Moderate+ or Hard+ (depends on the route)	\N	\N	\N	\N	\N	\N	\N	\N	upper-raven-cliff-falls-sc
+1147	Upper Rough Butt Falls	\N	890	f	2.5 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-rough-butt-falls
+642	Upper Scotsman Falls	\N	397	f	0.2 Steep scramble and creek crossing	\N	5	6	7	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	upper-scotsman-falls
+1218	Upper Sheep Cave Falls (TN)	\N	949	f	9.2	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-sheep-cave-falls-tn
+1112	Upper Shoal Creek Falls	\N	856	f	4	\N	6	5	7	\N	\N	\N	waterfall	Moderate+ (bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	upper-shoal-creek-falls
+471	Upper Silver Run Falls	\N	249	f	0.7	\N	8	8	9	\N	\N	\N	waterfall	Moderate+	20	\N	\N	\N	\N	\N	\N	\N	upper-silver-run-falls
+345	Upper Sols Creek Falls	\N	127	f	0.7 (out and back)	\N	10	10	10	\N	\N	\N	waterfall	Difficult	\N	Federal	\N	\N	\N	\N	\N	\N	upper-sols-creek-falls
+789	Upper Steels Creek Falls	\N	542	f	0.2 (out and back)	\N	7	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	upper-steels-creek-falls
+659	Upper Sugar Creek Falls	\N	414	f	1.4 (out and back)	\N	6	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-sugar-creek-falls
+663	Upper Thompson Ridge Falls	\N	418	f	1.75 (out and back)	\N	5	5	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	upper-thompson-ridge-falls
+1126	Upper Toll Road Falls (SC)	\N	870	f	6.2	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-toll-road-falls-sc
+1091	Upper Trillium Valley Falls	\N	835	f	1.75	\N	4	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	upper-trillium-valley-falls
+1190	Upper Twin Falls on Henry Branch (Ugly Twin trib)	\N	922	f	6.2 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-twin-falls-on-henry-branch-ugly-twin-trib
+628	Upper Waterfall in Cherry Cove	\N	383	f	1.8	\N	5	5	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-waterfall-in-cherry-cove
+625	Upper Waterfall in Upper Bennett Cove	\N	380	f	4	\N	3	2	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-waterfall-in-upper-bennett-cove
+466	Upper Waterfall on Cedar Rock Creek	\N	\N	f	1.9	\N	6	6	6	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	upper-waterfall-on-cedar-rock-creek
+1244	Upper Waterfall on Road Prong	\N	973	f	6.0 Miles (out and back)	\N	3	2	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-waterfall-on-road-prong
+516	Upper Wildcat Branch Falls	\N	287	f	1.1	\N	7	5	7	\N	\N	\N	waterfall	Average	\N	\N	\N	\N	\N	\N	\N	\N	upper-wildcat-branch-falls
+938	Upper Wintergreen Falls	\N	684	f	11.8	\N	8	7	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	upper-wintergreen-falls
+807	Upper Wolf Mountain Falls	\N	560	f	2.6 (loop)	\N	4	4	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-wolf-mountain-falls
+1131	Upper Woodfin Cascades	\N	875	f	0.1 (out and back)	\N	5	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	upper-woodfin-cascades
+965	Upper Yucca Falls	\N	711	f	3.7	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	upper-yucca-falls
+1144	Used Falls (Wateroak Creek)	\N	888	f	3.2	\N	2	2	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	used-falls-wateroak-creek
+912	Uwharrie Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	uwharrie-falls
+1050	Van Patton Shoals	\N	794	f	0.6	\N	4	3	3	\N	\N	\N	waterfall	Easy+ (river walk)	\N	\N	\N	\N	\N	\N	\N	\N	van-patton-shoals
+991	Verde Falls	\N	735	f	8.8 (four waterfalls)	\N	5	7	6	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	verde-falls
+724	Verlie Falls	\N	477	f	0	\N	2	2	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	verlie-falls
+1030	Vespa Falls	994	774	f	8	\N	5	3	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	vespa-falls
+815	Violet Falls	\N	568	f	0.4	\N	3	2	10	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	violet-falls
+1217	Virgin Falls (TN)	\N	948	f	9	\N	9	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	virgin-falls-tn
+434	Virginia Hawkins Falls	\N	216	f	3.0 Miles (out and back)	\N	8	8	6	\N	\N	\N	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	virginia-hawkins-falls
+856	Waddle Branch Falls	\N	608	f	1.2	\N	5	4	7	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	waddle-branch-falls
+671	Walker Falls	\N	426	f	Roadside	\N	7	8	4	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N	walker-falls
+797	Walker Hollow Falls	\N	550	f	Roadside	\N	5	6	4	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	walker-hollow-falls
+430	Warden Falls (Jim Burrell Falls)	\N	212	f	6.0 miles (out and back depending on route)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	35	State	\N	\N	\N	\N	\N	\N	warden-falls-jim-burrell-falls
+1052	Warrior Falls	\N	796	f	8	\N	7	6	8	\N	\N	\N	waterfall	Hard	15	\N	\N	\N	\N	\N	\N	\N	warrior-falls
+412	Wash Hollow Falls	\N	120	f	1.0 (out and back)	E	8	7	9	\N	200	66	waterfall	Moderate	45	\N	\N	\N	\N	\N	\N	\N	wash-hollow-falls
+772	Watauga Falls	\N	525	f	0.1 (out and back)	\N	2	2	3	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	watauga-falls
+1162	Waterfall #1 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-1-04-14-2022
+976	Waterfall #10 on Wattacoo Creek	\N	722	f	2.0 Miles (loop)	\N	3	4	2	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-10-on-wattacoo-creek
+1075	Waterfall #1 on Chucky Branch	\N	819	f	6.5 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-1-on-chucky-branch
+618	Waterfall #1 on Pinnacle MTN Trail	\N	373	f	0.1 (out and back)	\N	4	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-1-on-pinnacle-mtn-trail
+1032	Waterfall #1 on Wattacoo Creek	\N	776	f	2.1 Miles (loop)	\N	3	4	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-1-on-wattacoo-creek
+1163	Waterfall #2 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-2-04-14-2022
+1076	Waterfall #2 on Chucky Branch	\N	820	f	6.5 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-2-on-chucky-branch
+619	Waterfall #2 on Pinnacle MTN Trail	\N	374	f	0.4 (out and back)	\N	3	3	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-2-on-pinnacle-mtn-trail
+1033	Waterfall #2 on Wattacoo Creek	\N	777	f	2.1 Miles (loop)	\N	6	7	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-2-on-wattacoo-creek
+1164	Waterfall #3 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-3-04-14-2022
+1077	Waterfall #3 on Chucky Branch	\N	821	f	6.5 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-3-on-chucky-branch
+620	Waterfall #3 on Pinnacle MTN Trail	\N	375	f	4.4 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-3-on-pinnacle-mtn-trail
+1034	Waterfall #3 on Wattacoo Creek	\N	778	f	2.1 Miles (loop)	\N	5	4	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-3-on-wattacoo-creek
+1165	Waterfall #4 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-4-04-14-2022
+1078	Waterfall #4 on Chucky Branch	\N	822	f	6.5 (out and back)	\N	7	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-4-on-chucky-branch
+621	Waterfall #4 on Pinnacle MTN Trail	\N	376	f	4.8 (out and back)	\N	7	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-4-on-pinnacle-mtn-trail
+1035	Waterfall #4 on Wattacoo Creek	\N	779	f	2.1 Miles (loop)	\N	9	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-4-on-wattacoo-creek
+1166	Waterfall #5 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-5-04-14-2022
+1079	Waterfall #5 on Chucky Branch	\N	823	f	6.5 (out and back)	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-5-on-chucky-branch
+1036	Waterfall #5 on Wattacoo Creek	\N	780	f	2.1 Miles (loop)	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-5-on-wattacoo-creek
+1167	Waterfall #6 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-6-04-14-2022
+1080	Waterfall #6 on Chucky Branch	\N	824	f	6.5 (out and back)	\N	2	1	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-6-on-chucky-branch
+1037	Waterfall #6 on Wattacoo Creek	\N	781	f	2.1 Miles (loop)	\N	6	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-6-on-wattacoo-creek
+1168	Waterfall #7 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-7-04-14-2022
+1081	Waterfall #7 on Chucky Branch	\N	825	f	6.5 (out and back)	\N	4	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-7-on-chucky-branch
+1038	Waterfall #7 on Wattacoo Creek	\N	782	f	2.1 Miles (loop)	\N	4	7	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-7-on-wattacoo-creek
+1169	Waterfall #8 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-8-04-14-2022
+978	Waterfall #8 on Wattacoo Creek	\N	724	f	2.0 Miles (loop)	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-8-on-wattacoo-creek
+1170	Waterfall #9 (04-14-2022)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-9-04-14-2022
+977	Waterfall #9 on Wattacoo Creek	\N	723	f	2.0 Miles (loop)	\N	8	7	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-9-on-wattacoo-creek
+497	Waterfall below Red Rock Falls	\N	\N	f	1.9	\N	7	5	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-below-red-rock-falls
+674	Waterfall downstream from Moonshine Falls	\N	428	f	3	\N	6	7	5	\N	\N	\N	waterfall	Moderate	25	\N	\N	\N	\N	\N	\N	\N	waterfall-downstream-from-moonshine-falls
+776	Waterfall in Bullpen Cove	\N	529	f	Roadside	\N	4	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-in-bullpen-cove
+486	Waterfall on Avery Creek	\N	259	f	1	\N	8	8	6	\N	\N	\N	waterfall	Easy+	12	\N	\N	\N	\N	\N	\N	\N	waterfall-on-avery-creek
+478	Waterfall on Barnett Branch	\N	253	f	1	\N	6	5	6	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N	waterfall-on-barnett-branch
+477	Waterfall on Caney Bottom Loop	\N	252	f	4	\N	6	4	9	\N	\N	\N	waterfall	Difficult+	30	\N	\N	\N	\N	\N	\N	\N	waterfall-on-caney-bottom-loop
+1059	Waterfall on Chastine Creek	\N	803	f	Scramble from the road	\N	5	3	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-chastine-creek
+485	Waterfall on Clawhammer Creek	\N	\N	f	2	\N	6	2	10	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	waterfall-on-clawhammer-creek
+522	Waterfall on Cold Mountain Branch	\N	293	f	1.6	\N	8	7	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-cold-mountain-branch
+517	Waterfall on Devil's Fork Creek	\N	288	f	Roadside	\N	6	4	5	\N	\N	\N	waterfall	Average	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-devil-s-fork-creek
+665	Waterfall on East Fork of French Broad River	\N	420	f	0.1 Miles (Out and Back)	\N	6	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-east-fork-of-french-broad-river
+490	Waterfall on Flat Laurel Creek	\N	263	f	4.0 (out and back)	\N	6	5	5	\N	\N	\N	waterfall	Moderate	350	\N	\N	\N	\N	\N	\N	\N	waterfall-on-flat-laurel-creek
+840	Waterfall on Gunter Fork	\N	593	f	15.8	\N	6	8	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-gunter-fork
+708	Waterfall on Little East Fork	\N	461	f	2.5	\N	6	5	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-little-east-fork
+377	Waterfall on Log Hollow Branch	\N	190	f	0.8	E	8	9	8	11	167	174	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	waterfall-on-log-hollow-branch
+382	Waterfall on Long Branch	\N	114	f	2.00	E	6	5	8	\N	166	\N	waterfall	Easy	15	\N	\N	\N	\N	\N	\N	\N	waterfall-on-long-branch
+1002	Waterfall on Lost Cove Creek	\N	746	f	10.8	\N	4	3	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-lost-cove-creek
+732	Waterfall on Oil Camp Creek Trib	\N	485	f	1.2	\N	4	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-oil-camp-creek-trib
+809	Waterfall on Parker Creek	\N	562	f	4.0 (out and back)	\N	\N	3	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-parker-creek
+638	Waterfall on Pearson Falls Road	\N	393	f	Roadside	\N	4	3	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-pearson-falls-road
+995	Waterfall on Ramsey Prong	\N	739	f	8	\N	6	7	3	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N	waterfall-on-ramsey-prong
+520	Waterfall on Rockhouse Creek	\N	291	f	3.8	\N	5	2	6	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-rockhouse-creek
+411	Waterfall on Sam Branch	\N	108	f	0.8 (out and back)	E	8	7	7	\N	198	65	waterfall	Moderate	80	\N	\N	\N	\N	\N	\N	\N	waterfall-on-sam-branch
+608	Waterfall on Skitty Creek	\N	367	f	Roadside	\N	3	4	2	\N	\N	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N	waterfall-on-skitty-creek
+558	Waterfall on Slickens Creek	\N	\N	f	3.0 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	25	\N	\N	\N	\N	\N	\N	\N	waterfall-on-slickens-creek
+1102	Waterfall on Smith Creek (SC)	\N	846	f	Roadside	\N	4	4	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-smith-creek-sc
+1251	Waterfall on Sweet Branch	\N	980	f	Roadside	\N	3	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-sweet-branch
+1239	Waterfall on Tobes Creek	\N	968	f	0.4	\N	6	7	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-tobes-creek
+521	Waterfall on Trib #1 of Toxaway River	\N	292	f	1.6	\N	6	6	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-trib-1-of-toxaway-river
+1120	Waterfall on trib above Portage Left	\N	864	f	See Portage Left Falls	\N	3	2	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-trib-above-portage-left
+605	Waterfall on Trib of Brooks Creek	\N	364	f	Roadside	\N	4	4	3	\N	\N	\N	waterfall	Easy	20	\N	\N	\N	\N	\N	\N	\N	waterfall-on-trib-of-brooks-creek
+973	Waterfall on Trib of Laurel Creek	\N	719	f	4.6 Miles (loop)	\N	5	4	8	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-trib-of-laurel-creek
+1249	Waterfall on Trib of Middle Prong	\N	978	f	0.8	\N	6	5	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-trib-of-middle-prong
+1009	Waterfall on Trib of Shuck Ridge Creek	\N	753	f	9.8	\N	4	4	8	\N	\N	\N	waterfall	Moderate	17	\N	\N	\N	\N	\N	\N	\N	waterfall-on-trib-of-shuck-ridge-creek
+653	Waterfall on Trib of Sols Creek	\N	408	f	0.2 (out and back)	\N	3	2	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-trib-of-sols-creek
+519	Waterfall on Tributary of Rockhouse Creek	\N	290	f	1	\N	6	4	7	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-tributary-of-rockhouse-creek
+842	Waterfall on Washington Creek	\N	595	f	Roadside	\N	2	2	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-washington-creek
+474	Waterfall on West Fork of the Pigeon River	\N	251	f	0.1 (out and back)	\N	8	7	4	\N	\N	\N	waterfall	Easy	80	\N	\N	\N	\N	\N	\N	\N	waterfall-on-west-fork-of-the-pigeon-river
+635	Waterfall on Williamson Creek	\N	390	f	Roadside viewe or Scramble	\N	5	7	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-williamson-creek
+672	Waterfalls along FR74	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	waterfalls-along-fr74
+770	Waterfalls Park Falls	\N	523	f	Roadside	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	waterfalls-park-falls
+437	Wayah Bald	\N	219	f	1.8	\N	\N	\N	\N	\N	\N	\N	tower	\N	14	\N	\N	\N	\N	5342	\N	\N	wayah-bald
+987	Weibeaux Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	weibeaux-falls
+613	Wesser Falls (Worser Wesser)	\N	\N	f	0.3 (out and back)	\N	5	3	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	wesser-falls-worser-wesser
+1179	West Campbell Creek Falls	\N	912	f	5.5 (out and back)	\N	8	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	west-campbell-creek-falls
+948	West Prong Mouse Creek Falls	\N	694	f	9	\N	4	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	west-prong-mouse-creek-falls
+567	Wheelchair Accessible Falls	\N	327	f	5.5 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	12	\N	\N	\N	\N	\N	\N	\N	wheelchair-accessible-falls
+573	Whiteoak Creek Falls	\N	332	f	0.2 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Medium	35	\N	\N	\N	\N	\N	\N	\N	whiteoak-creek-falls
+609	Whiteoak Falls	\N	368	f	0.1 (out and back)	\N	6	8	5	\N	\N	\N	waterfall	Easy (Getting to a good picture vantage - Hard)	\N	\N	\N	\N	\N	\N	\N	\N	whiteoak-falls
+755	Whiteoak Flats Falls	\N	508	f	1.8	\N	5	5	8	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	whiteoak-flats-falls
+318	White Owl Falls	\N	100	f	0.6 Miles (out and back)	E	9	9	8	26	284	78	waterfall	Easy	16	Federal	\N	\N	\N	\N	\N	\N	white-owl-falls
+394	Whitewater Falls	\N	99	f	0.5 Miles (out and back)	E	9	9	6	\N	289	80	waterfall	Easy	345	State	\N	\N	\N	\N	1006	\N	whitewater-falls
+528	Widow's Creek Falls	\N	299	f	0.30 Miles (Out and Back)	\N	8	8	6	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	widow-s-creek-falls
+428	Wildcat Falls (Flat Laurel Creek)	\N	210	f	1.5 (out and back)	\N	8	7	7	\N	\N	\N	waterfall	Easy+	60	\N	\N	\N	\N	\N	\N	\N	wildcat-falls-flat-laurel-creek
+819	Wildcat Falls (Robbinsville)	\N	572	f	10.6	\N	5	8	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	wildcat-falls-robbinsville
+467	Wildcat Wayside (Wildcat Branch Falls)	\N	\N	f	Roadside	\N	8	8	4	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	wildcat-wayside-wildcat-branch-falls
+1264	Wilderness Falls	\N	989	f	3.2 miles (loop)	\N	6	4	8	\N	\N	\N	waterfall	Moderate	70	\N	\N	\N	\N	\N	\N	\N	wilderness-falls
+493	Window Falls	\N	266	f	1.2	\N	9	7	2	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	window-falls
+342	Wintergreen Falls (Dupont)	\N	200	f	10	D	7	7	10	645	227	\N	waterfall	Hard+	\N	State	\N	\N	\N	\N	\N	\N	wintergreen-falls-dupont
+506	Wintergreen Falls (DuPont)	\N	277	f	2.95	\N	9	8	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	wintergreen-falls-dupont-2
+319	Wolf Creek Falls	\N	157	f	0.4 (out and back)	D	9	9	4	\N	\N	\N	waterfall	Difficult+	\N	Federal	\N	\N	\N	\N	\N	\N	wolf-creek-falls
+814	Wolf Laurel Falls	\N	567	f	3.5	\N	8	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	wolf-laurel-falls
+806	Wolf Mountain Falls	\N	559	f	2.6 (loop)	\N	8	8	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	wolf-mountain-falls
+866	Wolverine Falls	\N	618	f	3.2	\N	7	8	10	\N	\N	\N	waterfall	Difficult+	25	\N	\N	\N	\N	\N	\N	\N	wolverine-falls
+828	Woodfin Cascades	\N	581	f	Roadside	\N	3	1	2	\N	\N	\N	waterfall	Roadside (long range view)	\N	\N	\N	\N	\N	\N	\N	\N	woodfin-cascades
+1156	Woodland Laurel Falls (Dryland Laurel Branch)	\N	899	f	0.9 (one way)	\N	3	2	8	\N	\N	\N	waterfall	Moderate Bushwhack	\N	\N	\N	\N	\N	\N	\N	\N	woodland-laurel-falls-dryland-laurel-branch
+795	Woodruff Branch Falls	\N	548	f	Roadside	\N	5	6	4	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	woodruff-branch-falls
+546	Woods Cove Falls	\N	\N	f	0.3 (out and back)	\N	6	6	6	\N	\N	\N	waterfall	Easy (finding the parking area will be hard)	40	\N	\N	\N	\N	\N	\N	\N	woods-cove-falls
+881	Wright Creek Falls	\N	633	f	NA	\N	7	4	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N	wright-creek-falls
+347	Yellow Branch Falls	\N	136	f	2.60 (out and back)	E	8	7	5	\N	\N	\N	waterfall	Moderate	35	Federal	\N	\N	\N	\N	\N	\N	yellow-branch-falls
+720	Yellow Creek Falls	\N	473	f	0.8	\N	5	7	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	yellow-creek-falls
+853	Yellow Fork Falls	\N	605	f	2.0 (out and back)	\N	7	8	6	\N	\N	\N	waterfall	Moderate*	30	\N	\N	\N	\N	\N	\N	\N	yellow-fork-falls
+443	Yellow Mountain	\N	225	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N	yellow-mountain
+805	Yellow Patch Falls	\N	558	f	1.0 (out and back)	\N	6	8	9	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	yellow-patch-falls
+512	Yellowstone Falls	\N	283	f	1.60 Miles (out and back)	\N	9	9	10	\N	\N	\N	waterfall	Hard+	125	\N	\N	\N	\N	\N	\N	\N	yellowstone-falls
+966	Yucca Falls	\N	712	f	3.7	\N	9	4	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	yucca-falls
+1180	Yurt Villiage Falls	\N	913	f	0.2 (out and back)	\N	4	3	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	yurt-villiage-falls
+792	Zigzag Falls	\N	545	f	0.25 to overlook (out and back) or 0.40 to base (out and back)	\N	5	3	8	\N	\N	\N	waterfall	Hard or Very Hard (it's up to you)	\N	\N	\N	\N	\N	\N	\N	\N	zigzag-falls
 \.
 
 
@@ -15603,5 +15603,5 @@ SELECT pg_catalog.setval('public.notes_id_seq', 20, true);
 -- PostgreSQL database dump complete
 --
 
-\unrestrict tfYLP3hhBToKA6KFZC10EGRUvCBz0GdLF31VST9UO9t5GJUJEYG8Jgy5cNsobYq
+\unrestrict ZKGAyQTN9qBpaAzbkBb2jMbzuAMMxRVQ0afzaLhqNSTa3n0ZlAS2VigYnCNDoah
 

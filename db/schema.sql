@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict uivGcPzvrUndUSsl6IvMtdz6f9h1LLwx3OkNVKv1tKSIIrkeFddOCQAZP6TU13n
+\restrict mjPfLWOOKHyjaA7SW4mXzRL9AWgWyOIkuXJlu4nB03periYF2IOLsq7Ojf25Fz3
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -37,6 +37,34 @@ CREATE FUNCTION public.petzoldt_band(d numeric) RETURNS text
 $$;
 
 
+--
+-- Name: slugify(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.slugify(name text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    SELECT trim(both '-' from
+           regexp_replace(
+           regexp_replace(
+           regexp_replace(lower(unaccent_fallback(name)),
+             '&', ' and ', 'g'),
+             '[^a-z0-9]+', '-', 'g'),
+             '-{2,}', '-', 'g'));
+$$;
+
+
+--
+-- Name: unaccent_fallback(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.unaccent_fallback(name text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    SELECT translate(name, E'’‘“”', '''''""');
+$$;
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -48,7 +76,8 @@ SET default_table_access_method = heap;
 CREATE TABLE public.areas (
     id integer NOT NULL,
     name character varying(80) NOT NULL,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    slug text NOT NULL
 );
 
 
@@ -188,6 +217,7 @@ CASE
     WHEN ((rt_hike_distance ~ '^[0-9]+(\.[0-9]+)?$'::text) AND (elevation_gain_ft IS NOT NULL)) THEN round(((rt_hike_distance)::numeric + ((elevation_gain_ft)::numeric / 500.0)), 2)
     ELSE NULL::numeric
 END) STORED,
+    slug text NOT NULL,
     CONSTRAINT features_beauty_range CHECK (((beauty_rating >= 1) AND (beauty_rating <= 10))),
     CONSTRAINT features_deprecated_note_check CHECK (((deprecated_note IS NULL) OR (deprecated_reason IS NOT NULL))),
     CONSTRAINT features_deprecated_reason_check CHECK (((deprecated_reason IS NULL) OR ((deprecated_reason)::text = ANY ((ARRAY['destroyed'::character varying, 'damaged'::character varying, 'private_property'::character varying, 'access_closed'::character varying, 'hazard'::character varying])::text[])))),
@@ -1011,6 +1041,13 @@ ALTER TABLE ONLY public.visits
 
 
 --
+-- Name: areas_slug_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX areas_slug_key ON public.areas USING btree (slug);
+
+
+--
 -- Name: claim_groups_feature_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1078,6 +1115,13 @@ CREATE INDEX feature_areas_area_idx ON public.feature_areas USING btree (area_id
 --
 
 CREATE INDEX features_deprecated_idx ON public.features USING btree (deprecated_reason) WHERE (deprecated_reason IS NOT NULL);
+
+
+--
+-- Name: features_slug_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX features_slug_key ON public.features USING btree (slug);
 
 
 --
@@ -1240,5 +1284,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict uivGcPzvrUndUSsl6IvMtdz6f9h1LLwx3OkNVKv1tKSIIrkeFddOCQAZP6TU13n
+\unrestrict mjPfLWOOKHyjaA7SW4mXzRL9AWgWyOIkuXJlu4nB03periYF2IOLsq7Ojf25Fz3
 
