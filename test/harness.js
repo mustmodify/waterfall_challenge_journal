@@ -43,8 +43,9 @@ const map = { setView(){ return map; }, removeLayer(){}, on(){}, getZoom: () => 
              y: (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n };
   } };
 
-const sandbox = { L, console, setTimeout: () => 0, clearTimeout: () => {},
-  window: { matchMedia: () => ({ matches: false, addEventListener(){} }), addEventListener(){} },
+const sandbox = { L, console, setTimeout: () => 0, clearTimeout: () => {}, URLSearchParams,
+  window: { matchMedia: () => ({ matches: false, addEventListener(){} }), addEventListener(){},
+    location: { search: '', hash: '' } },
   self: null,
   localStorage: { getItem: () => null, setItem(){} },
   getComputedStyle: () => ({ getPropertyValue: (n) => (({'--c-visited':'#5e6462','--c-azure':'#007fff','--c-tower':'#8a6a4f','--c-sel':'#16302a','--r1':'#5e1687','--r2':'#7d35a6','--r3':'#9d63c2','--r4':'#bf96da','--r5':'#e0cdee'})[n] || '#000') }),

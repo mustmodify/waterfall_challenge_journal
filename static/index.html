@@ -836,6 +836,7 @@
 
     .rating-dots i.on { background: var(--accent); }
 
+    #intro .browse { font-size: 0.9rem; }
     #drawer hr { border: none; border-top: 1px solid var(--line); margin: 16px 0; }
 
     /* Loud enough to stop someone driving two hours, quiet enough not to
@@ -1226,6 +1227,8 @@
         <p>A ring is a <strong>group</strong> of nearby places. The bigger it is,
           the more it holds &mdash; click one to zoom in and break it apart.</p>
       </div>
+      <p class="browse">Rather read a list?
+        <a href="/areas">Waterfalls by area</a>.</p>
       <p class="sendoff">I enjoy making stuff like this, but REALLY enjoy making stuff
         that gets used. Send feedback!
         <a href="mailto:jw@mustmodify.com">jw@mustmodify.com</a></p>
@@ -1518,6 +1521,7 @@
         renderAreas();
         renderDatalist();
         renderMarkers(true);
+        openLinkedPlace();
         if (state.selected) {
           const fresh = features.find((f) => f.id === state.selected.id);
           if (fresh) openDrawer(fresh, false);
@@ -2493,6 +2497,23 @@
     // The fitted centre lands in Pisgah with no waterfall within 9 km of it.
     // Asheville is where people actually start from.
     const ASHEVILLE = [35.6181014232303, -82.51233286689967];
+
+    // An area page links here as /?waterfall=<slug>. Opening the drawer is the
+    // whole point of the link: a map centred on a pin the reader cannot
+    // identify would be a worse answer than the list they came from.
+    let linkedPlaceOpened = false;
+
+    function openLinkedPlace() {
+      if (linkedPlaceOpened) return;
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('waterfall') || params.get('tower');
+      if (!slug) return;
+      const goal = state.features.find((g) => g.slug === slug);
+      if (!goal) return;
+      linkedPlaceOpened = true;
+      setIntro(false);
+      openDrawer(goal, true);
+    }
 
     function dismissIntro() {
       setIntro(false);

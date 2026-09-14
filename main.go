@@ -421,6 +421,12 @@ func main() {
 	r.HandleFunc("/me", me).Methods("GET")
 	r.HandleFunc("/config.js", clientConfig).Methods("GET")
 
+	initPages()
+	r.HandleFunc("/areas", areaIndexHandler).Methods("GET")
+	r.HandleFunc("/areas/{slug}", areaHandler).Methods("GET")
+	r.HandleFunc("/robots.txt", robotsHandler).Methods("GET")
+	r.HandleFunc("/sitemap.xml", sitemapHandler).Methods("GET")
+
 	signInLimit := newLimiter(5, 5)
 	fixLimit := newLimiter(10, 10)
 
