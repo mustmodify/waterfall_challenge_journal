@@ -1,0 +1,23 @@
+{{define "areas.html"}}<!doctype html>
+<html lang="en">
+<head>
+{{template "head" .}}
+</head>
+<body>
+{{template "chrome-top" .}}
+<main class="sheet">
+  <h1>Waterfalls by area</h1>
+  <p class="lede">{{.Total}} waterfalls and lookout towers across {{len .Areas}}
+  areas of Western North Carolina and the edges of South Carolina and Georgia.
+  The areas come from the sources rather than from drawing circles on a map,
+  which is why they are uneven, and a fall can belong to more than one.</p>
+  <ul class="area-index">
+    {{range .Areas}}
+      <li><a href="/areas/{{.Slug}}">{{.Name}}</a> <span class="count">{{.Count}}</span></li>
+    {{end}}
+  </ul>
+</main>
+{{template "chrome-bottom" .}}
+</body>
+</html>
+{{end}}
