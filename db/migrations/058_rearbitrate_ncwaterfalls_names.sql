@@ -59,8 +59,16 @@ WITH candidate AS (
            name_key(f.name) AS ours,
            name_key((SELECT c.value #>> '{}' FROM claims c
                       WHERE c.group_id = cg.id AND c.field = 'name' LIMIT 1)) AS theirs,
+           -- accepted matters here. Every alias claim in the reference data
+           -- carries accepted = false, and the last statement in this file
+           -- deliberately writes another one to record a DISPUTE: Adams calls
+           -- our Quarry Falls "Bust-Your-Butt Falls", a name we hold on Drift
+           -- Falls 27 km east. Without this filter the first statement would
+           -- read a contested name as agreement, which is the opposite of what
+           -- the last statement wrote it down to mean.
            (SELECT array_agg(name_key(c.value #>> '{}')) FROM claims c
-             WHERE c.feature_id = cg.feature_id AND c.field = 'alias') AS aliases,
+             WHERE c.feature_id = cg.feature_id AND c.field = 'alias'
+               AND c.accepted) AS aliases,
            (6371000 * acos(least(1, greatest(-1,
                 cos(radians(loc.latitude)) * cos(radians((co.value ->> 'lat')::numeric))
               * cos(radians((co.value ->> 'lon')::numeric) - radians(loc.longitude))
