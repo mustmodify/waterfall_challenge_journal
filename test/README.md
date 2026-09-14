@@ -1,5 +1,8 @@
 # Page harness
 
+This is the front-end harness only. The Go tests are separate and run with
+`go test ./...` — see *Testing* in [ARCHITECTURE.md](../ARCHITECTURE.md).
+
 `index.html` carries its logic in an inline `<script>`, so there is nothing to
 import and nothing to unit test. This runs that script for real — in Node,
 against stubbed Leaflet and DOM objects and the actual feature data — and

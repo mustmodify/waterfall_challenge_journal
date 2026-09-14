@@ -189,11 +189,42 @@ mixed group.
 
 ## Testing
 
-There is no test suite. During development the inline scripts were exercised by
-a harness that runs them in Node against stubbed Leaflet and DOM objects with
-real feature data, which catches load-order and init errors that a syntax check
-cannot. It lives outside the repo and is worth committing if this continues.
+`go test ./...`. Ten tests across five files. The ones that touch the database
+skip themselves unless `TEST_DATABASE_URL` points at a scratch schema, so a
+clean checkout with no Postgres still runs the rest:
 
-`go build ./...` fails on `script/`: three one-off importers share one directory
-as `package main`, so `main` is declared three times. Run them individually
-with `go run script/import_x.go`. `go build .` and `go vet .` are clean.
+```sh
+createdb wj_scratch && psql -q -d wj_scratch -f db/schema.sql
+TEST_DATABASE_URL="postgres:///wj_scratch?host=/var/run/postgresql&sslmode=disable" go test ./...
+```
+
+| file | what it holds | needs a database |
+|---|---|---|
+| `magiclink_test.go` | the sign-in handler gives its link to a transport, the token stays out of the HTTP response, a failed send answers 502 | yes |
+| `users_test.go` | the account list is admin-only through a real session cookie, and an issued-never-used link reads as stranded | yes |
+| `mailgun_test.go` | the Mailgun transport posts what Mailgun expects, and reports what went wrong | no |
+| `ratelimit_test.go` | the bucket bursts then refills; the envelope sender loses its display name | no |
+| `pages_test.go` | `robots.txt` keeps the private pages out and names the sitemap; area descriptions count what they hold | no |
+
+Tests that write must be re-runnable against the same database. Two of these
+were not, at first: one collided on a unique `token_hash`, the other asserted a
+count that grew by one on every run. Both passed on a fresh database, which is
+the failure mode worth knowing about — a test that only passes once is a test
+that will be deleted by whoever hits it on a Tuesday.
+
+**What these were written to close.** For a day, `mailgun_test.go` passed while
+no mail had ever been sent. It called `mailer.Send` directly and proved the
+transport worked; the sign-in handler never called it at all. Every test here
+covered a component in isolation, and none asserted that a handler reached its
+collaborator, so the bug lived in the seam between two things that were each
+fine. **Where a test stubs a collaborator, something must also assert the
+collaborator was used.**
+
+The front end has no automated coverage. `test/README.md` documents a harness
+that runs `index.html`'s inline script in Node against stubbed Leaflet and DOM
+objects with real feature data, which catches load-order and init errors a
+syntax check cannot. It needs a running server to produce its fixture and is
+not wired into `go test`.
+
+`go build ./...` is clean. It used to fail because three importers shared
+`script/` as `package main`; each now has its own directory.
