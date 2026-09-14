@@ -1569,4 +1569,88 @@ SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('1.5 mi'::text), false
   FROM claim_groups cg WHERE cg.ref = 'alltrails:10278292:431'
 ON CONFLICT DO NOTHING;
 
--- 62 groups: 47 certain, 15 recorded uncertain.
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:10582471:463', 463, 'alltrails', 'https://www.alltrails.com/trail/us/north-carolina/sliding-rock', DATE '2026-09-14', true, 'accept-note: parking fee applies outside winter; restrooms closed in winter. Also the lowest ratio in the whole set at 0.044 -- people slide rather than photograph. Trailhead 120 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Sliding Rock'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10582471:463'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'photos_count', to_jsonb(153::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10582471:463'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'completed_hikes_count', to_jsonb(3468::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10582471:463'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'reviews_count', to_jsonb(248::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10582471:463'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(19::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10582471:463'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('0.3 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10582471:463'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:11362406:462', 462, 'alltrails', 'https://www.alltrails.com/trail/us/north-carolina/connestee-falls', DATE '2026-09-14', true, 'accept-note: AllTrails describes an overlook where TWO waterfalls converge, which matches our holding Connestee and Batson Creek Falls as separate features 60 m apart Trailhead 78 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Connestee Falls'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:11362406:462'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'photos_count', to_jsonb(42::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:11362406:462'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'completed_hikes_count', to_jsonb(228::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:11362406:462'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'reviews_count', to_jsonb(49::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:11362406:462'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(0::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:11362406:462'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('0.1 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:11362406:462'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:10529045:432', 432, 'alltrails', 'https://www.alltrails.com/trail/us/north-carolina/alarka-creek-falls', DATE '2026-09-14', true, 'accept-note: ours is Alarka Falls, theirs Alarka Creek Falls -- the creek name is the shared distinctive token and the coordinate agrees at 625 m Trailhead 625 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Alarka Creek Falls'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10529045:432'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'photos_count', to_jsonb(485::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10529045:432'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'completed_hikes_count', to_jsonb(823::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10529045:432'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'reviews_count', to_jsonb(417::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10529045:432'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(334::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10529045:432'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('1.0 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10529045:432'
+ON CONFLICT DO NOTHING;
+
+-- 65 groups: 50 certain, 15 recorded uncertain.
