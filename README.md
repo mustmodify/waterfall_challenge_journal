@@ -152,7 +152,16 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the schema and how the pieces fit.
 ## Looking after it
 
 Two pages exist for whoever runs the site rather than for visitors. Both are
-admin-only and both are disallowed in `robots.txt`.
+disallowed in `robots.txt`.
+
+**The guard is on the data, not on the URL.** Both pages are static HTML served
+to anybody who asks; each is an empty shell whose first `fetch` hits an
+endpoint that calls `requireAdmin` and answers 401 or 403, at which point the
+page shows a sign-in prompt instead of a table. Nothing is rendered into the
+HTML server-side, so an unauthenticated request gets markup and no data. That
+is deliberate — a bare 403 tells a signed-out admin nothing about what to do
+next — but it does mean the URLs are not secrets and should not be treated as
+one.
 
 | Page | What it is for |
 |---|---|
