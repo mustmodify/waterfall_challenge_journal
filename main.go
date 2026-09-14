@@ -454,6 +454,7 @@ func main() {
 	r.HandleFunc("/admin/users", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/users.html")
 	}).Methods("GET")
+	r.HandleFunc("/falls/{ref}", placeHandler).Methods("GET")
 	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/account.html")
 	}).Methods("GET")

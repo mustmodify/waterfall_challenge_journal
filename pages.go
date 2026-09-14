@@ -6,6 +6,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -185,4 +187,42 @@ func describeArea(name string, features []areaFeature) string {
 	return plural(len(features), "waterfall") + " and lookout towers in " + name +
 		", Western North Carolina, with round trip distance and difficulty for " +
 		itoa(withWalk) + " of them."
+}
+
+// A waterfall's own address, so an open card can be shared, linked and counted
+// as a page. The map is a single page, so this serves the same document and
+// index.html reads the path to decide what to open.
+//
+// The ID LEADS AND THE SLUG IS DECORATION: /falls/378-looking-glass-falls is
+// resolved entirely on the 378. Names change here -- Clingmans Dome became
+// Kuwohi -- and a slug-only URL would break every link ever shared the moment
+// one did. A stale or wrong slug redirects to the current spelling rather than
+// 404ing, which keeps old links working and keeps one canonical URL per place
+// for search engines.
+func placeHandler(w http.ResponseWriter, r *http.Request) {
+	ref := mux.Vars(r)["ref"]
+	id, err := strconv.Atoi(strings.SplitN(ref, "-", 2)[0])
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	var name, slug string
+	err = db.QueryRow(`SELECT name, slug FROM features WHERE id = $1`, id).Scan(&name, &slug)
+	if err == sql.ErrNoRows {
+		http.NotFound(w, r)
+		return
+	}
+	if err != nil {
+		log.Printf("place page %s: %v", ref, err)
+		http.Error(w, "Something went wrong", http.StatusInternalServerError)
+		return
+	}
+
+	if canonical := strconv.Itoa(id) + "-" + slug; ref != canonical {
+		http.Redirect(w, r, "/falls/"+canonical, http.StatusMovedPermanently)
+		return
+	}
+
+	http.ServeFile(w, r, "./static/index.html")
 }
