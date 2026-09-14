@@ -1538,6 +1538,8 @@
       document.documentElement.dataset.theme = name;
       if (persist) {
         try { localStorage.setItem('wj-theme', name); } catch (e) { /* private mode */ }
+        // persist is the signal that a person chose this rather than the OS.
+        track('choose_basemap', { basemap: name });
       }
 
       if (baseLayer) map.removeLayer(baseLayer);
@@ -1815,6 +1817,20 @@
         const group = kind === 'tower'
           ? L.layerGroup()
           : L.markerClusterGroup(clusterOptsFor(kind));
+        // Drilling into a group is a deliberate act and rare enough to send as
+        // it happens, unlike panning. The size says whether people open the
+        // big regional bubbles or the small local ones.
+        if (group.on) {
+          group.on('clusterclick', (e) => {
+            const n = e.layer.getAllChildMarkers().length;
+            track('open_cluster', {
+              kind: kind,
+              size: n,
+              size_band: n >= 100 ? '100+' : n >= 25 ? '25-99' : n >= 5 ? '5-24' : 'under5',
+              zoom: map.getZoom(),
+            });
+          });
+        }
         clusterGroups.set(kind, group.addTo(map));
       }
       return clusterGroups.get(kind);
@@ -1910,7 +1926,46 @@
         localStorage.setItem('wj-view',
           c.lat.toFixed(5) + ',' + c.lng.toFixed(5) + ',' + map.getZoom());
       } catch (e) { /* private mode */ }
+      noteMapMove();
     });
+
+    // Panning and zooming fire continuously, and one event per frame would
+    // swamp both GA4's limits and the reports. So: report only once the map
+    // has settled, say whether the zoom or the centre changed, and stop after
+    // a while -- the useful question is whether people move the map at all and
+    // how deep they go, not how many times they nudged it.
+    const MAP_MOVE_LIMIT = 25;
+    let mapMoves = 0, moveTimer = null;
+    let lastZoom = null, lastCentre = null;
+
+    function zoomBand(z) {
+      if (z >= 15) return 'trailhead';
+      if (z >= 12) return 'valley';
+      if (z >= 9) return 'area';
+      return 'regional';
+    }
+
+    function noteMapMove() {
+      if (mapMoves >= MAP_MOVE_LIMIT) return;
+      clearTimeout(moveTimer);
+      moveTimer = setTimeout(() => {
+        const z = map.getZoom(), c = map.getCenter();
+        if (lastZoom === null) { lastZoom = z; lastCentre = c; return; }
+        const zoomed = z !== lastZoom;
+        const moved = lastCentre && map.distance(c, lastCentre) > 200;
+        if (zoomed) {
+          track('map_zoomed', {
+            direction: z > lastZoom ? 'in' : 'out',
+            zoom: z, zoom_band: zoomBand(z),
+          });
+          mapMoves += 1;
+        } else if (moved) {
+          track('map_panned', { zoom: z, zoom_band: zoomBand(z) });
+          mapMoves += 1;
+        }
+        lastZoom = z; lastCentre = c;
+      }, 1200);
+    }
 
     let returnTimer = null;
 
@@ -2046,8 +2101,27 @@
       catch (e) { return 'Link'; }
     }
 
+    // How the drawer was reached, set by the caller just before it opens, so
+    // "people find waterfalls by searching" is answerable separately from
+    // "people find them by poking the map".
+    let drawerSource = 'pin';
+
     function openDrawer(goal, flyTo) {
       state.selected = goal;
+      track('view_waterfall', {
+        slug: goal.slug, place: goal.name, kind: goal.kind, source: drawerSource,
+      });
+      // Give the open card a URL. A card reached by clicking a pin had no
+      // address at all, so it could not be shared, linked, or counted as a
+      // page -- and GA4's default page-path dimension drops a query string,
+      // so a path reports where ?waterfall=<slug> would not.
+      //
+      // The id leads and the slug is decoration. Renaming a waterfall changes
+      // its slug, and this project renames things -- Clingmans Dome became
+      // Kuwohi. Resolving on the id means every link ever shared keeps
+      // working and simply redirects to the current spelling.
+      if (goal.slug) setPath(placePath(goal), goal.name);
+      drawerSource = 'pin';
       const d = goal.difficulty_rating ? goal.difficulty_rating.trim() : '';
       const diffName = { E: 'Easy', M: 'Moderate', D: 'Difficult' }[d];
 
@@ -2161,11 +2235,65 @@
       }
     }
 
+    // Which sources people actually follow. Delegated from the drawer rather
+    // than bound per link, because the drawer is rebuilt on every open.
+    $('drawer').addEventListener('click', (e) => {
+      const a = e.target.closest ? e.target.closest('a[target="_blank"]') : null;
+      if (!a) return;
+      track('click_external', {
+        host: linkHost(a.href),
+        slug: state.selected ? state.selected.slug : null,
+      });
+    });
+
     function closeDrawer() {
+      const was = state.selected;
       state.selected = null;
       $('drawer').classList.remove('open');
       renderMarkers(false);
+      if (was) {
+        track('close_waterfall', { slug: was.slug });
+        setPath('/', 'Wanderfall');
+      }
     }
+
+    // pushState rather than assignment: the map must not reload. Guarded
+    // because history is absent in the test harness and blocked in some
+    // embedded browsers, and the drawer must still work without it.
+    function placePath(goal) {
+      return '/falls/' + goal.id + '-' + goal.slug;
+    }
+
+    // The id is the address; anything after the first hyphen is for humans.
+    function idFromPath(path) {
+      const m = /^\/falls\/(\d+)(?:-|$)/.exec(path);
+      return m ? Number(m[1]) : null;
+    }
+
+    function setPath(path, title) {
+      try {
+        if (window.history && history.pushState && location.pathname !== path) {
+          history.pushState({ path: path }, '', path);
+        }
+        if (title) document.title = title + ' \u00b7 Wanderfall';
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'page_view', {
+            page_location: location.origin + path, page_title: title,
+          });
+        }
+      } catch (e) { /* history unavailable; the drawer still opened */ }
+    }
+
+    // Back should close the card rather than leave the site.
+    window.addEventListener('popstate', () => {
+      const id = idFromPath(location.pathname);
+      if (!id) { if (state.selected) closeDrawer(); return; }
+      const goal = state.features.find((g) => g.id === id);
+      if (goal && (!state.selected || state.selected.id !== id)) {
+        drawerSource = 'history';
+        openDrawer(goal, true);
+      }
+    });
 
     function todayStr() {
       const d = new Date();
@@ -2199,6 +2327,8 @@
         return;
       }
 
+      const rated = ['rate-beauty', 'rate-photo', 'rate-solitude']
+        .filter((k) => ratingValue(k) != null).length;
       fetch('/visits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2210,6 +2340,13 @@
           solitude_rating: ratingValue('rate-solitude'),
         }),
       }).then((r) => {
+        // Fired on the response rather than the click: a visit that failed to
+        // save is not a visit, and counting the attempt would overstate it.
+        if (r.ok) {
+          track('log_visit', {
+            slug: state.selected && state.selected.slug, ratings_given: rated,
+          });
+        }
         if (r.ok) {
           msg.className = 'ok';
           msg.textContent = 'Visit saved.';
@@ -2634,14 +2771,20 @@
     });
 
     function setIntro(open) {
+      const was = !$('intro-backdrop').hidden;
       $('intro-backdrop').hidden = !open;
       if (open) { $('intro').focus(); refreshFades(); }
+      // Only the transitions, so a no-op call does not report a visit.
+      if (open && !was) track('welcome_shown');
+      if (!open && was) track('welcome_dismissed');
     }
 
     // The menu is the only chrome on the map now, so it drives everything.
     function setMenu(open) {
+      const was = !$('menu').hidden;
       $('menu').hidden = !open;
       $('fab').setAttribute('aria-expanded', String(open));
+      if (open !== was) track(open ? 'menu_opened' : 'menu_closed');
     }
 
     $('fab').addEventListener('click', () => setMenu($('menu').hidden));
@@ -2706,12 +2849,17 @@
     function openLinkedPlace() {
       if (linkedPlaceOpened) return;
       const params = new URLSearchParams(window.location.search);
+      const id = idFromPath(window.location.pathname);
       const slug = params.get('waterfall') || params.get('tower');
-      if (!slug) return;
-      const goal = state.features.find((g) => g.slug === slug);
+      if (!id && !slug) return;
+      // Area pages still link by slug, and those links stay supported.
+      const goal = id
+        ? state.features.find((g) => g.id === id)
+        : state.features.find((g) => g.slug === slug);
       if (!goal) return;
       linkedPlaceOpened = true;
       setIntro(false);
+      drawerSource = 'link';
       openDrawer(goal, true);
     }
 
