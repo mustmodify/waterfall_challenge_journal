@@ -949,4 +949,88 @@ SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('4.0 mi'::text), false
   FROM claim_groups cg WHERE cg.ref = 'alltrails:10242215:359'
 ON CONFLICT DO NOTHING;
 
--- 39 groups: 26 certain, 13 recorded uncertain.
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:10026427:367', 367, 'alltrails', 'https://www.alltrails.com/trail/us/north-carolina/harper-creek-falls-trail', DATE '2026-09-14', true, 'accept Trailhead 1353 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Harper Creek Falls Trail'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10026427:367'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'photos_count', to_jsonb(725::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10026427:367'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'completed_hikes_count', to_jsonb(1967::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10026427:367'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'reviews_count', to_jsonb(804::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10026427:367'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(433::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10026427:367'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('3.0 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10026427:367'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:10281374:371', 371, 'alltrails', 'https://www.alltrails.com/trail/us/south-carolina/spoonauger-falls-via-chattooga-river-trail', DATE '2026-09-14', true, 'accept Trailhead 474 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Spoonauger Falls via Chattooga River Trail'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10281374:371'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'photos_count', to_jsonb(721::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10281374:371'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'completed_hikes_count', to_jsonb(1326::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10281374:371'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'reviews_count', to_jsonb(336::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10281374:371'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(111::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10281374:371'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('0.7 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10281374:371'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO claim_groups (ref, feature_id, source, url, observed_on, identity_certain, note)
+VALUES ('alltrails:10111959:372', 372, 'alltrails', 'https://www.alltrails.com/trail/us/south-carolina/raven-cliff-falls-loop-trail', DATE '2026-09-14', true, 'accept-note: 2,356 m is trailhead-to-falls on an 8.1 mi loop. Part of the route, the Dismal Trail, is currently closed per AllTrails. Trailhead 2356 m from our coordinate.')
+ON CONFLICT (ref) DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'name', to_jsonb('Raven Cliff Falls and Dismal Trail Loop'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10111959:372'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'photos_count', to_jsonb(5014::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10111959:372'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'completed_hikes_count', to_jsonb(3798::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10111959:372'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'reviews_count', to_jsonb(2035::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10111959:372'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'elevation_gain_ft', to_jsonb(2109::numeric), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10111959:372'
+ON CONFLICT DO NOTHING;
+INSERT INTO claims (group_id, feature_id, field, value, accepted)
+SELECT cg.id, cg.feature_id, 'hike_distance', to_jsonb('8.1 mi'::text), false
+  FROM claim_groups cg WHERE cg.ref = 'alltrails:10111959:372'
+ON CONFLICT DO NOTHING;
+
+-- 42 groups: 29 certain, 13 recorded uncertain.
