@@ -91,10 +91,11 @@ setTimeout(() => {
   run('Area: Lake Toxaway', (s) => { s.area = 'Lake Toxaway'; });
   run('Area: nonsense', (s) => { s.area = 'Nowhere At All'; });
   run('Only towers', (s) => { s.showKinds = new Set(['tower']); });
-  // the walk filter: stops are [0,.25,.5,.75,1,1.5,2,2.5,3,4,5,6,8,10,12,15,Inf]
-  run('Walk: roadside only', (s) => { s.walk = { min: 0, max: 0 }; });
-  run('Walk: up to 2 miles', (s) => { s.walk = { min: 0, max: 6 }; });
-  run('Walk: over 6 miles', (s) => { s.walk = { min: 11, max: 16 }; });
+  // the hike filter. stops: [0,.25,.5,.75,1,1.5,2,2.5,3,4,5,6,7,8,10,12,15,20,36]
+  run('Hike: roadside only', (s) => { s.walk = { min: 0, max: 0 }; });
+  run('Hike: up to 2 miles', (s) => { s.walk = { min: 0, max: 6 }; });
+  run('Hike: 1 to 3 miles', (s) => { s.walk = { min: 4, max: 8 }; });
+  run('Hike: over 7 miles', (s) => { s.walk = { min: 12, max: 18 }; });
   run('Only waterfalls', (s) => { s.showKinds = new Set(['waterfall']); });
   run('Challenge: LTC', (s) => { s.challenge = 'LTC'; });
   run('Visited: hide', (s) => { s.visited = 'hide'; });
