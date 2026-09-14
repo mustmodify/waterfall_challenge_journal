@@ -224,6 +224,43 @@
       color-scheme: inherit;
     }
 
+    .walk-row { align-items: center; }
+
+    /* Two inputs stacked on one track: the browser has no two-handle range, and
+       the pieces that would fake it (a div with drag handlers) lose the arrow
+       keys, the focus ring and the touch target that a real input brings. */
+    .range { position: relative; flex: 1; min-width: 120px; height: 22px; }
+
+    .range-track {
+      position: absolute; top: 9px; left: 0; right: 0; height: 4px;
+      background: var(--line); border-radius: 2px;
+    }
+
+    .range-fill { position: absolute; top: 0; bottom: 0; background: var(--accent); border-radius: 2px; }
+
+    .range input {
+      position: absolute; top: 0; left: 0; width: 100%; height: 22px;
+      margin: 0; background: none; -webkit-appearance: none; appearance: none;
+      pointer-events: none;          /* the track belongs to whichever thumb is nearer */
+    }
+
+    .range input::-webkit-slider-thumb {
+      -webkit-appearance: none; pointer-events: auto;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--panel); border: 2px solid var(--accent); cursor: grab;
+    }
+
+    .range input::-moz-range-thumb {
+      pointer-events: auto;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--panel); border: 2px solid var(--accent); cursor: grab;
+    }
+
+    .range input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .range input:focus-visible::-moz-range-thumb { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    #walk-read { font-size: 0.78rem; color: var(--mist); min-width: 8.5rem; }
+
     #spectrum { margin-top: 8px; }
 
     /* Stays in the card at every width: with the filters behind a button on a
@@ -1138,6 +1175,17 @@
       <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
       <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
     </div>
+    <div class="chip-row walk-row" role="group" aria-label="How far you are willing to walk">
+      <span class="row-label">Walk</span>
+      <div class="range" id="walk">
+        <div class="range-track"><div class="range-fill" id="walk-fill"></div></div>
+        <input type="range" id="walk-min" min="0" max="16" value="0" step="1"
+               aria-label="Shortest walk">
+        <input type="range" id="walk-max" min="0" max="16" value="16" step="1"
+               aria-label="Longest walk">
+      </div>
+      <span id="walk-read">Any distance</span>
+    </div>
     <div id="area-pick" hidden>
       <span class="row-label">Area</span>
       <span id="area-current"></span>
@@ -1396,6 +1444,10 @@
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
       challenge: 'all',
+      // Indices into WALK_STOPS. Both ends parked means no distance filter at
+      // all, which is not the same as 0 to 20 miles: it also keeps the 59 falls
+      // whose distance nobody has written down.
+      walk: { min: 0, max: 16 },
       area: '',
       visitStatus: 'all',
       ratings: new Set(),
@@ -1566,6 +1618,79 @@
       });
     }
 
+    // Uneven on purpose. Half the catalogue is under two miles, so a linear
+    // slider would spend most of its travel on the handful of walks past ten.
+    const WALK_STOPS = [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15, Infinity];
+
+    // "Roadside", "4.4", "0.6 Miles (out and back)", and one "2.8.30".
+    function walkMiles(goal) {
+      const raw = (goal.rt_hike_distance || '').trim();
+      if (!raw) return null;
+      if (/^roadside/i.test(raw)) return 0;
+      const m = raw.match(/^\s*(\d+(?:\.\d+)?)/);
+      return m ? parseFloat(m[1]) : null;
+    }
+
+    function walkFilterOn() {
+      return state.walk.min > 0 || state.walk.max < WALK_STOPS.length - 1;
+    }
+
+    function matchesWalk(goal) {
+      if (!walkFilterOn()) return true;
+      const miles = walkMiles(goal);
+      // Narrowing by distance cannot keep what has no distance. Saying so in
+      // the readout beats quietly dropping 59 waterfalls.
+      if (miles === null) return false;
+      return miles >= WALK_STOPS[state.walk.min] && miles <= WALK_STOPS[state.walk.max];
+    }
+
+    function describeWalk() {
+      const lo = WALK_STOPS[state.walk.min];
+      const hi = WALK_STOPS[state.walk.max];
+      const miles = (n) => (n === Math.round(n) ? String(n) : n.toFixed(2).replace(/0$/, ''));
+      if (!walkFilterOn()) return 'Any distance';
+      if (hi === Infinity) return 'over ' + miles(lo) + ' miles';
+      if (lo === 0 && hi === 0) return 'roadside only';
+      if (lo === 0) return 'up to ' + miles(hi) + ' miles';
+      return miles(lo) + ' to ' + miles(hi) + ' miles';
+    }
+
+    function syncWalk() {
+      $('walk-min').value = state.walk.min;
+      $('walk-max').value = state.walk.max;
+      const span = WALK_STOPS.length - 1;
+      const fill = $('walk-fill');
+      fill.style.left = (state.walk.min / span * 100) + '%';
+      fill.style.right = ((span - state.walk.max) / span * 100) + '%';
+
+      let text = describeWalk();
+      if (walkFilterOn()) {
+        const missing = state.features.filter((g) => walkMiles(g) === null).length;
+        if (missing) text += ' \u00b7 ' + missing + ' with no distance hidden';
+      }
+      $('walk-read').textContent = text;
+    }
+
+    function setWalk(which, value) {
+      const other = which === 'min' ? 'max' : 'min';
+      state.walk[which] = value;
+      // The handles can meet but not cross, so dragging one past the other
+      // pushes it rather than inverting the range.
+      if (state.walk.min > state.walk.max) state.walk[other] = value;
+      syncWalk();
+      syncFilterButton();
+      renderMarkers(false);
+    }
+
+    ['min', 'max'].forEach((which) => {
+      $('walk-' + which).addEventListener('input', (e) => {
+        setWalk(which, Number(e.target.value));
+      });
+      $('walk-' + which).addEventListener('change', () => {
+        track('filter_walk', { range: describeWalk() });
+      });
+    });
+
     function inScope(goal) {
       const matchesKind = state.showKinds.has(kindOf(goal));
       const matchesArea = !state.area || (goal.areas || []).includes(state.area);
@@ -1577,7 +1702,7 @@
       // used to sit on the map in a color that implied a score they lack.
       const matchesRated = state.ratings.size === 0 || hasSelectedRating(goal);
       return matchesKind && matchesArea && matchesChallenge &&
-        matchesVisitStatus && matchesRated;
+        matchesVisitStatus && matchesRated && matchesWalk(goal);
     }
 
     // 900 undifferentiated points is a smear, so that case draws as density.
@@ -2299,6 +2424,7 @@
       if (state.ratings.size) n++;
       if (state.area) n++;
       if (state.challenge !== 'all') n++;
+      if (walkFilterOn()) n++;
       return n;
     }
 
@@ -2366,6 +2492,7 @@
 
     narrowScreen.addEventListener('change', placeFilters);
     placeFilters();
+    syncWalk();
 
     $('filter-button').addEventListener('click', () => setFilters(true));
     $('filters-close').addEventListener('click', () => setFilters(false));
@@ -2379,6 +2506,8 @@
       state.visited = state.user ? 'mute' : 'show';
       state.ratings = new Set();
       state.challenge = 'all';
+      state.walk = { min: 0, max: WALK_STOPS.length - 1 };
+      syncWalk();
       document.querySelectorAll('.chip.rating').forEach((c) =>
         c.setAttribute('aria-pressed', 'false'));
       setArea('');

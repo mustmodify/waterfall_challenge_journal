@@ -9,7 +9,7 @@ let pins = 0, added = 0, icons = [], clusterOpts = null, mapOpts = {}, made = []
 const els = new Map();
 const el = (id) => {
   if (!els.has(id)) els.set(id, { id, hidden: false, value: '', innerHTML: '', textContent: '',
-    dataset: {}, classList: { add(){}, remove(){}, toggle(){}, contains: () => false }, setAttribute(){}, offsetWidth: 0,
+    dataset: {}, style: {}, classList: { add(){}, remove(){}, toggle(){}, contains: () => false }, setAttribute(){}, offsetWidth: 0,
     getAttribute: () => null, addEventListener(){}, querySelectorAll: () => [],
     appendChild(){}, insertBefore(){}, focus(){}, closest: () => null,
     querySelector: () => ({ classList:{add(){},remove(){}}, offsetWidth: 0 }) });
@@ -91,6 +91,10 @@ setTimeout(() => {
   run('Area: Lake Toxaway', (s) => { s.area = 'Lake Toxaway'; });
   run('Area: nonsense', (s) => { s.area = 'Nowhere At All'; });
   run('Only towers', (s) => { s.showKinds = new Set(['tower']); });
+  // the walk filter: stops are [0,.25,.5,.75,1,1.5,2,2.5,3,4,5,6,8,10,12,15,Inf]
+  run('Walk: roadside only', (s) => { s.walk = { min: 0, max: 0 }; });
+  run('Walk: up to 2 miles', (s) => { s.walk = { min: 0, max: 6 }; });
+  run('Walk: over 6 miles', (s) => { s.walk = { min: 11, max: 16 }; });
   run('Only waterfalls', (s) => { s.showKinds = new Set(['waterfall']); });
   run('Challenge: LTC', (s) => { s.challenge = 'LTC'; });
   run('Visited: hide', (s) => { s.visited = 'hide'; });
