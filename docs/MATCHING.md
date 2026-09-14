@@ -8,6 +8,11 @@ wrong. It covers why waterfall names repeat, what evidence we hold, how the
 evidence is combined, what each source needs, and every failure that has
 actually happened here with its real numbers.
 
+> **Forward reference.** This document describes `name_core` / `name_key` and
+> the 200 m ncwaterfalls rule, which live in migration 058 — open in PR #29 and
+> not yet merged. Until it lands, those two sections describe a rule with no
+> code behind it. Everything else here is implemented.
+
 Related: [sources-and-matching.md](sources-and-matching.md) for where each
 source came from and whether reading it was allowed;
 [hikingwnc-data-issues.md](hikingwnc-data-issues.md) for defects in the
@@ -128,7 +133,7 @@ Across all 934 waterfalls: 21 names use a hyphenated qualifier, 122 use a
 parenthesised one. One convention, two spellings, mixed inside a single base
 name — so a matcher has to reduce both to the same key.
 
-Ours does not, quite. `name_core` in migration 058 deletes a parenthetical
+Ours does not, quite. `name_core` in migration 058 (**not yet merged**) deletes a parenthetical
 outright while leaving a hyphenated qualifier in place:
 
 ```
@@ -177,8 +182,8 @@ a disambiguator the other omits, or a recorded alias matching.
    > 20 km   refuse      a different waterfall that happens to share a name
 ```
 
-Migration 058 tightened the accept band to **200 m** for ncwaterfalls
-specifically, because every candidate there already sat inside 196 m and a
+Migration 058 (**PR #29, not yet merged**) tightens the accept band to **200 m**
+for ncwaterfalls specifically, because every candidate there already sat inside 196 m and a
 threshold set where the data actually lies will not quietly admit something
 looser later.
 
