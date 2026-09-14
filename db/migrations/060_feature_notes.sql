@@ -5,6 +5,7 @@
 --   info        nice to know but does not limit access
 --   fee         entry costs money or requires a pass
 --   restricted  partial closure, limited hours, or permit required
+--   urgent      safety hazard; proceed only if you know what you are doing
 --   closed      inaccessible; do not attempt
 --
 -- source is freeform but should name the origin so the note can be
@@ -24,7 +25,7 @@ BEGIN;
 CREATE TABLE feature_notes (
     id          serial PRIMARY KEY,
     feature_id  integer NOT NULL REFERENCES features(id),
-    severity    text NOT NULL CHECK (severity IN ('info','fee','restricted','closed')),
+    severity    text NOT NULL CHECK (severity IN ('info','fee','restricted','urgent','closed')),
     text        text NOT NULL,
     source      text NOT NULL,
     observed_on date,
@@ -35,7 +36,7 @@ CREATE INDEX feature_notes_feature_id ON feature_notes(feature_id);
 
 COMMENT ON TABLE feature_notes IS
     'Conditions worth knowing before visiting: closures, fees, hazards, seasonal notes. '
-    'severity is one of closed/restricted/fee/info. observed_on is when the condition '
+    'severity is one of closed/urgent/restricted/fee/info. observed_on is when the condition '
     'was seen, not an expiry; surface the note and let the visitor judge currency.';
 
 INSERT INTO schema_migrations (filename) VALUES ('060_feature_notes.sql');

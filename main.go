@@ -91,7 +91,7 @@ type FeatureNote struct {
 
 // AccessNote is a structured condition worth knowing before visiting: a
 // closure, fee, permit requirement, or hazard. Severity is one of
-// closed/restricted/fee/info in ascending order of urgency.
+// closed/urgent/restricted/fee/info in ascending order of urgency.
 type AccessNote struct {
 	Severity   string  `json:"severity"`
 	Text       string  `json:"text"`
