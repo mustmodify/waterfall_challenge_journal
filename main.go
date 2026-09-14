@@ -72,8 +72,9 @@ type Feature struct {
 	Challenges        []string      `json:"challenges"`
 	Links             []Link        `json:"links"`
 	Areas             []string      `json:"areas"`
-	Notes             []FeatureNote `json:"notes"`
-	Confidence        *string       `json:"confidence,omitempty"`
+	Notes             []FeatureNote  `json:"notes"`
+	AccessNotes       []AccessNote   `json:"access_notes"`
+	Confidence        *string        `json:"confidence,omitempty"`
 	Owner             *string       `json:"owner,omitempty"`
 	DeprecatedReason  *string       `json:"deprecated_reason,omitempty"`
 	DeprecatedNote    *string       `json:"deprecated_note,omitempty"`
@@ -86,6 +87,16 @@ type Feature struct {
 type FeatureNote struct {
 	Text   string `json:"text"`
 	Source string `json:"source,omitempty"`
+}
+
+// AccessNote is a structured condition worth knowing before visiting: a
+// closure, fee, permit requirement, or hazard. Severity is one of
+// closed/urgent/restricted/fee/info in ascending order of urgency.
+type AccessNote struct {
+	Severity   string  `json:"severity"`
+	Text       string  `json:"text"`
+	Source     string  `json:"source"`
+	ObservedOn *string `json:"observed_on,omitempty"`
 }
 
 // Link is an outside page about a feature -- almost always its hikingwnc.com
@@ -223,6 +234,13 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			(SELECT json_agg(json_build_object('text', notes.text, 'source',
 				coalesce(notes.source, '')) ORDER BY notes.id)
 				FROM notes WHERE notes.feature_id = features.id) AS note_json,
+			(SELECT json_agg(json_build_object(
+				'severity', feature_notes.severity,
+				'text', feature_notes.text,
+				'source', feature_notes.source,
+				'observed_on', feature_notes.observed_on::text)
+				ORDER BY feature_notes.severity, feature_notes.id)
+				FROM feature_notes WHERE feature_notes.feature_id = features.id) AS access_note_json,
 			confidence.tier,
 			features.owner, deprecated_reason, deprecated_note,
 			deprecated_on::text
@@ -250,6 +268,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var linkRows sql.NullString
 		var areaNames sql.NullString
 		var noteJSON []byte
+		var accessNoteJSON []byte
 		var confidence sql.NullString
 
 		err := rows.Scan(
@@ -276,6 +295,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&linkRows,
 			&areaNames,
 			&noteJSON,
+			&accessNoteJSON,
 			&confidence,
 			&f.Owner,
 			&f.DeprecatedReason,
@@ -310,6 +330,14 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		f.Notes = []FeatureNote{}
 		if len(noteJSON) > 0 {
 			if err := json.Unmarshal(noteJSON, &f.Notes); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
+
+		f.AccessNotes = []AccessNote{}
+		if len(accessNoteJSON) > 0 {
+			if err := json.Unmarshal(accessNoteJSON, &f.AccessNotes); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
