@@ -8,7 +8,7 @@ working directory, so the repository is the deployment.
 `db/migrations` is the history of how this database changed, not a recipe for
 building one. Migration 001 adds users to a schema that already had features,
 goals and locations in it -- those tables were made by hand before the numbered
-files started, and nothing in the repository creates them. Replaying all 47
+files started, and nothing in the repository creates them. Replaying all 53
 against an empty database fails on the first one.
 
 So a new database is built from two dumps and then told the migrations are
@@ -46,7 +46,7 @@ pg_dump -d wc_journey_db --data-only --no-owner \
    DATABASE_URL="$DATABASE_URL" go run ./script/migrate -baseline
    ```
 
-   `-baseline` records all 47 files as applied without running them, which is
+   `-baseline` records all 53 files as applied without running them, which is
    correct: `schema.sql` already contains everything they would have done.
 4. Point wanderfall.app at the service and let Render issue the certificate.
 5. Sign in once to confirm mail arrives, then make that account an admin:

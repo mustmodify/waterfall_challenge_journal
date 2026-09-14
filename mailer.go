@@ -6,6 +6,7 @@ import (
 	"net/smtp"
 	"os"
 	"strings"
+	"time"
 )
 
 // SMTP rather than a provider SDK: Resend, Postmark, SES and Mailgun all speak
@@ -80,12 +81,13 @@ func initMailer() {
 	log.Printf("mail via %s:%s as %s", host, port, envelope)
 }
 
+// Asks whether mail goes anywhere, by naming the one transport that does not.
+// Listing the transports that do was the same shape of mistake as the handler
+// that never called one: a new transport is added somewhere else, this is not
+// updated, and sign-in quietly goes back to writing credentials to the log.
 func mailConfigured() bool {
-	switch mailer.(type) {
-	case smtpMailer, mailgunMailer:
-		return true
-	}
-	return false
+	_, toTheLog := mailer.(logMailer)
+	return !toTheLog
 }
 
 // Errors are logged and swallowed on purpose: a report already written to the
@@ -97,6 +99,37 @@ func sendAsync(to, subject, body string) {
 			log.Printf("mail to %s failed: %v", to, err)
 		}
 	}()
+}
+
+// Says a duration the way a person would, so the mail can quote linkTTL
+// directly and never drift from the code that enforces it.
+func humanDuration(d time.Duration) string {
+	switch {
+	case d >= 48*time.Hour:
+		return fmt.Sprintf("%d days", int(d.Hours())/24)
+	case d >= 24*time.Hour:
+		return "a day"
+	case d >= 2*time.Hour:
+		return fmt.Sprintf("%d hours", int(d.Hours()))
+	case d >= time.Hour:
+		return "an hour"
+	default:
+		return fmt.Sprintf("%d minutes", int(d.Minutes()))
+	}
+}
+
+// The link is the whole message: no HTML, no tracking, nothing to click but
+// the one thing the reader asked for. The expiry is read off linkTTL so the
+// sentence cannot drift away from the code that enforces it.
+func magicLinkEmail(link string) (string, string) {
+	subject := "Your Wanderfall sign-in link"
+	body := fmt.Sprintf(
+		"Follow this link to sign in:\n\n%s\n\n"+
+			"It can be used once and expires in %s.\n\n"+
+			"If you did not ask to sign in, nothing has happened to your account "+
+			"and you can ignore this.\n",
+		link, humanDuration(linkTTL))
+	return subject, body
 }
 
 func fieldLabel(f string) string {
