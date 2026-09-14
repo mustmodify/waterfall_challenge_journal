@@ -234,6 +234,9 @@
       grid-template-columns: auto 1fr;
       align-items: center;
       gap: 2px 8px;
+      /* The bar would otherwise run to the panel edge, where the right-hand
+         thumb has nowhere to sit and the last tick label hangs off. */
+      padding-right: 3rem;
     }
 
     /* Two inputs stacked on one track: the browser has no two-handle range, and
@@ -278,6 +281,11 @@
       color: var(--mist);
       white-space: nowrap;
     }
+
+    /* The end labels are centred on a point at the very edge, so half of each
+       would sit outside the bar. Hang them inward instead. */
+    .range-ticks span:first-child { transform: none; }
+    .range-ticks span:last-child { transform: translateX(-100%); }
 
     #walk-read {
       grid-column: 2;
