@@ -11,3 +11,4 @@ data/alltrails/raw/
 # Secrets live in the shell or the host, never in the tree
 .env
 .env.*
+__pycache__/
