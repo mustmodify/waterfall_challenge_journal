@@ -1,0 +1,27 @@
+{{define "head"}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{.Title}}</title>
+<meta name="description" content="{{.Descr}}">
+<link rel="canonical" href="{{.Canonical}}">
+<meta property="og:title" content="{{.Title}}">
+<meta property="og:description" content="{{.Descr}}">
+<meta property="og:url" content="{{.Canonical}}">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/pages.css">
+{{end}}
+
+{{define "chrome-top"}}
+<header class="page-head">
+  <a class="brand" href="/">Wanderfall</a>
+  <nav><a href="/areas">Waterfalls by area</a></nav>
+</header>
+{{end}}
+
+{{define "chrome-bottom"}}
+<footer class="page-foot">
+  <p><a href="/">Open the map</a> to filter by challenge, rating or area, and to
+  log the ones you have visited.</p>
+</footer>
+{{end}}
