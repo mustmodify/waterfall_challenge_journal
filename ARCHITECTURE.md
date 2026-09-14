@@ -162,7 +162,8 @@ from everywhere.
 | POST | `/auth/request` | issue a sign-in link |
 | GET | `/auth/callback` | consume one, redirects to `/?auth=…` |
 | GET | `/me`, POST `/logout` | |
-| GET | `/`, `/bulk`, `/account` | pages |
+| GET | `/users` | admin only: every account, with links issued and used, sessions and visits |
+| GET | `/`, `/bulk`, `/account`, `/admin/users` | pages |
 
 `/locations` and the `/features` write endpoints predate the importers and are
 not used by the interface.
