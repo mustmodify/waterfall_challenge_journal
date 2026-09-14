@@ -6,7 +6,15 @@ services:
     runtime: go
     plan: starter
     region: ohio
-    buildCommand: go build -o wanderfall .
+    buildCommand: go build -o wanderfall . && go build -o migrate ./script/migrate
+    # Runs after the build and before the new version takes traffic, so a
+    # schema change ships with the code that needs it. Merging used to deploy
+    # the binary alone: the area pages went live querying a slug column that
+    # existed only on a laptop, and every one of them served a 500.
+    #
+    # A failed migration fails the deploy and the old version keeps serving,
+    # which is the right way round.
+    preDeployCommand: ./migrate
     startCommand: ./wanderfall
     healthCheckPath: /features
     autoDeploy: true

@@ -57,7 +57,16 @@ pg_dump -d wc_journey_db --data-only --no-owner \
 
 ## Afterwards
 
-New migrations are applied by the runner, which skips what it has already run:
+Migrations run themselves. `preDeployCommand` in render.yaml runs the runner
+after each build and before the new version takes traffic, so a schema change
+arrives with the code that needs it. A failed migration fails the deploy and
+the previous version keeps serving.
+
+Nothing connected the two before, and it showed: the area pages were merged,
+deployed, and served 500s until someone noticed, because the binary asking for
+a `slug` column shipped four migrations ahead of the database that had one.
+
+To look, or to run them by hand against any database:
 
 ```sh
 DATABASE_URL="..." go run ./script/migrate          # apply what is pending

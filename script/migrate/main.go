@@ -76,6 +76,24 @@ func main() {
 	}
 	rows.Close()
 
+	// A database loaded from db/schema.sql already contains everything the
+	// numbered files would do, and an empty ledger would send us to replay them
+	// from 001 against tables that exist. That fails halfway through with
+	// "relation users already exists", which describes the symptom and not the
+	// problem. Say the problem.
+	if len(applied) == 0 && !*baseline && !*status {
+		var exists bool
+		if err := db.QueryRow(`SELECT to_regclass('public.features') IS NOT NULL`).
+			Scan(&exists); err != nil {
+			log.Fatal(err)
+		}
+		if exists {
+			log.Fatalf("this database has tables but no migration ledger, so it was " +
+				"loaded from db/schema.sql rather than built by these files. Run " +
+				"`migrate -baseline` once to record them as applied.")
+		}
+	}
+
 	if *status {
 		for _, path := range files {
 			name := filepath.Base(path)
