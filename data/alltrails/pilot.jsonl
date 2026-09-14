@@ -55,3 +55,11 @@
 {"feature_id": 369, "feature": "Jawbone Falls", "verdict": "no-match (sort=closest): nothing within 3 km naming it"}
 {"feature_id": 373, "feature": "Little Fall Branch Falls", "verdict": "no-match (sort=closest): nothing within 3 km naming it"}
 {"feature_id": 374, "feature": "South Harper Creek Falls", "verdict": "reject-position-only: the Harper Creek routes nearby name Harper Creek, not South Harper Creek, and we carry both as separate features"}
+{"feature_id": 386, "feature": "Upper Creek Falls", "trail_id": 10112202, "trail": "Upper Creek Falls Loop", "slug": "us/north-carolina/upper-creek-falls-loop-trail", "trailhead_m": 221, "length_mi": 1.5, "gain_ft": 387, "route_type": "L", "avg_rating": 4.7, "reviews": 1802, "photos": 2290, "hikes": 3522, "verdict": "accept"}
+{"feature_id": 387, "feature": "Hunt Fish Falls", "trail_id": 10264364, "trail": "Hunt Fish Falls Trail", "slug": "us/north-carolina/hunt-fish-falls-trail", "trailhead_m": 782, "length_mi": 1.6, "gain_ft": 505, "route_type": "O", "avg_rating": 4.7, "reviews": 429, "photos": 632, "hikes": 1046, "verdict": "accept"}
+{"feature_id": 384, "feature": "High Falls- Little River", "trail_id": 10263149, "trail": "High Falls and Triple Falls Tour", "trailhead_m": 782, "length_mi": 3.1, "gain_ft": 400, "verdict": "flag-multi-fall: DuPont routes all bundle High Falls with Triple, Hooker and Bridal Veil; none is about ours alone"}
+{"feature_id": 364, "feature": "Bird Rock Falls", "verdict": "reject-position-only: only Lemon Falls at 2,400 m, naming nothing of ours"}
+{"feature_id": 376, "feature": "Hebron Colony Falls", "verdict": "no-match (sort=closest): nothing within 3 km"}
+{"feature_id": 379, "feature": "Twin Falls (Henry Branch)", "verdict": "no-match (sort=closest): nothing within 3 km naming it. Twin is a count of drops and recurs, so a bare Twin Falls match would have been refused anyway"}
+{"feature_id": 381, "feature": "Cedar Rock Falls", "verdict": "no-match (sort=closest): nothing within 3 km naming it"}
+{"feature_id": 385, "feature": "Logging Road Falls", "verdict": "reject-position-only: the Log Hollow route covers Discovery, Log Hollow and Logging Road, already flagged against Upper Logging Road Falls (322)"}
