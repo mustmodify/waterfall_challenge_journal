@@ -100,6 +100,27 @@ recorded. A waterfall is published on the map only when two or more independent
 sources put it in the same place, which is why 464 of 956 places appear. The
 rest are real waterfalls we are not yet confident enough to send somebody to.
 
+### Who owns the ground
+
+`features.owner` answers the question the rest of the record cannot: whether you
+can legally go. It is a category rather than a name — the name of the park or
+the family belongs in a note.
+
+| Value | Falls | Means |
+|---|---|---|
+| `Federal` | 72 | National forest, mostly Pisgah and Nantahala |
+| `State` | 21 | State parks and state forests |
+| `GSMNP` | 6 | Great Smoky Mountains National Park, which has its own rules |
+| `Private` | 7 | Private land. Some welcome visitors, some do not |
+| `Conservancy` | 4 | Land trusts and conservancies |
+| `Cherokee` | 2 | The Qualla Boundary, which is sovereign land and not a park |
+| unset | 843 | Not established. Usually national forest, but unverified |
+
+`Private` does not mean "do not go" on its own — Pearson's Falls charges
+admission and Bird Rock Falls is walked to daily. It means the question has an
+owner, and the answer is theirs. Two of the seven, English Falls and Twin Falls
+on the Thompson River, are recorded as having no public access at all.
+
 Where each source comes from, how a page on somebody else's site gets attached
 to one of our waterfalls, the four ways that goes wrong and what catches them:
 [docs/sources-and-matching.md](docs/sources-and-matching.md).
