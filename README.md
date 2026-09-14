@@ -4,8 +4,9 @@ A map and logbook for the waterfalls and lookout towers of Western North
 Carolina. Find somewhere to go, record that you went, and track progress
 against the challenge lists that people actually hike.
 
-Currently **957 places** — 935 waterfalls and 22 lookout towers — across four
-challenges.
+Currently **956 places** — 934 waterfalls and 22 lookout towers — across four
+challenges. 464 of them are published on the map; the rest are held back until
+a second source agrees on where they are. See *Data* below.
 
 A hobby project by jw. Feedback: <jw@mustmodify.com>
 
@@ -74,15 +75,34 @@ resolved with confidence. They are deliberately left unlinked rather than
 guessed — a wrong link awards badge progress nobody earned. See
 `db/migrations/008`–`010`.
 
+That caution earned itself again in September 2026, on a different job. Seven
+waterfalls were matched to a second source by name and the pages turned out to
+describe falls up to 396 km away. Two independently built lists agreed on all
+seven, which proved nothing: both had matched on the name, so both made the
+same mistake. **Agreement between two matchers that share a flaw is not
+corroboration.** The arbiter is the coordinate each source publishes, and a
+name match more than 20 km from ours is now refused.
+
 The WC100 asks for any 100 of its 115, so progress is measured against 100, not
 against the list length.
 
 ## Data
 
-Imported from HikingWNC, a seed spreadsheet, and the published challenge lists.
-None of it is authored here. Known problems in the upstream data are written up
-in [docs/hikingwnc-data-issues.md](docs/hikingwnc-data-issues.md) — including
-six waterfalls recorded one degree of longitude too far east.
+None of it is authored here. It is read from nine sources — HikingWNC,
+OpenStreetMap, NC Waterfalls, dwhike, a seed spreadsheet and the published
+challenge lists among them — and **kept unmerged**. Each source's reading of
+each waterfall is stored as its own set of claims, so where two sources
+disagree about a height or a trail length, the database records the
+disagreement rather than picking a winner at import time.
+
+The coordinate is the one field where agreement is required rather than
+recorded. A waterfall is published on the map only when two or more independent
+sources put it in the same place, which is why 464 of 956 places appear. The
+rest are real waterfalls we are not yet confident enough to send somebody to.
+
+Known problems in the upstream data are written up in
+[docs/hikingwnc-data-issues.md](docs/hikingwnc-data-issues.md) — including six
+waterfalls recorded one degree of longitude too far east.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the schema and how the pieces fit.
 

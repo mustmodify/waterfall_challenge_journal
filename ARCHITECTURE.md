@@ -22,14 +22,50 @@ Everything else hangs off it.
 ```
 features ──< goals >── challenges        which lists a place belongs to
          ──< feature_areas >── areas     where it is, as flat tags
-         ──< links                       hikingwnc.com and other URLs
+         ──< claim_groups >── claims     what each source says, unmerged
+         ──< links                       the URLs the card shows, derived
          ──< notes                       free text, with provenance
          ──< visits >── users            who went, when, and what they thought
          ──  locations                   latitude/longitude
 ```
 
-Current size: 957 features, 991 locations, 703 goals across 4 challenges, 56
-areas over 661 assignments, 958 links, 61 visits.
+Current size: 956 features, 1,011 locations, 704 goals across 4 challenges, 56
+areas over 661 assignments, 1,880 claim groups carrying 9,198 claims from nine
+sources, 61 visits. Of the 934 waterfalls, 442 are published — see the
+confidence tiers below.
+
+### Provenance: claim groups and claims
+
+Nothing here is stored as a single agreed fact. Every source we read becomes a
+`claim_group` — one source's reading of one feature, with the URL it came from
+and the date it was observed — holding `claims`, one row per field. Sixteen
+fields are claimable, from `coordinate` and `height_ft` to `petzoldt` and
+`alias`.
+
+**Claims are not merged.** Two sources disagreeing about a height is a fact
+worth keeping, not a conflict to settle at import time. `accepted` marks the
+one claim per (feature, field) that the published columns reflect, and a
+partial unique index enforces that there is only ever one of those.
+
+**The coordinate is the exception, and it decides what gets published at all.**
+`coordinate_confidence` is a view that counts how many sources put a feature in
+the same place and measures how far apart they are, then tiers it: confirmed,
+corroborated, single source, disputed, unverified, no coordinate. The
+`/features` handler serves only `confirmed` and `corroborated` waterfalls, plus
+every tower — towers carry no source claims at all, so tiering them would hide
+all 22.
+
+That is worth saying plainly, because it is easy to read the tables and miss
+it: **the published set is defined by corroboration.** Asking whether most of
+the published falls have two sources is asking what the publication rule is,
+and the answer is yes by construction.
+
+**`identity_certain` asks a different question from whether the data is
+right.** A group matched to its feature by name and never confirmed against a
+coordinate is marked uncertain — the source may be describing a different
+waterfall entirely. Those groups are kept rather than deleted, because a source
+saying something about the wrong fall is still a thing the source said, and
+deleting it invites the next importer to make the same match again.
 
 ### Decisions worth knowing
 
@@ -56,6 +92,26 @@ just means a $5 fee. `deprecated_reason` means the place is gone, unreachable
 or unsafe. A fall dropped from a challenge list is neither: that is modelled by
 the absence of a `goals` row.
 
+**`links` is the display layer; `claim_groups` is the record.** The details
+card reads `links`, and until migration 052 only hikingwnc had ever been copied
+across. So every card offered one source while the database held two or three —
+which reads to a visitor as an obsession with one website rather than as the
+display gap it actually was. 052 harvests the URL of every *certain* claim
+group into `links`, taking most published falls from one source to two or
+three. It is re-runnable, so a future import does not have to remember to do
+it.
+
+**A name match is not an identification.** Matching a published list to our
+features by name is how the challenge lists were linked, and the README records
+35 entries left deliberately unlinked rather than guessed. The hazard recurred
+in September 2026 with a second source: seven name matches pointed at
+waterfalls up to 396 km away, in one case a different county. Both our existing
+claim groups and the new list agreed on all seven — worth nothing, because both
+had matched on the name and so shared the flaw. **Agreement between two
+matchers that share a defect is not corroboration.** The arbiter is the
+coordinate the source itself publishes, and the matcher now refuses a name
+match more than 20 km from ours.
+
 **Marker colors live in CSS custom properties**, not in JavaScript, so the
 legend swatches and the map cannot drift apart. JS reads them back via
 `getComputedStyle`, which is also how the palette changes with the theme.
@@ -81,7 +137,7 @@ nullable and unused by the new flow.
 
 | Method | Path | Notes |
 |---|---|---|
-| GET | `/features` | every place, with challenges, links, ratings, location, `last_visited` for the current user |
+| GET | `/features` | every **published** place — confirmed or corroborated waterfalls, and all towers — with challenges, links, ratings, location, `last_visited` for the current user |
 | GET | `/challenges` | name, goal count, target |
 | GET | `/visits` | the signed-in user's visits |
 | POST | `/visits` | one visit |

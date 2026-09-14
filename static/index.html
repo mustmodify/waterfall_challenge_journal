@@ -1822,7 +1822,18 @@
       return '<span class="v">' + (word || '&mdash;') + '</span>';
     }
 
-    const LINK_LABELS = { hikingwnc: 'HikingWNC' };
+    // One entry per claim_groups.source that carries a URL. Unlabelled sources
+    // still render — linkHost() falls back to the hostname — so a new importer
+    // shows up looking rough rather than not at all, which is the right way
+    // round.
+    const LINK_LABELS = {
+      hikingwnc: 'HikingWNC',
+      'hikingwnc-supplement': 'HikingWNC',
+      ncwaterfalls: 'NC Waterfalls',
+      openstreetmap: 'OpenStreetMap',
+      dwhike: 'dwhike',
+      waterfallshiker: 'Waterfall Hiker',
+    };
 
     const DEPRECATED_LABELS = {
       destroyed: 'This waterfall is gone',
@@ -1875,8 +1886,11 @@
         html += '</div>';
       }
 
-      // hikingwnc has the directions, the photos and the current state of the
-      // trail. Sending people there beats pretending we know any of that.
+      // These are other people's pages, and that is the point: hikingwnc has
+      // the directions, the photos and the current state of the trail, and
+      // sending people there beats pretending we know any of that. Since 052
+      // the list is whatever the claims layer holds a certain URL for, so most
+      // falls now offer two or three rather than one.
       if ((goal.links || []).length) {
         html += '<div class="links"><div class="k">More about this place</div>';
         goal.links.forEach((l) => {
