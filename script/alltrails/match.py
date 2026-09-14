@@ -48,9 +48,19 @@ def core(name):
     normalising only one of them would make High Falls (Beech Creek) and
     High Falls- Little River compare differently.
     """
+    # A route is named for what it reaches, then how you get there:
+    # "Douglas Falls Trail via Big Ivy Road". Everything after "via" is
+    # the approach, and keeping it let "Nellie's Falls via Flat Creek
+    # Road" match our Flat Creek Falls on the name of a ROAD.
+    name = re.split(r"\s+via\s+", name, maxsplit=1, flags=re.I)[0]
     name = re.sub(r"\([^)]*\)", " ", name)
     name = re.sub(r"\s*[-–—]\s*.*$", " ", name)
-    name = re.sub(r"[^a-z0-9 ]", " ", name.lower())
+    name = name.lower()
+    # Apostrophes close up rather than split. "Tom's" and "Toms" are one
+    # name spelled two ways, and turning the apostrophe into a space made
+    # them ['tom','s'] and ['toms'] -- a non-match on punctuation alone.
+    name = re.sub(r"[’']", "", name)
+    name = re.sub(r"[^a-z0-9 ]", " ", name)
     return [w for w in name.split() if w not in NOISE]
 
 
@@ -85,9 +95,21 @@ def names_agree(ours, theirs, aliases):
 
 def multi_fall(trail_name):
     """A route named for several waterfalls. Its counts describe one walk past
-    all of them, so they cannot be attributed to any single one."""
-    return len(re.findall(r"\bfalls\b", trail_name, re.I)) > 1 or (
-        " and " in trail_name.lower() and re.search(r"\bfalls\b", trail_name, re.I))
+    all of them, so they cannot be attributed to any single one.
+
+    Counting "and" was too eager: "Raven Cliff Falls and Dismal Trail Loop"
+    joins a waterfall to a TRAIL, and "Pearson's Falls and Glen" to a glen.
+    What makes a route multi-fall is two waterfall NAMES, so require either two
+    occurrences of falls/cascades, or a comma list, or an "and" whose right
+    side is itself a waterfall.
+    """
+    name = trail_name.lower()
+    if len(re.findall(r"\b(falls|cascades)\b", name)) > 1:
+        return True
+    if re.search(r",.*\b(falls|cascades)\b", name):
+        return True
+    tail = name.split(" and ", 1)
+    return len(tail) == 2 and bool(re.search(r"\b(falls|cascades)\b", tail[1]))
 
 
 def aliases_by_feature():
