@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict wTQ0f3eDDnzdNbII4gbUkgiOGPVrTAZ4NdhWbnkcBkbUQqhB9sZcQoCINdCdfZS
+\restrict h5dWbG7TuGBhKnbc232xL5iLI6e1IWLz9dAE9iebb7cdLdz7wdaCslY3UB1zfNZ
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -3816,7 +3816,6 @@ COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identit
 1733	ncwaterfalls|588|cavern-falls	588	ncwaterfalls	https://ncwaterfalls.com/waterfalls/cavern-falls	\N	f	Matched on position, 25 m, with no name agreement. Kevin Adams calls it Cavern Falls.	2026-09-13 18:31:12.575859
 1734	ncwaterfalls|505|little-moore-cove-falls	505	ncwaterfalls	https://ncwaterfalls.com/waterfalls/little-moore-cove-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1735	ncwaterfalls|581|east-fork-falls	581	ncwaterfalls	https://ncwaterfalls.com/waterfalls/east-fork-falls	\N	f	Matched on position, 65 m, with no name agreement. Kevin Adams calls it East Fork Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
-1736	ncwaterfalls|897|cutler-falls	897	ncwaterfalls	https://ncwaterfalls.com/waterfalls/cutler-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1737	ncwaterfalls|360|dry-falls	360	ncwaterfalls	https://ncwaterfalls.com/waterfalls/dry-falls	\N	f	Matched on position, 10 m, with no name agreement. Kevin Adams calls it Dry Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
 1738	ncwaterfalls|729|highlands-falls	729	ncwaterfalls	https://ncwaterfalls.com/waterfalls/highlands-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1739	ncwaterfalls|999|coyote-falls	999	ncwaterfalls	https://ncwaterfalls.com/waterfalls/coyote-falls	\N	f	Matched on position, 6 m, with no name agreement. Kevin Adams calls it Coyote Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
@@ -3863,9 +3862,7 @@ COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identit
 1779	ncwaterfalls|474|sunburst-falls	474	ncwaterfalls	https://ncwaterfalls.com/waterfalls/sunburst-falls	\N	f	Matched on position, 91 m, with no name agreement. Kevin Adams calls it Sunburst Falls-Visit Guide, Photos, Map.	2026-09-13 18:31:12.575859
 1780	ncwaterfalls|910|lanier-falls	910	ncwaterfalls	https://ncwaterfalls.com/waterfalls/lanier-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1781	ncwaterfalls|407|courthouse-falls	407	ncwaterfalls	https://ncwaterfalls.com/waterfalls/courthouse-falls	\N	f	Matched on position, 24 m, with no name agreement. Kevin Adams calls it Courthouse Falls-Hiking Guide, Photos, Map & Directions.	2026-09-13 18:31:12.575859
-1782	ncwaterfalls|601|cedar-falls	601	ncwaterfalls	https://ncwaterfalls.com/waterfalls/cedar-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1783	ncwaterfalls|505|moore-cove-falls	505	ncwaterfalls	https://ncwaterfalls.com/waterfalls/moore-cove-falls	\N	f	Matched on position, 91 m, with no name agreement. Kevin Adams calls it Moore Cove Falls-Hiking-Map-Photos.	2026-09-13 18:31:12.575859
-1784	ncwaterfalls|667|big-bearwallow-falls	667	ncwaterfalls	https://ncwaterfalls.com/waterfalls/big-bearwallow-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1785	ncwaterfalls|349|upper-dill-falls	349	ncwaterfalls	https://ncwaterfalls.com/waterfalls/upper-dill-falls	\N	f	Matched on position, 57 m, with no name agreement. Kevin Adams calls it Upper Dill Falls Info.	2026-09-13 18:31:12.575859
 1786	ncwaterfalls|417|hooker-falls	417	ncwaterfalls	https://ncwaterfalls.com/waterfalls/hooker-falls	\N	f	Matched on position, 6 m, with no name agreement. Kevin Adams calls it Hooker Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
 1787	ncwaterfalls|408|pearsons-falls	408	ncwaterfalls	https://ncwaterfalls.com/waterfalls/pearsons-falls	\N	f	Matched on position, 54 m, with no name agreement. Kevin Adams calls it Pearsons Falls-Visiting Guide, Photos, Map.	2026-09-13 18:31:12.575859
@@ -3873,14 +3870,12 @@ COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identit
 1789	ncwaterfalls|531|lemon-falls	531	ncwaterfalls	https://ncwaterfalls.com/waterfalls/lemon-falls	\N	f	Matched on position, 32 m, with no name agreement. Kevin Adams calls it Lemon Falls-Directions, Photos, Map.	2026-09-13 18:31:12.575859
 1790	ncwaterfalls|353|triple-falls	353	ncwaterfalls	https://ncwaterfalls.com/waterfalls/triple-falls	\N	f	Matched on position, 133 m, with no name agreement. Kevin Adams calls it Triple Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
 1791	ncwaterfalls|325|soco-falls	325	ncwaterfalls	https://ncwaterfalls.com/waterfalls/soco-falls	\N	f	Matched on position, 23 m, with no name agreement. Kevin Adams calls it Soco Falls Visiting Info.	2026-09-13 18:31:12.575859
-1792	ncwaterfalls|860|little-creek-falls-highlands	860	ncwaterfalls	https://ncwaterfalls.com/waterfalls/little-creek-falls-highlands	\N	t	\N	2026-09-13 18:31:12.575859
 1794	ncwaterfalls|578|upper-kiesee-falls	578	ncwaterfalls	https://ncwaterfalls.com/waterfalls/upper-kiesee-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1795	ncwaterfalls|334|turtleback-falls	334	ncwaterfalls	https://ncwaterfalls.com/waterfalls/turtleback-falls	\N	f	Matched on position, 16 m, with no name agreement. Kevin Adams calls it Turtleback Falls-Hiking Guide.	2026-09-13 18:31:12.575859
 1796	ncwaterfalls|639|upper-stick-falls	639	ncwaterfalls	https://ncwaterfalls.com/waterfalls/upper-stick-falls	\N	f	Matched on position, 39 m, with no name agreement. Kevin Adams calls it Upper Stick Falls.	2026-09-13 18:31:12.575859
 1797	ncwaterfalls|314|elk-falls	314	ncwaterfalls	https://ncwaterfalls.com/waterfalls/elk-falls	\N	f	Matched on position, 13 m, with no name agreement. Kevin Adams calls it Elk Falls-Hiking Guide, Photos, Map & Directions.	2026-09-13 18:31:12.575859
 1798	ncwaterfalls|365|upper-falls-yellowstone-prong	365	ncwaterfalls	https://ncwaterfalls.com/waterfalls/upper-falls-yellowstone-prong	\N	f	Matched on position, 137 m, with no name agreement. Kevin Adams calls it Upper Falls.	2026-09-13 18:31:12.575859
 1799	ncwaterfalls|551|quarry-falls	551	ncwaterfalls	https://ncwaterfalls.com/waterfalls/quarry-falls	\N	f	Matched on position, 16 m, with no name agreement. Kevin Adams calls it Quarry Falls-A.K.A. Bust-Your-Butt Falls.	2026-09-13 18:31:12.575859
-1800	ncwaterfalls|382|waterfall-on-long-branch	382	ncwaterfalls	https://ncwaterfalls.com/waterfalls/waterfall-on-long-branch	\N	t	\N	2026-09-13 18:31:12.575859
 1801	ncwaterfalls|636|glencannon-falls	636	ncwaterfalls	https://ncwaterfalls.com/waterfalls/glencannon-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1802	ncwaterfalls|418|upper-log-hollow-falls	418	ncwaterfalls	https://ncwaterfalls.com/waterfalls/upper-log-hollow-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1803	ncwaterfalls|744|lower-bald-springs-falls	744	ncwaterfalls	https://ncwaterfalls.com/waterfalls/lower-bald-springs-falls	\N	f	Matched on position, 3 m, with no name agreement. Kevin Adams calls it Lower Bald Springs Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
@@ -3895,7 +3890,6 @@ COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identit
 1812	ncwaterfalls|471|upper-silver-run-falls	471	ncwaterfalls	https://ncwaterfalls.com/waterfalls/upper-silver-run-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1813	ncwaterfalls|963|lower-balsam-falls	963	ncwaterfalls	https://ncwaterfalls.com/waterfalls/lower-balsam-falls	\N	f	Matched on position, 5 m, with no name agreement. Kevin Adams calls it Lower Balsam Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
 1814	ncwaterfalls|461|batson-creek-falls	461	ncwaterfalls	https://ncwaterfalls.com/waterfalls/batson-creek-falls	\N	t	\N	2026-09-13 18:31:12.575859
-1815	ncwaterfalls|323|silver-run-falls-cape-fear-river	323	ncwaterfalls	https://ncwaterfalls.com/waterfalls/silver-run-falls-cape-fear-river	\N	t	\N	2026-09-13 18:31:12.575859
 1816	ncwaterfalls|579|beetree-fork-falls	579	ncwaterfalls	https://ncwaterfalls.com/waterfalls/beetree-fork-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1817	ncwaterfalls|349|dill-falls	349	ncwaterfalls	https://ncwaterfalls.com/waterfalls/dill-falls	\N	f	Matched on position, 61 m, with no name agreement. Kevin Adams calls it Dill Falls Visiting Info.	2026-09-13 18:31:12.575859
 1818	ncwaterfalls|354|bridal-veil-falls	354	ncwaterfalls	https://ncwaterfalls.com/waterfalls/bridal-veil-falls	\N	f	Matched on position, 214 m, with no name agreement. Kevin Adams calls it Bridal Veil Falls-Map & Directions.	2026-09-13 18:31:12.575859
@@ -3919,7 +3913,6 @@ COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identit
 1836	ncwaterfalls|896|graybeard-falls	896	ncwaterfalls	https://ncwaterfalls.com/waterfalls/graybeard-falls	\N	f	Matched on position, 13 m, with no name agreement. Kevin Adams calls it Graybeard Falls-Hiking Guide, Photos, Map.	2026-09-13 18:31:12.575859
 1837	ncwaterfalls|590|briefcase-falls	590	ncwaterfalls	https://ncwaterfalls.com/waterfalls/briefcase-falls	\N	f	Matched on position, 38 m, with no name agreement. Kevin Adams calls it Briefcase Falls.	2026-09-13 18:31:12.575859
 1838	ncwaterfalls|480|mill-shoals	480	ncwaterfalls	https://ncwaterfalls.com/waterfalls/mill-shoals	\N	f	Matched on position, 16 m, with no name agreement. Kevin Adams calls it Mill Shoals-Visiting Guide, Photos, Map.	2026-09-13 18:31:12.575859
-1839	ncwaterfalls|421|jones-falls	421	ncwaterfalls	https://ncwaterfalls.com/waterfalls/jones-falls	\N	t	\N	2026-09-13 18:31:12.575859
 1995	dwhike|507|North-Carolina-Hikes/DuPont-State-Forest-Hikes/DuPont-Grassy-Creek-Falls	507	dwhike	https://www.dwhike.com/Hikes-in-the-South/North-Carolina-Hikes/DuPont-State-Forest-Hikes/DuPont-Grassy-Creek-Falls	\N	t	Gallery "DuPont State Forest - Grassy Creek Falls (12-4-15)", walked 20201127. Trailhead 1.3 km from the fall.	2026-09-13 19:33:14.193071
 1996	dwhike|506|North-Carolina-Hikes/DuPont-State-Forest-Hikes/DuPont-Joanna-Road-Wintergreen-Falls	506	dwhike	https://www.dwhike.com/Hikes-in-the-South/North-Carolina-Hikes/DuPont-State-Forest-Hikes/DuPont-Joanna-Road-Wintergreen-Falls	\N	f	Gallery "DuPont State Forest - Pinnacle Mountain Road to Wintergreen Falls (3-15-20)", walked 20210127. Trailhead 2.9 km from the fall. His route is 6.2 miles against the 3.0 miles our other sources give for this fall, so it passes it rather than going to it.	2026-09-13 19:33:14.193071
 1997	dwhike|506|North-Carolina-Hikes/DuPont-State-Forest-Hikes/DuPont-Wintergreen-Falls	506	dwhike	https://www.dwhike.com/Hikes-in-the-South/North-Carolina-Hikes/DuPont-State-Forest-Hikes/DuPont-Wintergreen-Falls	\N	t	Gallery "DuPont State Forest - Wintergreen Falls (11-10-15)", walked 20200930. Trailhead 1.6 km from the fall.	2026-09-13 19:33:14.193071
@@ -3962,6 +3955,13 @@ COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identit
 2034	dwhike|1189|North-Carolina-Hikes/Pisgah-NF-Pisgah-District/Toms-Spring-Falls-NC	1189	dwhike	https://www.dwhike.com/Hikes-in-the-South/North-Carolina-Hikes/Pisgah-NF-Pisgah-District/Toms-Spring-Falls-NC	\N	t	Gallery "Tom's Spring Falls, Transylvania County (6-8-12)", walked 20191023. Trailhead 2.8 km from the fall.	2026-09-13 19:33:14.193071
 2035	dwhike|1189|North-Carolina-Hikes/Pisgah-NF-Pisgah-District/Twin-Falls-Clawhammer-Cove-Trail-Hike-NC	1189	dwhike	https://www.dwhike.com/Hikes-in-the-South/North-Carolina-Hikes/Pisgah-NF-Pisgah-District/Twin-Falls-Clawhammer-Cove-Trail-Hike-NC	\N	f	Gallery "Twin Falls - Clawhammer Cove Loop, Transylvania County (2-17-19)", walked 20191121. Trailhead 5.2 km from the fall. His route is 5.6 miles against the 0.4 miles our other sources give for this fall, so it passes it rather than going to it.	2026-09-13 19:33:14.193071
 2036	dwhike|1189|North-Carolina-Hikes/Pisgah-NF-Pisgah-District/Twin-Falls-Pisgah-NF	1189	dwhike	https://www.dwhike.com/Hikes-in-the-South/North-Carolina-Hikes/Pisgah-NF-Pisgah-District/Twin-Falls-Pisgah-NF	\N	f	Gallery "Twin Falls & Avery Creek, Transylvania County (4-25-15)", walked 20191023. Trailhead 5.2 km from the fall. His route is 6.5 miles against the 0.4 miles our other sources give for this fall, so it passes it rather than going to it.	2026-09-13 19:33:14.193071
+1736	ncwaterfalls|897|cutler-falls	897	ncwaterfalls	https://ncwaterfalls.com/waterfalls/cutler-falls	\N	f	Attached by name to a waterfall of the same name elsewhere in the state; the coordinate on this page is far from ours.	2026-09-13 18:31:12.575859
+1782	ncwaterfalls|601|cedar-falls	601	ncwaterfalls	https://ncwaterfalls.com/waterfalls/cedar-falls	\N	f	Attached by name to a waterfall of the same name elsewhere in the state; the coordinate on this page is far from ours.	2026-09-13 18:31:12.575859
+1784	ncwaterfalls|667|big-bearwallow-falls	667	ncwaterfalls	https://ncwaterfalls.com/waterfalls/big-bearwallow-falls	\N	f	Attached by name to a waterfall of the same name elsewhere in the state; the coordinate on this page is far from ours.	2026-09-13 18:31:12.575859
+1792	ncwaterfalls|860|little-creek-falls-highlands	860	ncwaterfalls	https://ncwaterfalls.com/waterfalls/little-creek-falls-highlands	\N	f	Attached by name to a waterfall of the same name elsewhere in the state; the coordinate on this page is far from ours.	2026-09-13 18:31:12.575859
+1800	ncwaterfalls|382|waterfall-on-long-branch	382	ncwaterfalls	https://ncwaterfalls.com/waterfalls/waterfall-on-long-branch	\N	f	Attached by name to a waterfall of the same name elsewhere in the state; the coordinate on this page is far from ours.	2026-09-13 18:31:12.575859
+1815	ncwaterfalls|323|silver-run-falls-cape-fear-river	323	ncwaterfalls	https://ncwaterfalls.com/waterfalls/silver-run-falls-cape-fear-river	\N	f	Attached by name to a waterfall of the same name elsewhere in the state; the coordinate on this page is far from ours.	2026-09-13 18:31:12.575859
+1839	ncwaterfalls|421|jones-falls	421	ncwaterfalls	https://ncwaterfalls.com/waterfalls/jones-falls	\N	f	Attached by name to a waterfall of the same name elsewhere in the state; the coordinate on this page is far from ours.	2026-09-13 18:31:12.575859
 \.
 
 
@@ -15517,6 +15517,113 @@ COPY public.links (id, feature_id, url, rel, comments, created_at) FROM stdin;
 959	406	https://hikingwnc.com/095-twin-falls-sc/	hikingwnc	hikingwnc #095	2026-09-13 01:58:40.115705
 960	908	https://waterfallshiker.com/2012/06/07/shacktown-falls/	waterfallshiker	Trip report and the source of both alternate names.	2026-09-13 16:59:38.944595
 961	909	https://ncwaterfalls.com/waterfalls/jumping-fish-falls/	ncwaterfalls	Coordinates, height, elevation and hike detail.	2026-09-13 17:01:30.847608
+962	316	https://ncwaterfalls.com/waterfalls/dew-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+963	318	https://ncwaterfalls.com/waterfalls/white-owl-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+964	322	https://ncwaterfalls.com/waterfalls/upper-logging-road-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+965	323	https://ncwaterfalls.com/waterfalls/silver-run-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+966	324	https://ncwaterfalls.com/waterfalls/mingo-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+967	325	https://ncwaterfalls.com/waterfalls/soco-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+968	331	https://ncwaterfalls.com/waterfalls/glen-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+969	338	https://ncwaterfalls.com/waterfalls/cody-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+970	339	https://ncwaterfalls.com/waterfalls/skinny-dip-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+971	340	https://ncwaterfalls.com/waterfalls/catheys-creek-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+972	343	https://ncwaterfalls.com/waterfalls/hickory-nut-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+973	349	https://ncwaterfalls.com/waterfalls/dill-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+974	350	https://ncwaterfalls.com/waterfalls/second-falls	ncwaterfalls	Matched by name and confirmed within 0.4 km of our coordinate.	2026-09-14 01:58:36.258261
+975	353	https://ncwaterfalls.com/waterfalls/triple-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+976	359	https://ncwaterfalls.com/waterfalls/drift-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+977	360	https://ncwaterfalls.com/waterfalls/dry-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+978	364	https://ncwaterfalls.com/waterfalls/bird-rock-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+979	377	https://ncwaterfalls.com/waterfalls/nameless-waterfall-no-1-on-log-hollow-branch	ncwaterfalls	Matched by name and confirmed within 0.6 km of our coordinate.	2026-09-14 01:58:36.258261
+980	378	https://ncwaterfalls.com/waterfalls/looking-glass-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+981	380	https://ncwaterfalls.com/waterfalls/moore-cove-falls	ncwaterfalls	Matched by name and confirmed within 0.2 km of our coordinate.	2026-09-14 01:58:36.258261
+982	381	https://ncwaterfalls.com/waterfalls/cedar-rock-falls-trib-catheys-creek	ncwaterfalls	Matched by name; neither side publishes a coordinate to check it against.	2026-09-14 01:58:36.258261
+983	384	https://ncwaterfalls.com/waterfalls/high-falls-little-river	ncwaterfalls	Matched by name and confirmed within 0.2 km of our coordinate.	2026-09-14 01:58:36.258261
+984	385	https://ncwaterfalls.com/waterfalls/logging-road-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+985	393	https://ncwaterfalls.com/waterfalls/rainbow-falls-horsepasture-river	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+986	394	https://ncwaterfalls.com/waterfalls/whitewater-falls	ncwaterfalls	Matched by name and confirmed within 0.2 km of our coordinate.	2026-09-14 01:58:36.258261
+987	395	https://ncwaterfalls.com/waterfalls/linville-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+988	405	https://ncwaterfalls.com/waterfalls/catawba-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+989	407	https://ncwaterfalls.com/waterfalls/courthouse-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+990	410	https://ncwaterfalls.com/waterfalls/little-bradley-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+991	417	https://ncwaterfalls.com/waterfalls/hooker-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+992	418	https://ncwaterfalls.com/waterfalls/upper-log-hollow-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+993	461	https://ncwaterfalls.com/waterfalls/batson-creek-falls	ncwaterfalls	Matched by name; neither side publishes a coordinate to check it against.	2026-09-14 01:58:36.258261
+994	462	https://ncwaterfalls.com/waterfalls/connestee-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+995	468	https://ncwaterfalls.com/waterfalls/toxaway-falls	ncwaterfalls	Matched by name and confirmed within 0.4 km of our coordinate.	2026-09-14 01:58:36.258261
+996	471	https://ncwaterfalls.com/waterfalls/upper-silver-run-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+997	482	https://ncwaterfalls.com/waterfalls/merry-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+998	496	https://ncwaterfalls.com/waterfalls/upper-courthouse-falls	ncwaterfalls	Matched by name and confirmed within 1.1 km of our coordinate.	2026-09-14 01:58:36.258261
+999	498	https://ncwaterfalls.com/waterfalls/chestnut-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1000	501	https://ncwaterfalls.com/waterfalls/discovery-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1001	503	https://ncwaterfalls.com/waterfalls/upper-dill-falls	ncwaterfalls	Matched by name and confirmed within 0.3 km of our coordinate.	2026-09-14 01:58:36.258261
+1002	504	https://ncwaterfalls.com/waterfalls/sunburst-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1003	505	https://ncwaterfalls.com/waterfalls/little-moore-cove-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1004	512	https://ncwaterfalls.com/waterfalls/yellowstone-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1005	531	https://ncwaterfalls.com/waterfalls/lemon-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1006	548	https://ncwaterfalls.com/waterfalls/bennett-cove-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1007	550	https://ncwaterfalls.com/waterfalls/cullasaja-falls	ncwaterfalls	Matched by name and confirmed within 0.2 km of our coordinate.	2026-09-14 01:58:36.258261
+1008	551	https://ncwaterfalls.com/waterfalls/quarry-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1009	552	https://ncwaterfalls.com/waterfalls/scadin-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1010	570	https://ncwaterfalls.com/waterfalls/lower-catawba-falls	ncwaterfalls	Matched by name; neither side publishes a coordinate to check it against.	2026-09-14 01:58:36.258261
+1011	572	https://ncwaterfalls.com/waterfalls/glassmine-falls	ncwaterfalls	Matched by name and confirmed within 1.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1012	574	https://ncwaterfalls.com/waterfalls/kiesee-falls	ncwaterfalls	Matched by name and confirmed within 0.3 km of our coordinate.	2026-09-14 01:58:36.258261
+1013	576	https://ncwaterfalls.com/waterfalls/reese-place-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1014	577	https://ncwaterfalls.com/waterfalls/summey-cove-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1015	578	https://ncwaterfalls.com/waterfalls/upper-kiesee-falls	ncwaterfalls	Matched by name and confirmed within 0.3 km of our coordinate.	2026-09-14 01:58:36.258261
+1016	579	https://ncwaterfalls.com/waterfalls/beetree-fork-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1017	581	https://ncwaterfalls.com/waterfalls/east-fork-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1018	586	https://ncwaterfalls.com/waterfalls/bradley-cooper-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1019	590	https://ncwaterfalls.com/waterfalls/case-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1020	594	https://ncwaterfalls.com/waterfalls/poundingmill-branch-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1021	622	https://ncwaterfalls.com/waterfalls/no-name-cove-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1022	632	https://ncwaterfalls.com/waterfalls/potholes-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1023	633	https://ncwaterfalls.com/waterfalls/lake-sequoyah-dam	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1024	636	https://ncwaterfalls.com/waterfalls/glencannon-falls	ncwaterfalls	Matched by name and confirmed within 0.2 km of our coordinate.	2026-09-14 01:58:36.258261
+1025	639	https://ncwaterfalls.com/waterfalls/stick-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1026	640	https://ncwaterfalls.com/waterfalls/lower-stick-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1027	641	https://ncwaterfalls.com/waterfalls/slick-stick-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1028	661	https://ncwaterfalls.com/waterfalls/cherry-cove-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1029	685	https://ncwaterfalls.com/waterfalls/pot-branch-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1030	709	https://ncwaterfalls.com/waterfalls/little-creek-falls-highlands	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1031	729	https://ncwaterfalls.com/waterfalls/highlands-falls	ncwaterfalls	Matched by name; his coordinate is 4.9 km from ours, which is close enough to be the same fall seen from the trailhead and far enough to be worth reading before trusting.	2026-09-14 01:58:36.258261
+1032	743	https://ncwaterfalls.com/waterfalls/leatherwood-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1033	744	https://ncwaterfalls.com/waterfalls/lower-bald-springs-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1034	745	https://ncwaterfalls.com/waterfalls/bald-springs-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1035	746	https://ncwaterfalls.com/waterfalls/rain-forest-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1036	765	https://ncwaterfalls.com/waterfalls/silvervale-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1037	774	https://ncwaterfalls.com/waterfalls/cascade-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1038	775	https://ncwaterfalls.com/waterfalls/betseys-rock-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1039	799	https://ncwaterfalls.com/waterfalls/green-mountain-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1040	812	https://ncwaterfalls.com/waterfalls/burgan-creek-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1041	821	https://ncwaterfalls.com/waterfalls/upper-catawba-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1042	835	https://ncwaterfalls.com/waterfalls/red-rock-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1043	838	https://ncwaterfalls.com/waterfalls/sam-branch-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1044	861	https://ncwaterfalls.com/waterfalls/cliff-branch-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1045	888	https://ncwaterfalls.com/waterfalls/big-creek-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1046	895	https://ncwaterfalls.com/waterfalls/boxcar-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1047	896	https://ncwaterfalls.com/waterfalls/graybeard-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1048	909	https://ncwaterfalls.com/waterfalls/jumping-fish-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1049	910	https://ncwaterfalls.com/waterfalls/lanier-falls	ncwaterfalls	Matched by name; neither side publishes a coordinate to check it against.	2026-09-14 01:58:36.258261
+1050	911	https://ncwaterfalls.com/waterfalls/clark-park-falls	ncwaterfalls	Matched by name; neither side publishes a coordinate to check it against.	2026-09-14 01:58:36.258261
+1051	922	https://ncwaterfalls.com/waterfalls/burningtown-falls	ncwaterfalls	Matched by name and confirmed within 0.1 km of our coordinate.	2026-09-14 01:58:36.258261
+1052	923	https://ncwaterfalls.com/waterfalls/indian-camp-creek-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1053	926	https://ncwaterfalls.com/waterfalls/kuykendall-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1054	927	https://ncwaterfalls.com/waterfalls/bee-branch-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1055	944	https://ncwaterfalls.com/waterfalls/bear-creek-falls-tributary-forney-creek	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1056	950	https://ncwaterfalls.com/waterfalls/clear-creek-falls-nantahala-lake	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1057	962	https://ncwaterfalls.com/waterfalls/balsam-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1058	963	https://ncwaterfalls.com/waterfalls/lower-balsam-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1059	964	https://ncwaterfalls.com/waterfalls/patricia-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1060	986	https://ncwaterfalls.com/waterfalls/lauren-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1061	992	https://ncwaterfalls.com/waterfalls/sols-creek-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1062	997	https://ncwaterfalls.com/waterfalls/climbing-wall-falls	ncwaterfalls	Matched by name; his coordinate is 3.8 km from ours, which is close enough to be the same fall seen from the trailhead and far enough to be worth reading before trusting.	2026-09-14 01:58:36.258261
+1063	999	https://ncwaterfalls.com/waterfalls/coyote-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1064	1001	https://ncwaterfalls.com/waterfalls/upper-bear-creek-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1065	1008	https://ncwaterfalls.com/waterfalls/upper-little-creek-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1066	1105	https://ncwaterfalls.com/waterfalls/falling-water-branch-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
+1067	1201	https://ncwaterfalls.com/waterfalls/cover-falls	ncwaterfalls	Matched by name; neither side publishes a coordinate to check it against.	2026-09-14 01:58:36.258261
+1068	1237	https://ncwaterfalls.com/waterfalls/stairstep-falls	ncwaterfalls	Matched by name and confirmed within 0.0 km of our coordinate.	2026-09-14 01:58:36.258261
 \.
 
 
@@ -15582,7 +15689,7 @@ SELECT pg_catalog.setval('public.goals_id_seq', 711, true);
 -- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.links_id_seq', 961, true);
+SELECT pg_catalog.setval('public.links_id_seq', 1068, true);
 
 
 --
@@ -15603,5 +15710,5 @@ SELECT pg_catalog.setval('public.notes_id_seq', 20, true);
 -- PostgreSQL database dump complete
 --
 
-\unrestrict wTQ0f3eDDnzdNbII4gbUkgiOGPVrTAZ4NdhWbnkcBkbUQqhB9sZcQoCINdCdfZS
+\unrestrict h5dWbG7TuGBhKnbc232xL5iLI6e1IWLz9dAE9iebb7cdLdz7wdaCslY3UB1zfNZ
 

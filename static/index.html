@@ -1838,7 +1838,11 @@
       return '<span class="v">' + (word || '&mdash;') + '</span>';
     }
 
-    const LINK_LABELS = { hikingwnc: 'HikingWNC' };
+    const LINK_LABELS = {
+      hikingwnc: 'HikingWNC',
+      ncwaterfalls: 'NC Waterfalls',
+      waterfallshiker: 'Waterfall Shiker',
+    };
 
     const DEPRECATED_LABELS = {
       destroyed: 'This waterfall is gone',
@@ -1891,8 +1895,8 @@
         html += '</div>';
       }
 
-      // hikingwnc has the directions, the photos and the current state of the
-      // trail. Sending people there beats pretending we know any of that.
+      // The sources have the directions, the photos and the current state of
+      // the trail. Sending people there beats pretending we know any of that.
       if ((goal.links || []).length) {
         html += '<div class="links"><div class="k">More about this place</div>';
         goal.links.forEach((l) => {

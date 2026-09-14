@@ -75,6 +75,12 @@ for rec in cache.latest(CACHE):
     if not by_name and t:
         # ours often carry a river after the name: "Turtleback Falls- Horsepasture River"
         by_name = [f for f in feats if norm(f[1]).startswith(t + ' ')]
+    # He covers the whole state and we carry the western end, so the names
+    # collide: his Silver Run Falls is 396 km from ours, in Cumberland County.
+    # The coordinate on his own page settles it.
+    if len(by_name) == 1 and wf and by_name[0][2]:
+        if km(wf[0], wf[1], by_name[0][2], by_name[0][3]) > 20:
+            by_name = []
     if len(by_name) == 1:
         match, why = by_name[0], ''
         named += 1
