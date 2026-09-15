@@ -874,7 +874,8 @@
       color: var(--haze);
     }
 
-    .badge.challenge { border-color: var(--accent); color: var(--accent); }
+    .badge.challenge { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .badge.challenge:hover { background: var(--accent); color: var(--bg); }
     .badge.visited { background: var(--c-visited); border-color: var(--c-visited); color: var(--on-visited); font-weight: 600; }
     .badge.diff-E { border-color: #59b07f; color: #59b07f; }
     .badge.diff-M { border-color: #dfa94f; color: #dfa94f; }
@@ -943,6 +944,27 @@
       text-decoration: underline;
       padding-left: 0;
     }
+
+    .add-place {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      text-decoration: underline;
+      padding-left: 0;
+    }
+
+    .navigate {
+      margin: 12px 0 4px;
+    }
+    .navigate a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .navigate a:hover { text-decoration: underline; }
 
     .links { margin-top: 4px; }
 
@@ -1364,6 +1386,47 @@
       <div id="fix-thanks" class="modal-body" hidden>
         <p>Thank you &mdash; that's logged. No account needed, so I can't write
           back, but I read them.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="add-place-backdrop" hidden>
+    <div id="add-place" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="add-place-title">
+      <div class="modal-head">
+        <h2 id="add-place-title">Add a Place</h2>
+        <button class="close quiet" id="add-place-close" aria-label="Close">&#10005;</button>
+      </div>
+      <form id="add-place-form" class="modal-form">
+      <div class="modal-body">
+        <p>Know a waterfall, swimming hole, or lookout that isn't on the map?
+          Tell us about it and we'll add it.</p>
+        <label for="add-place-name">Name</label>
+        <input type="text" id="add-place-name" required autocomplete="off"
+          placeholder="e.g. Toms Creek Falls" />
+        <label for="add-place-kind">Kind</label>
+        <select id="add-place-kind">
+          <option value="waterfall">Waterfall</option>
+          <option value="tower">Lookout tower</option>
+        </select>
+        <label for="add-place-location">Where is it?
+          <span class="opt">&mdash; coordinates or a description</span></label>
+        <input type="text" id="add-place-location" autocomplete="off"
+          placeholder="35.7772, -82.0618 or &ldquo;off US-221 near Marion&rdquo;" />
+        <label for="add-place-notes">Anything else we should know?
+          <span class="opt">&mdash; optional</span></label>
+        <textarea id="add-place-notes" rows="3"
+          placeholder="Distance, access, how you know about it&hellip;"></textarea>
+      </div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="submit" class="primary" id="add-place-submit">Send</button>
+          <button type="button" class="quiet" id="add-place-cancel">Cancel</button>
+        </div>
+        <div id="add-place-msg" role="status"></div>
+      </div>
+      </form>
+      <div id="add-place-thanks" class="modal-body" hidden>
+        <p>Thanks &mdash; got it. We'll review and add it to the map.</p>
       </div>
     </div>
   </div>
@@ -2127,7 +2190,10 @@
 
       let html = '<h2>' + escapeHtml(goal.name) + '</h2>';
       html += '<div class="badges">';
-      (goal.challenges || []).forEach((c) => { html += '<span class="badge challenge">' + escapeHtml(c) + '</span>'; });
+      (goal.challenges || []).forEach((c) => {
+        const label = CHALLENGE_LABELS[c] || c;
+        html += '<a class="badge challenge" href="/account#challenges" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</a>';
+      });
       if (diffName) html += '<span class="badge diff-' + d + '">' + diffName + '</span>';
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
       html += '</div>';
@@ -2148,6 +2214,15 @@
       html += '<div class="fact"><div class="k">Solitude</div>' + band('solitude', goal.solitude_rating) + '</div>';
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
+
+      // Navigate to trailhead if we have parking coords, otherwise the falls.
+      const navLoc = goal.parking_location || goal.location;
+      if (navLoc && navLoc.latitude && navLoc.longitude) {
+        const mapsUrl = 'https://maps.google.com/maps?daddr=' + navLoc.latitude + ',' + navLoc.longitude;
+        html += '<div class="navigate"><a href="' + escapeHtml(mapsUrl) + '" target="_blank" rel="noopener">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>' +
+          (goal.parking_location ? 'Navigate to trailhead' : 'Navigate to falls') + '</a></div>';
+      }
 
       if ((goal.notes || []).length) {
         html += '<div class="notes">';
@@ -2205,11 +2280,24 @@
         html += '<div class="signin-nudge"><button class="quiet" id="nudge-signin">Sign in</button> to log a visit.</div>';
       }
 
+      if (state.user) {
+        html += '<button type="button" class="quiet add-place" id="add-place-btn">Add a place to the map</button>';
+      } else {
+        html += '<button type="button" class="quiet add-place" id="add-place-btn">Add a place to the map</button>';
+      }
+
       html += '<button type="button" class="quiet fix" id="report-fix">' +
         'Something wrong here?</button>';
 
       $('drawer-body').innerHTML = html;
       $('report-fix').addEventListener('click', () => setFix(true, goal));
+      $('add-place-btn').addEventListener('click', () => {
+        if (state.user) {
+          openAddPlace();
+        } else {
+          showAddPlaceSignInPrompt();
+        }
+      });
       $('drawer').classList.add('open');
 
       const form = $('log-visit');
@@ -2726,6 +2814,71 @@
 
     $('fix-close').addEventListener('click', () => setFix(false));
     $('fix-cancel').addEventListener('click', () => setFix(false));
+
+    function openAddPlace() {
+      $('add-place-form').hidden = false;
+      $('add-place-thanks').hidden = true;
+      $('add-place-msg').textContent = '';
+      $('add-place-name').value = '';
+      $('add-place-location').value = '';
+      $('add-place-notes').value = '';
+      $('add-place-backdrop').hidden = false;
+      $('add-place').focus();
+    }
+
+    function showAddPlaceSignInPrompt() {
+      $('add-place-form').hidden = true;
+      $('add-place-thanks').hidden = true;
+      $('add-place-backdrop').hidden = false;
+      $('add-place-msg').textContent = '';
+      const body = $('add-place').querySelector('.modal-body') || $('add-place-thanks');
+      $('add-place-thanks').innerHTML = '<p>Sign in to suggest a place &mdash; we ask so ' +
+        'we can follow up if we have questions, and to keep out bots.</p>' +
+        '<button class="primary" id="add-place-signin">Sign in</button>';
+      $('add-place-thanks').hidden = false;
+      $('add-place').focus();
+      const signinBtn = $('add-place-signin');
+      if (signinBtn) signinBtn.addEventListener('click', () => {
+        $('add-place-backdrop').hidden = true;
+        toggleAuthCard(true);
+      });
+    }
+
+    $('add-place-close').addEventListener('click', () => { $('add-place-backdrop').hidden = true; });
+    $('add-place-cancel').addEventListener('click', () => { $('add-place-backdrop').hidden = true; });
+    $('add-place-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('add-place-backdrop')) $('add-place-backdrop').hidden = true;
+    });
+
+    $('add-place-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      $('add-place-msg').textContent = '';
+      $('add-place-submit').disabled = true;
+      fetch('/corrections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          feature_id: null,
+          subject: 'add-place',
+          field: 'new_place',
+          suggested_value: $('add-place-name').value +
+            ' (' + $('add-place-kind').value + ')' +
+            ($('add-place-location').value ? ' at ' + $('add-place-location').value : ''),
+          comment: $('add-place-notes').value,
+        }),
+      }).then((r) => {
+        $('add-place-submit').disabled = false;
+        if (r.ok) {
+          $('add-place-form').hidden = true;
+          $('add-place-thanks').hidden = false;
+        } else {
+          $('add-place-msg').textContent = 'Something went wrong. Try again?';
+        }
+      }).catch(() => {
+        $('add-place-submit').disabled = false;
+        $('add-place-msg').textContent = 'Something went wrong. Try again?';
+      });
+    });
     $('fix-backdrop').addEventListener('click', (e) => {
       if (e.target === $('fix-backdrop')) setFix(false);
     });

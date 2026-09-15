@@ -68,6 +68,7 @@ type Feature struct {
 	CmcHikeNo         *int          `json:"cmc_hike_no,omitempty"`
 	BookPage          *int          `json:"book_page,omitempty"`
 	Location          *Location     `json:"location,omitempty"`
+	ParkingLocation   *Location     `json:"parking_location,omitempty"`
 	LastVisited       *string       `json:"last_visited,omitempty"`
 	Challenges        []string      `json:"challenges"`
 	Links             []Link        `json:"links"`
@@ -216,7 +217,8 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			rt_hike_distance, difficulty_rating, accessibility, height_ft,
 			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
-			locations.id as location_id, longitude, latitude,
+			locations.id as location_id, locations.longitude, locations.latitude,
+			parking_loc.id as parking_location_id_out, parking_loc.longitude as parking_lon, parking_loc.latitude as parking_lat,
 			`+lastVisited+` AS last_visited,
 			(SELECT string_agg(challenges.name, ',') FROM goals
 				JOIN challenges ON challenges.id = goals.challenge_id
@@ -246,6 +248,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			deprecated_on::text
 		FROM features
 			LEFT JOIN locations ON locations.id = features.feature_location_id
+		LEFT JOIN locations parking_loc ON parking_loc.id = features.parking_location_id
 			LEFT JOIN coordinate_confidence confidence ON confidence.feature_id = features.id
 		-- A tower carries no source claims at all, so tiering would hide every
 		-- one of them.
@@ -263,6 +266,8 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var f Feature
 		var latitude, longitude sql.NullFloat64
 		var locationID sql.NullInt64
+		var parkingLat, parkingLon sql.NullFloat64
+		var parkingLocID sql.NullInt64
 		var lastVisited sql.NullString
 		var challengeNames sql.NullString
 		var linkRows sql.NullString
@@ -290,6 +295,9 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&locationID,
 			&longitude,
 			&latitude,
+			&parkingLocID,
+			&parkingLon,
+			&parkingLat,
 			&lastVisited,
 			&challengeNames,
 			&linkRows,
@@ -358,6 +366,14 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 				ID:        int(locationID.Int64),
 				Latitude:  &latitude.Float64,
 				Longitude: &longitude.Float64,
+			}
+		}
+
+		if parkingLat.Valid && parkingLon.Valid {
+			f.ParkingLocation = &Location{
+				ID:        int(parkingLocID.Int64),
+				Latitude:  &parkingLat.Float64,
+				Longitude: &parkingLon.Float64,
 			}
 		}
 
