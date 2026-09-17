@@ -183,29 +183,32 @@
     .switch label {
       position: relative;
       z-index: 1;
+      /* flex: 1 so each label claims exactly one segment of the switch's
+         width, the same segments the pill's width is computed against --
+         without it, labels only take their own content width and their
+         text doesn't land centered over the pill it belongs to. */
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 3px 10px;
       font-size: 0.76rem;
+      font-weight: 400;
       color: var(--haze);
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
     }
     .switch label .dot { margin-right: 5px; }
-    /* Fixed dark-on-light rather than the theme's --mist/--on-accent tokens:
-       blue-50 is a fixed light tint regardless of theme, so the text sitting
-       on it needs to be a fixed dark color too, not one that flips light in
-       dark mode and disappears. */
-    .switch input:checked + label { color: #1e3a8a; font-weight: 600; }
+    .switch input:checked + label { color: var(--on-accent); font-weight: 700; }
     .switch input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 1px; }
     .switch__pill {
       position: absolute;
       top: 2px; bottom: 2px; left: 2px;
       width: calc((100% - 4px) / var(--switch-count, 2));
-      background: #eff6ff;
-      border-radius: 4px;
+      background: var(--accent);
+      /* Set per-option in placeSwitchPill(): only the corner touching the
+         switch's own outer edge rounds. */
       transition: transform 0.18s ease;
       z-index: 0;
     }
@@ -233,9 +236,9 @@
        swimming holes' own marker color -- a pressed chip must never look
        like it's the same color as the thing it's toggling. */
     .chip[aria-pressed="true"] {
-      background: #eff6ff;
-      border-color: #eff6ff;
-      color: #1e3a8a;
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--on-accent);
       font-weight: 600;
     }
 
@@ -2752,7 +2755,15 @@
       const inputs = [...sw.querySelectorAll('input')];
       const idx = inputs.findIndex((i) => i.checked);
       const pill = sw.querySelector('.switch__pill');
-      if (idx >= 0) pill.style.transform = 'translateX(' + (idx * 100) + '%)';
+      if (idx < 0) return;
+      pill.style.transform = 'translateX(' + (idx * 100) + '%)';
+      // Only the corners touching the switch's own outer edge round; a
+      // middle option is square on both sides, so the pill reads as filling
+      // one segment of a continuous control rather than as its own rounded
+      // chip sitting inside another one.
+      pill.style.borderRadius =
+        idx === 0 ? '4px 0 0 4px' :
+        idx === inputs.length - 1 ? '0 4px 4px 0' : '0';
     }
 
     // Sets a switch to a value in code (reset, sign-in/out, initial load)
