@@ -1,0 +1,166 @@
+[
+  {
+    "title": "Balsam Lake",
+    "description": "Built by Mead Corp. as a retreat for paper company executives, Balsam Lake passed to the national forest in the early 1980s. Amenities include a day-use picnic area, restroom facilities, and a lakeside trail with accessible fishing piers.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tuckasegee",
+      "addressRegion": "NC",
+      "postalCode": "28783",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "State Rd 1756"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/balsam-lake/461/"
+  },
+  {
+    "title": "Balsam Lake",
+    "description": "",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "NC",
+      "addressCountry": "UNITED STATES"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/balsam-lake/581/"
+  },
+  {
+    "title": "Bear Lake",
+    "description": "Large enough for motor and pontoon boats, Bear Lake is also small enough for kayakers and canoe paddlers to enjoy. One spectacular feature is Sols Creek Falls\u2014visible to boaters and accessible by a foot trail that starts where Sols Creek empties into the lake. The south side of the lake is privately owned with much of that land being part of the Bear Lake Reserve Community. Bear Creek Lake, along with Wolf Creek Lake, Cedar Cliff Lake, and Tanasee Creek Lake, make up what is known as East Fork Lakes.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "NC",
+      "addressCountry": "UNITED STATES"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/bear-lake/579/"
+  },
+  {
+    "title": "Cedar Cliff Lake",
+    "description": "Cedar Cliff Lake is conveniently located near the Tuckasegee community. Public access is available from Shook Cove Road, which intersects with NC 107 just south of the 107/281 intersection. Cedar Cliff Lake, along with Wolf Creek Lake, Bear Creek Lake, and Tanasee Creek Lake, make up what is known as East Fork Lakes.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "NC",
+      "addressCountry": "UNITED STATES"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/cedar-cliff-lake/580/"
+  },
+  {
+    "title": "Lake Glenville",
+    "description": "One of the highest-elevation lakes east of the Rocky Mountains, Lake Glenville is the largest lake in Jackson County and has earned a reputation as a bass fisherman\u2019s delight. Perfect for boating and water-skiing, Lake Glenville also features a swimming area with sand beach and trail to High Falls. The surrounding Glenville community includes historic churches and unique shops.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Glenville",
+      "addressRegion": "NC",
+      "postalCode": "28736",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "425 White Squirrel Trail"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/lake-glenville/582/"
+  },
+  {
+    "title": "Lake Glenville Scenic Waterfall Cruises",
+    "description": "Picture yourself in paradise along Lake Glenville, one of the highest lakes east of the Rockies, at 3,492 ft. in elevation. With 26-miles of shoreline and 4 waterfalls there is plenty to see. The tour is on a 28 ft. Luxury Pontoon Yacht and accommodates up to 14 people. Pickup is at Signal Ridge Marina. Licensed, insured and piloted by an U.S. Coast Guard Master Sea Captain. Call for more information and to book your custom cruise today!",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cullowhee",
+      "addressRegion": "NC",
+      "postalCode": "28723",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "2799 Pine Creek Road"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/lake-glenville-scenic-waterfall-cruises/485/"
+  },
+  {
+    "title": "Mingus Mill",
+    "description": "Used for grinding corn for more than 50 years, this turbine mill from 1886 still stands today. During its years of operation, local farmers would travel to Mingus Mill on Saturdays with a turn of corn to be ground \u2014 a vital part of Appalachian community life. While the mill building is currently closed to the public, the grounds remain open and are easily accessible just a few shady steps from the parking area. Volunteers are often on-site during the warmer months to share the story of the mill and its unique water-powered technology, offering visitors a chance to connect with the history and heritage of the region. Restrooms are available nearby. From Dillsboro, follow the signs for US 74 West/US 441 North toward Cherokee. After about 10 miles, take the Cherokee exit (US 441), which also lists Great Smoky Mountains National Park. Stay on US 441 North, which will enter the Park after about 7 miles; Mingus Mill\u2019s entrance is 2.5 miles into the Park on the left.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cherokee",
+      "addressRegion": "NC",
+      "postalCode": "28719",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "Mingus Creek Trail"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/mingus-mill/467/"
+  },
+  {
+    "title": "Pines Recreation Area",
+    "description": "No rip tides or sharks to worry about in this glistening mountain lake. Take a swim or paddle board in the clear waters of Lake Glenville. Lounge on the sandy beach, fish from the pier, or enjoy a family picnic amongst a mountain backdrop. Amenities at the Pines Recreation Area include a swim beach, pier, picnic tables, toilets, informational signage and more. The amenities are fully handicap accessible. The site also features a life jacket loaner board which allows visitors to check out a life jacket at no charge and then return it to the board when done.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cullowhee",
+      "addressRegion": "NC",
+      "postalCode": "28723",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "1965 Pine Creek Rd"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/pines-recreation-area/463/"
+  },
+  {
+    "title": "Pinnacle Park",
+    "description": "Pinnacle Park near Sylva offers both an easy trail loop and a more challenging 7-mile round trip to the Pinnacle, where you can enjoy panoramic views close to town. If the 7-mile trek is too much, you\u2019ll see huge boulders and a scenic waterfall cascade in the first mile of the loop trail.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sylva",
+      "addressRegion": "NC",
+      "postalCode": "28779",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "2110 Fisher Creek Road"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/pinnacle-park/460/"
+  },
+  {
+    "title": "Sliding Rock",
+    "description": "From the crossroads in Cashiers, travel south on NC Hwy 107 for 1.9 miles. Turn right going west on Whiteside Cove Road. Continue for 2.8 miles. After crossing bridge, pull off onto dirt on right. Follow trail to right for 100 yards to Cashiers Sliding Rock. Swimming holes are above and below waterfall. Please supervise children!",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cashiers",
+      "addressRegion": "NC",
+      "postalCode": "28717",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "Whiteside Cove Road"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/sliding-rock/487/"
+  },
+  {
+    "title": "Tanasee Creek Lake",
+    "description": "Much of Tanasee Creek Lake\u2019s shoreline is within the Nantahala National Forest, and there are several primitive campsites that can be accessed by boat, though the lake is too small for most motor boats. The public access point is off NC 281 near where Tanasee Creek enters the lake. Tanasee Creek Lake, along with Wolf Creek Lake, Cedar Cliff Lake, and Bear Creek Lake, make up what is known as East Fork Lakes.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "**",
+      "addressCountry": "UNITED STATES"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/tanasee-creek-lake/583/"
+  },
+  {
+    "title": "Tuckasegee River",
+    "description": "Running through the oldest, most bio-diverse mountains in the temperate world, the Tuckasegee is the perfect place for fishing, paddling and kayaking. Its pristine headwaters are sourced deep in the Blue Ridge Mountains with the east fork originating in Panthertown Valley near Cashiers and flowing through several Jackson County towns and communities throughout its 50-mile path. Beloved for its beauty as well as the many recreational opportunities it offers to both area visitors and residents, the Tuckasegee is one of the most accessible rivers in the region with many access points and river put-ins. View a map of all access points in Jackson County. Anglers can obtain a three-day permit to fish in designated Mountain Heritage Trout Waters, making Jackson County the perfect destination for a weekend of fishing. One of the most popular stretches of the river is located between Webster and Dillsboro, where the river is managed under delayed harvest fishing regulations. From October to the first Saturday in June, fishing is catch-and-release only for a five-mile stretch. The Tuckasegee also features Class II rapids gentle enough for young kayakers and paddlers. Other popular sports on the river are tubing and canoeing. Spelling variations abound, with the river\u2019s name seen as Tuckasegee, Tuckaseegee or Tuckaseigee. The word comes from the Cherokee word \u201cDi-gah-se\u201d and means place of the turtle. Several ancient fishing weirs used by early Native Americans to catch fish can be seen along the river. The weirs (in the shape of a \u2018V\u2019) are best viewed when the water levels are low.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "**",
+      "addressCountry": "UNITED STATES"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/tuckasegee-river/585/"
+  },
+  {
+    "title": "Tuckasegee River Greenway",
+    "description": "A one-mile trail along the Tuckasegee River, offering recreational opportunities for runners, walkers, and cyclists. Directions to Location: 1. From downtown Sylva, head south on NC-107 S 2. Travel approximately 1.5 miles 3. Turn left onto Old Cullowhee Road 4. Drive about 0.5 miles and turn right into the Locust Creek parking area for the Tuckasegee River Greenway",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cullowhee",
+      "addressRegion": "NC",
+      "postalCode": "28723",
+      "addressCountry": "UNITED STATES",
+      "streetAddress": "88 Cullowhee Mountain Rd"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/tuckasegee-river-greenway/737/"
+  },
+  {
+    "title": "Wolf Lake",
+    "description": "Interestingly, Wolf Lake is joined to its smaller sister lake, Tanasee Creek, by an underground tunnel that was bored through solid rock. Wolf is popular with anglers, boaters and swimmers, and its access area includes restrooms. Wolf Creek Lake, along with Bear Creek Lake, Cedar Cliff Lake, and Tanasee Creek Lake, make up what is known as East Fork Lakes.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "**",
+      "addressCountry": "UNITED STATES"
+    },
+    "_source_url": "https://www.discoverjacksonnc.com/listing/wolf-lake/584/"
+  }
+]

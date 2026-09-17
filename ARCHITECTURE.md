@@ -121,6 +121,16 @@ matchers that share a defect is not corroboration.** The arbiter is the
 coordinate the source itself publishes, and the matcher now refuses a name
 match more than 20 km from ours.
 
+**Swimming holes: a `swimmable` flag, not a settled design.** Most named
+swimming holes turn out to be the plunge pool of a waterfall we already carry
+(Silver Run Falls, Schoolhouse Falls) rather than a separate place, so giving
+each one its own `swimming_hole`-kind feature would put two pins on one spot.
+For now, `features.swimmable` marks that on the existing `waterfall` feature
+instead, and `swimming_hole` stays a real `kind` for swim spots that are not
+waterfalls at all — lakes, coves, quarries, park beaches. This is a stopgap
+picked 2026-09-17, not a settled shape: it costs the ability to list "swimming
+holes" as one clean `kind = 'swimming_hole'` query, and jw is not sold on it.
+
 **Marker colors live in CSS custom properties**, not in JavaScript, so the
 legend swatches and the map cannot drift apart. JS reads them back via
 `getComputedStyle`, which is also how the palette changes with the theme.
