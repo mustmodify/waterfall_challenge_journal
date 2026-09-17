@@ -154,3 +154,12 @@ label.rate {
 }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Shared by every admin page's nav, rendered from admin-nav.js so the links
+   themselves live in one place too. */
+header.bar nav a.current { color: var(--ink); font-weight: 600; }
+
+.badge-count {
+  font-size: 0.62rem; border: 1px solid var(--line); border-radius: 999px;
+  padding: 1px 6px; margin-left: 3px; color: var(--haze);
+}

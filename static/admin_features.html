@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
+  <script src="/static/analytics.js"></script>
+  <title>Features &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; padding: 20px 0 6px;
+    }
+    header.bar h1 {
+      margin: 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem;
+    }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .filters { display: flex; gap: 6px; margin: 14px 0 18px; flex-wrap: wrap; }
+    input.search {
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 6px 10px; font: inherit; background: var(--bg); color: var(--ink);
+      min-width: 220px;
+    }
+
+    .row {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 11px 15px;
+      margin-bottom: 8px;
+    }
+    .row .top {
+      display: flex; align-items: baseline; gap: 10px;
+      flex-wrap: wrap;
+    }
+    .row .name { font-weight: 600; }
+    .row .kind { color: var(--haze); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .row .tier { font-size: 0.78rem; color: var(--haze); }
+    .row .owner { font-size: 0.78rem; color: var(--haze); }
+    .row .claims-count { margin-left: auto; font-size: 0.78rem; }
+    .row .claims-count a { text-decoration: none; }
+    .row .acts { display: flex; gap: 6px; margin-top: 8px; }
+
+    .badge {
+      font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em;
+      border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
+    }
+    .badge.deprecated { border-color: var(--accent); color: var(--accent); }
+    .badge.no-tier { color: var(--haze); }
+
+    .edit-form { margin-top: 10px; display: none; gap: 6px; }
+    .edit-form.open { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .edit-form label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--haze); display: block; margin-bottom: 3px; }
+    .edit-form input, .edit-form select {
+      width: 100%; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 6px 8px; font: inherit; background: var(--bg); color: var(--ink);
+    }
+    .edit-form .full { grid-column: 1 / -1; }
+    .edit-form .acts { grid-column: 1 / -1; }
+
+    .empty, .note { color: var(--haze); font-size: 0.9rem; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1>Features</h1>
+      <nav id="nav"></nav>
+    </header>
+
+    <div id="denied" class="empty" hidden>
+      This list is for whoever looks after the data.
+      <a href="/">Sign in on the map</a> if that's you.
+    </div>
+
+    <div id="content" hidden>
+      <p class="note">Every feature, published or not. "Claims" opens what
+        every source has said about it.</p>
+      <div class="filters">
+        <input class="search" id="search" type="search" placeholder="Search by name&hellip;">
+        <button class="chip" data-show="" aria-pressed="true">All</button>
+        <button class="chip" data-show="unpublished" aria-pressed="false">Not published</button>
+        <button class="chip" data-show="deprecated" aria-pressed="false">Deprecated</button>
+        <button class="chip" data-show="no-claims" aria-pressed="false">No claims</button>
+      </div>
+      <div id="list"></div>
+    </div>
+  </div>
+
+  <script src="/static/admin-nav.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let show = '';
+    let search = '';
+    let all = [];
+    const PUBLISHED = new Set(['confirmed', 'corroborated']);
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    const DEPRECATED_REASONS = ['', 'destroyed', 'damaged', 'private_property', 'access_closed', 'hazard'];
+
+    function load() {
+      Promise.all([fetch('/admin/feature-list'), fetch('/corrections?status=open')])
+        .then((rs) => {
+          if (rs.some((r) => r.status === 401 || r.status === 403)) {
+            $('denied').hidden = false; $('content').hidden = true; return null;
+          }
+          return Promise.all(rs.map((r) => r.json()));
+        })
+        .then((data) => {
+          if (!data) return;
+          const [features, corrections] = data;
+          all = features;
+          $('denied').hidden = true;
+          $('content').hidden = false;
+          renderNav('features', corrections.length);
+          render();
+        });
+    }
+
+    function matches(f) {
+      if (search && !f.name.toLowerCase().includes(search)) return false;
+      if (show === 'unpublished') return f.kind === 'waterfall' && !PUBLISHED.has(f.tier);
+      if (show === 'deprecated') return !!f.deprecated_reason;
+      if (show === 'no-claims') return f.claim_count === 0;
+      return true;
+    }
+
+    function render() {
+      const rows = all.filter(matches);
+      if (!rows.length) { $('list').innerHTML = '<p class="empty">Nothing matches.</p>'; return; }
+      $('list').innerHTML = rows.map((f) => {
+        const published = f.kind !== 'waterfall' || PUBLISHED.has(f.tier);
+        return '<div class="row" data-id="' + f.id + '">' +
+          '<div class="top">' +
+          '<span class="name">' + esc(f.name) + '</span>' +
+          '<span class="kind">' + esc(f.kind) + '</span>' +
+          '<span class="tier badge' + (f.tier ? '' : ' no-tier') + '">' + esc(f.tier || 'no coordinate') + '</span>' +
+          (published ? '' : '<span class="badge">unpublished</span>') +
+          (f.deprecated_reason ? '<span class="badge deprecated">' + esc(f.deprecated_reason) + '</span>' : '') +
+          (f.owner ? '<span class="owner">' + esc(f.owner) + '</span>' : '') +
+          '<span class="claims-count"><a href="/admin/claims?feature=' + f.id + '">' +
+          f.claim_count + ' claim' + (f.claim_count === 1 ? '' : 's') + '</a></span>' +
+          '</div>' +
+          '<div class="acts">' +
+          '<button class="chip" data-edit="' + f.id + '">Edit</button>' +
+          '<a class="chip" href="/admin/claims?feature=' + f.id + '">Claims</a>' +
+          '<a class="chip" href="/?feature=' + f.id + '" target="_blank" rel="noopener">On the map</a>' +
+          '</div>' +
+          '<div class="edit-form" id="edit-' + f.id + '">' +
+          '<div><label>Name</label><input type="text" data-field="name" value="' + esc(f.name) + '"></div>' +
+          '<div><label>Owner</label><input type="text" data-field="owner" value="' + esc(f.owner) + '" placeholder="Federal, State, GSMNP, Cherokee, Conservancy, Private, Duke Energy"></div>' +
+          '<div class="full"><label>Deprecated reason</label><select data-field="deprecated_reason">' +
+          DEPRECATED_REASONS.map((r) => '<option value="' + r + '"' + (f.deprecated_reason === r ? ' selected' : '') + '>' + (r || '(not deprecated)') + '</option>').join('') +
+          '</select></div>' +
+          '<div class="full"><label>Deprecated note</label><input type="text" data-field="deprecated_note" value="' + esc(f.deprecated_note) + '"></div>' +
+          '<div class="acts">' +
+          '<button class="chip" data-save="' + f.id + '">Save</button>' +
+          '<button class="chip" data-cancel="' + f.id + '">Cancel</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    $('list').addEventListener('click', (e) => {
+      const editId = e.target.dataset.edit;
+      const saveId = e.target.dataset.save;
+      const cancelId = e.target.dataset.cancel;
+      if (editId) { $('edit-' + editId).classList.add('open'); return; }
+      if (cancelId) { $('edit-' + cancelId).classList.remove('open'); return; }
+      if (saveId) {
+        const form = $('edit-' + saveId);
+        const body = {};
+        form.querySelectorAll('[data-field]').forEach((el) => {
+          body[el.dataset.field] = el.value || null;
+        });
+        if (!body.deprecated_reason) body.deprecated_note = null;
+        fetch('/features/' + saveId, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        }).then((r) => {
+          if (!r.ok) { alert('Save failed.'); return; }
+          load();
+        });
+      }
+    });
+
+    $('search').addEventListener('input', (e) => {
+      search = e.target.value.trim().toLowerCase();
+      render();
+    });
+
+    document.querySelector('.filters').addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      show = e.target.dataset.show;
+      [...document.querySelectorAll('.filters .chip')].forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === e.target)));
+      render();
+    });
+
+    load();
+  </script>
+</body>
+
+</html>

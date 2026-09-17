@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
+  <script src="/static/analytics.js"></script>
+  <title>Unresolved &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; padding: 20px 0 6px;
+    }
+    header.bar h1 {
+      margin: 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem;
+    }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .filters { display: flex; gap: 6px; margin: 14px 0 18px; flex-wrap: wrap; }
+
+    .row {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 11px 15px;
+      margin-bottom: 8px;
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    }
+    .row .place { font-weight: 600; }
+    .row .field { color: var(--haze); font-size: 0.85rem; }
+    .row .sources { color: var(--haze); font-size: 0.8rem; }
+    .row .go { margin-left: auto; }
+
+    .badge {
+      font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em;
+      border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
+    }
+    .badge.none { border-color: var(--accent); color: var(--accent); }
+
+    .empty, .note { color: var(--haze); font-size: 0.9rem; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1>Unresolved</h1>
+      <nav id="nav"></nav>
+    </header>
+
+    <div id="denied" class="empty" hidden>
+      This queue is for whoever looks after the data.
+      <a href="/">Sign in on the map</a> if that's you.
+    </div>
+
+    <div id="content" hidden>
+      <p class="note">Every (feature, field) where sources disagree or nothing
+        has been accepted yet -- Stage 3 of <a href="https://github.com/mustmodify/waterfall_challenge_journal/blob/main/docs/MATCHING.md" target="_blank" rel="noopener">the matching pipeline</a>,
+        the part that is a person.</p>
+      <div class="filters" id="filters">
+        <button class="chip" data-show="" aria-pressed="true">All</button>
+        <button class="chip" data-show="unaccepted" aria-pressed="false">Nothing accepted</button>
+        <button class="chip" data-show="disagreeing" aria-pressed="false">Disagreeing values</button>
+      </div>
+      <div id="list"></div>
+    </div>
+  </div>
+
+  <script src="/static/admin-nav.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let show = '';
+    let all = [];
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function load() {
+      Promise.all([fetch('/claims/unresolved'), fetch('/corrections?status=open')])
+        .then((rs) => {
+          if (rs.some((r) => r.status === 401 || r.status === 403)) {
+            $('denied').hidden = false; return null;
+          }
+          return Promise.all(rs.map((r) => r.json()));
+        })
+        .then((data) => {
+          if (!data) return;
+          const [unresolved, corrections] = data;
+          all = unresolved;
+          $('content').hidden = false;
+          renderNav('unresolved', corrections.length);
+          render();
+        });
+    }
+
+    function matches(u) {
+      if (show === 'unaccepted') return u.accepted === 0;
+      if (show === 'disagreeing') return u.distinct_values > 1;
+      return true;
+    }
+
+    function render() {
+      const rows = all.filter(matches);
+      if (!rows.length) { $('list').innerHTML = '<p class="empty">Nothing waiting.</p>'; return; }
+      $('list').innerHTML = rows.map((u) =>
+        '<div class="row">' +
+        '<span class="place">' + esc(u.name) + '</span>' +
+        '<span class="field">' + esc(u.field) + '</span>' +
+        (u.accepted === 0 ? '<span class="badge none">nothing accepted</span>' : '') +
+        (u.distinct_values > 1 ? '<span class="badge">' + u.distinct_values + ' values disagree</span>' : '') +
+        '<span class="sources">' + esc(u.sources) + '</span>' +
+        '<a class="go" href="/admin/claims?feature=' + u.feature_id + '">Review &rarr;</a>' +
+        '</div>').join('');
+    }
+
+    document.getElementById('filters').addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      show = e.target.dataset.show;
+      [...document.querySelectorAll('#filters .chip')].forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === e.target)));
+      render();
+    });
+
+    load();
+  </script>
+</body>
+
+</html>

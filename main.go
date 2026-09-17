@@ -186,6 +186,9 @@ func deleteLocation(w http.ResponseWriter, r *http.Request) {
 
 // Create a new feature
 func createFeature(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
 	var f Feature
 	if err := json.NewDecoder(r.Body).Decode(&f); err != nil {
 		http.Error(w, "Invalid input data", http.StatusBadRequest)
@@ -390,6 +393,9 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 
 // Update a feature
 func updateFeature(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -410,6 +416,9 @@ func updateFeature(w http.ResponseWriter, r *http.Request) {
 
 // Delete a feature
 func deleteFeature(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -457,6 +466,7 @@ func main() {
 	r.HandleFunc("/features", createFeature).Methods("POST")
 	r.HandleFunc("/features", getFeatures).Methods("GET")
 	r.HandleFunc("/features/{id}", updateFeature).Methods("PUT")
+	r.HandleFunc("/features/{id}", patchFeature).Methods("PATCH")
 	r.HandleFunc("/features/{id}", deleteFeature).Methods("DELETE")
 
 	r.HandleFunc("/signup", signup).Methods("POST")
@@ -498,6 +508,21 @@ func main() {
 	r.HandleFunc("/admin/users", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/users.html")
 	}).Methods("GET")
+	r.HandleFunc("/admin", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/features", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_features.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/claims", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_claims.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/unresolved", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_unresolved.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/feature-list", listFeaturesAdmin).Methods("GET")
+	r.HandleFunc("/claims", listClaims).Methods("GET")
+	r.HandleFunc("/claims/unresolved", listUnresolvedClaims).Methods("GET")
 	r.HandleFunc("/falls/{ref}", placeHandler).Methods("GET")
 	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/account.html")
