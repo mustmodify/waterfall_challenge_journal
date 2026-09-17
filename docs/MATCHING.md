@@ -514,9 +514,6 @@ same principle as every other source defect here.
 trailheads recorded once per waterfall — and nine features are named
 `Waterfall #N (04-14-2022)` and are unidentifiable.
 
-**`script/import_links/ncwaterfalls.py` reads a candidate list from
-`/tmp/_jw/`**, so it does not run from a clean clone. The cached pages it
-arbitrates against are in the repository; the candidate list should be too.
 
 **54 links sit on groups marked `identity_certain = false`**, which reads
 worse than it is. They were checked on 2026-09-14 and every one holds: the
