@@ -1073,6 +1073,38 @@
     .links a:hover { background: var(--moss); text-decoration: underline; }
     .links a span { font-size: 0.9em; opacity: 0.75; }
 
+    .challenge-lists { margin-top: 4px; }
+
+    .challenge-lists .k {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+      margin-bottom: 6px;
+    }
+
+    .challenge-lists p {
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: var(--haze);
+      margin: 0 0 8px;
+    }
+
+    .challenge-lists a {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 5px 12px;
+      margin: 0 6px 6px 0;
+    }
+
+    .challenge-lists a:hover { background: var(--accent); color: var(--on-accent); }
+
     #log-visit label {
       display: block;
       font-size: 0.72rem;
@@ -1685,7 +1717,7 @@
       // Signed out nothing is visited, so muting would advertise a treatment
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
-      challenge: 'all',
+      challenge: new URLSearchParams(window.location.search).get('challenge') || 'all',
       // Indices into WALK_STOPS. Both ends parked means no distance filter at
       // all, which is not the same as 0 to 20 miles: it also keeps the 59 falls
       // whose distance nobody has written down.
@@ -2402,10 +2434,6 @@
 
       let html = '<h2>' + escapeHtml(goal.name) + '</h2>';
       html += '<div class="badges">';
-      (goal.challenges || []).forEach((c) => {
-        const label = CHALLENGE_LABELS[c] || c;
-        html += '<a class="badge challenge" href="/account#challenges" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</a>';
-      });
       if (diffName) html += '<span class="badge diff-' + d + '">' + diffName + '</span>';
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
       html += '</div>';
@@ -2443,6 +2471,17 @@
         goal.notes.forEach((n) => {
           html += '<div class="note' + (n.source ? ' sourced' : '') + '">' +
             escapeHtml(n.text) + '</div>';
+        });
+        html += '</div>';
+      }
+
+      if ((goal.challenges || []).length) {
+        html += '<div class="challenge-lists"><div class="k">Challenge Lists</div>' +
+          '<p>This place is on a list with some other great spots &mdash; ' +
+          'collect the whole set!</p>';
+        goal.challenges.forEach((c) => {
+          const label = CHALLENGE_LABELS[c] || c;
+          html += '<a href="/?challenge=' + encodeURIComponent(c) + '" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</a>';
         });
         html += '</div>';
       }
@@ -2681,6 +2720,13 @@
     // and a wrapping row of them was crowding the card.
     function renderChallenges() {
       const names = startedChallenges();
+      // A place's "Challenge Lists" badge links here as /?challenge=CODE so
+      // anyone can browse the list, signed in or not -- keep that code
+      // visible even though startedChallenges() only knows about visits.
+      if (state.challenge !== 'all' && CHALLENGE_LABELS[state.challenge] &&
+          !names.includes(state.challenge)) {
+        names.push(state.challenge);
+      }
       const box = $('challenge-pick');
       box.hidden = names.length === 0;
       if (state.challenge !== 'all' && !names.includes(state.challenge)) {
