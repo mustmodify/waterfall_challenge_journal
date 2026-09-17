@@ -2284,6 +2284,18 @@
     let viewRestored = false;
     let lastShownCount = null;
 
+    // Restyling the two markers whose selected state actually changed, rather
+    // than a full renderMarkers() rebuild, so opening a drawer from inside a
+    // spiderfied cluster doesn't clear every cluster layer and collapse it
+    // back on top of the very marker just picked -- burying it with no way
+    // to tell it apart, which is what a full rebuild on every click did.
+    function setMarkerSelected(id, selected) {
+      const marker = state.markers.get(id);
+      if (!marker) return;
+      marker.setIcon(goalIcon(marker.wjGoal, selected));
+      marker.setZIndexOffset(selected ? 1000 : 0);
+    }
+
     function renderMarkers(fit) {
       const goals = visibleGoals();
       const showing = $('showing');
@@ -2425,6 +2437,7 @@
     let drawerSource = 'pin';
 
     function openDrawer(goal, flyTo) {
+      const previous = state.selected;
       state.selected = goal;
       track('view_waterfall', {
         slug: goal.slug, place: goal.name, kind: goal.kind, source: drawerSource,
@@ -2565,7 +2578,8 @@
         btn.addEventListener('click', () => removeVisit(btn.dataset.id));
       });
 
-      renderMarkers(false);
+      if (previous && previous.id !== goal.id) setMarkerSelected(previous.id, false);
+      setMarkerSelected(goal.id, true);
       if (flyTo && goal.location) {
         // Flying to a fixed zoom can leave the pin swallowed by its cluster.
         // zoomToShowLayer goes exactly as deep as it takes to expose it.
@@ -2595,8 +2609,8 @@
       const was = state.selected;
       state.selected = null;
       $('drawer').classList.remove('open');
-      renderMarkers(false);
       if (was) {
+        setMarkerSelected(was.id, false);
         track('close_waterfall', { slug: was.slug });
         setPath('/', 'Wanderfall');
       }
