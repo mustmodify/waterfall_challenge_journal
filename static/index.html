@@ -1217,6 +1217,7 @@
     <div class="chip-row" role="group" aria-label="Show on the map">
       <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
       <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
+      <button class="chip kind" data-kind="swimming_hole" aria-pressed="true"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</button>
     </div>
     <div class="chip-row" id="visited-row" role="group" aria-label="How to draw places you have visited">
       <span class="row-label">Visited</span>
@@ -1322,7 +1323,8 @@
       <div class="how">Here's how to read the map</div>
       <ul class="key-list">
         <li><span class="dot" style="background:var(--c-azure)"></span>blue is a waterfall</li>
-        <li><span class="dot" style="background:var(--c-tower)"></span>brown is a lookout tower</li>
+        <li><span class="dot" style="background:var(--c-tower)"></span>sienna is a lookout tower</li>
+        <li><span class="dot" style="background:var(--c-swim)"></span>teal is a swimming hole</li>
       </ul>
       <div class="how">And when they are close together</div>
       <div class="group-demo">
@@ -1528,6 +1530,7 @@
       C.visited = v('--c-visited');
       C.azure = v('--c-azure');
       C.tower = v('--c-tower');
+      C.swim = v('--c-swim');
       C.sel = v('--c-sel');
       C.scale = ['--r1', '--r2', '--r3', '--r4', '--r5'].map(v);
     }
@@ -1537,7 +1540,7 @@
       features: [],
       // Type is a category, visited is a status -- orthogonal, so they get
       // separate controls. Both kinds on to start; visited muted, not hidden.
-      showKinds: new Set(['waterfall', 'tower']),
+      showKinds: new Set(['waterfall', 'tower', 'swimming_hole']),
       // Signed out nothing is visited, so muting would advertise a treatment
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
@@ -1708,6 +1711,7 @@
       // fall are both just "done", and splitting them bought nothing.
       if (goal.last_visited && state.visited === 'mute') return C.visited;
       if (isTower(goal)) return C.tower;
+      if (goal.kind === 'swimming_hole') return C.swim;
       return C.azure;
     }
 
@@ -2698,7 +2702,7 @@
 
     function activeFilterCount() {
       let n = 0;
-      if (state.showKinds.size !== 2) n++;
+      if (state.showKinds.size !== 3) n++;
       if (state.visited !== (state.user ? 'mute' : 'show')) n++;
       if (state.ratings.size) n++;
       if (state.area) n++;
@@ -2783,7 +2787,7 @@
     });
 
     $('filters-reset').addEventListener('click', () => {
-      state.showKinds = new Set(['waterfall', 'tower']);
+      state.showKinds = new Set(['waterfall', 'tower', 'swimming_hole']);
       state.visited = state.user ? 'mute' : 'show';
       state.ratings = new Set();
       state.challenge = 'all';
@@ -2973,7 +2977,7 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const box = target.getBoundingClientRect();
       const css = getComputedStyle(document.documentElement);
-      const colors = ['--c-azure', '--c-tower', '--c-visited', '--accent', '--r2', '--r4']
+      const colors = ['--c-azure', '--c-tower', '--c-swim', '--c-visited', '--accent', '--r2', '--r4']
         .map((n) => css.getPropertyValue(n).trim());
       for (let i = 0; i < 28; i++) {
         const bit = document.createElement('i');
