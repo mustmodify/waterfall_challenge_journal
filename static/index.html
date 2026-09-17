@@ -2427,13 +2427,15 @@
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
 
-      // Navigate to trailhead if we have parking coords, otherwise the falls.
+      // Navigate to trailhead if we have parking coords, otherwise the destination itself.
       const navLoc = goal.parking_location || goal.location;
       if (navLoc && navLoc.latitude && navLoc.longitude) {
         const mapsUrl = mapsUrlFor(navLoc.latitude, navLoc.longitude);
+        const DEST_LABEL = { tower: 'fire tower', swimming_hole: 'swimming hole' };
+        const destLabel = DEST_LABEL[goal.kind] || 'falls';
         html += '<div class="navigate"><a href="' + escapeHtml(mapsUrl) + '" target="_blank" rel="noopener">' +
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>' +
-          (goal.parking_location ? 'Navigate to trailhead' : 'Navigate to falls') + '</a></div>';
+          (goal.parking_location ? 'Navigate to trailhead' : 'Navigate to ' + destLabel) + '</a></div>';
       }
 
       if ((goal.notes || []).length) {
