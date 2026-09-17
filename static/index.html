@@ -111,12 +111,14 @@
       letter-spacing: 0.01em;
     }
 
-    #brand .tagline {
+    #brand .tagline, .subheading {
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--haze);
     }
+
+    .subheading { margin-bottom: 6px; }
 
     #search {
       width: 100%;
@@ -192,13 +194,17 @@
       white-space: nowrap;
     }
     .switch label .dot { margin-right: 5px; }
-    .switch input:checked + label { color: var(--mist); font-weight: 600; }
+    /* Fixed dark-on-light rather than the theme's --mist/--on-accent tokens:
+       blue-50 is a fixed light tint regardless of theme, so the text sitting
+       on it needs to be a fixed dark color too, not one that flips light in
+       dark mode and disappears. */
+    .switch input:checked + label { color: #1e3a8a; font-weight: 600; }
     .switch input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 1px; }
     .switch__pill {
       position: absolute;
       top: 2px; bottom: 2px; left: 2px;
       width: calc((100% - 4px) / var(--switch-count, 2));
-      background: dimgray;
+      background: #eff6ff;
       border-radius: 4px;
       transition: transform 0.18s ease;
       z-index: 0;
@@ -227,9 +233,9 @@
        swimming holes' own marker color -- a pressed chip must never look
        like it's the same color as the thing it's toggling. */
     .chip[aria-pressed="true"] {
-      background: dimgray;
-      border-color: dimgray;
-      color: #fff;
+      background: #eff6ff;
+      border-color: #eff6ff;
+      color: #1e3a8a;
       font-weight: 600;
     }
 
@@ -454,8 +460,8 @@
       padding: 0 18px 0 15px;
       border-radius: 999px;
       border: none;
-      background: var(--accent);
-      color: var(--on-accent);
+      background: var(--fab-bg);
+      color: #fff;
       box-shadow: var(--shadow);
       cursor: pointer;
       display: flex;
@@ -468,8 +474,8 @@
     }
 
     #fab svg { width: 20px; height: 20px; flex: none; }
-    #fab:hover { background: var(--accent-deep); }
-    #fab[aria-expanded="true"] { background: var(--accent-deep); }
+    #fab:hover { background: var(--fab-bg-active); }
+    #fab[aria-expanded="true"] { background: var(--fab-bg-active); }
 
     #menu {
       left: 16px;
@@ -1282,6 +1288,7 @@
       </button>
     </div>
     <div id="filter-controls">
+    <div class="subheading">Filters</div>
     <div class="filter-list">
       <div class="filter-row">
         <span class="filter-label"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</span>
@@ -1319,9 +1326,9 @@
           <input type="radio" id="visited-hide" name="visited" value="hide">
           <label for="visited-hide">Hide</label>
           <input type="radio" id="visited-mute" name="visited" value="mute" checked>
-          <label for="visited-mute"><span class="dot" style="background:var(--c-visited)"></span>Mute</label>
+          <label for="visited-mute">Mute</label>
           <input type="radio" id="visited-show" name="visited" value="show">
-          <label for="visited-show"><span class="dot" style="background:var(--c-visited)"></span>Show</label>
+          <label for="visited-show">Show</label>
           <span class="switch__pill"></span>
         </div>
       </div>
