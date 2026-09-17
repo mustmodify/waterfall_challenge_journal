@@ -234,7 +234,9 @@
       gap: 6px;
     }
 
-    .chip .dot {
+    /* A base rule rather than .chip .dot, since the dot now also appears
+       inside .filter-label and inside switch labels -- neither is a .chip. */
+    .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
@@ -243,8 +245,8 @@
       vertical-align: -1px;
       flex: none;
       /* Outside the dot, so the color keeps its full 8px. Without it the
-         swatch sits straight on the teal fill when the chip is pressed and
-         the azure/brown/green distinction is hard to read. */
+         swatch sits straight on a same-colored fill (a pressed chip, a
+         selected switch pill) and the color is hard to read against itself. */
       box-shadow: 0 0 0 1.5px #fff;
     }
 
