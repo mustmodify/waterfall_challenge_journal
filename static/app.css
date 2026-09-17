@@ -11,6 +11,10 @@
      see --c-azure below, which is the source of truth JS reads back. */
   --accent: #3b82f6;
   --accent-deep: #2563eb;
+  /* The active/selected option in a filter switch or chip -- distinct from
+     --accent so it doesn't have to double as both "the site's buttons" and
+     "the thing currently picked in a filter". */
+  --filter-active: #2459ce;
   /* The FAB floats over a map now scattered with blue-500 waterfall dots,
      so it needs its own tone rather than --accent -- Material 3 gives a FAB
      a container color distinct from a screen's plain primary fill for

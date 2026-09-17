@@ -207,7 +207,7 @@
       position: absolute;
       top: 2px; bottom: 2px; left: 2px;
       width: calc((100% - 4px) / var(--switch-count, 2));
-      background: var(--accent);
+      background: var(--filter-active);
       /* Set per-option in placeSwitchPill(): only the corner touching the
          switch's own outer edge rounds. */
       transition: transform 0.18s ease;
@@ -233,12 +233,9 @@
 
     .chip:hover { background: var(--moss); }
 
-    /* Neutral grey rather than the accent teal, which now also matches
-       swimming holes' own marker color -- a pressed chip must never look
-       like it's the same color as the thing it's toggling. */
     .chip[aria-pressed="true"] {
-      background: var(--accent);
-      border-color: var(--accent);
+      background: var(--filter-active);
+      border-color: var(--filter-active);
       color: var(--on-accent);
       font-weight: 600;
     }
@@ -1282,7 +1279,7 @@
   <header id="topbar" class="panel">
     <div id="brand">
       <h1>Wanderfall</h1>
-      <span class="tagline">Explore WNC. Find something cool.</span>
+      <span class="tagline">Find something cool.</span>
     </div>
     <div class="find">
       <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
