@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict uab1LfbLRqC1bgmTWWg86soiJI721jNaVLCiRvefI4HABQTaYeRHc8dZnxNaDI9
+\restrict b2aXuOiLdF3ttbEh1y91a7fVgOkg8yP0xGN5hb6v9iqFdfIIvihZSiyynWibIVY
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -1123,6 +1123,7 @@ COPY public.locations (id, latitude, longitude, created_at, updated_at) FROM std
 1024	35.56426270	-82.59820150	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1025	35.91261330	-82.75685280	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1026	35.68796300	-82.57128000	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1027	35.19826200	-83.15971500	2026-09-17 13:19:20.210313	2026-09-17 13:19:20.210313
 \.
 
 
@@ -2008,13 +2009,13 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1293	Looking Glass Rock Spots	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	looking-glass-rock-spots	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1294	Neuse River	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	neuse-river	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1295	Paradise Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	paradise-falls	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
-1296	Pines Recreation Area	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	pines-recreation-area	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1297	Reems Creek at Lake Louise	\N	1026	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	reems-creek-at-lake-louise	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1298	South Toe River Spots	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	south-toe-river-spots	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1299	The Quarry at Carrigan Farms	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	the-quarry-at-carrigan-farms	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1300	Whaleback	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	whaleback	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1301	White Lake	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	white-lake	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 1302	Wildcat Lake	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	wildcat-lake	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1296	Pines Recreation Area	\N	1027	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	pines-recreation-area	f	2026-09-17 13:13:05.502797	2026-09-17 13:19:20.210313
 909	Jumping Fish Falls	997	996	f	1.2	\N	4	\N	\N	\N	\N	\N	waterfall	Moderate	5	State	\N	\N	\N	135	\N	\N	jumping-fish-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 984	22 Foot Falls	\N	730	f	1.6	\N	2	2	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	22-foot-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:41:46.200609
 1053	Beautimus Falls	\N	797	f	4.6	\N	8	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	beautimus-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -2130,6 +2131,8 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 --
 
 COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identity_certain, note, created_at, updated_at) FROM stdin;
+3979	jw|431|romanticasheville-parking	431	jw	https://www.romanticasheville.com/high_falls_glenville.htm	\N	t	An AI overview cited this page's coordinate as the waterfall itself and claimed 431 was displaced. Read directly: the page labels this number the Pines Recreation Area parking lot for the trail down to the falls, 3/4 mile and 650 ft above it -- not the waterfall. Recorded as parking, which is 30 m from the existing (now accepted) dwhike parking reading.	2026-09-17 13:19:20.210313	2026-09-17 13:19:20.210313
+3980	jw|1296|romanticasheville	1296	jw	https://www.romanticasheville.com/high_falls_glenville.htm	\N	t	Same parking area as feature 431's High Falls (Cullowhee Falls) trailhead -- this is that lot.	2026-09-17 13:19:20.210313	2026-09-17 13:19:20.210313
 130	hikingwnc|1105|https://hikingwnc.com/825-falling-water-branch-falls/	1105	hikingwnc	https://hikingwnc.com/825-falling-water-branch-falls/	\N	t	\N	2026-09-13 17:58:57.002443	2026-09-13 17:58:57.002443
 215	hikingwnc|1189|https://hikingwnc.com/917-transylvania-falls/	1189	hikingwnc	https://hikingwnc.com/917-transylvania-falls/	\N	t	\N	2026-09-13 17:58:57.002443	2026-09-13 17:58:57.002443
 349	hikingwnc|362|https://hikingwnc.com/164-high-falls-thompson-river/	362	hikingwnc	https://hikingwnc.com/164-high-falls-thompson-river/	\N	t	\N	2026-09-13 17:58:57.002443	2026-09-13 17:58:57.002443
@@ -5956,6 +5959,9 @@ COPY public.claim_groups (id, ref, feature_id, source, url, observed_on, identit
 --
 
 COPY public.claims (id, group_id, feature_id, field, value, accepted, note, created_at, updated_at) FROM stdin;
+9559	2003	431	parking_coordinate	{"lat": 35.198521, "lon": -83.159605}	t	\N	2026-09-13 19:33:14.193071	2026-09-17 13:19:20.210313
+12187	3979	431	parking_coordinate	{"lat": 35.198262, "lon": -83.159715}	f	\N	2026-09-17 13:19:20.210313	2026-09-17 13:19:20.210313
+12188	3980	1296	coordinate	{"lat": 35.198262, "lon": -83.159715}	t	\N	2026-09-17 13:19:20.210313	2026-09-17 13:19:20.210313
 7778	1663	1253	view_coordinate	{"lat": 34.7636253, "lon": -83.712255}	f	74 m from the fall.	2026-09-13 18:03:47.099772	2026-09-13 18:03:47.099772
 7779	1664	394	view_coordinate	{"lat": 35.0332586, "lon": -83.0165845}	f	340 m from the fall.	2026-09-13 18:03:47.099772	2026-09-13 18:03:47.099772
 12159	3963	359	alias	"Quarry Falls"	t	About 6.5 miles west of Highlands on US 64 along the Cullasaja River, Macon County -- a natural rock slide and swimming pool, not to be confused with The Quarry at Carrigan Farms (Mooresville).	2026-09-17 02:24:16.220556	2026-09-17 02:24:16.220556
@@ -8313,7 +8319,6 @@ COPY public.claims (id, group_id, feature_id, field, value, accepted, note, crea
 9554	2002	442	accessibility	"Easy (Petzoldt Rating: 1.37 )"	f	His own band, from the Petzoldt rating.	2026-09-13 19:33:14.193071	2026-09-13 19:33:14.193071
 9557	2002	442	parking_coordinate	{"lat": 35.332596, "lon": -83.340354}	f	\N	2026-09-13 19:33:14.193071	2026-09-13 19:33:14.193071
 9558	2003	431	elevation_gain_ft	770	f	Total Vertical Gain over the whole route.	2026-09-13 19:33:14.193071	2026-09-13 19:33:14.193071
-9559	2003	431	parking_coordinate	{"lat": 35.198521, "lon": -83.159605}	f	\N	2026-09-13 19:33:14.193071	2026-09-13 19:33:14.193071
 3631	800	836	hike_distance	"1.0"	f	\N	2026-09-13 17:58:57.002443	2026-09-13 17:58:57.002443
 9560	2004	439	accessibility	"Easy (Petzoldt Rating: 1.33 )"	f	His own band, from the Petzoldt rating.	2026-09-13 19:33:14.193071	2026-09-13 19:33:14.193071
 9563	2004	439	parking_coordinate	{"lat": 35.256891, "lon": -83.796492}	f	\N	2026-09-13 19:33:14.193071	2026-09-13 19:33:14.193071
@@ -20789,14 +20794,14 @@ SELECT pg_catalog.setval('public.challenges_id_seq', 4, true);
 -- Name: claim_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.claim_groups_id_seq', 3978, true);
+SELECT pg_catalog.setval('public.claim_groups_id_seq', 3980, true);
 
 
 --
 -- Name: claims_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.claims_id_seq', 12186, true);
+SELECT pg_catalog.setval('public.claims_id_seq', 12188, true);
 
 
 --
@@ -20824,7 +20829,7 @@ SELECT pg_catalog.setval('public.links_id_seq', 2736, true);
 -- Name: locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.locations_id_seq', 1026, true);
+SELECT pg_catalog.setval('public.locations_id_seq', 1027, true);
 
 
 --
@@ -20838,5 +20843,5 @@ SELECT pg_catalog.setval('public.notes_id_seq', 21, true);
 -- PostgreSQL database dump complete
 --
 
-\unrestrict uab1LfbLRqC1bgmTWWg86soiJI721jNaVLCiRvefI4HABQTaYeRHc8dZnxNaDI9
+\unrestrict b2aXuOiLdF3ttbEh1y91a7fVgOkg8yP0xGN5hb6v9iqFdfIIvihZSiyynWibIVY
 
