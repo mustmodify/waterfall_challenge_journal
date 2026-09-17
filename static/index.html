@@ -150,11 +150,55 @@
     /* Filter name on the left, an explicit Off/On pair on the right --
        rather than one pill you toggle, so the current state reads as text
        and not just as a color. */
-    .filter-list { display: flex; flex-direction: column; gap: 6px; }
+    .filter-list { display: flex; flex-direction: column; gap: 8px; }
+    /* space-between plus flex:none on the switch keeps every switch flush
+       against the right edge of the panel, whatever its own width, rather
+       than trailing however far the label happens to push it. */
     .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .filter-label { display: flex; align-items: center; font-size: 0.85rem; }
     .filter-label .dot { margin-right: 8px; }
-    .onoff { display: flex; gap: 4px; flex: none; }
+
+    /* A sliding radio switch, square rather than pill-shaped so it reads as
+       a control and not as another chip. */
+    .switch {
+      position: relative;
+      display: flex;
+      flex: none;
+      background: var(--field-bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 2px;
+    }
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .switch label {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 10px;
+      font-size: 0.76rem;
+      color: var(--haze);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .switch label .dot { margin-right: 5px; }
+    .switch input:checked + label { color: var(--mist); font-weight: 600; }
+    .switch input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .switch__pill {
+      position: absolute;
+      top: 2px; bottom: 2px; left: 2px;
+      width: calc((100% - 4px) / var(--switch-count, 2));
+      background: dimgray;
+      border-radius: 4px;
+      transition: transform 0.18s ease;
+      z-index: 0;
+    }
 
     .chip {
       border: 1px solid var(--line);
@@ -1226,40 +1270,79 @@
       </button>
     </div>
     <div id="filter-controls">
-    <div class="filter-list" aria-label="Show on the map">
+    <div class="filter-list">
       <div class="filter-row">
         <span class="filter-label"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</span>
-        <div class="onoff" role="group" aria-label="Waterfalls">
-          <button class="chip kind-off" data-kind="waterfall" aria-pressed="false">Off</button>
-          <button class="chip kind-on" data-kind="waterfall" aria-pressed="true">On</button>
+        <div class="switch" data-switch="kind-waterfall" data-switch-kind="waterfall">
+          <input type="radio" id="kind-waterfall-hide" name="kind-waterfall" value="hide">
+          <label for="kind-waterfall-hide">Hide</label>
+          <input type="radio" id="kind-waterfall-show" name="kind-waterfall" value="show" checked>
+          <label for="kind-waterfall-show">Show</label>
+          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
         <span class="filter-label"><span class="dot" style="background:var(--c-tower)"></span>Towers</span>
-        <div class="onoff" role="group" aria-label="Towers">
-          <button class="chip kind-off" data-kind="tower" aria-pressed="false">Off</button>
-          <button class="chip kind-on" data-kind="tower" aria-pressed="true">On</button>
+        <div class="switch" data-switch="kind-tower" data-switch-kind="tower">
+          <input type="radio" id="kind-tower-hide" name="kind-tower" value="hide">
+          <label for="kind-tower-hide">Hide</label>
+          <input type="radio" id="kind-tower-show" name="kind-tower" value="show" checked>
+          <label for="kind-tower-show">Show</label>
+          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
         <span class="filter-label"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</span>
-        <div class="onoff" role="group" aria-label="Swimming holes">
-          <button class="chip kind-off" data-kind="swimming_hole" aria-pressed="false">Off</button>
-          <button class="chip kind-on" data-kind="swimming_hole" aria-pressed="true">On</button>
+        <div class="switch" data-switch="kind-swimming_hole" data-switch-kind="swimming_hole">
+          <input type="radio" id="kind-swimming_hole-hide" name="kind-swimming_hole" value="hide">
+          <label for="kind-swimming_hole-hide">Hide</label>
+          <input type="radio" id="kind-swimming_hole-show" name="kind-swimming_hole" value="show" checked>
+          <label for="kind-swimming_hole-show">Show</label>
+          <span class="switch__pill"></span>
         </div>
       </div>
-    </div>
-    <div class="chip-row" id="visited-row" role="group" aria-label="How to draw places you have visited">
-      <span class="row-label">Visited</span>
-      <button class="chip visited" data-visited="show" aria-pressed="false">Show</button>
-      <button class="chip visited" data-visited="hide" aria-pressed="false">Hide</button>
-      <button class="chip visited" data-visited="mute" aria-pressed="true"><span class="dot" style="background:var(--c-visited)"></span>Mute</button>
-    </div>
-    <div class="chip-row" role="group" aria-label="Color markers by rating">
-      <span class="row-label">Ratings</span>
-      <button class="chip rating" data-rating="beauty" aria-pressed="false">Beauty</button>
-      <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
-      <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
+      <div class="filter-row" id="visited-row">
+        <span class="filter-label">Visited</span>
+        <div class="switch" data-switch="visited" style="--switch-count:3">
+          <input type="radio" id="visited-hide" name="visited" value="hide">
+          <label for="visited-hide">Hide</label>
+          <input type="radio" id="visited-mute" name="visited" value="mute" checked>
+          <label for="visited-mute"><span class="dot" style="background:var(--c-visited)"></span>Mute</label>
+          <input type="radio" id="visited-show" name="visited" value="show">
+          <label for="visited-show"><span class="dot" style="background:var(--c-visited)"></span>Show</label>
+          <span class="switch__pill"></span>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Beauty</span>
+        <div class="switch" data-switch="rating-beauty" data-switch-rating="beauty">
+          <input type="radio" id="rating-beauty-all" name="rating-beauty" value="all" checked>
+          <label for="rating-beauty-all">All</label>
+          <input type="radio" id="rating-beauty-best" name="rating-beauty" value="best">
+          <label for="rating-beauty-best">Best</label>
+          <span class="switch__pill"></span>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Photo</span>
+        <div class="switch" data-switch="rating-photo" data-switch-rating="photo">
+          <input type="radio" id="rating-photo-all" name="rating-photo" value="all" checked>
+          <label for="rating-photo-all">All</label>
+          <input type="radio" id="rating-photo-best" name="rating-photo" value="best">
+          <label for="rating-photo-best">Best</label>
+          <span class="switch__pill"></span>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Solitude</span>
+        <div class="switch" data-switch="rating-solitude" data-switch-rating="solitude">
+          <input type="radio" id="rating-solitude-all" name="rating-solitude" value="all" checked>
+          <label for="rating-solitude-all">All</label>
+          <input type="radio" id="rating-solitude-best" name="rating-solitude" value="best">
+          <label for="rating-solitude-best">Best</label>
+          <span class="switch__pill"></span>
+        </div>
+      </div>
     </div>
     <div class="chip-row walk-row" role="group" aria-label="How far you are willing to walk">
       <span class="row-label">Hike</span>
@@ -2597,55 +2680,75 @@
     });
 
     // ---------- filters ----------
+    // A sliding radio switch: find the checked input's position among its
+    // siblings and place the pill there. Generic over how many options a
+    // switch has (--switch-count on the element, set inline for the 3-way
+    // Visited switch; every other switch here is 2-way, the CSS default).
+    function placeSwitchPill(sw) {
+      const inputs = [...sw.querySelectorAll('input')];
+      const idx = inputs.findIndex((i) => i.checked);
+      const pill = sw.querySelector('.switch__pill');
+      if (idx >= 0) pill.style.transform = 'translateX(' + (idx * 100) + '%)';
+    }
+
+    // Sets a switch to a value in code (reset, sign-in/out, initial load)
+    // without going through the change event that user interaction fires.
+    function setSwitch(name, value) {
+      const sw = document.querySelector('[data-switch="' + name + '"]');
+      if (!sw) return;
+      const input = sw.querySelector('input[value="' + value + '"]');
+      if (input) input.checked = true;
+      placeSwitchPill(sw);
+    }
+
     function syncFilters() {
-      // Each kind gets its own Off and On button rather than one toggling
-      // pill, so the pressed one is whichever button matches the state.
-      document.querySelectorAll('.chip.kind-off, .chip.kind-on').forEach((c) => {
-        const on = state.showKinds.has(c.dataset.kind);
-        c.setAttribute('aria-pressed', String(c.classList.contains('kind-on') === on));
-      });
-      document.querySelectorAll('.chip.visited').forEach((c) =>
-        c.setAttribute('aria-pressed', String(c.dataset.visited === state.visited)));
+      setSwitch('kind-waterfall', state.showKinds.has('waterfall') ? 'show' : 'hide');
+      setSwitch('kind-tower', state.showKinds.has('tower') ? 'show' : 'hide');
+      setSwitch('kind-swimming_hole', state.showKinds.has('swimming_hole') ? 'show' : 'hide');
+      setSwitch('visited', state.visited);
+      setSwitch('rating-beauty', state.ratings.has('beauty') ? 'best' : 'all');
+      setSwitch('rating-photo', state.ratings.has('photo') ? 'best' : 'all');
+      setSwitch('rating-solitude', state.ratings.has('solitude') ? 'best' : 'all');
       syncFilterButton();
     }
 
-    // Kinds are independent on/off; visited is one of three.
-    document.querySelectorAll('.chip.kind-off, .chip.kind-on').forEach((chip) =>
-      chip.addEventListener('click', () => {
-        const k = chip.dataset.kind;
-        if (chip.classList.contains('kind-on')) state.showKinds.add(k);
+    document.querySelectorAll('.switch[data-switch-kind]').forEach((sw) =>
+      sw.addEventListener('change', (e) => {
+        const k = sw.dataset.switchKind;
+        if (e.target.value === 'show') state.showKinds.add(k);
         else state.showKinds.delete(k);
         track('filter_kind', { kind: k, showing: state.showKinds.has(k),
           kinds_on: [...state.showKinds].sort().join(',') || 'none' });
-        syncFilters();
+        placeSwitchPill(sw);
+        syncFilterButton();
         renderMarkers(true);
       }));
 
-    document.querySelectorAll('.chip.visited').forEach((chip) =>
-      chip.addEventListener('click', () => {
-        // Signed out there is nothing to show, hide or mute. Saying so beats a
-        // control that silently does nothing.
-        if (!state.user) { setAnon(true); return; }
-        visitedTouched = true;
-        state.visited = chip.dataset.visited;
-        syncFilters();
-        renderMarkers(true);
-      }));
+    document.querySelector('[data-switch="visited"]').addEventListener('change', (e) => {
+      const sw = e.currentTarget;
+      // Signed out there is nothing to show, hide or mute. Saying so beats a
+      // control that silently flips and does nothing.
+      if (!state.user) { setSwitch('visited', state.visited); setAnon(true); return; }
+      visitedTouched = true;
+      state.visited = e.target.value;
+      placeSwitchPill(sw);
+      syncFilterButton();
+      renderMarkers(true);
+    });
 
-    document.querySelectorAll('.chip.rating').forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const key = chip.dataset.rating;
-        if (state.ratings.has(key)) state.ratings.delete(key); else state.ratings.add(key);
+    document.querySelectorAll('.switch[data-switch-rating]').forEach((sw) =>
+      sw.addEventListener('change', (e) => {
+        const key = sw.dataset.switchRating;
+        if (e.target.value === 'best') state.ratings.add(key); else state.ratings.delete(key);
         track('color_by_rating', { rating: key, turned_on: state.ratings.has(key),
           ratings_on: [...state.ratings].sort().join(',') || 'none' });
-        chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
+        placeSwitchPill(sw);
         renderLegend();
         renderMarkers(false);
         syncFilterButton();
         // after rendering, so closing the modal reveals the colored map
         maybeExplainRateby();
-      });
-    });
+      }));
 
     // ---------- auth ----------
     // Once you pick a visited treatment yourself, signing in or out stops
@@ -2812,6 +2915,7 @@
     markWalkInputs();
     drawWalkTicks();
     syncWalk();
+    document.querySelectorAll('.switch').forEach(placeSwitchPill);
 
     $('filter-button').addEventListener('click', () => setFilters(true));
     $('filters-close').addEventListener('click', () => setFilters(false));
@@ -2827,8 +2931,6 @@
       state.challenge = 'all';
       state.walk = { min: 0, max: WALK_STOPS.length - 1 };
       syncWalk();
-      document.querySelectorAll('.chip.rating').forEach((c) =>
-        c.setAttribute('aria-pressed', 'false'));
       setArea('');
       syncFilters();
       renderLegend();
