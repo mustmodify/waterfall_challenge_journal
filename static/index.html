@@ -160,10 +160,13 @@
 
     .chip:hover { background: var(--moss); }
 
+    /* Neutral grey rather than the accent teal, which now also matches
+       swimming holes' own marker color -- a pressed chip must never look
+       like it's the same color as the thing it's toggling. */
     .chip[aria-pressed="true"] {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--on-accent);
+      background: dimgray;
+      border-color: dimgray;
+      color: #fff;
       font-weight: 600;
     }
 
