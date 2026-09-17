@@ -157,6 +157,10 @@
     .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .filter-label { display: flex; align-items: center; font-size: 0.85rem; }
     .filter-label .dot { margin-right: 8px; }
+    /* Beauty/Photo/Solitude have no marker color of their own, but their
+       labels should still start where the others' text does, not where
+       their dot would be. Same width a dot plus its margin take up. */
+    .filter-label.indent { padding-left: 16px; }
 
     /* A sliding radio switch, square rather than pill-shaped so it reads as
        a control and not as another chip. */
@@ -199,6 +203,12 @@
       transition: transform 0.18s ease;
       z-index: 0;
     }
+
+    /* Beauty/Photo/Solitude while Waterfalls is hidden -- nothing left for
+       them to describe, so they're visibly inert rather than just quietly
+       doing nothing when clicked. */
+    .switch.disabled { opacity: 0.4; }
+    .switch.disabled label { cursor: default; }
 
     .chip {
       border: 1px solid var(--line);
@@ -1304,7 +1314,7 @@
         </div>
       </div>
       <div class="filter-row" id="visited-row">
-        <span class="filter-label">Visited</span>
+        <span class="filter-label"><span class="dot" style="background:var(--c-visited)"></span>Visited</span>
         <div class="switch" data-switch="visited" style="--switch-count:3">
           <input type="radio" id="visited-hide" name="visited" value="hide">
           <label for="visited-hide">Hide</label>
@@ -1316,32 +1326,38 @@
         </div>
       </div>
       <div class="filter-row">
-        <span class="filter-label">Beauty</span>
-        <div class="switch" data-switch="rating-beauty" data-switch-rating="beauty">
+        <span class="filter-label indent">Beauty</span>
+        <div class="switch" data-switch="rating-beauty" data-switch-rating="beauty" style="--switch-count:3">
           <input type="radio" id="rating-beauty-all" name="rating-beauty" value="all" checked>
           <label for="rating-beauty-all">All</label>
           <input type="radio" id="rating-beauty-best" name="rating-beauty" value="best">
           <label for="rating-beauty-best">Best</label>
+          <input type="radio" id="rating-beauty-color" name="rating-beauty" value="color">
+          <label for="rating-beauty-color">Color</label>
           <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
-        <span class="filter-label">Photo</span>
-        <div class="switch" data-switch="rating-photo" data-switch-rating="photo">
+        <span class="filter-label indent">Photo</span>
+        <div class="switch" data-switch="rating-photo" data-switch-rating="photo" style="--switch-count:3">
           <input type="radio" id="rating-photo-all" name="rating-photo" value="all" checked>
           <label for="rating-photo-all">All</label>
           <input type="radio" id="rating-photo-best" name="rating-photo" value="best">
           <label for="rating-photo-best">Best</label>
+          <input type="radio" id="rating-photo-color" name="rating-photo" value="color">
+          <label for="rating-photo-color">Color</label>
           <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
-        <span class="filter-label">Solitude</span>
-        <div class="switch" data-switch="rating-solitude" data-switch-rating="solitude">
+        <span class="filter-label indent">Solitude</span>
+        <div class="switch" data-switch="rating-solitude" data-switch-rating="solitude" style="--switch-count:3">
           <input type="radio" id="rating-solitude-all" name="rating-solitude" value="all" checked>
           <label for="rating-solitude-all">All</label>
           <input type="radio" id="rating-solitude-best" name="rating-solitude" value="best">
           <label for="rating-solitude-best">Best</label>
+          <input type="radio" id="rating-solitude-color" name="rating-solitude" value="color">
+          <label for="rating-solitude-color">Color</label>
           <span class="switch__pill"></span>
         </div>
       </div>
@@ -1666,7 +1682,11 @@
       walk: { min: 0, max: 0 }, // corrected below, once WALK_STOPS exists
       area: '',
       visitStatus: 'all',
-      ratings: new Set(),
+      // Each rating is independently one of three things: 'all' (no effect),
+      // 'best' (filters to the top two tiers -- ANDed if more than one
+      // dimension is set to it), or 'color' (colors the ramp by it, filters
+      // nothing). The two are deliberately separate concerns.
+      ratingMode: { beauty: 'all', photo: 'all', solitude: 'all' },
       selected: null,
       markers: new Map(),
     };
@@ -1804,24 +1824,37 @@
       return goal.kind === 'tower';
     }
 
+    const RATING_KEYS = ['beauty', 'photo', 'solitude'];
+    // Same breakpoints the color ramp always used, named once so the "top
+    // two tiers" filter and the color ramp can't quietly drift apart.
+    const RATING_TIER_FLOORS = [9, 7, 5, 3];
+    function ratingTier(value) {
+      for (let i = 0; i < RATING_TIER_FLOORS.length; i++) {
+        if (value >= RATING_TIER_FLOORS[i]) return i;
+      }
+      return RATING_TIER_FLOORS.length;
+    }
+    function colorRatingKeys() {
+      return RATING_KEYS.filter((k) => state.ratingMode[k] === 'color');
+    }
+    function bestRatingKeys() {
+      return RATING_KEYS.filter((k) => state.ratingMode[k] === 'best');
+    }
+
     function ratingColor(goal) {
-      const vals = [...state.ratings]
+      const vals = colorRatingKeys()
         .map((k) => goal[k + '_rating'])
         .filter((v) => v !== undefined && v !== null);
       if (!vals.length) return C.scale[4];
       const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-      if (avg >= 9) return C.scale[0];
-      if (avg >= 7) return C.scale[1];
-      if (avg >= 5) return C.scale[2];
-      if (avg >= 3) return C.scale[3];
-      return C.scale[4];
+      return C.scale[ratingTier(avg)];
     }
 
     function markerColor(goal) {
       // Rate by wins over everything: the ramp only reads as a scale if every
       // pin is on it. Visited is a filter you can apply, not a color that
       // punches holes in the gradient.
-      if (state.ratings.size > 0) return ratingColor(goal);
+      if (colorRatingKeys().length > 0) return ratingColor(goal);
       // One muted color for anything visited -- a visited tower and a visited
       // fall are both just "done", and splitting them bought nothing.
       if (goal.last_visited && state.visited === 'mute') return C.visited;
@@ -1830,10 +1863,13 @@
       return C.azure;
     }
 
-    function hasSelectedRating(goal) {
-      return [...state.ratings].some((k) => {
+    // Best narrows to the top two tiers (9-10 or 7-8.99) for every dimension
+    // set to it -- ANDed, not OR'd: Best beauty plus Best solitude shows only
+    // what clears both bars, not either one.
+    function passesRatingFilter(goal) {
+      return bestRatingKeys().every((k) => {
         const v = goal[k + '_rating'];
-        return v !== undefined && v !== null;
+        return v !== undefined && v !== null && ratingTier(v) <= 1;
       });
     }
 
@@ -1947,10 +1983,7 @@
       const matchesChallenge = state.challenge === 'all' ||
         (goal.challenges || []).includes(state.challenge);
       const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
-      // Coloring by a rating only says something about things that carry one.
-      // Towers have no ratings at all, and a few dozen falls are unrated; both
-      // used to sit on the map in a color that implied a score they lack.
-      const matchesRated = state.ratings.size === 0 || hasSelectedRating(goal);
+      const matchesRated = passesRatingFilter(goal);
       return matchesKind && matchesArea && matchesChallenge &&
         matchesVisitStatus && matchesRated && matchesWalk(goal);
     }
@@ -2588,7 +2621,7 @@
 
     // ---------- search ----------
     function renderLegend() {
-      $('spectrum').hidden = state.ratings.size === 0;
+      $('spectrum').hidden = colorRatingKeys().length === 0;
     }
 
     // Display names for the terse codes the DB stores.
@@ -2730,10 +2763,22 @@
       setSwitch('kind-tower', state.showKinds.has('tower') ? 'show' : 'hide');
       setSwitch('kind-swimming_hole', state.showKinds.has('swimming_hole') ? 'show' : 'hide');
       setSwitch('visited', state.visited);
-      setSwitch('rating-beauty', state.ratings.has('beauty') ? 'best' : 'all');
-      setSwitch('rating-photo', state.ratings.has('photo') ? 'best' : 'all');
-      setSwitch('rating-solitude', state.ratings.has('solitude') ? 'best' : 'all');
+      setSwitch('rating-beauty', state.ratingMode.beauty);
+      setSwitch('rating-photo', state.ratingMode.photo);
+      setSwitch('rating-solitude', state.ratingMode.solitude);
+      setRatingsDisabled(!state.showKinds.has('waterfall'));
       syncFilterButton();
+    }
+
+    // Ratings only ever describe waterfalls -- towers carry none and
+    // swimming holes that aren't also a waterfall feature carry none either.
+    // Hiding waterfalls leaves nothing for Beauty/Photo/Solitude to act on,
+    // so disable them rather than leave controls that visibly do nothing.
+    function setRatingsDisabled(disabled) {
+      document.querySelectorAll('.switch[data-switch-rating]').forEach((sw) => {
+        sw.classList.toggle('disabled', disabled);
+        sw.querySelectorAll('input').forEach((i) => { i.disabled = disabled; });
+      });
     }
 
     document.querySelectorAll('.switch[data-switch-kind]').forEach((sw) =>
@@ -2744,6 +2789,7 @@
         track('filter_kind', { kind: k, showing: state.showKinds.has(k),
           kinds_on: [...state.showKinds].sort().join(',') || 'none' });
         placeSwitchPill(sw);
+        if (k === 'waterfall') setRatingsDisabled(!state.showKinds.has('waterfall'));
         syncFilterButton();
         renderMarkers(true);
       }));
@@ -2763,15 +2809,18 @@
     document.querySelectorAll('.switch[data-switch-rating]').forEach((sw) =>
       sw.addEventListener('change', (e) => {
         const key = sw.dataset.switchRating;
-        if (e.target.value === 'best') state.ratings.add(key); else state.ratings.delete(key);
-        track('color_by_rating', { rating: key, turned_on: state.ratings.has(key),
-          ratings_on: [...state.ratings].sort().join(',') || 'none' });
+        const mode = e.target.value;
+        state.ratingMode[key] = mode;
+        track('rating_mode', { rating: key, mode,
+          color_on: colorRatingKeys().sort().join(',') || 'none',
+          best_on: bestRatingKeys().sort().join(',') || 'none' });
         placeSwitchPill(sw);
         renderLegend();
-        renderMarkers(false);
+        renderMarkers(true);
         syncFilterButton();
-        // after rendering, so closing the modal reveals the colored map
-        maybeExplainRateby();
+        // Only Color changes what the map looks like enough to need
+        // explaining -- Best is a filter, not a new way of reading color.
+        if (mode === 'color') maybeExplainRateby();
       }));
 
     // ---------- auth ----------
@@ -2865,7 +2914,7 @@
       let n = 0;
       if (state.showKinds.size !== 3) n++;
       if (state.visited !== (state.user ? 'mute' : 'show')) n++;
-      if (state.ratings.size) n++;
+      if (RATING_KEYS.some((k) => state.ratingMode[k] !== 'all')) n++;
       if (state.area) n++;
       if (state.challenge !== 'all') n++;
       if (walkFilterOn()) n++;
@@ -2951,7 +3000,7 @@
     $('filters-reset').addEventListener('click', () => {
       state.showKinds = new Set(['waterfall', 'tower', 'swimming_hole']);
       state.visited = state.user ? 'mute' : 'show';
-      state.ratings = new Set();
+      state.ratingMode = { beauty: 'all', photo: 'all', solitude: 'all' };
       state.challenge = 'all';
       state.walk = { min: 0, max: WALK_STOPS.length - 1 };
       syncWalk();
