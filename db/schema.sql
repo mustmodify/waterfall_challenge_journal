@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict jwvrpFg43eujKsedO4QkaMCSFecZi5j5N4wHj5tupguSRPbXMf920bjz8gBxF9L
+\restrict ItkAYgxyGCKEASrF71htWeqqOt1BkXBAwbEg0nqpcPdwaggjm2BF6hzU7sORVvA
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -17,6 +17,41 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: name_core(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_core(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(trim(regexp_replace(
+    regexp_replace(
+      regexp_replace(
+        regexp_replace(lower(coalesce(raw, '')), '\([^)]*\)', ' ', 'g'),
+        '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\y.*$', '', ''),
+      '\s+(visiting|visit|info|hiking\s+guide.*)$', '', ''),
+    '[^a-z0-9 ]', ' ', 'g')), '')
+$_$;
+
+
+--
+-- Name: FUNCTION name_core(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.name_core(raw text) IS 'Reduces a source page title to the name it is actually about: drops parentheticals, the SEO tail ncwaterfalls appends, and punctuation. Used to compare a source name against ours without comparing their marketing.';
+
+
+--
+-- Name: name_key(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_key(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT nullif(regexp_replace(name_core(raw), '\s+', ' ', 'g'), '')
+$$;
+
 
 --
 -- Name: petzoldt_band(numeric); Type: FUNCTION; Schema: public; Owner: -
@@ -55,6 +90,20 @@ $$;
 
 
 --
+-- Name: touch_updated_at(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.touch_updated_at() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$;
+
+
+--
 -- Name: unaccent_fallback(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -77,7 +126,8 @@ CREATE TABLE public.areas (
     id integer NOT NULL,
     name character varying(80) NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    slug text NOT NULL
+    slug text NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -110,6 +160,8 @@ CREATE TABLE public.challenges (
     name character varying(100) NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     target integer,
+    slug text NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT challenges_target_positive CHECK (((target IS NULL) OR (target > 0)))
 );
 
@@ -154,7 +206,8 @@ CREATE TABLE public.claim_groups (
     observed_on date,
     identity_certain boolean DEFAULT true NOT NULL,
     note text,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -171,14 +224,16 @@ CREATE TABLE public.claims (
     accepted boolean DEFAULT false NOT NULL,
     note text,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT claims_field_known CHECK (((field)::text = ANY ((ARRAY['coordinate'::character varying, 'parking_coordinate'::character varying, 'view_coordinate'::character varying, 'height_ft'::character varying, 'elevation_ft'::character varying, 'elevation_gain_ft'::character varying, 'petzoldt'::character varying, 'beauty_rating'::character varying, 'photo_rating'::character varying, 'solitude_rating'::character varying, 'hike_distance'::character varying, 'accessibility'::character varying, 'owner'::character varying, 'name'::character varying, 'alias'::character varying, 'coordinate_raw'::character varying])::text[]))),
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'height_ft'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'coordinate_raw'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
-    WHEN ((field)::text = ANY ((ARRAY['coordinate'::character varying, 'parking_coordinate'::character varying, 'view_coordinate'::character varying])::text[])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
+    WHEN ((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND (((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric) AND (((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric))
     WHEN ((field)::text = 'height_ft'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric > (0)::numeric))
-    WHEN ((field)::text = ANY ((ARRAY['elevation_ft'::character varying, 'elevation_gain_ft'::character varying])::text[])) THEN (jsonb_typeof(value) = 'number'::text)
+    WHEN ((field)::text = ANY (ARRAY['elevation_ft'::text, 'elevation_gain_ft'::text])) THEN (jsonb_typeof(value) = 'number'::text)
     WHEN ((field)::text = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
-    WHEN ((field)::text = ANY ((ARRAY['beauty_rating'::character varying, 'photo_rating'::character varying, 'solitude_rating'::character varying])::text[])) THEN ((jsonb_typeof(value) = 'number'::text) AND ((((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric)))
+    WHEN ((field)::text = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric))
+    WHEN ((field)::text = ANY (ARRAY['photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
     ELSE ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) <> ''::text))
 END)
 );
@@ -218,11 +273,14 @@ CASE
     ELSE NULL::numeric
 END) STORED,
     slug text NOT NULL,
+    swimmable boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT features_beauty_range CHECK (((beauty_rating >= 1) AND (beauty_rating <= 10))),
     CONSTRAINT features_deprecated_note_check CHECK (((deprecated_note IS NULL) OR (deprecated_reason IS NOT NULL))),
     CONSTRAINT features_deprecated_reason_check CHECK (((deprecated_reason IS NULL) OR ((deprecated_reason)::text = ANY ((ARRAY['destroyed'::character varying, 'damaged'::character varying, 'private_property'::character varying, 'access_closed'::character varying, 'hazard'::character varying])::text[])))),
     CONSTRAINT features_difficulty_rating_check CHECK ((difficulty_rating = ANY (ARRAY['E'::bpchar, 'M'::bpchar, 'D'::bpchar]))),
-    CONSTRAINT features_kind_check CHECK (((kind)::text = ANY ((ARRAY['waterfall'::character varying, 'tower'::character varying, 'vista'::character varying, 'other'::character varying])::text[]))),
+    CONSTRAINT features_kind_check CHECK (((kind)::text = ANY ((ARRAY['waterfall'::character varying, 'tower'::character varying, 'vista'::character varying, 'swimming_hole'::character varying, 'other'::character varying])::text[]))),
     CONSTRAINT features_photo_range CHECK (((photo_rating >= 1) AND (photo_rating <= 10))),
     CONSTRAINT features_solitude_range CHECK (((solitude_rating >= 1) AND (solitude_rating <= 10)))
 );
@@ -339,7 +397,9 @@ ALTER SEQUENCE public.claims_id_seq OWNED BY public.claims.id;
 CREATE TABLE public.locations (
     id integer NOT NULL,
     latitude numeric(10,8),
-    longitude numeric(11,8)
+    longitude numeric(11,8),
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -418,6 +478,7 @@ CREATE TABLE public.corrections (
     resolved_by integer,
     resolved_at timestamp without time zone,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT corrections_has_target CHECK (((feature_id IS NOT NULL) OR (subject IS NOT NULL))),
     CONSTRAINT corrections_status_check CHECK (((status)::text = ANY ((ARRAY['open'::character varying, 'accepted'::character varying, 'rejected'::character varying, 'duplicate'::character varying])::text[])))
 );
@@ -450,8 +511,74 @@ ALTER SEQUENCE public.corrections_id_seq OWNED BY public.corrections.id;
 CREATE TABLE public.feature_areas (
     feature_id integer NOT NULL,
     area_id integer NOT NULL,
-    source character varying(20) NOT NULL
+    source character varying(20) NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
+
+--
+-- Name: feature_notes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feature_notes (
+    id integer NOT NULL,
+    feature_id integer NOT NULL,
+    severity text NOT NULL,
+    text text NOT NULL,
+    source text NOT NULL,
+    observed_on date,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT feature_notes_severity_check CHECK ((severity = ANY (ARRAY['info'::text, 'fee'::text, 'restricted'::text, 'urgent'::text, 'closed'::text])))
+);
+
+
+--
+-- Name: TABLE feature_notes; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.feature_notes IS 'Conditions worth knowing before visiting: closures, fees, hazards, seasonal notes. severity is one of closed/restricted/fee/info. observed_on is when the condition was seen, not an expiry; surface the note and let the visitor judge currency.';
+
+
+--
+-- Name: feature_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feature_notes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feature_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feature_notes_id_seq OWNED BY public.feature_notes.id;
+
+
+--
+-- Name: feature_views; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feature_views (
+    feature_id integer NOT NULL,
+    date date DEFAULT CURRENT_DATE NOT NULL,
+    view_count integer DEFAULT 1 NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: TABLE feature_views; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.feature_views IS 'Daily drawer-open counts per waterfall, incremented by POST /features/:id/view. Counts events; does not identify visitors.';
 
 
 --
@@ -481,7 +608,9 @@ ALTER SEQUENCE public.features_id_seq OWNED BY public.features.id;
 CREATE TABLE public.goals (
     challenge_id integer NOT NULL,
     feature_id integer NOT NULL,
-    id integer NOT NULL
+    id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -515,7 +644,9 @@ CREATE TABLE public.links (
     url text NOT NULL,
     rel character varying(30),
     comments text,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at timestamp without time zone
 );
 
 
@@ -569,7 +700,8 @@ CREATE TABLE public.magic_links (
     token_hash text NOT NULL,
     expires_at timestamp without time zone NOT NULL,
     used_at timestamp without time zone,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -672,8 +804,39 @@ CREATE TABLE public.schema_migrations (
 CREATE TABLE public.sessions (
     token text NOT NULL,
     user_id integer NOT NULL,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
+
+
+--
+-- Name: trail_engagement; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.trail_engagement AS
+ SELECT cg.id AS group_id,
+    cg.feature_id,
+    f.name AS feature_name,
+    cg.source,
+    cg.url,
+    cg.identity_certain,
+    ((p.value #>> '{}'::text[]))::integer AS photos,
+    ((h.value #>> '{}'::text[]))::integer AS hikes,
+    ((r.value #>> '{}'::text[]))::integer AS reviews,
+    round((((p.value #>> '{}'::text[]))::numeric / ((h.value #>> '{}'::text[]))::numeric), 4) AS photos_per_hike
+   FROM ((((public.claim_groups cg
+     JOIN public.features f ON ((f.id = cg.feature_id)))
+     JOIN public.claims p ON (((p.group_id = cg.id) AND ((p.field)::text = 'photos_count'::text))))
+     JOIN public.claims h ON (((h.group_id = cg.id) AND ((h.field)::text = 'completed_hikes_count'::text))))
+     LEFT JOIN public.claims r ON (((r.group_id = cg.id) AND ((r.field)::text = 'reviews_count'::text))))
+  WHERE ((((h.value #>> '{}'::text[]))::numeric > (0)::numeric) AND cg.identity_certain);
+
+
+--
+-- Name: VIEW trail_engagement; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON VIEW public.trail_engagement IS 'Photos and completed hikes per route, with their ratio. One row per claim group, never summed onto a feature: the counts describe a walk, and the walk is not the waterfall.';
 
 
 --
@@ -686,7 +849,8 @@ CREATE TABLE public.users (
     email character varying(255) NOT NULL,
     password_digest text,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    is_admin boolean DEFAULT false NOT NULL
+    is_admin boolean DEFAULT false NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -723,6 +887,7 @@ CREATE TABLE public.visits (
     beauty_rating integer,
     photo_rating integer,
     solitude_rating integer,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT visits_beauty_range CHECK (((beauty_rating >= 1) AND (beauty_rating <= 4))),
     CONSTRAINT visits_photo_range CHECK (((photo_rating >= 1) AND (photo_rating <= 4))),
     CONSTRAINT visits_solitude_range CHECK (((solitude_rating >= 1) AND (solitude_rating <= 4)))
@@ -782,6 +947,13 @@ ALTER TABLE ONLY public.claims ALTER COLUMN id SET DEFAULT nextval('public.claim
 --
 
 ALTER TABLE ONLY public.corrections ALTER COLUMN id SET DEFAULT nextval('public.corrections_id_seq'::regclass);
+
+
+--
+-- Name: feature_notes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_notes ALTER COLUMN id SET DEFAULT nextval('public.feature_notes_id_seq'::regclass);
 
 
 --
@@ -873,6 +1045,14 @@ ALTER TABLE ONLY public.challenges
 
 
 --
+-- Name: challenges challenges_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.challenges
+    ADD CONSTRAINT challenges_slug_key UNIQUE (slug);
+
+
+--
 -- Name: claim_groups claim_groups_id_feature_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -918,6 +1098,22 @@ ALTER TABLE ONLY public.corrections
 
 ALTER TABLE ONLY public.feature_areas
     ADD CONSTRAINT feature_areas_pkey PRIMARY KEY (feature_id, area_id, source);
+
+
+--
+-- Name: feature_notes feature_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_notes
+    ADD CONSTRAINT feature_notes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feature_views feature_views_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_views
+    ADD CONSTRAINT feature_views_pkey PRIMARY KEY (feature_id, date);
 
 
 --
@@ -1111,6 +1307,13 @@ CREATE INDEX feature_areas_area_idx ON public.feature_areas USING btree (area_id
 
 
 --
+-- Name: feature_notes_feature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX feature_notes_feature_id ON public.feature_notes USING btree (feature_id);
+
+
+--
 -- Name: features_deprecated_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1150,6 +1353,118 @@ CREATE INDEX magic_links_user_idx ON public.magic_links USING btree (user_id, cr
 --
 
 CREATE INDEX visits_user_feature_idx ON public.visits USING btree (user_id, feature_id);
+
+
+--
+-- Name: areas touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.areas FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: challenges touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.challenges FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: claim_groups touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.claim_groups FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: claims touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.claims FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: corrections touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.corrections FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: feature_areas touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.feature_areas FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: feature_notes touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.feature_notes FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: feature_views touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.feature_views FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: features touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.features FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: goals touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.goals FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: links touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.links FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: locations touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.locations FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: magic_links touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.magic_links FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: sessions touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.sessions FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: users touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.users FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: visits touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.visits FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
 
 
 --
@@ -1206,6 +1521,22 @@ ALTER TABLE ONLY public.feature_areas
 
 ALTER TABLE ONLY public.feature_areas
     ADD CONSTRAINT feature_areas_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
+
+
+--
+-- Name: feature_notes feature_notes_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_notes
+    ADD CONSTRAINT feature_notes_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id);
+
+
+--
+-- Name: feature_views feature_views_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_views
+    ADD CONSTRAINT feature_views_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id);
 
 
 --
@@ -1284,5 +1615,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict jwvrpFg43eujKsedO4QkaMCSFecZi5j5N4wHj5tupguSRPbXMf920bjz8gBxF9L
+\unrestrict ItkAYgxyGCKEASrF71htWeqqOt1BkXBAwbEg0nqpcPdwaggjm2BF6hzU7sORVvA
 
