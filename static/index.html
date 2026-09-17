@@ -182,13 +182,15 @@
       pointer-events: none;
     }
     .switch label {
-      position: relative;
-      z-index: 1;
-      /* flex: 1 so each label claims exactly one segment of the switch's
-         width, the same segments the pill's width is computed against --
-         without it, labels only take their own content width and their
-         text doesn't land centered over the pill it belongs to. */
+      /* flex: 1 so each label claims exactly one equal segment of the
+         switch's width -- the highlight is the label's own background now,
+         so this is what keeps every segment the same size, not a separate
+         element that has to be kept in sync with it. min-width makes every
+         switch's segments the same size as every other switch's too, so a
+         2-way Hide/Show and a 3-way All/Best/Color line up on a shared grid
+         rather than each sizing to its own longest word. */
       flex: 1;
+      min-width: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -199,20 +201,20 @@
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
     }
+    /* Only the corner touching the switch's own outer edge rounds; a middle
+       option in a 3-way switch never matches either selector, so it stays
+       square on both sides. */
+    .switch label:first-of-type { border-radius: 3px 0 0 3px; }
+    .switch label:last-of-type { border-radius: 0 3px 3px 0; }
     .switch label .dot { margin-right: 5px; }
-    .switch input:checked + label { color: var(--on-accent); font-weight: 700; }
-    .switch input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 1px; }
-    .switch__pill {
-      position: absolute;
-      top: 2px; bottom: 2px; left: 2px;
-      width: calc((100% - 4px) / var(--switch-count, 2));
+    .switch input:checked + label {
       background: var(--filter-active);
-      /* Set per-option in placeSwitchPill(): only the corner touching the
-         switch's own outer edge rounds. */
-      transition: transform 0.18s ease;
-      z-index: 0;
+      color: var(--on-accent);
+      font-weight: 700;
     }
+    .switch input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 1px; }
 
     /* Beauty/Photo/Solitude while Waterfalls is hidden -- nothing left for
        them to describe, so they're visibly inert rather than just quietly
@@ -1298,7 +1300,6 @@
           <label for="kind-waterfall-hide">Hide</label>
           <input type="radio" id="kind-waterfall-show" name="kind-waterfall" value="show" checked>
           <label for="kind-waterfall-show">Show</label>
-          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
@@ -1308,7 +1309,6 @@
           <label for="kind-tower-hide">Hide</label>
           <input type="radio" id="kind-tower-show" name="kind-tower" value="show" checked>
           <label for="kind-tower-show">Show</label>
-          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
@@ -1318,7 +1318,6 @@
           <label for="kind-swimming_hole-hide">Hide</label>
           <input type="radio" id="kind-swimming_hole-show" name="kind-swimming_hole" value="show" checked>
           <label for="kind-swimming_hole-show">Show</label>
-          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row" id="visited-row">
@@ -1330,7 +1329,6 @@
           <label for="visited-mute">Mute</label>
           <input type="radio" id="visited-show" name="visited" value="show">
           <label for="visited-show">Show</label>
-          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
@@ -1342,7 +1340,6 @@
           <label for="rating-beauty-best">Best</label>
           <input type="radio" id="rating-beauty-color" name="rating-beauty" value="color">
           <label for="rating-beauty-color">Color</label>
-          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
@@ -1354,7 +1351,6 @@
           <label for="rating-photo-best">Best</label>
           <input type="radio" id="rating-photo-color" name="rating-photo" value="color">
           <label for="rating-photo-color">Color</label>
-          <span class="switch__pill"></span>
         </div>
       </div>
       <div class="filter-row">
@@ -1366,7 +1362,6 @@
           <label for="rating-solitude-best">Best</label>
           <input type="radio" id="rating-solitude-color" name="rating-solitude" value="color">
           <label for="rating-solitude-color">Color</label>
-          <span class="switch__pill"></span>
         </div>
       </div>
     </div>
@@ -2745,25 +2740,6 @@
     });
 
     // ---------- filters ----------
-    // A sliding radio switch: find the checked input's position among its
-    // siblings and place the pill there. Generic over how many options a
-    // switch has (--switch-count on the element, set inline for the 3-way
-    // Visited switch; every other switch here is 2-way, the CSS default).
-    function placeSwitchPill(sw) {
-      const inputs = [...sw.querySelectorAll('input')];
-      const idx = inputs.findIndex((i) => i.checked);
-      const pill = sw.querySelector('.switch__pill');
-      if (idx < 0) return;
-      pill.style.transform = 'translateX(' + (idx * 100) + '%)';
-      // Only the corners touching the switch's own outer edge round; a
-      // middle option is square on both sides, so the pill reads as filling
-      // one segment of a continuous control rather than as its own rounded
-      // chip sitting inside another one.
-      pill.style.borderRadius =
-        idx === 0 ? '4px 0 0 4px' :
-        idx === inputs.length - 1 ? '0 4px 4px 0' : '0';
-    }
-
     // Sets a switch to a value in code (reset, sign-in/out, initial load)
     // without going through the change event that user interaction fires.
     function setSwitch(name, value) {
@@ -2771,7 +2747,6 @@
       if (!sw) return;
       const input = sw.querySelector('input[value="' + value + '"]');
       if (input) input.checked = true;
-      placeSwitchPill(sw);
     }
 
     function syncFilters() {
@@ -2804,7 +2779,6 @@
         else state.showKinds.delete(k);
         track('filter_kind', { kind: k, showing: state.showKinds.has(k),
           kinds_on: [...state.showKinds].sort().join(',') || 'none' });
-        placeSwitchPill(sw);
         if (k === 'waterfall') setRatingsDisabled(!state.showKinds.has('waterfall'));
         syncFilterButton();
         renderMarkers(true);
@@ -2817,7 +2791,6 @@
       if (!state.user) { setSwitch('visited', state.visited); setAnon(true); return; }
       visitedTouched = true;
       state.visited = e.target.value;
-      placeSwitchPill(sw);
       syncFilterButton();
       renderMarkers(true);
     });
@@ -2830,7 +2803,6 @@
         track('rating_mode', { rating: key, mode,
           color_on: colorRatingKeys().sort().join(',') || 'none',
           best_on: bestRatingKeys().sort().join(',') || 'none' });
-        placeSwitchPill(sw);
         renderLegend();
         renderMarkers(true);
         syncFilterButton();
@@ -3004,7 +2976,6 @@
     markWalkInputs();
     drawWalkTicks();
     syncWalk();
-    document.querySelectorAll('.switch').forEach(placeSwitchPill);
 
     $('filter-button').addEventListener('click', () => setFilters(true));
     $('filters-close').addEventListener('click', () => setFilters(false));
