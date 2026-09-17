@@ -1905,13 +1905,16 @@
       return C.azure;
     }
 
-    // Best narrows to the top two tiers (9-10 or 7-8.99) for every dimension
-    // set to it -- ANDed, not OR'd: Best beauty plus Best solitude shows only
-    // what clears both bars, not either one.
+    // Best narrows to the top tier (9-10) for every dimension set to it --
+    // ANDed, not OR'd: Best beauty plus Best solitude shows only what clears
+    // both bars, not either one. Top two tiers (9-10 or 7-8.99) was tried
+    // first and barely narrowed anything -- beauty alone stayed at 233 of
+    // 495, because a 7 or 8 rating is common. Top tier alone brings beauty
+    // to 65 and all three combined to 15, which is what "Best" implies.
     function passesRatingFilter(goal) {
       return bestRatingKeys().every((k) => {
         const v = goal[k + '_rating'];
-        return v !== undefined && v !== null && ratingTier(v) <= 1;
+        return v !== undefined && v !== null && ratingTier(v) <= 0;
       });
     }
 
