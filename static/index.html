@@ -99,6 +99,7 @@
     #brand {
       display: flex;
       align-items: baseline;
+      flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 8px;
     }
@@ -111,12 +112,14 @@
       letter-spacing: 0.01em;
     }
 
-    #brand .tagline {
+    #brand .tagline, .subheading {
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--haze);
     }
+
+    .subheading { margin-bottom: 6px; }
 
     #search {
       width: 100%;
@@ -147,6 +150,78 @@
 
     .chip-row .row-label { margin-right: 2px; min-width: 52px; }
 
+    /* Filter name on the left, an explicit Off/On pair on the right --
+       rather than one pill you toggle, so the current state reads as text
+       and not just as a color. */
+    .filter-list { display: flex; flex-direction: column; gap: 8px; }
+    /* space-between plus flex:none on the switch keeps every switch flush
+       against the right edge of the panel, whatever its own width, rather
+       than trailing however far the label happens to push it. */
+    .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .filter-label { display: flex; align-items: center; font-size: 0.85rem; }
+    .filter-label .dot { margin-right: 8px; }
+    /* Beauty/Photo/Solitude have no marker color of their own, but their
+       labels should still start where the others' text does, not where
+       their dot would be. Same width a dot plus its margin take up. */
+    .filter-label.indent { padding-left: 16px; }
+
+    /* A sliding radio switch, square rather than pill-shaped so it reads as
+       a control and not as another chip. */
+    .switch {
+      position: relative;
+      display: flex;
+      flex: none;
+      background: var(--field-bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 2px;
+    }
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .switch label {
+      /* flex: 1 so each label claims exactly one equal segment of the
+         switch's width -- the highlight is the label's own background now,
+         so this is what keeps every segment the same size, not a separate
+         element that has to be kept in sync with it. min-width makes every
+         switch's segments the same size as every other switch's too, so a
+         2-way Hide/Show and a 3-way All/Best/Color line up on a shared grid
+         rather than each sizing to its own longest word. */
+      flex: 1;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 10px;
+      font-size: 0.76rem;
+      font-weight: 400;
+      color: var(--haze);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    /* Only the corner touching the switch's own outer edge rounds; a middle
+       option in a 3-way switch never matches either selector, so it stays
+       square on both sides. */
+    .switch label:first-of-type { border-radius: 4.5px 0 0 4.5px; }
+    .switch label:last-of-type { border-radius: 0 4.5px 4.5px 0; }
+    .switch label .dot { margin-right: 5px; }
+    .switch input:checked + label {
+      background: var(--filter-active);
+      color: var(--on-accent);
+      font-weight: 700;
+    }
+    .switch input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+    /* Beauty/Photo/Solitude while Waterfalls is hidden -- nothing left for
+       them to describe, so they're visibly inert rather than just quietly
+       doing nothing when clicked. */
+    .switch.disabled { opacity: 0.4; }
+    .switch.disabled label { cursor: default; }
+
     .chip {
       border: 1px solid var(--line);
       background: transparent;
@@ -161,8 +236,8 @@
     .chip:hover { background: var(--moss); }
 
     .chip[aria-pressed="true"] {
-      background: var(--accent);
-      border-color: var(--accent);
+      background: var(--filter-active);
+      border-color: var(--filter-active);
       color: var(--on-accent);
       font-weight: 600;
     }
@@ -178,7 +253,9 @@
       gap: 6px;
     }
 
-    .chip .dot {
+    /* A base rule rather than .chip .dot, since the dot now also appears
+       inside .filter-label and inside switch labels -- neither is a .chip. */
+    .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
@@ -187,8 +264,8 @@
       vertical-align: -1px;
       flex: none;
       /* Outside the dot, so the color keeps its full 8px. Without it the
-         swatch sits straight on the teal fill when the chip is pressed and
-         the azure/brown/green distinction is hard to read. */
+         swatch sits straight on a same-colored fill (a pressed chip, a
+         selected switch pill) and the color is hard to read against itself. */
       box-shadow: 0 0 0 1.5px #fff;
     }
 
@@ -386,8 +463,8 @@
       padding: 0 18px 0 15px;
       border-radius: 999px;
       border: none;
-      background: var(--accent);
-      color: var(--on-accent);
+      background: var(--fab-bg);
+      color: #fff;
       box-shadow: var(--shadow);
       cursor: pointer;
       display: flex;
@@ -400,8 +477,8 @@
     }
 
     #fab svg { width: 20px; height: 20px; flex: none; }
-    #fab:hover { background: var(--accent-deep); }
-    #fab[aria-expanded="true"] { background: var(--accent-deep); }
+    #fab:hover { background: var(--fab-bg-active); }
+    #fab[aria-expanded="true"] { background: var(--fab-bg-active); }
 
     #menu {
       left: 16px;
@@ -522,7 +599,8 @@
     #auth-sent .devnote { font-size: 0.7rem; word-break: break-all; color: var(--haze); }
 
     /* ---------- intro modal ---------- */
-    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop {
+    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop,
+    #add-place-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -953,18 +1031,21 @@
     }
 
     .navigate {
-      margin: 12px 0 4px;
+      margin: 12px 0 16px;
     }
     .navigate a {
       display: inline-flex;
       align-items: center;
       gap: 5px;
       font-size: 0.85rem;
-      color: var(--accent);
+      color: var(--on-accent);
+      background: var(--accent);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 999px;
     }
-    .navigate a:hover { text-decoration: underline; }
+    .navigate a:hover { background: var(--accent-deep); }
 
     .links { margin-top: 4px; }
 
@@ -991,6 +1072,38 @@
 
     .links a:hover { background: var(--moss); text-decoration: underline; }
     .links a span { font-size: 0.9em; opacity: 0.75; }
+
+    .challenge-lists { margin-top: 4px; }
+
+    .challenge-lists .k {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--haze);
+      margin-bottom: 6px;
+    }
+
+    .challenge-lists p {
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: var(--haze);
+      margin: 0 0 8px;
+    }
+
+    .challenge-lists a {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 5px 12px;
+      margin: 0 6px 6px 0;
+    }
+
+    .challenge-lists a:hover { background: var(--accent); color: var(--on-accent); }
 
     #log-visit label {
       display: block;
@@ -1177,7 +1290,7 @@
 
       /* Centre the modals above the Actions button rather than over it. */
       #intro-backdrop, #anon-backdrop, #rateby-backdrop,
-      #fix-backdrop, #filters-backdrop { padding-bottom: 84px; }
+      #fix-backdrop, #filters-backdrop, #add-place-backdrop { padding-bottom: 84px; }
 
       /* The drawer becomes a bottom sheet here, sharing the bottom-left corner
          with the Actions button, which has the higher z-index and so covers
@@ -1204,7 +1317,7 @@
   <header id="topbar" class="panel">
     <div id="brand">
       <h1>Wanderfall</h1>
-      <span class="tagline">WNC challenge log</span>
+      <span class="tagline">Find something cool.</span>
     </div>
     <div class="find">
       <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
@@ -1214,22 +1327,79 @@
       </button>
     </div>
     <div id="filter-controls">
-    <div class="chip-row" role="group" aria-label="Show on the map">
-      <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
-      <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
-      <button class="chip kind" data-kind="swimming_hole" aria-pressed="true"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</button>
-    </div>
-    <div class="chip-row" id="visited-row" role="group" aria-label="How to draw places you have visited">
-      <span class="row-label">Visited</span>
-      <button class="chip visited" data-visited="show" aria-pressed="false">Show</button>
-      <button class="chip visited" data-visited="hide" aria-pressed="false">Hide</button>
-      <button class="chip visited" data-visited="mute" aria-pressed="true"><span class="dot" style="background:var(--c-visited)"></span>Mute</button>
-    </div>
-    <div class="chip-row" role="group" aria-label="Color markers by rating">
-      <span class="row-label">Ratings</span>
-      <button class="chip rating" data-rating="beauty" aria-pressed="false">Beauty</button>
-      <button class="chip rating" data-rating="photo" aria-pressed="false">Photo</button>
-      <button class="chip rating" data-rating="solitude" aria-pressed="false">Solitude</button>
+    <div class="subheading">Filters</div>
+    <div class="filter-list">
+      <div class="filter-row">
+        <span class="filter-label"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</span>
+        <div class="switch" data-switch="kind-waterfall" data-switch-kind="waterfall">
+          <input type="radio" id="kind-waterfall-hide" name="kind-waterfall" value="hide">
+          <label for="kind-waterfall-hide">Hide</label>
+          <input type="radio" id="kind-waterfall-show" name="kind-waterfall" value="show" checked>
+          <label for="kind-waterfall-show">Show</label>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label"><span class="dot" style="background:var(--c-tower)"></span>Towers</span>
+        <div class="switch" data-switch="kind-tower" data-switch-kind="tower">
+          <input type="radio" id="kind-tower-hide" name="kind-tower" value="hide">
+          <label for="kind-tower-hide">Hide</label>
+          <input type="radio" id="kind-tower-show" name="kind-tower" value="show" checked>
+          <label for="kind-tower-show">Show</label>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</span>
+        <div class="switch" data-switch="kind-swimming_hole" data-switch-kind="swimming_hole">
+          <input type="radio" id="kind-swimming_hole-hide" name="kind-swimming_hole" value="hide">
+          <label for="kind-swimming_hole-hide">Hide</label>
+          <input type="radio" id="kind-swimming_hole-show" name="kind-swimming_hole" value="show" checked>
+          <label for="kind-swimming_hole-show">Show</label>
+        </div>
+      </div>
+      <div class="filter-row" id="visited-row">
+        <span class="filter-label"><span class="dot" style="background:var(--c-visited)"></span>Visited</span>
+        <div class="switch" data-switch="visited" style="--switch-count:3">
+          <input type="radio" id="visited-hide" name="visited" value="hide">
+          <label for="visited-hide">Hide</label>
+          <input type="radio" id="visited-mute" name="visited" value="mute" checked>
+          <label for="visited-mute">Mute</label>
+          <input type="radio" id="visited-show" name="visited" value="show">
+          <label for="visited-show">Show</label>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label indent">Beauty</span>
+        <div class="switch" data-switch="rating-beauty" data-switch-rating="beauty" style="--switch-count:3">
+          <input type="radio" id="rating-beauty-all" name="rating-beauty" value="all" checked>
+          <label for="rating-beauty-all">All</label>
+          <input type="radio" id="rating-beauty-best" name="rating-beauty" value="best">
+          <label for="rating-beauty-best">Best</label>
+          <input type="radio" id="rating-beauty-color" name="rating-beauty" value="color">
+          <label for="rating-beauty-color">Color</label>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label indent">Photo</span>
+        <div class="switch" data-switch="rating-photo" data-switch-rating="photo" style="--switch-count:3">
+          <input type="radio" id="rating-photo-all" name="rating-photo" value="all" checked>
+          <label for="rating-photo-all">All</label>
+          <input type="radio" id="rating-photo-best" name="rating-photo" value="best">
+          <label for="rating-photo-best">Best</label>
+          <input type="radio" id="rating-photo-color" name="rating-photo" value="color">
+          <label for="rating-photo-color">Color</label>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label indent">Solitude</span>
+        <div class="switch" data-switch="rating-solitude" data-switch-rating="solitude" style="--switch-count:3">
+          <input type="radio" id="rating-solitude-all" name="rating-solitude" value="all" checked>
+          <label for="rating-solitude-all">All</label>
+          <input type="radio" id="rating-solitude-best" name="rating-solitude" value="best">
+          <label for="rating-solitude-best">Best</label>
+          <input type="radio" id="rating-solitude-color" name="rating-solitude" value="color">
+          <label for="rating-solitude-color">Color</label>
+        </div>
+      </div>
     </div>
     <div class="chip-row walk-row" role="group" aria-label="How far you are willing to walk">
       <span class="row-label">Hike</span>
@@ -1358,10 +1528,13 @@
       </div>
       <form id="fix-form" class="modal-form">
       <div class="modal-body">
-      <p>None of this data is mine &mdash; it comes from HikingWNC, the Carolina
-        Mountain Club and Kevin Adams' lists, and some of it is wrong. Six
-        waterfalls were a full degree of longitude out when I checked. If you
-        have stood somewhere and it does not match, tell me.</p>
+      <p>I'm sorry to hear it didn't work out, and I really appreciate your
+        taking the time to send a correction. I gathered this data from all
+        over the web and tried to make sure it appeared several places
+        before including it &mdash; but mistakes happen. I know what a
+        bummer it is to get somewhere and find out the information is
+        wrong. If you have stood somewhere and found I got it wrong, I
+        would love to know so I can make this accurate for others.</p>
         <p class="fix-place">About: <strong id="fix-place"></strong></p>
         <label for="fix-field">What's wrong</label>
         <select id="fix-field">
@@ -1544,14 +1717,18 @@
       // Signed out nothing is visited, so muting would advertise a treatment
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
-      challenge: 'all',
+      challenge: new URLSearchParams(window.location.search).get('challenge') || 'all',
       // Indices into WALK_STOPS. Both ends parked means no distance filter at
       // all, which is not the same as 0 to 20 miles: it also keeps the 59 falls
       // whose distance nobody has written down.
       walk: { min: 0, max: 0 }, // corrected below, once WALK_STOPS exists
       area: '',
       visitStatus: 'all',
-      ratings: new Set(),
+      // Each rating is independently one of three things: 'all' (no effect),
+      // 'best' (filters to the top two tiers -- ANDed if more than one
+      // dimension is set to it), or 'color' (colors the ramp by it, filters
+      // nothing). The two are deliberately separate concerns.
+      ratingMode: { beauty: 'all', photo: 'all', solitude: 'all' },
       selected: null,
       markers: new Map(),
     };
@@ -1689,24 +1866,37 @@
       return goal.kind === 'tower';
     }
 
+    const RATING_KEYS = ['beauty', 'photo', 'solitude'];
+    // Same breakpoints the color ramp always used, named once so the "top
+    // two tiers" filter and the color ramp can't quietly drift apart.
+    const RATING_TIER_FLOORS = [9, 7, 5, 3];
+    function ratingTier(value) {
+      for (let i = 0; i < RATING_TIER_FLOORS.length; i++) {
+        if (value >= RATING_TIER_FLOORS[i]) return i;
+      }
+      return RATING_TIER_FLOORS.length;
+    }
+    function colorRatingKeys() {
+      return RATING_KEYS.filter((k) => state.ratingMode[k] === 'color');
+    }
+    function bestRatingKeys() {
+      return RATING_KEYS.filter((k) => state.ratingMode[k] === 'best');
+    }
+
     function ratingColor(goal) {
-      const vals = [...state.ratings]
+      const vals = colorRatingKeys()
         .map((k) => goal[k + '_rating'])
         .filter((v) => v !== undefined && v !== null);
       if (!vals.length) return C.scale[4];
       const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-      if (avg >= 9) return C.scale[0];
-      if (avg >= 7) return C.scale[1];
-      if (avg >= 5) return C.scale[2];
-      if (avg >= 3) return C.scale[3];
-      return C.scale[4];
+      return C.scale[ratingTier(avg)];
     }
 
     function markerColor(goal) {
       // Rate by wins over everything: the ramp only reads as a scale if every
       // pin is on it. Visited is a filter you can apply, not a color that
       // punches holes in the gradient.
-      if (state.ratings.size > 0) return ratingColor(goal);
+      if (colorRatingKeys().length > 0) return ratingColor(goal);
       // One muted color for anything visited -- a visited tower and a visited
       // fall are both just "done", and splitting them bought nothing.
       if (goal.last_visited && state.visited === 'mute') return C.visited;
@@ -1715,17 +1905,20 @@
       return C.azure;
     }
 
-    function hasSelectedRating(goal) {
-      return [...state.ratings].some((k) => {
+    // Best narrows to the top two tiers (9-10 or 7-8.99) for every dimension
+    // set to it -- ANDed, not OR'd: Best beauty plus Best solitude shows only
+    // what clears both bars, not either one.
+    function passesRatingFilter(goal) {
+      return bestRatingKeys().every((k) => {
         const v = goal[k + '_rating'];
-        return v !== undefined && v !== null;
+        return v !== undefined && v !== null && ratingTier(v) <= 1;
       });
     }
 
     // Uneven on purpose. Half the catalogue is under two miles, so a linear
     // slider would spend most of its travel on the handful of walks past ten.
     const WALK_STOPS = [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 10, 12, 15, 20, 36];
-    const WALK_TICKS = [0.5, 1, 3, 5, 7, 36];
+    const WALK_TICKS = [0.5, 1, 2, 3, 5, 7, 36];
 
     // The slider inputs' max attribute is set from this length in markWalkInputs()
     // below, so the handle's reach can never again drift out of sync with the
@@ -1832,10 +2025,7 @@
       const matchesChallenge = state.challenge === 'all' ||
         (goal.challenges || []).includes(state.challenge);
       const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
-      // Coloring by a rating only says something about things that carry one.
-      // Towers have no ratings at all, and a few dozen falls are unrated; both
-      // used to sit on the map in a color that implied a score they lack.
-      const matchesRated = state.ratings.size === 0 || hasSelectedRating(goal);
+      const matchesRated = passesRatingFilter(goal);
       return matchesKind && matchesArea && matchesChallenge &&
         matchesVisitStatus && matchesRated && matchesWalk(goal);
     }
@@ -1966,13 +2156,35 @@
       });
     }
 
+    // Downtown Asheville. The swimming-hole import added several genuinely
+    // Piedmont/coastal places (Falls Lake near Raleigh, Goose Creek near
+    // Washington NC, White Lake in Bladen County) that are real and worth
+    // keeping in the data, but have no business setting the opening zoom for
+    // a map about the mountains.
+    const AVL = { lat: 35.5951, lon: -82.5515 };
+    const MILES_PER_DEGREE_LAT = 69.0;
+
+    function milesFromAVL(lat, lon) {
+      const dLat = lat - AVL.lat;
+      const dLon = (lon - AVL.lon) * Math.cos(lat * Math.PI / 180);
+      return Math.sqrt(dLat * dLat + dLon * dLon) * MILES_PER_DEGREE_LAT;
+    }
+
     // A few far-flung points (one near Chattanooga, one east of Charlotte)
     // stretch the full extent across 5.6 degrees of longitude, which pushes the
     // opening view a zoom level further out than the data warrants and leaves
     // most of the screen empty. Fit the 1st-99th percentile instead. Nothing is
     // hidden: the strays are still on the map, just off the initial screen.
     // Skipped for small sets, where every point matters and there is no tail.
-    function fitBoundsFor(goals) {
+    //
+    // Points over 100 miles from Asheville are dropped before any of that --
+    // they're a difference in kind, not just in degree, and percentile
+    // trimming alone doesn't reliably exclude them once there are enough of
+    // them to stop looking like a small tail.
+    function fitBoundsFor(allGoals) {
+      const near = allGoals.filter((g) =>
+        milesFromAVL(g.location.latitude, g.location.longitude) <= 100);
+      const goals = near.length ? near : allGoals;
       const lats = goals.map((g) => g.location.latitude).sort((a, b) => a - b);
       const lons = goals.map((g) => g.location.longitude).sort((a, b) => a - b);
       const k = goals.length > 50 ? Math.floor(goals.length * 0.01) : 0;
@@ -2145,6 +2357,21 @@
       }[c]));
     }
 
+    // iPadOS reports itself as "Macintosh" but exposes touch points a real Mac
+    // doesn't, so a plain platform string isn't enough to tell them apart.
+    function isApplePlatform() {
+      const p = navigator.platform || '';
+      if (/iPhone|iPad|iPod/.test(p)) return true;
+      if (/Mac/.test(p) && navigator.maxTouchPoints > 1) return true;
+      return /Macintosh/.test(navigator.userAgent || '') && !/Windows|Linux|Android/.test(navigator.userAgent);
+    }
+
+    function mapsUrlFor(lat, lon) {
+      return isApplePlatform()
+        ? 'https://maps.apple.com/?daddr=' + lat + ',' + lon
+        : 'https://maps.google.com/maps?daddr=' + lat + ',' + lon;
+    }
+
     // ---------- drawer ----------
     function band(key, n) {
       const word = window.wjBand(key, n);
@@ -2208,10 +2435,6 @@
 
       let html = '<h2>' + escapeHtml(goal.name) + '</h2>';
       html += '<div class="badges">';
-      (goal.challenges || []).forEach((c) => {
-        const label = CHALLENGE_LABELS[c] || c;
-        html += '<a class="badge challenge" href="/account#challenges" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</a>';
-      });
       if (diffName) html += '<span class="badge diff-' + d + '">' + diffName + '</span>';
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
       html += '</div>';
@@ -2233,13 +2456,15 @@
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
 
-      // Navigate to trailhead if we have parking coords, otherwise the falls.
+      // Navigate to trailhead if we have parking coords, otherwise the destination itself.
       const navLoc = goal.parking_location || goal.location;
       if (navLoc && navLoc.latitude && navLoc.longitude) {
-        const mapsUrl = 'https://maps.google.com/maps?daddr=' + navLoc.latitude + ',' + navLoc.longitude;
+        const mapsUrl = mapsUrlFor(navLoc.latitude, navLoc.longitude);
+        const DEST_LABEL = { tower: 'fire tower', swimming_hole: 'swimming hole' };
+        const destLabel = DEST_LABEL[goal.kind] || 'falls';
         html += '<div class="navigate"><a href="' + escapeHtml(mapsUrl) + '" target="_blank" rel="noopener">' +
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>' +
-          (goal.parking_location ? 'Navigate to trailhead' : 'Navigate to falls') + '</a></div>';
+          (goal.parking_location ? 'Navigate to trailhead' : 'Navigate to ' + destLabel) + '</a></div>';
       }
 
       if ((goal.notes || []).length) {
@@ -2247,6 +2472,17 @@
         goal.notes.forEach((n) => {
           html += '<div class="note' + (n.source ? ' sourced' : '') + '">' +
             escapeHtml(n.text) + '</div>';
+        });
+        html += '</div>';
+      }
+
+      if ((goal.challenges || []).length) {
+        html += '<div class="challenge-lists"><div class="k">Challenge Lists</div>' +
+          '<p>This place is on a list with some other great spots &mdash; ' +
+          'collect the whole set!</p>';
+        goal.challenges.forEach((c) => {
+          const label = CHALLENGE_LABELS[c] || c;
+          html += '<a href="/?challenge=' + encodeURIComponent(c) + '" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</a>';
         });
         html += '</div>';
       }
@@ -2452,7 +2688,7 @@
 
     // ---------- search ----------
     function renderLegend() {
-      $('spectrum').hidden = state.ratings.size === 0;
+      $('spectrum').hidden = colorRatingKeys().length === 0;
     }
 
     // Display names for the terse codes the DB stores.
@@ -2485,6 +2721,13 @@
     // and a wrapping row of them was crowding the card.
     function renderChallenges() {
       const names = startedChallenges();
+      // A place's "Challenge Lists" badge links here as /?challenge=CODE so
+      // anyone can browse the list, signed in or not -- keep that code
+      // visible even though startedChallenges() only knows about visits.
+      if (state.challenge !== 'all' && CHALLENGE_LABELS[state.challenge] &&
+          !names.includes(state.challenge)) {
+        names.push(state.challenge);
+      }
       const box = $('challenge-pick');
       box.hidden = names.length === 0;
       if (state.challenge !== 'all' && !names.includes(state.challenge)) {
@@ -2568,51 +2811,76 @@
     });
 
     // ---------- filters ----------
+    // Sets a switch to a value in code (reset, sign-in/out, initial load)
+    // without going through the change event that user interaction fires.
+    function setSwitch(name, value) {
+      const sw = document.querySelector('[data-switch="' + name + '"]');
+      if (!sw) return;
+      const input = sw.querySelector('input[value="' + value + '"]');
+      if (input) input.checked = true;
+    }
+
     function syncFilters() {
-      document.querySelectorAll('.chip.kind').forEach((c) =>
-        c.setAttribute('aria-pressed', String(state.showKinds.has(c.dataset.kind))));
-      document.querySelectorAll('.chip.visited').forEach((c) =>
-        c.setAttribute('aria-pressed', String(c.dataset.visited === state.visited)));
+      setSwitch('kind-waterfall', state.showKinds.has('waterfall') ? 'show' : 'hide');
+      setSwitch('kind-tower', state.showKinds.has('tower') ? 'show' : 'hide');
+      setSwitch('kind-swimming_hole', state.showKinds.has('swimming_hole') ? 'show' : 'hide');
+      setSwitch('visited', state.visited);
+      setSwitch('rating-beauty', state.ratingMode.beauty);
+      setSwitch('rating-photo', state.ratingMode.photo);
+      setSwitch('rating-solitude', state.ratingMode.solitude);
+      setRatingsDisabled(!state.showKinds.has('waterfall'));
       syncFilterButton();
     }
 
-    // Kinds are independent on/off; visited is one of three.
-    document.querySelectorAll('.chip.kind').forEach((chip) =>
-      chip.addEventListener('click', () => {
-        const k = chip.dataset.kind;
-        if (state.showKinds.has(k)) state.showKinds.delete(k);
-        else state.showKinds.add(k);
+    // Ratings only ever describe waterfalls -- towers carry none and
+    // swimming holes that aren't also a waterfall feature carry none either.
+    // Hiding waterfalls leaves nothing for Beauty/Photo/Solitude to act on,
+    // so disable them rather than leave controls that visibly do nothing.
+    function setRatingsDisabled(disabled) {
+      document.querySelectorAll('.switch[data-switch-rating]').forEach((sw) => {
+        sw.classList.toggle('disabled', disabled);
+        sw.querySelectorAll('input').forEach((i) => { i.disabled = disabled; });
+      });
+    }
+
+    document.querySelectorAll('.switch[data-switch-kind]').forEach((sw) =>
+      sw.addEventListener('change', (e) => {
+        const k = sw.dataset.switchKind;
+        if (e.target.value === 'show') state.showKinds.add(k);
+        else state.showKinds.delete(k);
         track('filter_kind', { kind: k, showing: state.showKinds.has(k),
           kinds_on: [...state.showKinds].sort().join(',') || 'none' });
-        syncFilters();
-        renderMarkers(true);
-      }));
-
-    document.querySelectorAll('.chip.visited').forEach((chip) =>
-      chip.addEventListener('click', () => {
-        // Signed out there is nothing to show, hide or mute. Saying so beats a
-        // control that silently does nothing.
-        if (!state.user) { setAnon(true); return; }
-        visitedTouched = true;
-        state.visited = chip.dataset.visited;
-        syncFilters();
-        renderMarkers(true);
-      }));
-
-    document.querySelectorAll('.chip.rating').forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const key = chip.dataset.rating;
-        if (state.ratings.has(key)) state.ratings.delete(key); else state.ratings.add(key);
-        track('color_by_rating', { rating: key, turned_on: state.ratings.has(key),
-          ratings_on: [...state.ratings].sort().join(',') || 'none' });
-        chip.setAttribute('aria-pressed', String(state.ratings.has(key)));
-        renderLegend();
-        renderMarkers(false);
+        if (k === 'waterfall') setRatingsDisabled(!state.showKinds.has('waterfall'));
         syncFilterButton();
-        // after rendering, so closing the modal reveals the colored map
-        maybeExplainRateby();
-      });
+        renderMarkers(true);
+      }));
+
+    document.querySelector('[data-switch="visited"]').addEventListener('change', (e) => {
+      const sw = e.currentTarget;
+      // Signed out there is nothing to show, hide or mute. Saying so beats a
+      // control that silently flips and does nothing.
+      if (!state.user) { setSwitch('visited', state.visited); setAnon(true); return; }
+      visitedTouched = true;
+      state.visited = e.target.value;
+      syncFilterButton();
+      renderMarkers(true);
     });
+
+    document.querySelectorAll('.switch[data-switch-rating]').forEach((sw) =>
+      sw.addEventListener('change', (e) => {
+        const key = sw.dataset.switchRating;
+        const mode = e.target.value;
+        state.ratingMode[key] = mode;
+        track('rating_mode', { rating: key, mode,
+          color_on: colorRatingKeys().sort().join(',') || 'none',
+          best_on: bestRatingKeys().sort().join(',') || 'none' });
+        renderLegend();
+        renderMarkers(true);
+        syncFilterButton();
+        // Only Color changes what the map looks like enough to need
+        // explaining -- Best is a filter, not a new way of reading color.
+        if (mode === 'color') maybeExplainRateby();
+      }));
 
     // ---------- auth ----------
     // Once you pick a visited treatment yourself, signing in or out stops
@@ -2705,7 +2973,7 @@
       let n = 0;
       if (state.showKinds.size !== 3) n++;
       if (state.visited !== (state.user ? 'mute' : 'show')) n++;
-      if (state.ratings.size) n++;
+      if (RATING_KEYS.some((k) => state.ratingMode[k] !== 'all')) n++;
       if (state.area) n++;
       if (state.challenge !== 'all') n++;
       if (walkFilterOn()) n++;
@@ -2790,12 +3058,10 @@
     $('filters-reset').addEventListener('click', () => {
       state.showKinds = new Set(['waterfall', 'tower', 'swimming_hole']);
       state.visited = state.user ? 'mute' : 'show';
-      state.ratings = new Set();
+      state.ratingMode = { beauty: 'all', photo: 'all', solitude: 'all' };
       state.challenge = 'all';
       state.walk = { min: 0, max: WALK_STOPS.length - 1 };
       syncWalk();
-      document.querySelectorAll('.chip.rating').forEach((c) =>
-        c.setAttribute('aria-pressed', 'false'));
       setArea('');
       syncFilters();
       renderLegend();
