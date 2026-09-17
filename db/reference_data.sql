@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict pxfqcPt0aVENlEUSNC8TzcHmsag06ajEFZbFBgDCJZDD5JyVyWOdcUdNFuD0RsA
+\restrict uab1LfbLRqC1bgmTWWg86soiJI721jNaVLCiRvefI4HABQTaYeRHc8dZnxNaDI9
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -1114,6 +1114,15 @@ COPY public.locations (id, latitude, longitude, created_at, updated_at) FROM std
 423	35.02978549	-83.49729536	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1016	35.07007000	-83.17435000	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1017	35.30561900	-82.78337500	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+1018	35.57326400	-82.49128700	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1019	35.24440000	-83.01530000	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1020	35.48162870	-82.62606610	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1021	35.61026260	-82.42817870	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1022	36.01170000	-78.68800000	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1023	35.48185000	-76.90141000	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1024	35.56426270	-82.59820150	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1025	35.91261330	-82.75685280	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1026	35.68796300	-82.57128000	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 \.
 
 
@@ -1157,7 +1166,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1090	Big Bully Falls	\N	834	f	1.75	\N	6	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	big-bully-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 320	Big Falls- Thompson River	\N	129	f	7.00	D	10	9	10	158	281	247	waterfall	Hard (Very)	\N	\N	\N	\N	\N	\N	\N	\N	big-falls-thompson-river	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1152	Bigger Fall on Small Trib Falls	\N	895	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	bigger-fall-on-small-trib-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-326	Big Laurel Falls	\N	159	f	1.20	E	7	8	6	333	92	\N	waterfall	Medium	25	Federal	\N	\N	\N	\N	\N	\N	big-laurel-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 936	Bird Falls	\N	682	f	4.5 (out and back)	\N	7	6	4	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	bird-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 818	Blue Boar Falls	\N	571	f	6.25	\N	5	4	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	blue-boar-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1021	Blue Wall Falls	\N	765	f	2.4	\N	4	5	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	blue-wall-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1209,7 +1217,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 762	Cascade on the Nantahala	\N	515	f	Roadside	\N	4	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	cascade-on-the-nantahala	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 887	Cascades Waterfall (Craggy)	\N	639	f	4.0 or 3.6 miles (out and back)	\N	3	1	5	\N	\N	\N	waterfall	Moderate	100	\N	\N	\N	\N	\N	\N	\N	cascades-waterfall-craggy	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 590	Case Falls	\N	349	f	0.4	\N	1	1	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	case-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-591	Cashier's Sliding Rock	\N	350	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	cashier-s-sliding-rock	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1058	Catamount Falls	\N	802	f	5.6	\N	9	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	catamount-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 899	Cathedral Falls	\N	651	f	4.1 (out and back)	\N	6	5	5	\N	\N	\N	waterfall	Moderate	50	\N	\N	\N	\N	\N	\N	\N	cathedral-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 340	Catheys Creek Falls	\N	193	f	0.2	E	7	7	6	54	48	\N	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N	catheys-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1237,6 +1244,7 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1123	Confluence Falls (SC)	\N	867	f	6.2	\N	1	1	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	confluence-falls-sc	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 675	Confusion Falls	\N	429	f	3.1	\N	8	8	5	\N	\N	\N	waterfall	Moderate+	12	\N	\N	\N	\N	\N	\N	\N	confusion-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1271	Climbing Wall Falls (Looking Glass Creek)	\N	1017	f	0.2	\N	3	\N	\N	\N	\N	\N	waterfall	Class III Bushwhack	100	Federal	\N	\N	\N	2840	\N	\N	climbing-wall-falls-looking-glass-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+591	Cashier's Sliding Rock	\N	350	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	cashier-s-sliding-rock	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 440	Albert Mountain	\N	222	f	6.5	\N	\N	\N	\N	\N	\N	\N	tower	\N	43	\N	\N	\N	\N	5220	\N	\N	albert-mountain	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 413	Aunt Sally's Falls	\N	184	f	1.0 (out and back)	\N	6	4	10	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	aunt-sally-s-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 452	Bearwallow Mountain	\N	234	f	2.4	\N	\N	\N	\N	\N	\N	\N	tower	\N	47	\N	\N	\N	\N	4230	\N	\N	bearwallow-mountain	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1245,7 +1253,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 526	Carlton Falls	\N	297	f	3.6	\N	9	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	carlton-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 462	Connestee Falls	\N	244	f	Approx 1.4 mile each way	\N	9	9	8	\N	\N	\N	waterfall	Easy/Moderate	\N	\N	\N	\N	\N	\N	\N	\N	connestee-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1014	Coon Hollow Falls	\N	758	f	2	\N	3	1	8	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	coon-hollow-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-407	Courthouse Falls	\N	117	f	0.70	E	9	8	8	\N	224	69	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	courthouse-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 313	Cove Creek Falls	\N	104	f	2.72	E	8	9	8	\N	173	52	waterfall	Moderate	50	Federal	\N	\N	\N	\N	\N	\N	cove-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 999	Coyote Falls	\N	743	f	1	\N	8	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	coyote-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 419	Crab Orchard Falls	\N	201	f	1.4	\N	3	2	3	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N	crab-orchard-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1275,15 +1282,12 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 810	Double Drop Falls	\N	563	f	3.2 (out and back)	\N	5	8	6	\N	\N	\N	waterfall	Easy+	30	\N	\N	\N	\N	\N	\N	\N	double-drop-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1225	Double Spring Mountain Falls	\N	955	f	6.5	\N	6	5	8	\N	\N	\N	waterfall	Kayak	\N	\N	\N	\N	\N	\N	\N	\N	double-spring-mountain-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 401	Douglas Falls	\N	160	f	1.10	E	7	8	6	\N	103	31	waterfall	Moderate	70	Federal	\N	\N	\N	\N	\N	\N	douglas-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-359	Drift Falls (Bust-Your-Butt Falls)	\N	182	f	4.2	M	5	6	6	24	\N	\N	waterfall	Moderate+	25	State	\N	\N	\N	\N	1000	\N	drift-falls-bust-your-butt-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 985	Drip Rock Falls	\N	731	f	Roadside	\N	2	2	\N	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	drip-rock-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 360	Dry Falls	\N	132	f	0.4 (out and back)	\N	8	6	2	\N	\N	\N	waterfall	Easy	65	Federal	\N	\N	\N	\N	1001	\N	dry-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 658	Dryland Laurel Branch Falls	\N	413	f	0.8 (out and back)	\N	4	3	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	dryland-laurel-branch-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1088	Duality Falls	\N	832	f	1.75	\N	3	3	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	duality-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-569	Duggers Creek Falls	\N	329	f	0.3 (loop hike from visitor's center)	\N	8	7	6	\N	\N	\N	waterfall	Easy+	20	\N	\N	\N	\N	\N	\N	\N	duggers-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 321	Eastatoe Falls	\N	116	f	0.20	M	10	9	7	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N	eastatoe-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 748	Eastern Stream Falls	\N	501	f	2	\N	2	1	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	eastern-stream-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-314	Elk River Falls	\N	167	f	0.2 (out and back)	E	8	9	4	\N	19	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N	elk-river-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 716	Elmos Falls	\N	469	f	About 2.4 miles (out and back)	\N	8	6	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	elmos-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 886	Emerald Village Falls	\N	638	f	Roadside	\N	3	3	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	emerald-village-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 589	Emily Falls	\N	348	f	0.8	\N	5	8	7	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	emily-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1291,6 +1295,10 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1149	Enchanted Falls	\N	892	f	2.4 (out and back)	\N	5	4	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	enchanted-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 358	Enloe Creek Falls	\N	179	f	6.60	M	3	6	5	\N	\N	\N	waterfall	Hard (due to elevation)	\N	\N	\N	\N	\N	\N	\N	\N	enloe-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 900	English Falls (access restricted)	\N	652	f	No access	\N	9	9	9	\N	\N	\N	waterfall	No access	\N	Private	\N	\N	\N	\N	\N	\N	english-falls-access-restricted	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+407	Courthouse Falls	\N	117	f	0.70	E	9	8	8	\N	224	69	waterfall	Easy	\N	Federal	\N	\N	\N	\N	\N	\N	courthouse-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+391	Schoolhouse Falls	\N	198	f	4.0 miles (loop)	E	9	6	5	102	\N	\N	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N	schoolhouse-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+326	Big Laurel Falls	\N	159	f	1.20	E	7	8	6	333	92	\N	waterfall	Medium	25	Federal	\N	\N	\N	\N	\N	\N	big-laurel-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+569	Duggers Creek Falls	\N	329	f	0.3 (loop hike from visitor's center)	\N	8	7	6	\N	\N	\N	waterfall	Easy+	20	\N	\N	\N	\N	\N	\N	\N	duggers-creek-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 565	55 M.P.H. Falls	\N	326	f	5.5 (shuttle hike)	\N	6	5	10	\N	\N	\N	waterfall	Hard+	30	\N	\N	\N	\N	\N	\N	\N	55-m-p-h-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 563	Bedrock Betty Falls	\N	324	f	5.5 (shuttle hike)	\N	7	5	10	\N	\N	\N	waterfall	Hard+	18	\N	\N	\N	\N	\N	\N	\N	bedrock-betty-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 579	Beetree Fork Falls	\N	338	f	0.5	\N	5	6	7	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	beetree-fork-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1346,6 +1354,9 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1065	Green Wall Falls (unofficial name)	\N	809	f	3.0	\N	5	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	green-wall-falls-unofficial-name	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 383	Grogan Creek Falls	\N	115	f	5.20	M	10	9	9	\N	172	50	waterfall	Moderate	20	Federal	\N	\N	\N	\N	\N	\N	grogan-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 390	Grotto Falls	\N	196	f	6	M	5	5	2	1014	50	\N	waterfall	\N	\N	GSMNP	\N	\N	\N	\N	\N	\N	grotto-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+314	Elk River Falls	\N	167	f	0.2 (out and back)	E	8	9	4	\N	19	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N	elk-river-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+359	Drift Falls (Bust-Your-Butt Falls)	\N	182	f	4.2	M	5	6	6	24	\N	\N	waterfall	Moderate+	25	State	\N	\N	\N	\N	1000	\N	drift-falls-bust-your-butt-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+504	Sunburst Falls	\N	275	f	0.2 (out and back)	\N	7	5	4	\N	\N	\N	waterfall	Easy+	18	\N	\N	\N	\N	\N	\N	\N	sunburst-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 606	Brooks Creek Falls	\N	365	f	Roadside	\N	7	8	5	\N	\N	\N	waterfall	Easy	50	\N	\N	\N	\N	\N	\N	\N	brooks-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 841	Gunter Fork Falls	\N	594	f	16.8	\N	3	2	4	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	gunter-fork-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 525	Halfway Falls	\N	296	f	2.8	\N	9	9	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	halfway-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1363,7 +1374,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 811	Hidden Dome Falls	\N	564	f	5.4 (out and back)	\N	4	1	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hidden-dome-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 714	Hidden Falls	\N	467	f	Less than 1.4 (out and back)	\N	6	3	8	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	hidden-falls-2	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 740	High Falls (Beech Creek)	\N	493	f	5.2	\N	9	8	8	\N	\N	\N	waterfall	Difficult (due to creek crossings and elevation gain)	\N	\N	\N	\N	\N	\N	\N	\N	high-falls-beech-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-362	High Falls- Thompson River	\N	131	f	3.0 (out and back)	M	6	6	5	\N	276	251	waterfall	Moderate	55	Federal	\N	\N	\N	\N	\N	\N	high-falls-thompson-river	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 729	Highlands Falls	\N	482	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	highlands-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1231	Hitchin Post Falls	\N	960	f	5	\N	4	3	3	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	hitchin-post-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 760	Hole in the Rock Falls	\N	513	f	6.0 (out and back)	\N	6	5	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hole-in-the-rock-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1373,7 +1383,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 734	Horseshoe Falls	\N	487	f	2.8	\N	8	8	8	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	horseshoe-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 917	Horse Trail Falls	\N	663	f	3.0 (Lollipop Loop)	\N	2	1	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	horse-trail-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 961	Hugh Heffner Falls	\N	707	f	7.4 (out and back) or 8.3 (thru-hike)	\N	5	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	hugh-heffner-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-387	Hunt Fish Falls	\N	173	f	1.8 (out and back)	E	7	6	5	\N	57	12	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	hunt-fish-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 783	Hunt Fish Sidekick Falls	\N	536	f	1.8 (out and back)	\N	5	4	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	hunt-fish-sidekick-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 919	Hurricane Creek Falls	\N	665	f	3.0 (Lollipop Loop)	\N	3	4	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	hurricane-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 717	Hurricane Falls	\N	470	f	Roadside	\N	4	1	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	hurricane-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1405,6 +1414,7 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 375	King's Creek Falls	\N	195	f		E	4	3	10	359	\N	\N	waterfall	Moderate	75	Federal	\N	\N	\N	\N	\N	\N	king-s-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 688	Kings Creek Falls	\N	441	f	6.6	\N	4	3	10	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	\N	\N	kings-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 617	Amelia Falls	\N	\N	f	NA	\N	8	8	6	\N	\N	\N	waterfall	Roadside (Private)	\N	Private	\N	\N	\N	\N	\N	\N	amelia-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+387	Hunt Fish Falls	\N	173	f	1.8 (out and back)	E	7	6	5	\N	57	12	waterfall	Moderate	\N	Federal	\N	\N	\N	\N	\N	\N	hunt-fish-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 677	Bearwallow Falls	\N	431	f	1.6 (out and back) Both Falls	\N	8	9	9	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	bearwallow-falls-2	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 667	Big Bearwallow Falls	\N	422	f	0.1	\N	6	6	5	\N	\N	\N	waterfall	Difficult+	35	\N	\N	\N	\N	\N	\N	\N	big-bearwallow-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1082	Kinney Branch Falls	\N	826	f	6.5 (out and back)	\N	5	3	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	kinney-branch-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1433,7 +1443,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 535	Licklog Falls	\N	306	f	1.2 (out and back)	\N	5	5	6	\N	\N	\N	waterfall	Medium+	\N	\N	\N	\N	\N	\N	1011	\N	licklog-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 423	Little Bearwallow Falls	\N	205	f	2.2 (out and back)	\N	5	4	3	\N	\N	\N	waterfall	Moderate	\N	Conservancy	\N	\N	\N	\N	\N	\N	little-bearwallow-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 489	Little Bird Falls	\N	262	f	0.5 (out and back)	\N	8	7	9	\N	\N	\N	waterfall	Easy+	30	\N	\N	\N	\N	\N	\N	\N	little-bird-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-410	Little Bradley Falls	\N	130	f	1.94	E	8	8	6	\N	\N	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N	little-bradley-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1089	Little Bully Falls	\N	833	f	1.75	\N	5	5	7	\N	\N	\N	waterfall	Hard (creekwalk/bushwhack)	\N	\N	\N	\N	\N	\N	\N	\N	little-bully-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 847	Little Canyon Falls	\N	599	f	5.5 (shuttle hike)	\N	10	5	10	\N	\N	\N	waterfall	Hard+	8	\N	\N	\N	\N	\N	\N	\N	little-canyon-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 860	Little Creek Falls	\N	612	f	2.8	\N	6	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	little-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1461,6 +1470,8 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 700	Lower Big Bald Falls	\N	453	f	1.2	\N	6	6	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	lower-big-bald-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1119	Lower Blackberry Falls	\N	863	f	5.5	\N	1	\N	7	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	lower-blackberry-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 720	Yellow Creek Falls	\N	473	f	0.8	\N	5	7	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	yellow-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+410	Little Bradley Falls	\N	130	f	1.94	E	8	8	6	\N	\N	\N	waterfall	Easy+	\N	Federal	\N	\N	\N	\N	\N	\N	little-bradley-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+463	Sliding Rock	\N	245	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	sliding-rock	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 1188	Lower Boomer Inn Falls	\N	920	f	3.4 (ending up being a loop)	\N	6	4	10	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	lower-boomer-inn-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 487	Lower Bubbling Springs Branch	\N	260	f	1.25 (out and back)	\N	8	7	8	\N	\N	\N	waterfall	Moderate	20	\N	\N	\N	\N	\N	\N	\N	lower-bubbling-springs-branch	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 752	Lower Buff Falls	\N	505	f	0.6	\N	6	6	5	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	lower-buff-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1537,7 +1548,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1245	Middle Waterfall on Road Prong	\N	974	f	6.0 Miles (out and back)	\N	8	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	middle-waterfall-on-road-prong	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 513	Middle Wildcat Branch Falls	\N	284	f	Roadside	\N	6	8	5	\N	\N	\N	waterfall	Easy	10	\N	\N	\N	\N	\N	\N	\N	middle-wildcat-branch-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 575	Middle Wildcat Falls	\N	334	f	0.75	\N	5	4	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	middle-wildcat-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-839	Midnight Hole Falls	\N	592	f	3	\N	4	6	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	midnight-hole-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1172	Mile High Falls	\N	906	f	5.0 (out and back)	\N	2	1	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	mile-high-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1209	Mill Branch Falls (281N)	\N	940	f	2.5 (out and back)	\N	7	7	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	mill-branch-falls-281n	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 879	Mill Creek Falls	\N	631	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N	mill-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1555,7 +1565,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 901	Mossy Ledge Falls	\N	653	f	5.8 (out and back)	\N	7	5	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	mossy-ledge-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1028	Mountain Cat Falls	994	772	f	8	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	mountain-cat-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 830	Mount Toxaway Falls	\N	583	f	Roadside	\N	1	1	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	mount-toxaway-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-397	Mouse Creek Falls	\N	177	f	4.00	E	6	7	2	\N	113	\N	waterfall	Easy+	\N	GSMNP	\N	\N	\N	\N	\N	\N	mouse-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 996	Mr T's Cascade	\N	740	f	2.6 (loop)	\N	5	4	10	\N	\N	\N	waterfall	Hard+	\N	\N	\N	\N	\N	\N	\N	\N	mr-t-s-cascade	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 446	Mt. Cammerer	\N	228	f	\N	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	\N	mt-cammerer	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 426	Mt Hardy Falls	\N	208	f	1.65 (out and back to overlook + bushwhack to base)	\N	5	3	7	\N	\N	\N	waterfall	Moderate	80	Federal	\N	\N	\N	\N	\N	\N	mt-hardy-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1572,10 +1581,12 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 622	No-Name Cove Falls	\N	377	f	1.2 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Moderate++	\N	\N	\N	\N	\N	\N	\N	\N	no-name-cove-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 355	North Harper Creek Falls	\N	169	f	2.2 (out and back)	M	6	6	6	\N	14	\N	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N	north-harper-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 883	North Shoal Creek Falls	\N	635	f	4	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	north-shoal-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+839	Midnight Hole Falls	\N	592	f	3	\N	4	6	2	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	midnight-hole-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+397	Mouse Creek Falls	\N	177	f	4.00	E	6	7	2	\N	113	\N	waterfall	Easy+	\N	GSMNP	\N	\N	\N	\N	\N	\N	mouse-creek-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+362	High Falls- Thompson River	\N	131	f	3.0 (out and back)	M	6	6	5	\N	276	251	waterfall	Moderate	55	Federal	\N	\N	\N	\N	\N	\N	high-falls-thompson-river	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 882	Bad Creek Falls	\N	634	f	NA	\N	4	3	2	\N	\N	\N	waterfall	Boat	\N	\N	\N	\N	\N	\N	\N	\N	bad-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 916	Bear Canyon Falls	\N	662	f	8.7	\N	8	8	10	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	bear-canyon-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 944	Bear Creek Falls	\N	690	f	18.53	\N	8	9	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	bear-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-888	Big Creek Falls	\N	640	f	0.1	\N	7	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	big-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1121	Notch Falls (SC)	\N	865	f	6.2	\N	7	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	notch-falls-sc	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 698	Not Lower Big Bald Falls	\N	451	f	1.6	\N	3	3	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	not-lower-big-bald-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 699	Not Upper Big Bald Falls	\N	452	f	1.8 (out and back)	\N	2	1	10	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	not-upper-big-bald-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1628,6 +1639,9 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 523	Raven Rock Falls	\N	294	f	1.6	\N	9	9	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	raven-rock-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 835	Red Rock Falls	\N	588	f	3	\N	6	7	6	\N	\N	\N	waterfall	Moderate+ (creekwalk)	\N	\N	\N	\N	\N	\N	\N	\N	red-rock-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1069	Rainbow Falls (Private along US64)	\N	813	f	Roadside	\N	4	1	\N	\N	\N	\N	waterfall	Roadside	\N	Private	\N	\N	\N	\N	\N	\N	rainbow-falls-private-along-us64	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+490	Waterfall on Flat Laurel Creek	\N	263	f	4.0 (out and back)	\N	6	5	5	\N	\N	\N	waterfall	Moderate	350	\N	\N	\N	\N	\N	\N	\N	waterfall-on-flat-laurel-creek	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+332	Secret Falls (Highlands)	\N	133	f	1.60 (out and back)	\N	9	8	6	\N	\N	\N	waterfall	Moderate+	12	Federal	\N	\N	\N	\N	\N	\N	secret-falls-highlands	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+888	Big Creek Falls	\N	640	f	0.1	\N	7	6	4	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	big-creek-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 576	Reese Place Falls	\N	335	f	1.52	\N	6	5	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	reese-place-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 541	Reid Branch Falls	\N	312	f	1.90 (out and back)	\N	6	3	9	\N	\N	\N	waterfall	Moderate	18	\N	\N	\N	\N	\N	\N	\N	reid-branch-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 457	Rendezvous Mountain	\N	239	f	4.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	59	\N	\N	\N	\N	2500	\N	\N	rendezvous-mountain	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1666,11 +1680,8 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 918	Sassafras Ridge Falls	\N	664	f	3.0 (Lollipop Loop)	\N	4	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	sassafras-ridge-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 584	Saxifrage Falls	\N	343	f	6.3	\N	7	8	10	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	saxifrage-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 552	Scadin Falls	\N	321	f	0.2 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Moderate+	30	\N	\N	\N	\N	\N	\N	\N	scadin-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-391	Schoolhouse Falls	\N	198	f	4.0 miles (loop)	E	9	6	5	102	\N	\N	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N	schoolhouse-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 368	Scotsman Falls	\N	155	f	0.2 - Scramble	\N	8	5	6	301	\N	\N	waterfall	Medium+	\N	Federal	\N	\N	\N	\N	\N	\N	scotsman-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-350	Second Falls	\N	106	f	0.4 Miles (out and back)	E	8	7	5	\N	213	61	waterfall	Easy	55	Federal	\N	\N	\N	\N	\N	\N	second-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 951	Secret Falls (DuPont)	\N	697	f	3.6	\N	7	5	5	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	secret-falls-dupont	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-332	Secret Falls (Highlands)	\N	133	f	1.60 (out and back)	\N	9	8	6	\N	\N	\N	waterfall	Moderate+	12	Federal	\N	\N	\N	\N	\N	\N	secret-falls-highlands	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1026	Secret Falls (SC)	\N	770	f	2.3	\N	6	3	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	secret-falls-sc	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 823	Serpentine Falls	\N	576	f	5.6 Miles (shuttle)	\N	6	5	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	serpentine-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 400	Setrock Creek Falls	\N	143	f	1.1 (out and back)	E	4	5	4	\N	29	29	waterfall	Easy+	58	Federal	\N	\N	\N	\N	\N	\N	setrock-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1690,7 +1701,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 971	Sign Post Falls (GA)	\N	717	f	Roadside	\N	5	3	1	\N	\N	\N	waterfall	Roadside (don't get run over)	\N	\N	\N	\N	\N	\N	\N	\N	sign-post-falls-ga	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 697	Sillers Falls	\N	450	f	0.2 (out and back)	\N	3	5	1	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	sillers-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1018	Silver Ribbon Falls	\N	762	f	1.2	\N	6	5	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	silver-ribbon-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-323	Silver Run Falls	\N	96	f	0.50	\N	8	8	5	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N	silver-run-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 765	Silvervale Falls	\N	518	f	Roadside (out and back)	\N	5	4	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	silvervale-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 540	Simon's Falls	\N	311	f	7	\N	6	8	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	simon-s-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1183	Slate Rock Creek Trib Falls	\N	915	f	9.0 (out and back)	\N	3	3	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	slate-rock-creek-trib-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1698,7 +1708,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 892	Slick Falls	\N	644	f	1.8	\N	4	3	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	slick-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 464	Slickrock Falls	\N	246	f	0.1 (out and back)	\N	7	6	5	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	slickrock-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 641	Slick Stick Falls	\N	396	f	0.7 - Trail/creekwalk/wade/bushwhack	\N	4	2	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	slick-stick-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-463	Sliding Rock	\N	245	f	0.2	\N	5	5	3	\N	\N	\N	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	sliding-rock	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 754	Sliding Waterfall near Buff Creek Road	\N	507	f	1.8	\N	5	3	2	\N	\N	\N	waterfall	Difficult+	\N	\N	\N	\N	\N	\N	\N	\N	sliding-waterfall-near-buff-creek-road	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 317	Slippery Witch Falls	\N	124	f	.3 (out and back)	\N	8	9	9	123	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	slippery-witch-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 325	Soco Falls	\N	111	f	0.40	E	8	8	6	\N	397	109	waterfall	Easy+	35	Cherokee	\N	\N	\N	\N	998	\N	soco-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1724,7 +1733,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 956	Stillwater Branch Falls	\N	702	f	1.0 mile (out and back)	\N	4	3	10	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	stillwater-branch-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 657	Sugar Creek Falls	\N	412	f	0.8 (out and back)	\N	6	6	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	sugar-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 577	Summey Cove Falls	\N	336	f	0.1	\N	4	2	2	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	summey-cove-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-504	Sunburst Falls	\N	275	f	0.2 (out and back)	\N	7	5	4	\N	\N	\N	waterfall	Easy+	18	\N	\N	\N	\N	\N	\N	\N	sunburst-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 850	Sunshine Falls (Green River)	\N	602	f	3.2 (out and back)	\N	4	4	5	\N	\N	\N	waterfall	Moderate*	18	\N	\N	\N	\N	\N	\N	\N	sunshine-falls-green-river	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 924	Sweat Heifer Cascades	\N	670	f	7.4 (out and back) or 8.3 (thru-hike)	\N	5	5	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	sweat-heifer-cascades	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 616	Sweet Thing on Slickum	\N	372	f	0.4 (out and back)	\N	9	9	9	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	sweet-thing-on-slickum	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1744,6 +1752,7 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1125	Thunder Falls (SC)	\N	869	f	6.2	\N	6	7	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	thunder-falls-sc	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 768	Thunderhole Falls	\N	521	f	1.0 (out and back)	\N	6	8	7	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	thunderhole-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1104	Toll Road Falls (SC)	\N	848	f	6.2	\N	3	3	5	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	toll-road-falls-sc	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+323	Silver Run Falls	\N	96	f	0.50	\N	8	8	5	\N	\N	\N	waterfall	Easy	25	\N	\N	\N	\N	\N	\N	\N	silver-run-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 484	Tom Branch Falls	\N	258	f	2.5	\N	6	4	5	\N	\N	\N	waterfall	Easy+	80	\N	\N	\N	\N	\N	\N	\N	tom-branch-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 398	Tom's Creek Falls	\N	137	f	1.0 (out and back)	E	6	7	5	\N	25	\N	waterfall	Easy	60	Federal	\N	\N	\N	\N	\N	\N	tom-s-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1134	Tower Falls	\N	878	f	4.0 (out and back)	\N	6	6	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	tower-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1754,7 +1763,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 825	Trillium Falls	\N	578	f	Roadside	\N	6	7	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	trillium-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 353	Triple Falls	\N	92	f	Approx 0.5 mile each way	E	7	6	3	\N	40	\N	waterfall	Average	\N	State	\N	\N	\N	\N	\N	\N	triple-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1109	Tumblin' Fun Falls	\N	853	f	2.5 (out and back)	\N	7	6	8	\N	\N	\N	waterfall	Hard	50	\N	\N	\N	\N	\N	\N	\N	tumblin-fun-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-334	Turtleback Falls- Horsepasture River	\N	183	f	4	M	7	8	6	23	268	76	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N	turtleback-falls-horsepasture-river	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 852	Turtle Falls	\N	604	f	1.9	\N	7	8	8	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	turtle-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1241	Twenty Mile Cascades	\N	970	f	1.3 Miles (out and back)	\N	2	1	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	twenty-mile-cascades	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 666	Twin Boulder Falls	\N	421	f	5.9	\N	9	9	8	\N	\N	\N	waterfall	Difficult	75	\N	\N	\N	\N	\N	\N	\N	twin-boulder-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1798,6 +1806,7 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1213	Upper Fisher Hole Falls	\N	944	f	7.8	\N	7	8	10	\N	\N	\N	waterfall	Very Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-fisher-hole-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 788	Upper Gragg Prong Falls	\N	541	f	1.6 (out and back)	\N	7	7	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	upper-gragg-prong-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 366	Tom's Spring Falls	\N	105	f	1.00	E	7	5	5	\N	174	53	waterfall	\N	\N	Federal	\N	\N	\N	\N	\N	\N	tom-springs-daniel-ridge-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+334	Turtleback Falls- Horsepasture River	\N	183	f	4	M	7	8	6	23	268	76	waterfall	Moderate+	20	State	\N	\N	\N	\N	\N	\N	turtleback-falls-horsepasture-river	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 870	Upper Greasy Cove Falls	\N	622	f	7.1 Miles (shuttle)	\N	8	8	10	\N	\N	\N	waterfall	Difficult	\N	\N	\N	\N	\N	\N	\N	\N	upper-greasy-cove-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1205	Upper John Neal Falls	\N	936	f	4.4	\N	6	6	8	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	upper-john-neal-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 578	Upper Kiesee Falls	\N	337	f	1.76	\N	6	8	8	\N	\N	\N	waterfall	Medium	\N	\N	\N	\N	\N	\N	\N	\N	upper-kiesee-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1862,12 +1871,9 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1031	Eden Falls	994	775	f	8	\N	7	8	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	eden-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1262	Elbow Falls	\N	988	f	6.0 miles (out and back depending on route)	\N	7	8	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	elbow-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1265	Frolictown Falls	\N	990	f	3.2 miles (loop)	\N	8	6	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	frolictown-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-1266	Granny Burrell Falls	\N	991	f	3.2 miles (loop)	\N	8	8	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	granny-burrell-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 344	Greenland Creek Falls	\N	199	f	2.0 miles (out and back)	\N	8	7	7	97	\N	\N	waterfall	Easy	45	Federal	\N	\N	\N	\N	\N	\N	greenland-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-384	High Falls- Little River	\N	93	f	Approx 1 mile each way	E	9	8	3	\N	41	\N	waterfall	Average	\N	State	\N	\N	\N	\N	1004	\N	high-falls-little-river	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1250	Indian Flats Falls	\N	979	f	9	\N	8	8	4	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	indian-flats-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 403	Issaqueena Falls	\N	135	f	0.4 (out and back)	E	3	3	5	\N	\N	\N	waterfall	Easy/Hard	100	Federal	\N	\N	\N	\N	1007	\N	issaqueena-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-369	Jawbone Falls	\N	197	f	6.0 miles (out and back depending on route)	\N	7	5	8	105	\N	\N	waterfall	Moderate	30	State	\N	\N	\N	\N	\N	\N	jawbone-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1032	Waterfall #1 on Wattacoo Creek	\N	776	f	2.1 Miles (loop)	\N	3	4	6	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-1-on-wattacoo-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1076	Waterfall #2 on Chucky Branch	\N	820	f	6.5 (out and back)	\N	5	5	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-2-on-chucky-branch	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 619	Waterfall #2 on Pinnacle MTN Trail	\N	374	f	0.4 (out and back)	\N	3	3	5	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-2-on-pinnacle-mtn-trail	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1886,7 +1892,22 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1038	Waterfall #7 on Wattacoo Creek	\N	782	f	2.1 Miles (loop)	\N	4	7	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-7-on-wattacoo-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 978	Waterfall #8 on Wattacoo Creek	\N	724	f	2.0 Miles (loop)	\N	7	8	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-8-on-wattacoo-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 977	Waterfall #9 on Wattacoo Creek	\N	723	f	2.0 Miles (loop)	\N	8	7	9	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-9-on-wattacoo-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+1266	Granny Burrell Falls	\N	991	f	3.2 miles (loop)	\N	8	8	8	\N	\N	\N	waterfall	Moderate	15	\N	\N	\N	\N	\N	\N	\N	granny-burrell-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+369	Jawbone Falls	\N	197	f	6.0 miles (out and back depending on route)	\N	7	5	8	105	\N	\N	waterfall	Moderate	30	State	\N	\N	\N	\N	\N	\N	jawbone-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+384	High Falls- Little River	\N	93	f	Approx 1 mile each way	E	9	8	3	\N	41	\N	waterfall	Average	\N	State	\N	\N	\N	\N	1004	\N	high-falls-little-river	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 1252	Bean Creek Falls	\N	981	f	Roadside	\N	5	5	2	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	bean-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+350	Second Falls	\N	106	f	0.4 Miles (out and back)	E	8	7	5	\N	213	61	waterfall	Easy	55	Federal	\N	\N	\N	\N	\N	\N	second-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+1272	Azalea Park	\N	1018	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	azalea-park	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1273	Bear Creek and Wolf Creek Lakes	\N	1019	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	bear-creek-and-wolf-creek-lakes	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1274	Bent Creek / Lake Powhatan	\N	1020	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	bent-creek-lake-powhatan	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1275	Big Laurel Creek	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	big-laurel-creek	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1276	Boone Fork Trail Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	boone-fork-trail-falls	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1277	The Bullhole	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	the-bullhole	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1278	Cascade Falls (Deep Gap)	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	cascade-falls-deep-gap	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1279	Charles D. Owen Park	\N	1021	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	charles-d-owen-park	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1280	Deep Creek	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	GSMNP	\N	\N	\N	\N	\N	\N	deep-creek	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1281	Dupont State Forest Spots	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	dupont-state-forest-spots	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1282	Elk Shoals	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	State	\N	\N	\N	\N	\N	\N	elk-shoals	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 674	Waterfall downstream from Moonshine Falls	\N	428	f	3	\N	6	7	5	\N	\N	\N	waterfall	Moderate	25	\N	\N	\N	\N	\N	\N	\N	waterfall-downstream-from-moonshine-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 776	Waterfall in Bullpen Cove	\N	529	f	Roadside	\N	4	6	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-in-bullpen-cove	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 486	Waterfall on Avery Creek	\N	259	f	1	\N	8	8	6	\N	\N	\N	waterfall	Easy+	12	\N	\N	\N	\N	\N	\N	\N	waterfall-on-avery-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1896,7 +1917,6 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 522	Waterfall on Cold Mountain Branch	\N	293	f	1.6	\N	8	7	9	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-cold-mountain-branch	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 517	Waterfall on Devil's Fork Creek	\N	288	f	Roadside	\N	6	4	5	\N	\N	\N	waterfall	Average	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-devil-s-fork-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 665	Waterfall on East Fork of French Broad River	\N	420	f	0.1 Miles (Out and Back)	\N	6	5	3	\N	\N	\N	waterfall	Easy	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-east-fork-of-french-broad-river	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-490	Waterfall on Flat Laurel Creek	\N	263	f	4.0 (out and back)	\N	6	5	5	\N	\N	\N	waterfall	Moderate	350	\N	\N	\N	\N	\N	\N	\N	waterfall-on-flat-laurel-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 840	Waterfall on Gunter Fork	\N	593	f	15.8	\N	6	8	7	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-gunter-fork	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 708	Waterfall on Little East Fork	\N	461	f	2.5	\N	6	5	7	\N	\N	\N	waterfall	Moderate+	\N	\N	\N	\N	\N	\N	\N	\N	waterfall-on-little-east-fork	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 377	Waterfall on Log Hollow Branch	\N	190	f	0.8	E	8	9	8	11	167	174	waterfall	Easy	30	\N	\N	\N	\N	\N	\N	\N	waterfall-on-log-hollow-branch	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1962,9 +1982,7 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 645	Graveley Falls	\N	400	f	0.8 Miles (Out and Back)	\N	5	6	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	graveley-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 896	Graybeard Falls	\N	648	f	6.3	\N	4	5	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	graybeard-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 455	Green Knob	\N	237	f	1.1	\N	\N	\N	\N	\N	\N	\N	tower	\N	21	\N	\N	\N	\N	5060	\N	\N	green-knob	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-431	High Falls (Cullowhee Falls)	\N	213	f	4.00 (out and back)	\N	8	6	7	\N	\N	\N	waterfall	Moderate	120	\N	\N	\N	\N	\N	\N	\N	high-falls-cullowhee-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 351	High Falls- South Fork Mills River	\N	192	f	4	E	9	6	7	150	183	59	waterfall	Moderate+	\N	Federal	\N	\N	\N	\N	\N	\N	high-falls-south-fork-mills-river	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-417	Hooker Falls	\N	188	f	Approx .3 mile each way	\N	6	7	3	\N	\N	\N	waterfall	Easy	\N	State	\N	\N	\N	\N	\N	\N	hooker-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 439	Joanna Bald	\N	221	f	1.2	\N	\N	\N	\N	\N	\N	\N	tower	\N	31	\N	\N	\N	\N	4716	\N	\N	joanna-bald	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 395	Linville Falls	\N	138	f	5.5 (to reach all overlooks + the base starting at NC183 parking)	E	9	8	5	\N	77	20	waterfall	Moderate	120	Federal	\N	\N	\N	\N	\N	\N	linville-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 438	Panther Top	\N	220	f	1.9	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	2293	\N	\N	panther-top	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -1972,11 +1990,33 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 425	Slate Rock Creek Falls	\N	207	f	1.58	\N	8	8	9	\N	\N	\N	waterfall	Easy	25	Federal	\N	\N	\N	\N	\N	\N	slate-rock-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 854	Still Falls	\N	606	f	2.6 (out and back)	\N	4	7	6	\N	\N	\N	waterfall	Moderate*	35	\N	\N	\N	\N	\N	\N	\N	still-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 508	Stone Mountain Falls (Little Falls)	\N	279	f	1.2	\N	8	6	6	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	stone-mountain-falls-little-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-386	Upper Creek Falls	\N	139	f	1.2 (out and back) or 1.7 (loop)	M	7	6	5	\N	17	\N	waterfall	Moderate	12	Federal	\N	\N	\N	\N	\N	\N	upper-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 441	Wesser Bald	\N	223	f	1.9	\N	\N	\N	\N	\N	\N	\N	tower	\N	30	\N	\N	\N	\N	4626	\N	\N	wesser-bald	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 445	Clingmans Dome	\N	227	f	1.3	\N	\N	\N	\N	\N	\N	\N	tower	\N	\N	\N	\N	\N	\N	\N	\N	337	clingmans-dome	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+431	High Falls (Cullowhee Falls)	\N	213	f	4.00 (out and back)	\N	8	6	7	\N	\N	\N	waterfall	Moderate	120	\N	\N	\N	\N	\N	\N	\N	high-falls-cullowhee-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+417	Hooker Falls	\N	188	f	Approx .3 mile each way	\N	6	7	3	\N	\N	\N	waterfall	Easy	\N	State	\N	\N	\N	\N	\N	\N	hooker-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+386	Upper Creek Falls	\N	139	f	1.2 (out and back) or 1.7 (loop)	M	7	6	5	\N	17	\N	waterfall	Moderate	12	Federal	\N	\N	\N	\N	\N	\N	upper-creek-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
+1283	Eno River / Quarry	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	State	\N	\N	\N	\N	\N	\N	eno-river-quarry	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1284	Falls Lake S.R.A.	\N	1022	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	State	\N	\N	\N	\N	\N	\N	falls-lake-s-r-a	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1285	Fires Creek	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	fires-creek	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1286	Fort Hamby Park	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	fort-hamby-park	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1287	Goose Creek S.P.	\N	1023	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	State	\N	\N	\N	\N	\N	\N	goose-creek-s-p	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1288	Hominy Creek Greenway	\N	1024	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	hominy-creek-greenway	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1289	Jones Lake	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	State	\N	\N	\N	\N	\N	\N	jones-lake	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1290	Lake James Swimming Spots	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	State	\N	\N	\N	\N	\N	\N	lake-james-swimming-spots	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1291	Laurel River Trail	\N	1025	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	laurel-river-trail	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1292	Little Uwharrie River	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	little-uwharrie-river	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1293	Looking Glass Rock Spots	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	looking-glass-rock-spots	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1294	Neuse River	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	neuse-river	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1295	Paradise Falls	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	paradise-falls	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1296	Pines Recreation Area	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	pines-recreation-area	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1297	Reems Creek at Lake Louise	\N	1026	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	reems-creek-at-lake-louise	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1298	South Toe River Spots	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	south-toe-river-spots	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1299	The Quarry at Carrigan Farms	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	the-quarry-at-carrigan-farms	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1300	Whaleback	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	Federal	\N	\N	\N	\N	\N	\N	whaleback	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1301	White Lake	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	white-lake	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
+1302	Wildcat Lake	\N	\N	f	\N	\N	\N	\N	\N	\N	\N	\N	swimming_hole	\N	\N	\N	\N	\N	\N	\N	\N	\N	wildcat-lake	f	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797
 909	Jumping Fish Falls	997	996	f	1.2	\N	4	\N	\N	\N	\N	\N	waterfall	Moderate	5	State	\N	\N	\N	135	\N	\N	jumping-fish-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-984	22 Foot Falls	\N	730	f	1.6	\N	2	2	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	22-foot-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+984	22 Foot Falls	\N	730	f	1.6	\N	2	2	5	\N	\N	\N	waterfall	Moderate	\N	\N	\N	\N	\N	\N	\N	\N	22-foot-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:41:46.200609
 1053	Beautimus Falls	\N	797	f	4.6	\N	8	7	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	beautimus-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1106	Big Bear Falls	\N	850	f	1.4	\N	3	3	4	\N	\N	\N	waterfall	Easy+	\N	\N	\N	\N	\N	\N	\N	\N	big-bear-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 597	Big Bend Falls	\N	356	f	6.9	\N	5	4	9	\N	\N	\N	waterfall	Moderate	12	\N	\N	\N	\N	\N	\N	\N	big-bend-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -2026,11 +2066,11 @@ COPY public.features (id, name, parking_location_id, feature_location_id, visite
 1044	Resurrection Falls	\N	788	f	6	\N	8	8	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	resurrection-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 402	Riley Moore Falls	\N	151	f	2.00	E	6	8	3	\N	\N	\N	waterfall	Moderate	12	Federal	\N	\N	\N	\N	\N	\N	riley-moore-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 476	Rockslide on Cove Creek	\N	\N	f	1	\N	6	6	5	\N	\N	\N	waterfall	Easy	15	\N	\N	\N	\N	\N	\N	\N	rockslide-on-cove-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
+339	Skinny Dip Falls	\N	102	f	1.0 Miles (out and back)	E	7	8	4	\N	208	60	waterfall	Easy+	30	\N	damaged	Severely damaged during Tropical Storm Fred, Aug 11-17 2021 (CMC WC100 form, rev. 18 Feb 2024). Reported still present, but no longer the feature it was -- worth setting expectations rather than skipping. Still listed on the Kevin Adams 500 and 100.	2021-08-11	\N	\N	\N	skinny-dip-falls	t	2026-09-17 12:28:06.620015	2026-09-17 13:13:05.502797
 1047	Satan's Spoon Falls	\N	791	f	6	\N	3	4	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	satan-s-spoon-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 846	Scuplted Falls	\N	\N	f	5.5 (shuttle hike)	\N	8	7	10	\N	\N	\N	waterfall	Hard+	15	\N	\N	\N	\N	\N	\N	\N	scuplted-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 908	Shacktown Falls	\N	995	f	\N	\N	\N	\N	\N	\N	\N	\N	waterfall	\N	\N	\N	\N	\N	\N	\N	\N	\N	shacktown-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 1048	Silver Creek Falls	\N	792	f	6	\N	6	6	9	\N	\N	\N	waterfall	Hard	\N	\N	\N	\N	\N	\N	\N	\N	silver-creek-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
-339	Skinny Dip Falls	\N	102	f	1.0 Miles (out and back)	E	7	8	4	\N	208	60	waterfall	Easy+	30	\N	damaged	Severely damaged during Tropical Storm Fred, Aug 11-17 2021 (CMC WC100 form, rev. 18 Feb 2024). Reported still present, but no longer the feature it was -- worth setting expectations rather than skipping. Still listed on the Kevin Adams 500 and 100.	2021-08-11	\N	\N	\N	skinny-dip-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 687	Slickum Falls	\N	\N	f	0.6 of a mile (out and back)	\N	3	2	3	\N	\N	\N	waterfall	Easy	75	\N	\N	\N	\N	\N	\N	\N	slickum-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 728	Satula Falls	\N	481	f	0	\N	5	5	1	\N	\N	\N	waterfall	Roadside	\N	\N	\N	\N	\N	\N	\N	\N	satula-falls	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
 465	Small Waterfall on Rockhouse Creek	\N	\N	f	Roadside	\N	5	8	4	\N	\N	\N	waterfall	Easy	10	\N	\N	\N	\N	\N	\N	\N	small-waterfall-on-rockhouse-creek	f	2026-09-17 12:28:06.620015	2026-09-17 12:28:06.620015
@@ -18985,6 +19025,37 @@ COPY public.goals (challenge_id, feature_id, id, created_at, updated_at) FROM st
 --
 
 COPY public.links (id, feature_id, url, rel, comments, created_at, updated_at, reviewed_at) FROM stdin;
+2706	1272	https://riverlink.org/splash-into-summer-asheville-swim-guide/	swimming-hole-research	type: Pool; source owner text: City of Asheville	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2707	1273	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Cove; source owner text: Nantahala National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2708	1274	https://riverlink.org/splash-into-summer-asheville-swim-guide/	swimming-hole-research	type: Cove; source owner text: Pisgah National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2709	1275	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Chute; source owner text: Nantahala National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2710	1276	https://www.alltrails.com/trail/us/north-carolina/boone-fork-trail--8	swimming-hole-research	type: Pool; source owner text: Blue Ridge Parkway (Julian Price Park)	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2711	1277	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Pool; source owner text: River Park at Cooleemee Falls	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2712	1278	https://familydestinationsguide.com/known-swimming-north-carolina/	swimming-hole-research	type: Chute; source owner text: unconfirmed — swimmability disputed, see note	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2713	1279	https://riverlink.org/splash-into-summer-asheville-swim-guide/	swimming-hole-research	type: Pool; source owner text: Buncombe County	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2714	1280	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Chute; source owner text: Great Smoky Mountains National Park	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2715	1281	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Plunge; source owner text: DuPont State Recreational Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2716	1282	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Basin; source owner text: New River State Park	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2717	1283	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Basin; source owner text: Eno River State Park	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2718	1284	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Cove; source owner text: Falls Lake State Recreation Area	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2719	1285	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Pool; source owner text: Nantahala National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2720	1286	https://highcountryhost.com/NC-High-Country-Where-to-Swim	swimming-hole-research	type: Cove; source owner text: Kerr Scott Reservoir (USACE)	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2721	1287	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Cove; source owner text: Goose Creek State Park	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2722	1288	https://riverlink.org/splash-into-summer-asheville-swim-guide/	swimming-hole-research	type: Pool; source owner text: City of Asheville	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2723	1289	http://ourstate.com/9-north-carolina-swimming-spots/	swimming-hole-research	type: Lake; source owner text: Jones Lake State Park	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2724	1290	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Cove; source owner text: Lake James State Park	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2725	1291	https://riverlink.org/splash-into-summer-asheville-swim-guide/	swimming-hole-research	type: Chute; source owner text: Pisgah National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2726	1292	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Pool; source owner text: Uwharrie National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2727	1293	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Chute; source owner text: Pisgah National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2728	1294	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Basin; source owner text: Croatan National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2729	1295	http://travelguidesasheville.com/allguides/the-best-swimming-holes-near-asheville-nc	swimming-hole-research	type: Plunge; source owner text: Nantahala National Forest (unconfirmed)	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2730	1296	https://www.discoverjacksonnc.com/listing/pines-recreation-area/463/	swimming-hole-research	type: Cove	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2731	1297	https://riverlink.org/splash-into-summer-asheville-swim-guide/	swimming-hole-research	type: Plunge; source owner text: Town of Weaverville	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2732	1298	https://secretswimmingholes.com/directory/?state=NC	swimming-hole-research	type: Pool; source owner text: Pisgah National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2733	1299	http://ourstate.com/9-north-carolina-swimming-spots/	swimming-hole-research	type: Quarry	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2734	1300	https://www.blueridgeoutdoors.com/hiking/swimmers-guide-blue-ridge-parkway/	swimming-hole-research	type: Pool; source owner text: Pisgah National Forest	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2735	1301	https://familydestinationsguide.com/known-swimming-north-carolina/	swimming-hole-research	type: Lake; source owner text: Town of White Lake	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
+2736	1302	https://highcountryhost.com/NC-High-Country-Where-to-Swim	swimming-hole-research	type: Lake; source owner text: Lees-McRae College / Banner Elk	2026-09-17 13:13:05.502797	2026-09-17 13:13:05.502797	\N
 2216	1029	https://hikingwnc.com/096-eden-falls/	hikingwnc	\N	2026-09-14 02:11:31.153269	2026-09-14 02:11:31.153269	\N
 2643	423	https://www.alltrails.com/trail/us/north-carolina/little-bearwallow-falls	alltrails	\N	2026-09-17 02:23:33.123706	2026-09-17 02:23:33.123706	\N
 2644	424	https://www.alltrails.com/trail/us/north-carolina/melrose-falls-trail	alltrails	\N	2026-09-17 02:23:33.123706	2026-09-17 02:23:33.123706	\N
@@ -20732,7 +20803,7 @@ SELECT pg_catalog.setval('public.claims_id_seq', 12186, true);
 -- Name: features_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.features_id_seq', 1271, true);
+SELECT pg_catalog.setval('public.features_id_seq', 1302, true);
 
 
 --
@@ -20746,14 +20817,14 @@ SELECT pg_catalog.setval('public.goals_id_seq', 711, true);
 -- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.links_id_seq', 2705, true);
+SELECT pg_catalog.setval('public.links_id_seq', 2736, true);
 
 
 --
 -- Name: locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.locations_id_seq', 1017, true);
+SELECT pg_catalog.setval('public.locations_id_seq', 1026, true);
 
 
 --
@@ -20767,5 +20838,5 @@ SELECT pg_catalog.setval('public.notes_id_seq', 21, true);
 -- PostgreSQL database dump complete
 --
 
-\unrestrict pxfqcPt0aVENlEUSNC8TzcHmsag06ajEFZbFBgDCJZDD5JyVyWOdcUdNFuD0RsA
+\unrestrict uab1LfbLRqC1bgmTWWg86soiJI721jNaVLCiRvefI4HABQTaYeRHc8dZnxNaDI9
 
