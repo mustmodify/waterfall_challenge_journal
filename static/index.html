@@ -1031,18 +1031,21 @@
     }
 
     .navigate {
-      margin: 12px 0 4px;
+      margin: 12px 0 16px;
     }
     .navigate a {
       display: inline-flex;
       align-items: center;
       gap: 5px;
       font-size: 0.85rem;
-      color: var(--accent);
+      color: var(--on-accent);
+      background: var(--accent);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 999px;
     }
-    .navigate a:hover { text-decoration: underline; }
+    .navigate a:hover { background: var(--accent-deep); }
 
     .links { margin-top: 4px; }
 
