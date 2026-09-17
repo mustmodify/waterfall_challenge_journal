@@ -206,8 +206,8 @@
     /* Only the corner touching the switch's own outer edge rounds; a middle
        option in a 3-way switch never matches either selector, so it stays
        square on both sides. */
-    .switch label:first-of-type { border-radius: 3px 0 0 3px; }
-    .switch label:last-of-type { border-radius: 0 3px 3px 0; }
+    .switch label:first-of-type { border-radius: 4.5px 0 0 4.5px; }
+    .switch label:last-of-type { border-radius: 0 4.5px 4.5px 0; }
     .switch label .dot { margin-right: 5px; }
     .switch input:checked + label {
       background: var(--filter-active);
@@ -599,7 +599,8 @@
     #auth-sent .devnote { font-size: 0.7rem; word-break: break-all; color: var(--haze); }
 
     /* ---------- intro modal ---------- */
-    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop {
+    #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop,
+    #add-place-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -1254,7 +1255,7 @@
 
       /* Centre the modals above the Actions button rather than over it. */
       #intro-backdrop, #anon-backdrop, #rateby-backdrop,
-      #fix-backdrop, #filters-backdrop { padding-bottom: 84px; }
+      #fix-backdrop, #filters-backdrop, #add-place-backdrop { padding-bottom: 84px; }
 
       /* The drawer becomes a bottom sheet here, sharing the bottom-left corner
          with the Actions button, which has the higher z-index and so covers
