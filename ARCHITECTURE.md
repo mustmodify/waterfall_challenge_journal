@@ -62,12 +62,9 @@ it: **the published set is defined by corroboration.** Asking whether most of
 the published falls have two sources is asking what the publication rule is,
 and the answer is yes by construction.
 
-The sources themselves, how each was obtained and whether that was allowed, the
-matching pipeline and its failure modes are in
-[docs/sources-and-matching.md](docs/sources-and-matching.md).
-
-The rules for deciding whether a source's page is about one of our waterfalls
-are in [docs/MATCHING.md](docs/MATCHING.md).
+The sources themselves, how each was obtained and whether that was allowed,
+and the rules for deciding whether a source's page is about one of our
+waterfalls are all in [docs/MATCHING.md](docs/MATCHING.md).
 
 **`identity_certain` asks a different question from whether the data is
 right.** A group matched to its feature by name and never confirmed against a
