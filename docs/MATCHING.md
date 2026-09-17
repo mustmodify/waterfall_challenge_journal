@@ -382,6 +382,24 @@ waterfalls were recorded as "no match" on that basis and one of them —
 **Ramsey Cascades** — was wrong. Always `sort: closest` with a generous limit.
 A no-match is only a finding if the search could have found it.
 
+### And one that is self-inflicted
+
+**6. Untangling one collision can create another.** Migration 068
+disambiguated three tangled names — Tom's Spring Falls, Toms Creek Falls, and
+Toms Falls — by checking the new "Toms Creek Falls" it was about to create
+against the one collision it already knew about, feature 366 (Tom's Spring
+Falls). It never checked the new name against the rest of the `features`
+table, where "Tom's Creek Falls" (feature 398, from hikingwnc, 50 m away, with
+the identical AllTrails link) had been sitting the whole time. The migration
+created a duplicate of a feature that already existed, and the duplicate
+carried `identity_certain = true` — it looked exactly as trustworthy as a real
+match, because nothing had disagreed with it yet. jw caught it by eye on the
+map; migration 087 merged the two back down to one. **A disambiguation
+migration is itself a new source, and its own proposed name/coordinate needs
+the same check against the existing feature set that any other source's
+would get** — checking one known collision is not the same as checking all of
+them.
+
 ---
 
 ## 6. What is in place to catch a bad match
@@ -400,6 +418,11 @@ A no-match is only a finding if the search could have found it.
 - **Report what you rejected.** A matcher that only reports successes cannot be
   reviewed. The interesting number is how many candidates it threw away and
   why.
+- **Not yet in place: a check before `INSERT`ing a new feature.** §5.6 is a
+  duplicate that a name+coordinate search of the existing `features` table,
+  run immediately before the `INSERT`, would have caught. No migration does
+  this today; it is manual discipline, which is exactly the failure mode this
+  document exists to route around everywhere else.
 
 ---
 
