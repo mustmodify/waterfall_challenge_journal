@@ -147,6 +147,15 @@
 
     .chip-row .row-label { margin-right: 2px; min-width: 52px; }
 
+    /* Filter name on the left, an explicit Off/On pair on the right --
+       rather than one pill you toggle, so the current state reads as text
+       and not just as a color. */
+    .filter-list { display: flex; flex-direction: column; gap: 6px; }
+    .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .filter-label { display: flex; align-items: center; font-size: 0.85rem; }
+    .filter-label .dot { margin-right: 8px; }
+    .onoff { display: flex; gap: 4px; flex: none; }
+
     .chip {
       border: 1px solid var(--line);
       background: transparent;
@@ -1217,10 +1226,28 @@
       </button>
     </div>
     <div id="filter-controls">
-    <div class="chip-row" role="group" aria-label="Show on the map">
-      <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
-      <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
-      <button class="chip kind" data-kind="swimming_hole" aria-pressed="true"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</button>
+    <div class="filter-list" aria-label="Show on the map">
+      <div class="filter-row">
+        <span class="filter-label"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</span>
+        <div class="onoff" role="group" aria-label="Waterfalls">
+          <button class="chip kind-off" data-kind="waterfall" aria-pressed="false">Off</button>
+          <button class="chip kind-on" data-kind="waterfall" aria-pressed="true">On</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label"><span class="dot" style="background:var(--c-tower)"></span>Towers</span>
+        <div class="onoff" role="group" aria-label="Towers">
+          <button class="chip kind-off" data-kind="tower" aria-pressed="false">Off</button>
+          <button class="chip kind-on" data-kind="tower" aria-pressed="true">On</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</span>
+        <div class="onoff" role="group" aria-label="Swimming holes">
+          <button class="chip kind-off" data-kind="swimming_hole" aria-pressed="false">Off</button>
+          <button class="chip kind-on" data-kind="swimming_hole" aria-pressed="true">On</button>
+        </div>
+      </div>
     </div>
     <div class="chip-row" id="visited-row" role="group" aria-label="How to draw places you have visited">
       <span class="row-label">Visited</span>
@@ -2571,19 +2598,23 @@
 
     // ---------- filters ----------
     function syncFilters() {
-      document.querySelectorAll('.chip.kind').forEach((c) =>
-        c.setAttribute('aria-pressed', String(state.showKinds.has(c.dataset.kind))));
+      // Each kind gets its own Off and On button rather than one toggling
+      // pill, so the pressed one is whichever button matches the state.
+      document.querySelectorAll('.chip.kind-off, .chip.kind-on').forEach((c) => {
+        const on = state.showKinds.has(c.dataset.kind);
+        c.setAttribute('aria-pressed', String(c.classList.contains('kind-on') === on));
+      });
       document.querySelectorAll('.chip.visited').forEach((c) =>
         c.setAttribute('aria-pressed', String(c.dataset.visited === state.visited)));
       syncFilterButton();
     }
 
     // Kinds are independent on/off; visited is one of three.
-    document.querySelectorAll('.chip.kind').forEach((chip) =>
+    document.querySelectorAll('.chip.kind-off, .chip.kind-on').forEach((chip) =>
       chip.addEventListener('click', () => {
         const k = chip.dataset.kind;
-        if (state.showKinds.has(k)) state.showKinds.delete(k);
-        else state.showKinds.add(k);
+        if (chip.classList.contains('kind-on')) state.showKinds.add(k);
+        else state.showKinds.delete(k);
         track('filter_kind', { kind: k, showing: state.showKinds.has(k),
           kinds_on: [...state.showKinds].sort().join(',') || 'none' });
         syncFilters();
