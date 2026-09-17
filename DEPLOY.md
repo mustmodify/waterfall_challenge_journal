@@ -66,6 +66,28 @@ Nothing connected the two before, and it showed: the area pages were merged,
 deployed, and served 500s until someone noticed, because the binary asking for
 a `slug` column shipped four migrations ahead of the database that had one.
 
+A failed migration is supposed to be loud, but it can still fail quietly for a
+long time if nobody is watching deploys: migrations 073 and 083 both did
+`ALTER TABLE ... OWNER TO johnathonwright`, hardcoding the role name from jw's
+local dev machine. That role does not exist on Render's Postgres, so
+`preDeployCommand` failed at 073 on **every deploy for three days** --
+2026-09-14 through 2026-09-17, eleven merged PRs -- while `main` kept
+accepting merges that never once reached production, because nobody had
+reason to check. The underlying bug (a table created by hand with `psql`,
+picking up the wrong owner) only exists on a machine where that happened;
+production has always created its tables through `script/migrate`, so it
+never had the problem those two migrations exist to fix. The fix was to
+guard each with `IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '...')`
+so they do nothing where the bug doesn't exist.
+
+**The lesson: never hardcode a role name in a migration.** It is almost
+always a local dev detail bleeding into a file that has to run correctly
+everywhere, including a database that was never in the state your local one
+was. If a migration reassigns ownership, guard it on whether the role or the
+condition it is fixing actually exists first -- and after merging anything
+that touches a migration, check `render deploys list <service>` (or the
+dashboard) rather than assuming a green merge shipped.
+
 To look, or to run them by hand against any database:
 
 ```sh

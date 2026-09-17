@@ -9,10 +9,20 @@
 -- pg_dump the database and hitting "permission denied for table
 -- feature_views" -- exactly the kind of drift that step exists to surface
 -- before it becomes a surprise at deploy time.
+--
+-- "johnathonwright" is jw's local role name, not production's. Same guard
+-- as 073, for the same reason: this bug only exists on databases where a
+-- table was created by hand with psql rather than through script/migrate,
+-- and production has never done that.
 
 BEGIN;
 
-ALTER TABLE feature_views OWNER TO johnathonwright;
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'johnathonwright') THEN
+    ALTER TABLE feature_views OWNER TO johnathonwright;
+  END IF;
+END $$;
 
 ALTER TABLE feature_views ADD COLUMN created_at timestamp without time zone
     DEFAULT CURRENT_TIMESTAMP NOT NULL;
