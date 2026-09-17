@@ -2081,13 +2081,35 @@
       });
     }
 
+    // Downtown Asheville. The swimming-hole import added several genuinely
+    // Piedmont/coastal places (Falls Lake near Raleigh, Goose Creek near
+    // Washington NC, White Lake in Bladen County) that are real and worth
+    // keeping in the data, but have no business setting the opening zoom for
+    // a map about the mountains.
+    const AVL = { lat: 35.5951, lon: -82.5515 };
+    const MILES_PER_DEGREE_LAT = 69.0;
+
+    function milesFromAVL(lat, lon) {
+      const dLat = lat - AVL.lat;
+      const dLon = (lon - AVL.lon) * Math.cos(lat * Math.PI / 180);
+      return Math.sqrt(dLat * dLat + dLon * dLon) * MILES_PER_DEGREE_LAT;
+    }
+
     // A few far-flung points (one near Chattanooga, one east of Charlotte)
     // stretch the full extent across 5.6 degrees of longitude, which pushes the
     // opening view a zoom level further out than the data warrants and leaves
     // most of the screen empty. Fit the 1st-99th percentile instead. Nothing is
     // hidden: the strays are still on the map, just off the initial screen.
     // Skipped for small sets, where every point matters and there is no tail.
-    function fitBoundsFor(goals) {
+    //
+    // Points over 100 miles from Asheville are dropped before any of that --
+    // they're a difference in kind, not just in degree, and percentile
+    // trimming alone doesn't reliably exclude them once there are enough of
+    // them to stop looking like a small tail.
+    function fitBoundsFor(allGoals) {
+      const near = allGoals.filter((g) =>
+        milesFromAVL(g.location.latitude, g.location.longitude) <= 100);
+      const goals = near.length ? near : allGoals;
       const lats = goals.map((g) => g.location.latitude).sort((a, b) => a - b);
       const lons = goals.map((g) => g.location.longitude).sort((a, b) => a - b);
       const k = goals.length > 50 ? Math.floor(goals.length * 0.01) : 0;
