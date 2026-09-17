@@ -2319,6 +2319,21 @@
       }[c]));
     }
 
+    // iPadOS reports itself as "Macintosh" but exposes touch points a real Mac
+    // doesn't, so a plain platform string isn't enough to tell them apart.
+    function isApplePlatform() {
+      const p = navigator.platform || '';
+      if (/iPhone|iPad|iPod/.test(p)) return true;
+      if (/Mac/.test(p) && navigator.maxTouchPoints > 1) return true;
+      return /Macintosh/.test(navigator.userAgent || '') && !/Windows|Linux|Android/.test(navigator.userAgent);
+    }
+
+    function mapsUrlFor(lat, lon) {
+      return isApplePlatform()
+        ? 'https://maps.apple.com/?daddr=' + lat + ',' + lon
+        : 'https://maps.google.com/maps?daddr=' + lat + ',' + lon;
+    }
+
     // ---------- drawer ----------
     function band(key, n) {
       const word = window.wjBand(key, n);
@@ -2409,7 +2424,7 @@
       // Navigate to trailhead if we have parking coords, otherwise the falls.
       const navLoc = goal.parking_location || goal.location;
       if (navLoc && navLoc.latitude && navLoc.longitude) {
-        const mapsUrl = 'https://maps.google.com/maps?daddr=' + navLoc.latitude + ',' + navLoc.longitude;
+        const mapsUrl = mapsUrlFor(navLoc.latitude, navLoc.longitude);
         html += '<div class="navigate"><a href="' + escapeHtml(mapsUrl) + '" target="_blank" rel="noopener">' +
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>' +
           (goal.parking_location ? 'Navigate to trailhead' : 'Navigate to falls') + '</a></div>';
