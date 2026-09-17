@@ -68,6 +68,7 @@ type Feature struct {
 	CmcHikeNo         *int          `json:"cmc_hike_no,omitempty"`
 	BookPage          *int          `json:"book_page,omitempty"`
 	Location          *Location     `json:"location,omitempty"`
+	ParkingLocation   *Location     `json:"parking_location,omitempty"`
 	LastVisited       *string       `json:"last_visited,omitempty"`
 	Challenges        []string      `json:"challenges"`
 	Links             []Link        `json:"links"`
@@ -185,6 +186,9 @@ func deleteLocation(w http.ResponseWriter, r *http.Request) {
 
 // Create a new feature
 func createFeature(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
 	var f Feature
 	if err := json.NewDecoder(r.Body).Decode(&f); err != nil {
 		http.Error(w, "Invalid input data", http.StatusBadRequest)
@@ -216,7 +220,8 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			rt_hike_distance, difficulty_rating, accessibility, height_ft,
 			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
-			locations.id as location_id, longitude, latitude,
+			locations.id as location_id, locations.longitude, locations.latitude,
+			parking_loc.id as parking_location_id_out, parking_loc.longitude as parking_lon, parking_loc.latitude as parking_lat,
 			`+lastVisited+` AS last_visited,
 			(SELECT string_agg(challenges.name, ',') FROM goals
 				JOIN challenges ON challenges.id = goals.challenge_id
@@ -246,6 +251,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			deprecated_on::text
 		FROM features
 			LEFT JOIN locations ON locations.id = features.feature_location_id
+		LEFT JOIN locations parking_loc ON parking_loc.id = features.parking_location_id
 			LEFT JOIN coordinate_confidence confidence ON confidence.feature_id = features.id
 		-- A tower carries no source claims at all, so tiering would hide every
 		-- one of them.
@@ -263,6 +269,8 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var f Feature
 		var latitude, longitude sql.NullFloat64
 		var locationID sql.NullInt64
+		var parkingLat, parkingLon sql.NullFloat64
+		var parkingLocID sql.NullInt64
 		var lastVisited sql.NullString
 		var challengeNames sql.NullString
 		var linkRows sql.NullString
@@ -290,6 +298,9 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&locationID,
 			&longitude,
 			&latitude,
+			&parkingLocID,
+			&parkingLon,
+			&parkingLat,
 			&lastVisited,
 			&challengeNames,
 			&linkRows,
@@ -361,6 +372,14 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
+		if parkingLat.Valid && parkingLon.Valid {
+			f.ParkingLocation = &Location{
+				ID:        int(parkingLocID.Int64),
+				Latitude:  &parkingLat.Float64,
+				Longitude: &parkingLon.Float64,
+			}
+		}
+
 		features = append(features, f)
 	}
 	if err := rows.Err(); err != nil {
@@ -374,6 +393,9 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 
 // Update a feature
 func updateFeature(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -394,6 +416,9 @@ func updateFeature(w http.ResponseWriter, r *http.Request) {
 
 // Delete a feature
 func deleteFeature(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -441,6 +466,7 @@ func main() {
 	r.HandleFunc("/features", createFeature).Methods("POST")
 	r.HandleFunc("/features", getFeatures).Methods("GET")
 	r.HandleFunc("/features/{id}", updateFeature).Methods("PUT")
+	r.HandleFunc("/features/{id}", patchFeature).Methods("PATCH")
 	r.HandleFunc("/features/{id}", deleteFeature).Methods("DELETE")
 
 	r.HandleFunc("/signup", signup).Methods("POST")
@@ -482,6 +508,21 @@ func main() {
 	r.HandleFunc("/admin/users", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/users.html")
 	}).Methods("GET")
+	r.HandleFunc("/admin", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/features", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_features.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/claims", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_claims.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/unresolved", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_unresolved.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/feature-list", listFeaturesAdmin).Methods("GET")
+	r.HandleFunc("/claims", listClaims).Methods("GET")
+	r.HandleFunc("/claims/unresolved", listUnresolvedClaims).Methods("GET")
 	r.HandleFunc("/falls/{ref}", placeHandler).Methods("GET")
 	r.HandleFunc("/features/{id}/view", recordView).Methods("POST")
 	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {

@@ -1,0 +1,730 @@
+{"feature_id": 310, "name": "Rhapsodie Falls", "lat": 35.1844, "lon": -82.9748, "comid": 22164850, "drainage_area_sqmi": 0.679, "fetched_at": "2026-09-15"}
+{"feature_id": 311, "name": "Steels Creek Falls", "lat": 35.918901, "lon": -81.847464, "comid": 9751826, "drainage_area_sqmi": 7.046, "fetched_at": "2026-09-15"}
+{"feature_id": 312, "name": "Long Creek Falls", "lat": 35.26873, "lon": -82.9842, "comid": 19729186, "drainage_area_sqmi": 2.085, "fetched_at": "2026-09-15"}
+{"feature_id": 313, "name": "Cove Creek Falls", "lat": 35.2943, "lon": -82.8177, "comid": 22164346, "drainage_area_sqmi": 1.472, "fetched_at": "2026-09-15"}
+{"feature_id": 314, "name": "Elk River Falls", "lat": 36.19928, "lon": -81.96899, "comid": 19743520, "drainage_area_sqmi": 44.857, "fetched_at": "2026-09-15"}
+{"feature_id": 315, "name": "Ramsey Cascades (GSMNP)", "lat": 35.70864, "lon": -83.29976, "comid": 22144036, "drainage_area_sqmi": 2.172, "fetched_at": "2026-09-15"}
+{"feature_id": 316, "name": "DEW Falls", "lat": 35.0681, "lon": -83.0095, "comid": 11748423, "drainage_area_sqmi": 1.571, "fetched_at": "2026-09-15"}
+{"feature_id": 317, "name": "Slippery Witch Falls", "lat": 35.0692, "lon": -83.0128, "comid": 11748423, "drainage_area_sqmi": 1.571, "fetched_at": "2026-09-15"}
+{"feature_id": 318, "name": "White Owl Falls", "lat": 35.0765, "lon": -82.9974, "comid": 11747889, "drainage_area_sqmi": 2.615, "fetched_at": "2026-09-15"}
+{"feature_id": 319, "name": "Wolf Creek Falls", "lat": 35.22411, "lon": -83.00825, "comid": 19730324, "drainage_area_sqmi": 16.11, "fetched_at": "2026-09-15"}
+{"feature_id": 320, "name": "Big Falls- Thompson River", "lat": 35.046, "lon": -82.9824, "comid": 11747951, "drainage_area_sqmi": 7.736, "fetched_at": "2026-09-15"}
+{"feature_id": 321, "name": "Eastatoe Falls", "lat": 35.1101, "lon": -82.8173, "comid": 22165190, "drainage_area_sqmi": 1.361, "fetched_at": "2026-09-15"}
+{"feature_id": 322, "name": "Upper Logging Road Falls", "lat": 35.32267, "lon": -82.81477, "comid": 22164166, "drainage_area_sqmi": 1.191, "fetched_at": "2026-09-15"}
+{"feature_id": 323, "name": "Silver Run Falls", "lat": 35.0662, "lon": -83.0654, "comid": 11748427, "drainage_area_sqmi": 2.389, "fetched_at": "2026-09-15"}
+{"feature_id": 324, "name": "Mingo Falls", "lat": 35.5318, "lon": -83.2747, "comid": 19728582, "drainage_area_sqmi": 1.742, "fetched_at": "2026-09-15"}
+{"feature_id": 325, "name": "Soco Falls", "lat": 35.4923, "lon": -83.1695, "comid": 19729526, "drainage_area_sqmi": 0.972, "fetched_at": "2026-09-15"}
+{"feature_id": 326, "name": "Big Laurel Falls", "lat": 35.01825, "lon": -83.50637, "comid": 19736587, "drainage_area_sqmi": 1.451, "fetched_at": "2026-09-15"}
+{"feature_id": 327, "name": "Rufus Morgan Falls", "lat": 35.14273, "lon": -83.54792, "comid": 19735989, "drainage_area_sqmi": 0.774, "fetched_at": "2026-09-15"}
+{"feature_id": 328, "name": "Bard Falls", "lat": 36.0005, "lon": -81.80835, "comid": 9750540, "drainage_area_sqmi": 4.93, "fetched_at": "2026-09-15"}
+{"feature_id": 329, "name": "Rainbow Falls (Camp Greenville)", "lat": 35.1333, "lon": -82.5881, "comid": 9865644, "drainage_area_sqmi": 0.923, "fetched_at": "2026-09-15"}
+{"feature_id": 330, "name": "Picklesimer Rockhouse Falls", "lat": 35.01848, "lon": -83.2534, "comid": 6265840, "drainage_area_sqmi": 1.436, "fetched_at": "2026-09-15"}
+{"feature_id": 331, "name": "Glen Falls", "lat": 35.03125, "lon": -83.2383, "comid": 6265800, "drainage_area_sqmi": 1.412, "fetched_at": "2026-09-15"}
+{"feature_id": 332, "name": "Secret Falls (Highlands)", "lat": 35.0047, "lon": -83.1715, "comid": 6265894, "drainage_area_sqmi": 7.524, "fetched_at": "2026-09-15"}
+{"feature_id": 333, "name": "Stairway Falls", "lat": 35.0858, "lon": -82.9574, "comid": 11747887, "drainage_area_sqmi": 26.655, "fetched_at": "2026-09-15"}
+{"feature_id": 335, "name": "Opossum Creek Falls", "lat": 34.7574, "lon": -83.3141, "comid": 6268396, "drainage_area_sqmi": 2.985, "fetched_at": "2026-09-15"}
+{"feature_id": 336, "name": "Lee Falls", "lat": 35.2887, "lon": -82.8271, "comid": 22164386, "drainage_area_sqmi": 0.732, "fetched_at": "2026-09-15"}
+{"feature_id": 337, "name": "Brasstown Falls", "lat": 34.7181, "lon": -83.3038, "comid": 6268478, "drainage_area_sqmi": 9.084, "fetched_at": "2026-09-15"}
+{"feature_id": 338, "name": "Cody Falls", "lat": 35.2717, "lon": -82.8957, "comid": 22164494, "drainage_area_sqmi": 1.352, "fetched_at": "2026-09-15"}
+{"feature_id": 340, "name": "Catheys Creek Falls", "lat": 35.2263, "lon": -82.8027, "comid": 22164714, "drainage_area_sqmi": 6.137, "fetched_at": "2026-09-15"}
+{"feature_id": 341, "name": "Shuck Ridge Creek Falls", "lat": 35.2955, "lon": -82.8613, "comid": 22164294, "drainage_area_sqmi": 1.652, "fetched_at": "2026-09-15"}
+{"feature_id": 342, "name": "Wintergreen Falls (Dupont)", "lat": 35.09775, "lon": -82.92419, "comid": 11747877, "drainage_area_sqmi": 16.408, "fetched_at": "2026-09-15"}
+{"feature_id": 343, "name": "Hickory Nut Falls", "lat": 35.43296, "lon": -82.259565, "comid": 12036569, "drainage_area_sqmi": 0.735, "fetched_at": "2026-09-15"}
+{"feature_id": 344, "name": "Greenland Creek Falls", "lat": 35.1507, "lon": -82.998, "comid": 19729220, "drainage_area_sqmi": 1.26, "fetched_at": "2026-09-15"}
+{"feature_id": 345, "name": "Upper Sols Creek Falls", "lat": 35.2635, "lon": -83.0192, "comid": 19730574, "drainage_area_sqmi": 5.986, "fetched_at": "2026-09-15"}
+{"feature_id": 346, "name": "John's Jump Falls", "lat": 35.0674, "lon": -83.0069, "comid": 11748423, "drainage_area_sqmi": 1.571, "fetched_at": "2026-09-15"}
+{"feature_id": 347, "name": "Yellow Branch Falls", "lat": 35.2953, "lon": -82.8347, "comid": 22164386, "drainage_area_sqmi": 0.732, "fetched_at": "2026-09-15"}
+{"feature_id": 348, "name": "Middle Falls- Snowbird Creek", "lat": 35.2622, "lon": -83.9814, "comid": 19721209, "drainage_area_sqmi": 6.948, "fetched_at": "2026-09-15"}
+{"feature_id": 349, "name": "Dill Falls", "lat": 35.2835, "lon": -82.9435, "comid": 19729178, "drainage_area_sqmi": 1.126, "fetched_at": "2026-09-15"}
+{"feature_id": 350, "name": "Second Falls", "lat": 35.3221, "lon": -82.8416, "comid": 22152761, "drainage_area_sqmi": 1.456, "fetched_at": "2026-09-15"}
+{"feature_id": 351, "name": "High Falls- South Fork Mills River", "lat": 35.3492, "lon": -82.7322, "comid": 22164030, "drainage_area_sqmi": 11.822, "fetched_at": "2026-09-15"}
+{"feature_id": 352, "name": "Indian Creek Falls", "lat": 35.4727, "lon": -83.4271, "comid": 19729566, "drainage_area_sqmi": 8.188, "fetched_at": "2026-09-15"}
+{"feature_id": 353, "name": "Triple Falls", "lat": 35.1983, "lon": -82.6169, "comid": 22164832, "drainage_area_sqmi": 33.081, "fetched_at": "2026-09-15"}
+{"feature_id": 355, "name": "North Harper Creek Falls", "lat": 36.20707, "lon": -81.87557, "comid": 19743536, "drainage_area_sqmi": 2.503, "fetched_at": "2026-09-15"}
+{"feature_id": 356, "name": "Little Lost Cove Falls", "lat": 36.02197, "lon": -81.82941, "comid": 9750474, "drainage_area_sqmi": 0.963, "fetched_at": "2026-09-15"}
+{"feature_id": 357, "name": "Moonshine Falls", "lat": 35.09483, "lon": -82.63137, "comid": 9865728, "drainage_area_sqmi": 0.844, "fetched_at": "2026-09-15"}
+{"feature_id": 358, "name": "Enloe Creek Falls", "lat": 35.61139, "lon": -83.26126, "comid": 19728298, "drainage_area_sqmi": 3.865, "fetched_at": "2026-09-15"}
+{"feature_id": 360, "name": "Dry Falls", "lat": 35.0686, "lon": -83.2389, "comid": 19736255, "drainage_area_sqmi": 15.369, "fetched_at": "2026-09-15"}
+{"feature_id": 361, "name": "Bearcamp Falls (Hillard Falls)", "lat": 35.054127, "lon": -82.966241, "comid": 11747945, "drainage_area_sqmi": 2.957, "fetched_at": "2026-09-15"}
+{"feature_id": 362, "name": "High Falls- Thompson River", "lat": 35.0704, "lon": -82.9943, "comid": 11747899, "drainage_area_sqmi": 4.688, "fetched_at": "2026-09-15"}
+{"feature_id": 363, "name": "High Shoals Falls", "lat": 35.5945, "lon": -81.63551, "comid": 9745546, "drainage_area_sqmi": 5.449, "fetched_at": "2026-09-15"}
+{"feature_id": 364, "name": "Bird Rock Falls", "lat": 35.2212, "lon": -82.8612, "comid": 22164748, "drainage_area_sqmi": 18.959, "fetched_at": "2026-09-15"}
+{"feature_id": 365, "name": "Upper Falls @ Graveyard Fields", "lat": 35.3182, "lon": -82.8669, "comid": 22152767, "drainage_area_sqmi": 1.367, "fetched_at": "2026-09-15"}
+{"feature_id": 367, "name": "Harper Creek Falls", "lat": 35.98278, "lon": -81.77994, "comid": 9751446, "drainage_area_sqmi": 12.568, "fetched_at": "2026-09-15"}
+{"feature_id": 368, "name": "Scotsman Falls", "lat": 35.01668, "lon": -83.1121, "comid": 6265838, "drainage_area_sqmi": 2.891, "fetched_at": "2026-09-15"}
+{"feature_id": 370, "name": "Nellie's Falls", "lat": 35.2013, "lon": -83.033, "comid": 19730408, "drainage_area_sqmi": 3.859, "fetched_at": "2026-09-15"}
+{"feature_id": 371, "name": "Spoonauger Falls", "lat": 34.9746, "lon": -83.1097, "comid": 6269140, "drainage_area_sqmi": 45.137, "fetched_at": "2026-09-15"}
+{"feature_id": 372, "name": "Raven Cliff Falls", "lat": 35.1057, "lon": -82.661, "comid": 9865730, "drainage_area_sqmi": 5.739, "fetched_at": "2026-09-15"}
+{"feature_id": 373, "name": "Little Fall Branch Falls", "lat": 35.75532, "lon": -82.97645, "comid": 22149923, "drainage_area_sqmi": 0.891, "fetched_at": "2026-09-15"}
+{"feature_id": 374, "name": "South Harper Creek Falls", "lat": 35.98099, "lon": -81.80978, "comid": 9751438, "drainage_area_sqmi": 5.021, "fetched_at": "2026-09-15"}
+{"feature_id": 376, "name": "Hebron Colony Falls", "lat": 36.15486, "lon": -81.73519, "comid": 19743660, "drainage_area_sqmi": 7.528, "fetched_at": "2026-09-15"}
+{"feature_id": 378, "name": "Looking Glass Falls", "lat": 35.2962, "lon": -82.7687, "comid": 22164334, "drainage_area_sqmi": 8.563, "fetched_at": "2026-09-15"}
+{"feature_id": 379, "name": "Twin Falls (Henry Branch)", "lat": 35.336, "lon": -82.7598, "comid": 22164110, "drainage_area_sqmi": 1.229, "fetched_at": "2026-09-15"}
+{"feature_id": 380, "name": "Moore Cove Falls", "lat": 35.3128, "lon": -82.7788, "comid": 22164220, "drainage_area_sqmi": 0.753, "fetched_at": "2026-09-15"}
+{"feature_id": 382, "name": "Waterfall on Long Branch", "lat": 35.279, "lon": -82.8247, "comid": 22164542, "drainage_area_sqmi": 1.175, "fetched_at": "2026-09-15"}
+{"feature_id": 383, "name": "Grogan Creek Falls", "lat": 35.2702, "lon": -82.809, "comid": 22164586, "drainage_area_sqmi": 2.605, "fetched_at": "2026-09-15"}
+{"feature_id": 384, "name": "High Falls- Little River", "lat": 35.1927, "lon": -82.6136, "comid": 22164854, "drainage_area_sqmi": 26.9, "fetched_at": "2026-09-15"}
+{"feature_id": 385, "name": "Logging Road Falls", "lat": 35.3214, "lon": -82.8117, "comid": 22164166, "drainage_area_sqmi": 1.191, "fetched_at": "2026-09-15"}
+{"feature_id": 386, "name": "Upper Creek Falls", "lat": 35.9608, "lon": -81.8634, "comid": 9751674, "drainage_area_sqmi": 8.691, "fetched_at": "2026-09-15"}
+{"feature_id": 387, "name": "Hunt Fish Falls", "lat": 36.0141, "lon": -81.80397, "comid": 9750478, "drainage_area_sqmi": 8.229, "fetched_at": "2026-09-15"}
+{"feature_id": 388, "name": "Middle Gragg Prong Falls", "lat": 36.02136, "lon": -81.79652, "comid": 9750476, "drainage_area_sqmi": 6.492, "fetched_at": "2026-09-15"}
+{"feature_id": 392, "name": "Flat Creek Falls", "lat": 35.2201, "lon": -83.0334, "comid": 19730408, "drainage_area_sqmi": 3.859, "fetched_at": "2026-09-15"}
+{"feature_id": 394, "name": "Whitewater Falls", "lat": 35.036125, "lon": -83.017885, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 395, "name": "Linville Falls", "lat": 35.9501, "lon": -81.9278, "comid": 9751596, "drainage_area_sqmi": 44.26, "fetched_at": "2026-09-15"}
+{"feature_id": 396, "name": "Crabtree Falls", "lat": 35.8199, "lon": -82.1493, "comid": 19490272, "drainage_area_sqmi": 2.79, "fetched_at": "2026-09-15"}
+{"feature_id": 397, "name": "Mouse Creek Falls", "lat": 35.73537, "lon": -83.1336, "comid": 22151213, "drainage_area_sqmi": 23.041, "fetched_at": "2026-09-15"}
+{"feature_id": 398, "name": "Tom's Creek Falls", "lat": 35.7772, "lon": -82.0618, "comid": 9754610, "drainage_area_sqmi": 1.068, "fetched_at": "2026-09-15"}
+{"feature_id": 399, "name": "Roaring Fork Falls", "lat": 35.7602, "lon": -82.1919, "comid": 19490288, "drainage_area_sqmi": 1.321, "fetched_at": "2026-09-15"}
+{"feature_id": 400, "name": "Setrock Creek Falls", "lat": 35.7495, "lon": -82.228, "comid": 19490134, "drainage_area_sqmi": 0.417, "fetched_at": "2026-09-15"}
+{"feature_id": 401, "name": "Douglas Falls", "lat": 35.72099, "lon": -82.37459, "comid": 22160592, "drainage_area_sqmi": 1.441, "fetched_at": "2026-09-15"}
+{"feature_id": 402, "name": "Riley Moore Falls", "lat": 34.7412, "lon": -83.1795, "comid": 6268484, "drainage_area_sqmi": 55.93, "fetched_at": "2026-09-15"}
+{"feature_id": 403, "name": "Issaqueena Falls", "lat": 34.8071, "lon": -83.1213, "comid": 11750595, "drainage_area_sqmi": 2.797, "fetched_at": "2026-09-15"}
+{"feature_id": 405, "name": "Catawba Falls", "lat": 35.6038, "lon": -82.2456, "comid": 9755214, "drainage_area_sqmi": 1.88, "fetched_at": "2026-09-15"}
+{"feature_id": 406, "name": "Twin Falls (SC)", "lat": 35.01371329, "lon": -82.81874907, "comid": 11747993, "drainage_area_sqmi": 4.808, "fetched_at": "2026-09-15"}
+{"feature_id": 407, "name": "Courthouse Falls", "lat": 35.2717, "lon": -82.8941, "comid": 22164492, "drainage_area_sqmi": 2.67, "fetched_at": "2026-09-15"}
+{"feature_id": 408, "name": "Pearson's Falls", "lat": 35.2149, "lon": -82.3361, "comid": 12037311, "drainage_area_sqmi": 2.208, "fetched_at": "2026-09-15"}
+{"feature_id": 409, "name": "Bradley Creek Falls", "lat": 35.39272, "lon": -82.73837, "comid": 22163780, "drainage_area_sqmi": 1.219, "fetched_at": "2026-09-15"}
+{"feature_id": 410, "name": "Little Bradley Falls", "lat": 35.2542, "lon": -82.2951, "comid": 12037149, "drainage_area_sqmi": 4.808, "fetched_at": "2026-09-15"}
+{"feature_id": 411, "name": "Waterfall on Sam Branch", "lat": 35.3403, "lon": -82.897, "comid": 22152749, "drainage_area_sqmi": 0.99, "fetched_at": "2026-09-15"}
+{"feature_id": 412, "name": "Wash Hollow Falls", "lat": 35.3419, "lon": -82.8976, "comid": 22152739, "drainage_area_sqmi": 0.69, "fetched_at": "2026-09-15"}
+{"feature_id": 413, "name": "Aunt Sally's Falls", "lat": 35.1888, "lon": -82.9623, "comid": 22164858, "drainage_area_sqmi": 2.621, "fetched_at": "2026-09-15"}
+{"feature_id": 414, "name": "Dismal Falls", "lat": 35.1799, "lon": -82.9742, "comid": 22164918, "drainage_area_sqmi": 0.584, "fetched_at": "2026-09-15"}
+{"feature_id": 415, "name": "Lower Dismal Falls", "lat": 35.1849, "lon": -82.9709, "comid": 22164872, "drainage_area_sqmi": 0.797, "fetched_at": "2026-09-15"}
+{"feature_id": 420, "name": "Glen Burney Falls", "lat": 36.12328, "lon": -81.6843, "comid": 9750254, "drainage_area_sqmi": 1.498, "fetched_at": "2026-09-15"}
+{"feature_id": 422, "name": "Hickory Branch Falls", "lat": 35.6931, "lon": -82.1884, "comid": 9754804, "drainage_area_sqmi": 6.688, "fetched_at": "2026-09-15"}
+{"feature_id": 423, "name": "Little Bearwallow Falls", "lat": 35.46796, "lon": -82.33959, "comid": 12036457, "drainage_area_sqmi": 5.702, "fetched_at": "2026-09-15"}
+{"feature_id": 425, "name": "Slate Rock Creek Falls", "lat": 35.3929, "lon": -82.6946, "comid": 22163760, "drainage_area_sqmi": 2.775, "fetched_at": "2026-09-15"}
+{"feature_id": 426, "name": "Mt Hardy Falls", "lat": 35.304, "lon": -82.9198, "comid": 22152779, "drainage_area_sqmi": 0.726, "fetched_at": "2026-09-15"}
+{"feature_id": 427, "name": "Upper & Lower Bubbling Springs", "lat": 35.3136, "lon": -82.9096, "comid": 22152781, "drainage_area_sqmi": 0.973, "fetched_at": "2026-09-15"}
+{"feature_id": 428, "name": "Wildcat Falls (Flat Laurel Creek)", "lat": 35.3139, "lon": -82.904, "comid": 22152771, "drainage_area_sqmi": 3.319, "fetched_at": "2026-09-15"}
+{"feature_id": 429, "name": "Lower Bearwallow Falls", "lat": 35.07945, "lon": -82.90462, "comid": 11747883, "drainage_area_sqmi": 4.892, "fetched_at": "2026-09-15"}
+{"feature_id": 430, "name": "Warden Falls (Jim Burrell Falls)", "lat": 35.1718, "lon": -83.0064, "comid": 19730418, "drainage_area_sqmi": 7.211, "fetched_at": "2026-09-15"}
+{"feature_id": 431, "name": "High Falls (Cullowhee Falls)", "lat": 35.2034, "lon": -83.1598, "comid": 19730368, "drainage_area_sqmi": 37.103, "fetched_at": "2026-09-15"}
+{"feature_id": 432, "name": "Alarka Falls", "lat": 35.33863, "lon": -83.37157, "comid": 19735333, "drainage_area_sqmi": 2.609, "fetched_at": "2026-09-15"}
+{"feature_id": 434, "name": "Virginia Hawkins Falls", "lat": 35.04292, "lon": -82.84585, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 435, "name": "Rainbow Falls (GSMNP)", "lat": 35.66238, "lon": -83.46375, "comid": 22144194, "drainage_area_sqmi": 2.414, "fetched_at": "2026-09-15"}
+{"feature_id": 459, "name": "Upper Batson Creek Falls", "lat": 35.16, "lon": -82.7335, "comid": 22165006, "drainage_area_sqmi": 1.4, "fetched_at": "2026-09-15"}
+{"feature_id": 460, "name": "Middle Batson Creek Falls", "lat": 35.1629, "lon": -82.7325, "comid": 22165006, "drainage_area_sqmi": 1.4, "fetched_at": "2026-09-15"}
+{"feature_id": 461, "name": "Batson Creek Falls", "lat": 35.1639, "lon": -82.7313, "comid": 22164986, "drainage_area_sqmi": 1.404, "fetched_at": "2026-09-15"}
+{"feature_id": 462, "name": "Connestee Falls", "lat": 35.1641, "lon": -82.7308, "comid": 22165002, "drainage_area_sqmi": 2.888, "fetched_at": "2026-09-15"}
+{"feature_id": 463, "name": "Sliding Rock", "lat": 35.3112, "lon": -82.7869, "comid": 22164246, "drainage_area_sqmi": 7.205, "fetched_at": "2026-09-15"}
+{"feature_id": 464, "name": "Slickrock Falls", "lat": 35.2931, "lon": -82.7972, "comid": 22164398, "drainage_area_sqmi": 1.416, "fetched_at": "2026-09-15"}
+{"feature_id": 468, "name": "Toxaway Falls", "lat": 35.1239, "lon": -82.9311, "comid": 11747813, "drainage_area_sqmi": 7.783, "fetched_at": "2026-09-15"}
+{"feature_id": 469, "name": "Bearwallow Falls", "lat": 35.0818, "lon": -82.9168, "comid": 11747883, "drainage_area_sqmi": 4.892, "fetched_at": "2026-09-15"}
+{"feature_id": 471, "name": "Upper Silver Run Falls", "lat": 35.0672, "lon": -83.0642, "comid": 11748427, "drainage_area_sqmi": 2.389, "fetched_at": "2026-09-15"}
+{"feature_id": 472, "name": "Unnamed Waterfall on Looking Glass Creek #1", "lat": 35.3398, "lon": -82.7892, "comid": 22164142, "drainage_area_sqmi": 3.741, "fetched_at": "2026-09-15"}
+{"feature_id": 474, "name": "Waterfall on West Fork of the Pigeon River", "lat": 35.338, "lon": -82.9035, "comid": 22152753, "drainage_area_sqmi": 5.577, "fetched_at": "2026-09-15"}
+{"feature_id": 477, "name": "Waterfall on Caney Bottom Loop", "lat": 35.2946, "lon": -82.814, "comid": 22164344, "drainage_area_sqmi": 0.989, "fetched_at": "2026-09-15"}
+{"feature_id": 478, "name": "Waterfall on Barnett Branch", "lat": 35.3731, "lon": -82.775, "comid": 22163884, "drainage_area_sqmi": 0.189, "fetched_at": "2026-09-15"}
+{"feature_id": 480, "name": "French Broad Falls", "lat": 35.2237, "lon": -82.8616, "comid": 22164696, "drainage_area_sqmi": 14.911, "fetched_at": "2026-09-15"}
+{"feature_id": 481, "name": "Shoal Creek Falls", "lat": 35.2239, "lon": -82.8612, "comid": 22164696, "drainage_area_sqmi": 14.911, "fetched_at": "2026-09-15"}
+{"feature_id": 482, "name": "Merry Falls", "lat": 35.2006, "lon": -82.6437, "comid": 22164860, "drainage_area_sqmi": 1.636, "fetched_at": "2026-09-15"}
+{"feature_id": 483, "name": "Juney Whank Falls", "lat": 35.46650487, "lon": -83.43470479, "comid": 19729622, "drainage_area_sqmi": 0.577, "fetched_at": "2026-09-15"}
+{"feature_id": 484, "name": "Tom Branch Falls", "lat": 35.4666, "lon": -83.4298, "comid": 19729620, "drainage_area_sqmi": 39.81, "fetched_at": "2026-09-15"}
+{"feature_id": 486, "name": "Waterfall on Avery Creek", "lat": 35.329, "lon": -82.7677, "comid": 22164112, "drainage_area_sqmi": 1.204, "fetched_at": "2026-09-15"}
+{"feature_id": 487, "name": "Lower Bubbling Springs Branch", "lat": 35.3011, "lon": -82.9119, "comid": 22152781, "drainage_area_sqmi": 0.973, "fetched_at": "2026-09-15"}
+{"feature_id": 488, "name": "Upper Bubbling Springs Branch", "lat": 35.3006, "lon": -82.9119, "comid": 22152781, "drainage_area_sqmi": 0.973, "fetched_at": "2026-09-15"}
+{"feature_id": 489, "name": "Little Bird Falls", "lat": 35.3496, "lon": -82.9131, "comid": 22152737, "drainage_area_sqmi": 0.628, "fetched_at": "2026-09-15"}
+{"feature_id": 490, "name": "Waterfall on Flat Laurel Creek", "lat": 35.3247, "lon": -82.8969, "comid": 22152759, "drainage_area_sqmi": 1.401, "fetched_at": "2026-09-15"}
+{"feature_id": 491, "name": "Upper Cascade Falls", "lat": 36.3965, "lon": -80.2694, "comid": 8679051, "drainage_area_sqmi": 0.78, "fetched_at": "2026-09-15"}
+{"feature_id": 492, "name": "Hidden Falls", "lat": 36.399, "lon": -80.2605, "comid": 8679031, "drainage_area_sqmi": 0.323, "fetched_at": "2026-09-15"}
+{"feature_id": 493, "name": "Window Falls", "lat": 36.4008, "lon": -80.2596, "comid": 8679031, "drainage_area_sqmi": 0.323, "fetched_at": "2026-09-15"}
+{"feature_id": 494, "name": "Torys Den Falls", "lat": 36.4024, "lon": -80.3001, "comid": 8679027, "drainage_area_sqmi": 0.752, "fetched_at": "2026-09-15"}
+{"feature_id": 495, "name": "Lower Cascade Falls", "lat": 36.4149, "lon": -80.2687, "comid": 8678937, "drainage_area_sqmi": 2.234, "fetched_at": "2026-09-15"}
+{"feature_id": 496, "name": "Upper Courthouse Falls", "lat": 35.2935, "lon": -82.9036, "comid": 22164472, "drainage_area_sqmi": 1.715, "fetched_at": "2026-09-15"}
+{"feature_id": 498, "name": "Chestnut Falls", "lat": 35.2791, "lon": -82.8874, "comid": 22164470, "drainage_area_sqmi": 0.831, "fetched_at": "2026-09-15"}
+{"feature_id": 500, "name": "Unnamed Waterfall on Looking Glass Creek #3", "lat": 35.3398, "lon": -82.7892, "comid": 22164142, "drainage_area_sqmi": 3.741, "fetched_at": "2026-09-15"}
+{"feature_id": 501, "name": "Discovery Falls", "lat": 35.3276, "lon": -82.8091, "comid": 22164120, "drainage_area_sqmi": 0.336, "fetched_at": "2026-09-15"}
+{"feature_id": 502, "name": "Unnamed Waterfall on Looking Glass Creek #2", "lat": 35.3148, "lon": -82.7875, "comid": 22164246, "drainage_area_sqmi": 7.205, "fetched_at": "2026-09-15"}
+{"feature_id": 503, "name": "Upper Dill Falls", "lat": 35.2863, "lon": -82.9443, "comid": 19729174, "drainage_area_sqmi": 0.899, "fetched_at": "2026-09-15"}
+{"feature_id": 504, "name": "Sunburst Falls", "lat": 35.338, "lon": -82.9035, "comid": 22152753, "drainage_area_sqmi": 5.577, "fetched_at": "2026-09-15"}
+{"feature_id": 505, "name": "Little Moore Cove Falls", "lat": 35.31193, "lon": -82.77854, "comid": 22164220, "drainage_area_sqmi": 0.753, "fetched_at": "2026-09-15"}
+{"feature_id": 506, "name": "Wintergreen Falls (DuPont)", "lat": 35.198, "lon": -82.5835, "comid": 22164834, "drainage_area_sqmi": 4.437, "fetched_at": "2026-09-15"}
+{"feature_id": 507, "name": "Grassy Creek Falls", "lat": 35.1958, "lon": -82.6084, "comid": 22164838, "drainage_area_sqmi": 5.97, "fetched_at": "2026-09-15"}
+{"feature_id": 508, "name": "Stone Mountain Falls (Little Falls)", "lat": 36.381, "lon": -81.0342, "comid": 9250302, "drainage_area_sqmi": 6.167, "fetched_at": "2026-09-15"}
+{"feature_id": 509, "name": "Middle Falls at Stone Mountain", "lat": 36.3816, "lon": -81.0395, "comid": 9250302, "drainage_area_sqmi": 6.167, "fetched_at": "2026-09-15"}
+{"feature_id": 511, "name": "Shower Falls", "lat": 35.1604, "lon": -82.9747, "comid": 11747807, "drainage_area_sqmi": 2.295, "fetched_at": "2026-09-15"}
+{"feature_id": 512, "name": "Yellowstone Falls", "lat": 35.3238, "lon": -82.8416, "comid": 22152761, "drainage_area_sqmi": 1.456, "fetched_at": "2026-09-15"}
+{"feature_id": 513, "name": "Middle Wildcat Branch Falls", "lat": 35.074233, "lon": -82.596846, "comid": 9865790, "drainage_area_sqmi": 0.519, "fetched_at": "2026-09-15"}
+{"feature_id": 514, "name": "Fourth Falls on Tributary of Wildcat Branch", "lat": 35.077098, "lon": -82.594408, "comid": 9865770, "drainage_area_sqmi": 0.418, "fetched_at": "2026-09-15"}
+{"feature_id": 515, "name": "Lower Whitewater Falls", "lat": 35.016699, "lon": -82.993326, "comid": 11747995, "drainage_area_sqmi": 16.912, "fetched_at": "2026-09-15"}
+{"feature_id": 516, "name": "Upper Wildcat Branch Falls", "lat": 35.079236, "lon": -82.596793, "comid": 9865770, "drainage_area_sqmi": 0.418, "fetched_at": "2026-09-15"}
+{"feature_id": 517, "name": "Waterfall on Devil's Fork Creek", "lat": 35.099692, "lon": -82.547506, "comid": 9866076, "drainage_area_sqmi": 32.891, "fetched_at": "2026-09-15"}
+{"feature_id": 518, "name": "Middle Falls on Rockhouse Creek", "lat": 35.296274, "lon": -82.800623, "comid": 22164398, "drainage_area_sqmi": 1.416, "fetched_at": "2026-09-15"}
+{"feature_id": 519, "name": "Waterfall on Tributary of Rockhouse Creek", "lat": 35.296134, "lon": -82.800108, "comid": 22164398, "drainage_area_sqmi": 1.416, "fetched_at": "2026-09-15"}
+{"feature_id": 520, "name": "Waterfall on Rockhouse Creek", "lat": 35.299, "lon": -82.8033, "comid": 22164398, "drainage_area_sqmi": 1.416, "fetched_at": "2026-09-15"}
+{"feature_id": 521, "name": "Waterfall on Trib #1 of Toxaway River", "lat": 35.1581, "lon": -82.9818, "comid": 11747807, "drainage_area_sqmi": 2.295, "fetched_at": "2026-09-15"}
+{"feature_id": 522, "name": "Waterfall on Cold Mountain Branch", "lat": 35.159, "lon": -82.9802, "comid": 11747807, "drainage_area_sqmi": 2.295, "fetched_at": "2026-09-15"}
+{"feature_id": 523, "name": "Raven Rock Falls", "lat": 35.1577, "lon": -82.9821, "comid": 11747807, "drainage_area_sqmi": 2.295, "fetched_at": "2026-09-15"}
+{"feature_id": 524, "name": "The Chute", "lat": 35.149, "lon": -82.9971, "comid": 19729220, "drainage_area_sqmi": 1.26, "fetched_at": "2026-09-15"}
+{"feature_id": 525, "name": "Halfway Falls", "lat": 35.1473, "lon": -82.9965, "comid": 19729220, "drainage_area_sqmi": 1.26, "fetched_at": "2026-09-15"}
+{"feature_id": 526, "name": "Carlton Falls", "lat": 35.1448, "lon": -82.9945, "comid": 19729220, "drainage_area_sqmi": 1.26, "fetched_at": "2026-09-15"}
+{"feature_id": 527, "name": "Falls on Double Branch", "lat": 35.2104, "lon": -82.9353, "comid": 22164798, "drainage_area_sqmi": 3.073, "fetched_at": "2026-09-15"}
+{"feature_id": 528, "name": "Widow's Creek Falls", "lat": 36.3972, "lon": -81.0679, "comid": 9250228, "drainage_area_sqmi": 1.846, "fetched_at": "2026-09-15"}
+{"feature_id": 529, "name": "Lower Falls at Stone Mountain", "lat": 36.3806, "lon": -81.0407, "comid": 9250302, "drainage_area_sqmi": 6.167, "fetched_at": "2026-09-15"}
+{"feature_id": 530, "name": "Middle Cascade Falls", "lat": 36.3972, "lon": -81.0679, "comid": 9250228, "drainage_area_sqmi": 1.846, "fetched_at": "2026-09-15"}
+{"feature_id": 531, "name": "Lemon Falls", "lat": 35.1995, "lon": -82.8645, "comid": 22164802, "drainage_area_sqmi": 2.393, "fetched_at": "2026-09-15"}
+{"feature_id": 532, "name": "Herrin Knob Falls", "lat": 35.29612, "lon": -82.94039, "comid": 19729174, "drainage_area_sqmi": 0.899, "fetched_at": "2026-09-15"}
+{"feature_id": 533, "name": "Falls on Billy Branch", "lat": 35.29612, "lon": -82.94039, "comid": 19729174, "drainage_area_sqmi": 0.899, "fetched_at": "2026-09-15"}
+{"feature_id": 534, "name": "Pigpen Falls", "lat": 34.928583, "lon": -83.1292, "comid": 6267714, "drainage_area_sqmi": 3.152, "fetched_at": "2026-09-15"}
+{"feature_id": 535, "name": "Licklog Falls", "lat": 34.9294, "lon": -83.1305, "comid": 6267714, "drainage_area_sqmi": 3.152, "fetched_at": "2026-09-15"}
+{"feature_id": 536, "name": "Lower Wildcat Falls", "lat": 35.31542, "lon": -82.90796, "comid": 22152771, "drainage_area_sqmi": 3.319, "fetched_at": "2026-09-15"}
+{"feature_id": 537, "name": "Big Bradley Falls", "lat": 35.26841, "lon": -82.29148, "comid": 12037085, "drainage_area_sqmi": 7.185, "fetched_at": "2026-09-15"}
+{"feature_id": 538, "name": "Standing Stone Falls", "lat": 35.0479, "lon": -82.9824, "comid": 11747951, "drainage_area_sqmi": 7.736, "fetched_at": "2026-09-15"}
+{"feature_id": 539, "name": "Rich Falls", "lat": 35.0502, "lon": -82.9838, "comid": 11747951, "drainage_area_sqmi": 7.736, "fetched_at": "2026-09-15"}
+{"feature_id": 540, "name": "Simon's Falls", "lat": 35.0635, "lon": -82.9876, "comid": 11747931, "drainage_area_sqmi": 6.2, "fetched_at": "2026-09-15"}
+{"feature_id": 541, "name": "Reid Branch Falls", "lat": 35.0705, "lon": -82.987, "comid": 11747897, "drainage_area_sqmi": 1.012, "fetched_at": "2026-09-15"}
+{"feature_id": 542, "name": "Auger Fork Falls", "lat": 35.0918, "lon": -82.8966, "comid": 11747869, "drainage_area_sqmi": 1.213, "fetched_at": "2026-09-15"}
+{"feature_id": 543, "name": "Maple Springs Branch Falls", "lat": 35.0918, "lon": -82.8966, "comid": 11747869, "drainage_area_sqmi": 1.213, "fetched_at": "2026-09-15"}
+{"feature_id": 544, "name": "Pigeon Branch Falls", "lat": 35.36135, "lon": -82.783601, "comid": 22163984, "drainage_area_sqmi": 2.015, "fetched_at": "2026-09-15"}
+{"feature_id": 545, "name": "Bernie's Falls", "lat": 35.1975, "lon": -82.9298, "comid": 22164816, "drainage_area_sqmi": 1.071, "fetched_at": "2026-09-15"}
+{"feature_id": 548, "name": "Bennett Cove Falls", "lat": 35.33668, "lon": -82.80406, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 549, "name": "Rough Run Falls", "lat": 35.2059, "lon": -83.165, "comid": 19730364, "drainage_area_sqmi": 0.812, "fetched_at": "2026-09-15"}
+{"feature_id": 550, "name": "Cullasaja Falls", "lat": 35.1167, "lon": -83.2697, "comid": 19736067, "drainage_area_sqmi": 34.228, "fetched_at": "2026-09-15"}
+{"feature_id": 551, "name": "Quarry Falls", "lat": 35.0929, "lon": -83.2666, "comid": 19736157, "drainage_area_sqmi": 29.617, "fetched_at": "2026-09-15"}
+{"feature_id": 552, "name": "Scadin Falls", "lat": 35.0848, "lon": -83.2674, "comid": 19736217, "drainage_area_sqmi": 25.605, "fetched_at": "2026-09-15"}
+{"feature_id": 553, "name": "Bridle Veil Falls (Highlands)", "lat": 35.0719, "lon": -83.2289, "comid": 19736241, "drainage_area_sqmi": 0.226, "fetched_at": "2026-09-15"}
+{"feature_id": 562, "name": "Exit Falls", "lat": 35.0505, "lon": -83.047, "comid": 11748499, "drainage_area_sqmi": 8.314, "fetched_at": "2026-09-15"}
+{"feature_id": 563, "name": "Bedrock Betty Falls", "lat": 35.0503, "lon": -83.043, "comid": 11748499, "drainage_area_sqmi": 8.314, "fetched_at": "2026-09-15"}
+{"feature_id": 564, "name": "Merge Lane Falls", "lat": 35.048, "lon": -83.039, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 565, "name": "55 M.P.H. Falls", "lat": 35.044, "lon": -83.0381, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 567, "name": "Wheelchair Accessible Falls", "lat": 35.0404, "lon": -83.0345, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 568, "name": "Portage Left Falls", "lat": 35.0402, "lon": -83.0331, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 569, "name": "Duggers Creek Falls", "lat": 35.9566, "lon": -81.9276, "comid": 9751554, "drainage_area_sqmi": 0.904, "fetched_at": "2026-09-15"}
+{"feature_id": 571, "name": "Grassy Creek Falls", "lat": 35.8562, "lon": -82.0849, "comid": 19489904, "drainage_area_sqmi": 1.668, "fetched_at": "2026-09-15"}
+{"feature_id": 572, "name": "Glassmine Falls", "lat": 35.7343, "lon": -82.3442, "comid": 22160572, "drainage_area_sqmi": 2.047, "fetched_at": "2026-09-15"}
+{"feature_id": 573, "name": "Whiteoak Creek Falls", "lat": 35.8266, "lon": -82.2205, "comid": 19490004, "drainage_area_sqmi": 2.076, "fetched_at": "2026-09-15"}
+{"feature_id": 574, "name": "Kiesee Falls", "lat": 35.2767, "lon": -82.8838, "comid": 22164522, "drainage_area_sqmi": 2.455, "fetched_at": "2026-09-15"}
+{"feature_id": 575, "name": "Middle Wildcat Falls", "lat": 35.31542, "lon": -82.90796, "comid": 22152771, "drainage_area_sqmi": 3.319, "fetched_at": "2026-09-15"}
+{"feature_id": 576, "name": "Reese Place Falls", "lat": 35.1154, "lon": -82.7089, "comid": 22165162, "drainage_area_sqmi": 1.555, "fetched_at": "2026-09-15"}
+{"feature_id": 577, "name": "Summey Cove Falls", "lat": 35.2631, "lon": -82.8901, "comid": 22164604, "drainage_area_sqmi": 7.842, "fetched_at": "2026-09-15"}
+{"feature_id": 578, "name": "Upper Kiesee Falls", "lat": 35.2772, "lon": -82.8836, "comid": 22164522, "drainage_area_sqmi": 2.455, "fetched_at": "2026-09-15"}
+{"feature_id": 579, "name": "Beetree Fork Falls", "lat": 35.2512, "lon": -82.8904, "comid": 22165268, "drainage_area_sqmi": 10.809, "fetched_at": "2026-09-15"}
+{"feature_id": 580, "name": "Key Falls", "lat": 35.248, "lon": -82.6771, "comid": 22165296, "drainage_area_sqmi": 222.141, "fetched_at": "2026-09-15"}
+{"feature_id": 581, "name": "East Fork Falls", "lat": 35.114, "lon": -82.7489, "comid": 22165344, "drainage_area_sqmi": 7.942, "fetched_at": "2026-09-15"}
+{"feature_id": 582, "name": "Berry Branch Falls", "lat": 35.3559, "lon": -82.9468, "comid": 22152725, "drainage_area_sqmi": 8.472, "fetched_at": "2026-09-15"}
+{"feature_id": 583, "name": "Lower Slick Rock Falls", "lat": 35.2932, "lon": -82.7975, "comid": 22164398, "drainage_area_sqmi": 1.416, "fetched_at": "2026-09-15"}
+{"feature_id": 584, "name": "Saxifrage Falls", "lat": 35.2593, "lon": -82.7758, "comid": 22165288, "drainage_area_sqmi": 2.209, "fetched_at": "2026-09-15"}
+{"feature_id": 585, "name": "Milton Bradley Falls", "lat": 35.285, "lon": -82.7775, "comid": 22164408, "drainage_area_sqmi": 18.858, "fetched_at": "2026-09-15"}
+{"feature_id": 586, "name": "Bradley Cooper Falls", "lat": 35.2832, "lon": -82.2746, "comid": 12037021, "drainage_area_sqmi": 3.552, "fetched_at": "2026-09-15"}
+{"feature_id": 587, "name": "Marilu Bradley Falls", "lat": 35.2834, "lon": -82.274, "comid": 12037021, "drainage_area_sqmi": 3.552, "fetched_at": "2026-09-15"}
+{"feature_id": 588, "name": "Cavern Falls", "lat": 35.2841, "lon": -82.2701, "comid": 12037065, "drainage_area_sqmi": 1.366, "fetched_at": "2026-09-15"}
+{"feature_id": 589, "name": "Emily Falls", "lat": 35.2857, "lon": -82.32, "comid": 12037057, "drainage_area_sqmi": 1.259, "fetched_at": "2026-09-15"}
+{"feature_id": 590, "name": "Case Falls", "lat": 35.2885, "lon": -82.3592, "comid": 12036989, "drainage_area_sqmi": 0.584, "fetched_at": "2026-09-15"}
+{"feature_id": 591, "name": "Cashier's Sliding Rock", "lat": 35.2885, "lon": -82.3592, "comid": 12036989, "drainage_area_sqmi": 0.584, "fetched_at": "2026-09-15"}
+{"feature_id": 592, "name": "Little Brasstown Falls", "lat": 34.717, "lon": -83.302, "comid": 6268516, "drainage_area_sqmi": 2.696, "fetched_at": "2026-09-15"}
+{"feature_id": 593, "name": "Upper Brasstown Falls", "lat": 34.7101, "lon": -83.3038, "comid": 6268544, "drainage_area_sqmi": 12.409, "fetched_at": "2026-09-15"}
+{"feature_id": 594, "name": "Poundingmill Branch Falls", "lat": 35.3492, "lon": -82.7898, "comid": 22164040, "drainage_area_sqmi": 0.837, "fetched_at": "2026-09-15"}
+{"feature_id": 595, "name": "Cradle Falls", "lat": 35.37506, "lon": -82.78209, "comid": 22163886, "drainage_area_sqmi": 0.554, "fetched_at": "2026-09-15"}
+{"feature_id": 596, "name": "FR225 Falls", "lat": 35.3128, "lon": -82.8232, "comid": 22164344, "drainage_area_sqmi": 0.989, "fetched_at": "2026-09-15"}
+{"feature_id": 597, "name": "Big Bend Falls", "lat": 34.9539, "lon": -82.1184, "comid": 9700081, "drainage_area_sqmi": 71.061, "fetched_at": "2026-09-15"}
+{"feature_id": 598, "name": "Jones Gap Falls", "lat": 35.125, "lon": -82.5938, "comid": 9865654, "drainage_area_sqmi": 5.276, "fetched_at": "2026-09-15"}
+{"feature_id": 599, "name": "Falls Creek Falls", "lat": 35.1398, "lon": -82.5376, "comid": 9865606, "drainage_area_sqmi": 1.281, "fetched_at": "2026-09-15"}
+{"feature_id": 600, "name": "Upper Falls Creek Falls", "lat": 35.1398, "lon": -82.5376, "comid": 9865606, "drainage_area_sqmi": 1.281, "fetched_at": "2026-09-15"}
+{"feature_id": 601, "name": "Cedar Falls (Fountain Inn)", "lat": 35.3753, "lon": -82.7822, "comid": 22163886, "drainage_area_sqmi": 0.554, "fetched_at": "2026-09-15"}
+{"feature_id": 602, "name": "Ranger Falls", "lat": 35.08789, "lon": -83.22452, "comid": 19736197, "drainage_area_sqmi": 1.111, "fetched_at": "2026-09-15"}
+{"feature_id": 603, "name": "Chasm Falls", "lat": 35.00837, "lon": -83.24688, "comid": 6265852, "drainage_area_sqmi": 3.148, "fetched_at": "2026-09-15"}
+{"feature_id": 604, "name": "Glen Falls Downstream", "lat": 35.00837, "lon": -83.24688, "comid": 6265852, "drainage_area_sqmi": 3.148, "fetched_at": "2026-09-15"}
+{"feature_id": 605, "name": "Waterfall on Trib of Brooks Creek", "lat": 35.00837, "lon": -83.24688, "comid": 6265852, "drainage_area_sqmi": 3.148, "fetched_at": "2026-09-15"}
+{"feature_id": 606, "name": "Brooks Creek Falls", "lat": 35.03065, "lon": -83.2249, "comid": 6265826, "drainage_area_sqmi": 1.177, "fetched_at": "2026-09-15"}
+{"feature_id": 607, "name": "Pinkie Falls", "lat": 35.08095, "lon": -83.20584, "comid": 19736199, "drainage_area_sqmi": 4.367, "fetched_at": "2026-09-15"}
+{"feature_id": 608, "name": "Waterfall on Skitty Creek", "lat": 35.09184, "lon": -83.21762, "comid": 19736197, "drainage_area_sqmi": 1.111, "fetched_at": "2026-09-15"}
+{"feature_id": 609, "name": "Whiteoak Falls", "lat": 35.2509, "lon": -83.6399, "comid": 19735601, "drainage_area_sqmi": 24.8, "fetched_at": "2026-09-15"}
+{"feature_id": 610, "name": "Jagged Rock Falls", "lat": 35.2502, "lon": -83.64207, "comid": 19736469, "drainage_area_sqmi": 127.48, "fetched_at": "2026-09-15"}
+{"feature_id": 612, "name": "Camp Branch Falls", "lat": 35.25371, "lon": -83.65312, "comid": 19735571, "drainage_area_sqmi": 129.066, "fetched_at": "2026-09-15"}
+{"feature_id": 615, "name": "Last Falls on Slickum", "lat": 35.0729, "lon": -82.6019, "comid": 9865804, "drainage_area_sqmi": 0.701, "fetched_at": "2026-09-15"}
+{"feature_id": 616, "name": "Sweet Thing on Slickum", "lat": 35.0737, "lon": -82.6027, "comid": 9865804, "drainage_area_sqmi": 0.701, "fetched_at": "2026-09-15"}
+{"feature_id": 618, "name": "Waterfall #1 on Pinnacle MTN Trail", "lat": 35.0322, "lon": -82.7007, "comid": 9865910, "drainage_area_sqmi": 1.405, "fetched_at": "2026-09-15"}
+{"feature_id": 619, "name": "Waterfall #2 on Pinnacle MTN Trail", "lat": 35.0333, "lon": -82.7019, "comid": 9865904, "drainage_area_sqmi": 0.935, "fetched_at": "2026-09-15"}
+{"feature_id": 620, "name": "Waterfall #3 on Pinnacle MTN Trail", "lat": 35.0356, "lon": -82.7216, "comid": 9865904, "drainage_area_sqmi": 0.935, "fetched_at": "2026-09-15"}
+{"feature_id": 621, "name": "Waterfall #4 on Pinnacle MTN Trail", "lat": 35.0339, "lon": -82.7222, "comid": 9865904, "drainage_area_sqmi": 0.935, "fetched_at": "2026-09-15"}
+{"feature_id": 622, "name": "No-Name Cove Falls", "lat": 35.3455, "lon": -82.7958, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 623, "name": "Lower Waterfall in Upper Bennett Cove", "lat": 35.3354, "lon": -82.8023, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 624, "name": "Middle Waterfall In Upper Bennett Cove", "lat": 35.3385, "lon": -82.805, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 625, "name": "Upper Waterfall in Upper Bennett Cove", "lat": 35.339, "lon": -82.8053, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 626, "name": "Lower Waterfall in Cherry Cove", "lat": 35.3329, "lon": -82.8033, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 627, "name": "Middle Waterfall in Cherry Cove", "lat": 35.3304, "lon": -82.8036, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 628, "name": "Upper Waterfall in Cherry Cove", "lat": 35.3333, "lon": -82.8042, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 629, "name": "Upper Middle Creek Falls", "lat": 35.008, "lon": -83.3288, "comid": 19736399, "drainage_area_sqmi": 6.284, "fetched_at": "2026-09-15"}
+{"feature_id": 630, "name": "Middle Creek Falls", "lat": 35.0116, "lon": -83.3318, "comid": 19736399, "drainage_area_sqmi": 6.284, "fetched_at": "2026-09-15"}
+{"feature_id": 631, "name": "Catstairs Falls", "lat": 35.05109, "lon": -83.2203, "comid": 19736321, "drainage_area_sqmi": 1.686, "fetched_at": "2026-09-15"}
+{"feature_id": 632, "name": "Potholes Falls", "lat": 35.01613, "lon": -83.12655, "comid": 6265832, "drainage_area_sqmi": 22.89, "fetched_at": "2026-09-15"}
+{"feature_id": 633, "name": "Lake Sequoyah Dam Falls", "lat": 35.067, "lon": -83.2249, "comid": 19736869, "drainage_area_sqmi": 14.161, "fetched_at": "2026-09-15"}
+{"feature_id": 634, "name": "Kalakaleskies Falls", "lat": 35.067, "lon": -83.2249, "comid": 19736869, "drainage_area_sqmi": 14.161, "fetched_at": "2026-09-15"}
+{"feature_id": 635, "name": "Waterfall on Williamson Creek", "lat": 35.2238, "lon": -83.692, "comid": 19736521, "drainage_area_sqmi": 3.124, "fetched_at": "2026-09-15"}
+{"feature_id": 636, "name": "Glencannon Falls", "lat": 35.226, "lon": -82.6968, "comid": 22164692, "drainage_area_sqmi": 3.387, "fetched_at": "2026-09-15"}
+{"feature_id": 637, "name": "Turley Falls", "lat": 34.7035, "lon": -82.2496, "comid": 9868586, "drainage_area_sqmi": 0.244, "fetched_at": "2026-09-15"}
+{"feature_id": 638, "name": "Waterfall on Pearson Falls Road", "lat": 35.01613, "lon": -83.12655, "comid": 6265832, "drainage_area_sqmi": 22.89, "fetched_at": "2026-09-15"}
+{"feature_id": 639, "name": "Stick Falls", "lat": 35.0206, "lon": -83.1639, "comid": 6265820, "drainage_area_sqmi": 4.132, "fetched_at": "2026-09-15"}
+{"feature_id": 640, "name": "Lower Stick Falls", "lat": 35.0191, "lon": -83.1642, "comid": 6265820, "drainage_area_sqmi": 4.132, "fetched_at": "2026-09-15"}
+{"feature_id": 641, "name": "Slick Stick Falls", "lat": 35.019, "lon": -83.1655, "comid": 6265822, "drainage_area_sqmi": 0.83, "fetched_at": "2026-09-15"}
+{"feature_id": 642, "name": "Upper Scotsman Falls", "lat": 35.0183, "lon": -83.1124, "comid": 6265838, "drainage_area_sqmi": 2.891, "fetched_at": "2026-09-15"}
+{"feature_id": 643, "name": "Big Falls (Snowbird Creek)", "lat": 35.265, "lon": -83.9655, "comid": 19721223, "drainage_area_sqmi": 8.381, "fetched_at": "2026-09-15"}
+{"feature_id": 644, "name": "Upper Falls (Snowbird Creek)", "lat": 35.271, "lon": -83.9929, "comid": 19721169, "drainage_area_sqmi": 5.061, "fetched_at": "2026-09-15"}
+{"feature_id": 645, "name": "Graveley Falls", "lat": 35.0891, "lon": -82.7566, "comid": 22165192, "drainage_area_sqmi": 2.622, "fetched_at": "2026-09-15"}
+{"feature_id": 646, "name": "McCall Mill Shoals", "lat": 35.14405, "lon": -82.88228, "comid": 22165074, "drainage_area_sqmi": 2.982, "fetched_at": "2026-09-15"}
+{"feature_id": 647, "name": "Frozen Creek Shoals", "lat": 35.09707, "lon": -82.87695, "comid": 11747849, "drainage_area_sqmi": 1.874, "fetched_at": "2026-09-15"}
+{"feature_id": 648, "name": "Diamond Creek Falls", "lat": 35.15468, "lon": -82.85832, "comid": 22165018, "drainage_area_sqmi": 2.214, "fetched_at": "2026-09-15"}
+{"feature_id": 649, "name": "Pounding Mill Falls", "lat": 35.09895, "lon": -82.80871, "comid": 22165176, "drainage_area_sqmi": 2.467, "fetched_at": "2026-09-15"}
+{"feature_id": 651, "name": "Tanasee Creek Falls", "lat": 35.25518, "lon": -82.94049, "comid": 19729196, "drainage_area_sqmi": 4.024, "fetched_at": "2026-09-15"}
+{"feature_id": 652, "name": "Gage Creek Falls", "lat": 35.29215, "lon": -82.9749, "comid": 19729182, "drainage_area_sqmi": 1.499, "fetched_at": "2026-09-15"}
+{"feature_id": 653, "name": "Waterfall on Trib of Sols Creek", "lat": 35.27875, "lon": -83.01326, "comid": 19730234, "drainage_area_sqmi": 2.239, "fetched_at": "2026-09-15"}
+{"feature_id": 654, "name": "Roy Talyor Falls", "lat": 35.2792, "lon": -83.0125, "comid": 19730234, "drainage_area_sqmi": 2.239, "fetched_at": "2026-09-15"}
+{"feature_id": 655, "name": "Charleys Creek Falls", "lat": 35.28487, "lon": -82.98447, "comid": 19729186, "drainage_area_sqmi": 2.085, "fetched_at": "2026-09-15"}
+{"feature_id": 656, "name": "Moses Creek Falls", "lat": 35.343, "lon": -83.0963, "comid": 19730140, "drainage_area_sqmi": 9.07, "fetched_at": "2026-09-15"}
+{"feature_id": 657, "name": "Sugar Creek Falls", "lat": 35.30995, "lon": -83.04451, "comid": 19730124, "drainage_area_sqmi": 3.523, "fetched_at": "2026-09-15"}
+{"feature_id": 658, "name": "Dryland Laurel Branch Falls", "lat": 35.30972, "lon": -83.03697, "comid": 19730178, "drainage_area_sqmi": 1.594, "fetched_at": "2026-09-15"}
+{"feature_id": 659, "name": "Upper Sugar Creek Falls", "lat": 35.30935, "lon": -83.03417, "comid": 19730178, "drainage_area_sqmi": 1.594, "fetched_at": "2026-09-15"}
+{"feature_id": 660, "name": "Rough Butt Creek Falls", "lat": 35.32015, "lon": -83.02324, "comid": 19730106, "drainage_area_sqmi": 3.516, "fetched_at": "2026-09-15"}
+{"feature_id": 661, "name": "Cherry Cove Falls", "lat": 35.33374, "lon": -82.80611, "comid": 22164064, "drainage_area_sqmi": 1.544, "fetched_at": "2026-09-15"}
+{"feature_id": 662, "name": "Lower Thompson Ridge Falls", "lat": 35.39148, "lon": -82.74678, "comid": 22165238, "drainage_area_sqmi": 0.505, "fetched_at": "2026-09-15"}
+{"feature_id": 663, "name": "Upper Thompson Ridge Falls", "lat": 35.39178, "lon": -82.74766, "comid": 22165238, "drainage_area_sqmi": 0.505, "fetched_at": "2026-09-15"}
+{"feature_id": 664, "name": "Shunkawauken Falls", "lat": 35.27188, "lon": -82.2147, "comid": 12037211, "drainage_area_sqmi": 3.207, "fetched_at": "2026-09-15"}
+{"feature_id": 665, "name": "Waterfall on East Fork of French Broad River", "lat": 35.13315, "lon": -82.79216, "comid": 22165340, "drainage_area_sqmi": 25.801, "fetched_at": "2026-09-15"}
+{"feature_id": 666, "name": "Twin Boulder Falls", "lat": 35.30924, "lon": -82.85092, "comid": 22164312, "drainage_area_sqmi": 1.206, "fetched_at": "2026-09-15"}
+{"feature_id": 667, "name": "Big Bearwallow Falls", "lat": 35.7704, "lon": -82.8419, "comid": 22160318, "drainage_area_sqmi": 2.561, "fetched_at": "2026-09-15"}
+{"feature_id": 668, "name": "Mooney Falls", "lat": 35.7704, "lon": -82.8419, "comid": 22160318, "drainage_area_sqmi": 2.561, "fetched_at": "2026-09-15"}
+{"feature_id": 669, "name": "Camp Branch Falls", "lat": 35.16786, "lon": -83.54169, "comid": 19735889, "drainage_area_sqmi": 1.447, "fetched_at": "2026-09-15"}
+{"feature_id": 670, "name": "Upper Camp Branch Falls", "lat": 35.16832, "lon": -83.5423, "comid": 19735889, "drainage_area_sqmi": 1.447, "fetched_at": "2026-09-15"}
+{"feature_id": 671, "name": "Walker Falls", "lat": 35.75568, "lon": -82.35421, "comid": 22160458, "drainage_area_sqmi": 0.986, "fetched_at": "2026-09-15"}
+{"feature_id": 673, "name": "Cascades Falls", "lat": 35.09576, "lon": -82.63964, "comid": 9865730, "drainage_area_sqmi": 5.739, "fetched_at": "2026-09-15"}
+{"feature_id": 674, "name": "Waterfall downstream from Moonshine Falls", "lat": 35.09397, "lon": -82.63167, "comid": 9865728, "drainage_area_sqmi": 0.844, "fetched_at": "2026-09-15"}
+{"feature_id": 675, "name": "Confusion Falls", "lat": 35.0932, "lon": -82.63196, "comid": 9865728, "drainage_area_sqmi": 0.844, "fetched_at": "2026-09-15"}
+{"feature_id": 676, "name": "Piney Mountain Falls", "lat": 35.326, "lon": -83.0007, "comid": 19730062, "drainage_area_sqmi": 2.601, "fetched_at": "2026-09-15"}
+{"feature_id": 677, "name": "Bearwallow Falls", "lat": 35.32928, "lon": -83.00167, "comid": 19730060, "drainage_area_sqmi": 2.927, "fetched_at": "2026-09-15"}
+{"feature_id": 678, "name": "Lower Abbs Creek Falls", "lat": 35.32414, "lon": -83.07533, "comid": 19730116, "drainage_area_sqmi": 1.55, "fetched_at": "2026-09-15"}
+{"feature_id": 679, "name": "Upper Abbs Creek Falls", "lat": 35.32787, "lon": -83.07662, "comid": 19730116, "drainage_area_sqmi": 1.55, "fetched_at": "2026-09-15"}
+{"feature_id": 680, "name": "Falls on Wolf Creek", "lat": 35.24668, "lon": -83.18491, "comid": 19730288, "drainage_area_sqmi": 0.708, "fetched_at": "2026-09-15"}
+{"feature_id": 681, "name": "Falls on Cullowhee Creek", "lat": 35.23093, "lon": -83.18384, "comid": 19730326, "drainage_area_sqmi": 0.99, "fetched_at": "2026-09-15"}
+{"feature_id": 682, "name": "Gemini Falls", "lat": 35.28184, "lon": -82.85354, "comid": 22164462, "drainage_area_sqmi": 1.003, "fetched_at": "2026-09-15"}
+{"feature_id": 683, "name": "Laurel Fork Falls", "lat": 35.27894, "lon": -82.85754, "comid": 22164462, "drainage_area_sqmi": 1.003, "fetched_at": "2026-09-15"}
+{"feature_id": 684, "name": "Unnamed Waterfall on Laurel Fork", "lat": 35.2798, "lon": -82.84941, "comid": 22164462, "drainage_area_sqmi": 1.003, "fetched_at": "2026-09-15"}
+{"feature_id": 685, "name": "Pot Branch Falls", "lat": 35.5612, "lon": -81.7171, "comid": 12032611, "drainage_area_sqmi": 2.962, "fetched_at": "2026-09-15"}
+{"feature_id": 686, "name": "Lower Waterfall on Green Creek (SC)", "lat": 35.03575, "lon": -82.70365, "comid": 9865896, "drainage_area_sqmi": 0.436, "fetched_at": "2026-09-15"}
+{"feature_id": 688, "name": "Kings Creek Falls", "lat": 35.25782, "lon": -82.775343, "comid": 22165288, "drainage_area_sqmi": 2.209, "fetched_at": "2026-09-15"}
+{"feature_id": 689, "name": "Sassafras Knob Falls", "lat": 35.28284, "lon": -82.85889, "comid": 22164462, "drainage_area_sqmi": 1.003, "fetched_at": "2026-09-15"}
+{"feature_id": 690, "name": "Rockcliff Falls", "lat": 35.10535, "lon": -82.61972, "comid": 9865712, "drainage_area_sqmi": 0.555, "fetched_at": "2026-09-15"}
+{"feature_id": 691, "name": "Firewater Falls", "lat": 35.11064, "lon": -82.61931, "comid": 9865684, "drainage_area_sqmi": 0.69, "fetched_at": "2026-09-15"}
+{"feature_id": 692, "name": "Cliff Falls", "lat": 35.1134, "lon": -82.62033, "comid": 9865684, "drainage_area_sqmi": 0.69, "fetched_at": "2026-09-15"}
+{"feature_id": 693, "name": "Lower Barnett Branch Falls", "lat": 35.37653, "lon": -82.77185, "comid": 22163900, "drainage_area_sqmi": 0.316, "fetched_at": "2026-09-15"}
+{"feature_id": 694, "name": "Upper Barnett Branch Falls", "lat": 35.37669, "lon": -82.7724, "comid": 22163900, "drainage_area_sqmi": 0.316, "fetched_at": "2026-09-15"}
+{"feature_id": 695, "name": "South Laurel Fork Falls", "lat": 35.27412, "lon": -82.84637, "comid": 22164482, "drainage_area_sqmi": 0.364, "fetched_at": "2026-09-15"}
+{"feature_id": 696, "name": "Fungi Falls", "lat": 35.27412, "lon": -82.84637, "comid": 22164482, "drainage_area_sqmi": 0.364, "fetched_at": "2026-09-15"}
+{"feature_id": 697, "name": "Sillers Falls", "lat": 35.27412, "lon": -82.84637, "comid": 22164482, "drainage_area_sqmi": 0.364, "fetched_at": "2026-09-15"}
+{"feature_id": 698, "name": "Not Lower Big Bald Falls", "lat": 35.38867, "lon": -82.73607, "comid": 22163780, "drainage_area_sqmi": 1.219, "fetched_at": "2026-09-15"}
+{"feature_id": 699, "name": "Not Upper Big Bald Falls", "lat": 35.39009, "lon": -82.76465, "comid": 22163820, "drainage_area_sqmi": 0.774, "fetched_at": "2026-09-15"}
+{"feature_id": 700, "name": "Lower Big Bald Falls", "lat": 35.38945, "lon": -82.75543, "comid": 22163818, "drainage_area_sqmi": 0.53, "fetched_at": "2026-09-15"}
+{"feature_id": 701, "name": "Upper Big Bald Falls", "lat": 35.39328, "lon": -82.75722, "comid": 22163818, "drainage_area_sqmi": 0.53, "fetched_at": "2026-09-15"}
+{"feature_id": 702, "name": "Jack's Cove Falls", "lat": 35.321, "lon": -82.7837, "comid": 22164246, "drainage_area_sqmi": 7.205, "fetched_at": "2026-09-15"}
+{"feature_id": 703, "name": "Twin Falls (Toxaway River)", "lat": 35.11935, "lon": -82.92662, "comid": 11747829, "drainage_area_sqmi": 9.155, "fetched_at": "2026-09-15"}
+{"feature_id": 704, "name": "Indian Creek Falls", "lat": 35.08876, "lon": -82.93988, "comid": 11747867, "drainage_area_sqmi": 2.477, "fetched_at": "2026-09-15"}
+{"feature_id": 705, "name": "Split Rock Falls", "lat": 35.08842, "lon": -82.93949, "comid": 11747867, "drainage_area_sqmi": 2.477, "fetched_at": "2026-09-15"}
+{"feature_id": 706, "name": "Chute Falls", "lat": 35.08805, "lon": -82.93914, "comid": 11747867, "drainage_area_sqmi": 2.477, "fetched_at": "2026-09-15"}
+{"feature_id": 707, "name": "Boulderfield Falls", "lat": 35.3602, "lon": -82.87971, "comid": 22152731, "drainage_area_sqmi": 2.566, "fetched_at": "2026-09-15"}
+{"feature_id": 708, "name": "Waterfall on Little East Fork", "lat": 35.37144, "lon": -82.89314, "comid": 22152697, "drainage_area_sqmi": 4.954, "fetched_at": "2026-09-15"}
+{"feature_id": 709, "name": "Little Creek Falls (Highlands)", "lat": 35.02402, "lon": -83.17766, "comid": 6265822, "drainage_area_sqmi": 0.83, "fetched_at": "2026-09-15"}
+{"feature_id": 710, "name": "Cane Creek Falls", "lat": 35.03398, "lon": -83.13729, "comid": 6265806, "drainage_area_sqmi": 1.483, "fetched_at": "2026-09-15"}
+{"feature_id": 711, "name": "Laceration Falls", "lat": 35.16724, "lon": -82.9591, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 712, "name": "Stillhouse Falls", "lat": 35.16908, "lon": -82.95631, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 713, "name": "Lower Stillhouse Falls", "lat": 35.1691, "lon": -82.95605, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 714, "name": "Hidden Falls", "lat": 35.16891, "lon": -82.95598, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 715, "name": "Cleft Falls", "lat": 35.16927, "lon": -82.95476, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 716, "name": "Elmos Falls", "lat": 35.17073, "lon": -82.95386, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 717, "name": "Hurricane Falls", "lat": 35.13674, "lon": -83.12529, "comid": 19730782, "drainage_area_sqmi": 4.379, "fetched_at": "2026-09-15"}
+{"feature_id": 718, "name": "Grassy Creek Falls", "lat": 35.11935, "lon": -82.92662, "comid": 11747829, "drainage_area_sqmi": 9.155, "fetched_at": "2026-09-15"}
+{"feature_id": 719, "name": "Fowler Creek Falls", "lat": 35.00391, "lon": -83.10623, "comid": 6265882, "drainage_area_sqmi": 3.784, "fetched_at": "2026-09-15"}
+{"feature_id": 720, "name": "Yellow Creek Falls", "lat": 35.4194, "lon": -83.88588, "comid": 19721443, "drainage_area_sqmi": 13.237, "fetched_at": "2026-09-15"}
+{"feature_id": 721, "name": "Lower Cold Branch Falls", "lat": 35.34592, "lon": -83.99258, "comid": 19721033, "drainage_area_sqmi": 1.852, "fetched_at": "2026-09-15"}
+{"feature_id": 722, "name": "Upper Cold Branch Falls", "lat": 35.34764, "lon": -83.99598, "comid": 19721033, "drainage_area_sqmi": 1.852, "fetched_at": "2026-09-15"}
+{"feature_id": 723, "name": "(Gimmie) Three Steps Falls", "lat": 35.34188, "lon": -83.94329, "comid": 19721049, "drainage_area_sqmi": 18.598, "fetched_at": "2026-09-15"}
+{"feature_id": 724, "name": "Verlie Falls", "lat": 35.377, "lon": -83.9145, "comid": 19720983, "drainage_area_sqmi": 0.898, "fetched_at": "2026-09-15"}
+{"feature_id": 725, "name": "Falls on Blacksnake Branch", "lat": 35.32229, "lon": -83.59581, "comid": 19735355, "drainage_area_sqmi": 6.181, "fetched_at": "2026-09-15"}
+{"feature_id": 726, "name": "Falls on Grassy Branch", "lat": 35.32073, "lon": -83.6044, "comid": 19735371, "drainage_area_sqmi": 3.658, "fetched_at": "2026-09-15"}
+{"feature_id": 727, "name": "Lower Satula Falls", "lat": 35.02527, "lon": -83.1923, "comid": 6265830, "drainage_area_sqmi": 1.968, "fetched_at": "2026-09-15"}
+{"feature_id": 728, "name": "Satula Falls", "lat": 35.03084, "lon": -83.19788, "comid": 6265830, "drainage_area_sqmi": 1.968, "fetched_at": "2026-09-15"}
+{"feature_id": 729, "name": "Highlands Falls", "lat": 35.03084, "lon": -83.19788, "comid": 6265830, "drainage_area_sqmi": 1.968, "fetched_at": "2026-09-15"}
+{"feature_id": 730, "name": "Katies Falls", "lat": 35.03084, "lon": -83.19788, "comid": 6265830, "drainage_area_sqmi": 1.968, "fetched_at": "2026-09-15"}
+{"feature_id": 731, "name": "Buck Creek Falls", "lat": 35.1326, "lon": -83.22499, "comid": 19736565, "drainage_area_sqmi": 6.245, "fetched_at": "2026-09-15"}
+{"feature_id": 732, "name": "Waterfall on Oil Camp Creek Trib", "lat": 35.10308, "lon": -82.58677, "comid": 9865702, "drainage_area_sqmi": 1.929, "fetched_at": "2026-09-15"}
+{"feature_id": 733, "name": "Oil Camp Falls", "lat": 35.10288, "lon": -82.58816, "comid": 9865718, "drainage_area_sqmi": 1.478, "fetched_at": "2026-09-15"}
+{"feature_id": 734, "name": "Horseshoe Falls", "lat": 35.23035, "lon": -82.96632, "comid": 19729250, "drainage_area_sqmi": 9.221, "fetched_at": "2026-09-15"}
+{"feature_id": 735, "name": "Lower Cavern Falls", "lat": 35.23814, "lon": -82.95319, "comid": 19729250, "drainage_area_sqmi": 9.221, "fetched_at": "2026-09-15"}
+{"feature_id": 736, "name": "Cavern Falls", "lat": 35.01276, "lon": -83.33632, "comid": 19736399, "drainage_area_sqmi": 6.284, "fetched_at": "2026-09-15"}
+{"feature_id": 737, "name": "Dome Falls", "lat": 35.01276, "lon": -83.33632, "comid": 19736399, "drainage_area_sqmi": 6.284, "fetched_at": "2026-09-15"}
+{"feature_id": 738, "name": "Spicoli Falls", "lat": 35.01029, "lon": -83.3335, "comid": 19736399, "drainage_area_sqmi": 6.284, "fetched_at": "2026-09-15"}
+{"feature_id": 739, "name": "Bull Cove Falls", "lat": 35.00297, "lon": -83.5427, "comid": 6265850, "drainage_area_sqmi": 0.705, "fetched_at": "2026-09-15"}
+{"feature_id": 740, "name": "High Falls (Beech Creek)", "lat": 35.0146, "lon": -83.52802, "comid": 6265848, "drainage_area_sqmi": 1.279, "fetched_at": "2026-09-15"}
+{"feature_id": 741, "name": "New Falls", "lat": 35.02954, "lon": -83.55605, "comid": 6265816, "drainage_area_sqmi": 2.615, "fetched_at": "2026-09-15"}
+{"feature_id": 742, "name": "Thomas Falls", "lat": 35.023, "lon": -83.55978, "comid": 6265816, "drainage_area_sqmi": 2.615, "fetched_at": "2026-09-15"}
+{"feature_id": 743, "name": "Leatherwood Falls", "lat": 35.09615, "lon": -83.85853, "comid": 19674295, "drainage_area_sqmi": 19.629, "fetched_at": "2026-09-15"}
+{"feature_id": 744, "name": "Lower Bald Springs Falls", "lat": 35.12764, "lon": -83.78217, "comid": 19674221, "drainage_area_sqmi": 0.56, "fetched_at": "2026-09-15"}
+{"feature_id": 745, "name": "Bald Springs Falls", "lat": 35.12733, "lon": -83.78113, "comid": 19674221, "drainage_area_sqmi": 0.56, "fetched_at": "2026-09-15"}
+{"feature_id": 746, "name": "Rain Forest Falls", "lat": 35.12711, "lon": -83.7799, "comid": 19674221, "drainage_area_sqmi": 0.56, "fetched_at": "2026-09-15"}
+{"feature_id": 747, "name": "Pinnacle Falls SC (Beech Bottom Falls)", "lat": 35.023, "lon": -83.55978, "comid": 6265816, "drainage_area_sqmi": 2.615, "fetched_at": "2026-09-15"}
+{"feature_id": 748, "name": "Eastern Stream Falls", "lat": 35.10402, "lon": -82.59064, "comid": 9865704, "drainage_area_sqmi": 0.326, "fetched_at": "2026-09-15"}
+{"feature_id": 749, "name": "Misty Falls", "lat": 35.09967, "lon": -82.660961, "comid": 9865794, "drainage_area_sqmi": 1.667, "fetched_at": "2026-09-15"}
+{"feature_id": 750, "name": "Evans Falls", "lat": 35.10019, "lon": -82.60847, "comid": 9865712, "drainage_area_sqmi": 0.555, "fetched_at": "2026-09-15"}
+{"feature_id": 751, "name": "Mashbox Falls", "lat": 35.10301, "lon": -82.60895, "comid": 9865712, "drainage_area_sqmi": 0.555, "fetched_at": "2026-09-15"}
+{"feature_id": 752, "name": "Lower Buff Falls", "lat": 35.42626, "lon": -83.15686, "comid": 19729766, "drainage_area_sqmi": 1.233, "fetched_at": "2026-09-15"}
+{"feature_id": 753, "name": "Buff Falls", "lat": 35.42842, "lon": -83.15662, "comid": 19729754, "drainage_area_sqmi": 0.794, "fetched_at": "2026-09-15"}
+{"feature_id": 754, "name": "Sliding Waterfall near Buff Creek Road", "lat": 35.42541, "lon": -83.16193, "comid": 19729768, "drainage_area_sqmi": 0.876, "fetched_at": "2026-09-15"}
+{"feature_id": 755, "name": "Whiteoak Flats Falls", "lat": 36.02001, "lon": -82.66057, "comid": 22158538, "drainage_area_sqmi": 0.779, "fetched_at": "2026-09-15"}
+{"feature_id": 756, "name": "Black Mountain Falls", "lat": 35.574483, "lon": -81.704199, "comid": 12032603, "drainage_area_sqmi": 0.958, "fetched_at": "2026-09-15"}
+{"feature_id": 757, "name": "Fall Creek Falls", "lat": 34.82031, "lon": -83.26872, "comid": 6268174, "drainage_area_sqmi": 197.377, "fetched_at": "2026-09-15"}
+{"feature_id": 758, "name": "Nantahala Falls", "lat": 35.33233, "lon": -83.59539, "comid": 19735327, "drainage_area_sqmi": 152.055, "fetched_at": "2026-09-15"}
+{"feature_id": 759, "name": "Townhouse Falls", "lat": 35.34289, "lon": -83.58637, "comid": 19735281, "drainage_area_sqmi": 1.101, "fetched_at": "2026-09-15"}
+{"feature_id": 760, "name": "Hole in the Rock Falls", "lat": 35.2993, "lon": -83.68648, "comid": 19735465, "drainage_area_sqmi": 2.06, "fetched_at": "2026-09-15"}
+{"feature_id": 761, "name": "Bartram Falls", "lat": 35.30348, "lon": -83.68255, "comid": 19735465, "drainage_area_sqmi": 2.06, "fetched_at": "2026-09-15"}
+{"feature_id": 762, "name": "Cascade on the Nantahala", "lat": 35.24925, "lon": -83.6398, "comid": 19735643, "drainage_area_sqmi": 101.642, "fetched_at": "2026-09-15"}
+{"feature_id": 763, "name": "Falls Upstream from Whiteoak Falls", "lat": 35.24965, "lon": -83.63415, "comid": 19736471, "drainage_area_sqmi": 20.488, "fetched_at": "2026-09-15"}
+{"feature_id": 764, "name": "Queens Falls", "lat": 35.27456, "lon": -83.65387, "comid": 19736797, "drainage_area_sqmi": 3.451, "fetched_at": "2026-09-15"}
+{"feature_id": 765, "name": "Silvervale Falls", "lat": 36.04827, "lon": -81.59475, "comid": 9251366, "drainage_area_sqmi": 0.542, "fetched_at": "2026-09-15"}
+{"feature_id": 766, "name": "Glen Marie Falls", "lat": 36.04827, "lon": -81.59475, "comid": 9251366, "drainage_area_sqmi": 0.542, "fetched_at": "2026-09-15"}
+{"feature_id": 767, "name": "The Cascades (Glenlevit Falls)", "lat": 36.12561, "lon": -81.68324, "comid": 9750254, "drainage_area_sqmi": 1.498, "fetched_at": "2026-09-15"}
+{"feature_id": 768, "name": "Thunderhole Falls", "lat": 36.11019, "lon": -81.69989, "comid": 9750246, "drainage_area_sqmi": 1.061, "fetched_at": "2026-09-15"}
+{"feature_id": 769, "name": "Lower Thunderhole Falls", "lat": 36.10345, "lon": -81.69619, "comid": 9750276, "drainage_area_sqmi": 6.115, "fetched_at": "2026-09-15"}
+{"feature_id": 770, "name": "Waterfalls Park Falls", "lat": 36.10048, "lon": -81.92985, "comid": 19484116, "drainage_area_sqmi": 0.614, "fetched_at": "2026-09-15"}
+{"feature_id": 771, "name": "Buckeye Falls", "lat": 36.22297, "lon": -81.9073, "comid": 19743488, "drainage_area_sqmi": 1.018, "fetched_at": "2026-09-15"}
+{"feature_id": 772, "name": "Watauga Falls", "lat": 36.25318, "lon": -81.85484, "comid": 19743398, "drainage_area_sqmi": 102.54, "fetched_at": "2026-09-15"}
+{"feature_id": 773, "name": "Laurel Falls", "lat": 36.35314, "lon": -81.85334, "comid": 19743130, "drainage_area_sqmi": 0.433, "fetched_at": "2026-09-15"}
+{"feature_id": 774, "name": "Cascade Falls", "lat": 36.24951, "lon": -81.45503, "comid": 9250568, "drainage_area_sqmi": 0.539, "fetched_at": "2026-09-15"}
+{"feature_id": 775, "name": "Betseys Rock Falls", "lat": 36.28486, "lon": -81.408627, "comid": 9250554, "drainage_area_sqmi": 3.417, "fetched_at": "2026-09-15"}
+{"feature_id": 776, "name": "Waterfall in Bullpen Cove", "lat": 35.36694, "lon": -82.81228, "comid": 22152713, "drainage_area_sqmi": 0.368, "fetched_at": "2026-09-15"}
+{"feature_id": 777, "name": "Upper Buckeye Falls", "lat": 35.3104056, "lon": -82.9325224, "comid": 22152775, "drainage_area_sqmi": 1.461, "fetched_at": "2026-09-15"}
+{"feature_id": 778, "name": "Sheephead Falls", "lat": 35.3147607, "lon": -82.9357619, "comid": 22152775, "drainage_area_sqmi": 1.461, "fetched_at": "2026-09-15"}
+{"feature_id": 779, "name": "Buckeye Falls", "lat": 35.32655, "lon": -82.94203, "comid": 22152775, "drainage_area_sqmi": 1.461, "fetched_at": "2026-09-15"}
+{"feature_id": 780, "name": "Splash Dam Falls", "lat": 35.04635, "lon": -82.94608, "comid": 11747945, "drainage_area_sqmi": 2.957, "fetched_at": "2026-09-15"}
+{"feature_id": 781, "name": "Chestnut Cove Branch Falls", "lat": 36.00304, "lon": -81.83915, "comid": 9750528, "drainage_area_sqmi": 2.86, "fetched_at": "2026-09-15"}
+{"feature_id": 782, "name": "Upper Little Lost Cove Falls", "lat": 36.02125, "lon": -81.83062, "comid": 9750474, "drainage_area_sqmi": 0.963, "fetched_at": "2026-09-15"}
+{"feature_id": 783, "name": "Hunt Fish Sidekick Falls", "lat": 36.01367, "lon": -81.80396, "comid": 9750478, "drainage_area_sqmi": 8.229, "fetched_at": "2026-09-15"}
+{"feature_id": 784, "name": "Ten Foot Falls", "lat": 35.930025, "lon": -81.742088, "comid": 9751904, "drainage_area_sqmi": 65.984, "fetched_at": "2026-09-15"}
+{"feature_id": 785, "name": "Phillips Branch Falls", "lat": 35.96877, "lon": -81.771338, "comid": 9751496, "drainage_area_sqmi": 1.017, "fetched_at": "2026-09-15"}
+{"feature_id": 786, "name": "Thorps Creek Falls", "lat": 35.99731, "lon": -81.75902, "comid": 9751394, "drainage_area_sqmi": 1.152, "fetched_at": "2026-09-15"}
+{"feature_id": 787, "name": "Gragg Prong Falls", "lat": 36.020092, "lon": -81.793115, "comid": 9750476, "drainage_area_sqmi": 6.492, "fetched_at": "2026-09-15"}
+{"feature_id": 788, "name": "Upper Gragg Prong Falls", "lat": 36.025112, "lon": -81.797354, "comid": 9750476, "drainage_area_sqmi": 6.492, "fetched_at": "2026-09-15"}
+{"feature_id": 789, "name": "Upper Steels Creek Falls", "lat": 35.94547, "lon": -81.858013, "comid": 9751694, "drainage_area_sqmi": 1.446, "fetched_at": "2026-09-15"}
+{"feature_id": 790, "name": "Newt Falls", "lat": 35.94509, "lon": -81.85608, "comid": 9751694, "drainage_area_sqmi": 1.446, "fetched_at": "2026-09-15"}
+{"feature_id": 791, "name": "Rip Breeches Falls", "lat": 35.93616, "lon": -81.85152, "comid": 9751696, "drainage_area_sqmi": 1.772, "fetched_at": "2026-09-15"}
+{"feature_id": 792, "name": "Zigzag Falls", "lat": 35.94004, "lon": -81.858102, "comid": 9751696, "drainage_area_sqmi": 1.772, "fetched_at": "2026-09-15"}
+{"feature_id": 793, "name": "Teacup Falls", "lat": 35.92464, "lon": -81.84718, "comid": 9751826, "drainage_area_sqmi": 7.046, "fetched_at": "2026-09-15"}
+{"feature_id": 794, "name": "Beverly Hillbilly Falls", "lat": 35.92343, "lon": -81.84746, "comid": 9751826, "drainage_area_sqmi": 7.046, "fetched_at": "2026-09-15"}
+{"feature_id": 795, "name": "Woodruff Branch Falls", "lat": 36.05903, "lon": -81.73299, "comid": 9750626, "drainage_area_sqmi": 1.16, "fetched_at": "2026-09-15"}
+{"feature_id": 796, "name": "Cascade on Edgemont Road", "lat": 36.08122, "lon": -81.78752, "comid": 9750332, "drainage_area_sqmi": 1.095, "fetched_at": "2026-09-15"}
+{"feature_id": 797, "name": "Walker Hollow Falls", "lat": 36.07245, "lon": -81.74319, "comid": 9750622, "drainage_area_sqmi": 3.566, "fetched_at": "2026-09-15"}
+{"feature_id": 798, "name": "Tanawha Falls", "lat": 36.09848, "lon": -81.79747, "comid": 9750292, "drainage_area_sqmi": 1.185, "fetched_at": "2026-09-15"}
+{"feature_id": 799, "name": "Green Mountain Falls", "lat": 36.11422, "lon": -81.77854, "comid": 9750238, "drainage_area_sqmi": 0.568, "fetched_at": "2026-09-15"}
+{"feature_id": 800, "name": "Lower slide on Cane Creek", "lat": 35.00745, "lon": -82.87898, "comid": 11748011, "drainage_area_sqmi": 1.73, "fetched_at": "2026-09-15"}
+{"feature_id": 801, "name": "Stepped Falls on Cane Creek", "lat": 35.00755, "lon": -82.87832, "comid": 11748011, "drainage_area_sqmi": 1.73, "fetched_at": "2026-09-15"}
+{"feature_id": 802, "name": "Lower Cane Creek Falls", "lat": 35.00753, "lon": -82.87627, "comid": 11748011, "drainage_area_sqmi": 1.73, "fetched_at": "2026-09-15"}
+{"feature_id": 803, "name": "Middle Cane Creek Falls", "lat": 35.00763, "lon": -82.87541, "comid": 11748011, "drainage_area_sqmi": 1.73, "fetched_at": "2026-09-15"}
+{"feature_id": 804, "name": "Cane Creek Falls", "lat": 35.00759, "lon": -82.87494, "comid": 11748011, "drainage_area_sqmi": 1.73, "fetched_at": "2026-09-15"}
+{"feature_id": 805, "name": "Yellow Patch Falls", "lat": 35.29275, "lon": -82.96065, "comid": 19729170, "drainage_area_sqmi": 0.894, "fetched_at": "2026-09-15"}
+{"feature_id": 806, "name": "Wolf Mountain Falls", "lat": 35.29411, "lon": -82.96317, "comid": 19729172, "drainage_area_sqmi": 1.578, "fetched_at": "2026-09-15"}
+{"feature_id": 807, "name": "Upper Wolf Mountain Falls", "lat": 35.296, "lon": -82.96364, "comid": 19729172, "drainage_area_sqmi": 1.578, "fetched_at": "2026-09-15"}
+{"feature_id": 808, "name": "John Neal Falls", "lat": 35.20411, "lon": -82.92362, "comid": 22164798, "drainage_area_sqmi": 3.073, "fetched_at": "2026-09-15"}
+{"feature_id": 809, "name": "Waterfall on Parker Creek", "lat": 35.20871, "lon": -82.93725, "comid": 22164798, "drainage_area_sqmi": 3.073, "fetched_at": "2026-09-15"}
+{"feature_id": 810, "name": "Double Drop Falls", "lat": 35.09813, "lon": -82.8962, "comid": 11747869, "drainage_area_sqmi": 1.213, "fetched_at": "2026-09-15"}
+{"feature_id": 811, "name": "Hidden Dome Falls", "lat": 35.05603, "lon": -82.99384, "comid": 11747939, "drainage_area_sqmi": 0.999, "fetched_at": "2026-09-15"}
+{"feature_id": 812, "name": "Burgan Creek Falls", "lat": 35.26499, "lon": -83.84011, "comid": 19721227, "drainage_area_sqmi": 1.153, "fetched_at": "2026-09-15"}
+{"feature_id": 813, "name": "Sand Creek Falls", "lat": 35.35482, "lon": -83.99259, "comid": 19721019, "drainage_area_sqmi": 1.064, "fetched_at": "2026-09-15"}
+{"feature_id": 814, "name": "Wolf Laurel Falls", "lat": 35.35664, "lon": -83.98156, "comid": 19721017, "drainage_area_sqmi": 0.77, "fetched_at": "2026-09-15"}
+{"feature_id": 815, "name": "Violet Falls", "lat": 35.34889, "lon": -83.99984, "comid": 19721033, "drainage_area_sqmi": 1.852, "fetched_at": "2026-09-15"}
+{"feature_id": 816, "name": "Mitchell Lick Falls", "lat": 35.28656, "lon": -84.00771, "comid": 19722331, "drainage_area_sqmi": 3.158, "fetched_at": "2026-09-15"}
+{"feature_id": 817, "name": "Hooper Falls", "lat": 35.28771, "lon": -84.00825, "comid": 19722331, "drainage_area_sqmi": 3.158, "fetched_at": "2026-09-15"}
+{"feature_id": 818, "name": "Blue Boar Falls", "lat": 35.28771, "lon": -84.00825, "comid": 19722331, "drainage_area_sqmi": 3.158, "fetched_at": "2026-09-15"}
+{"feature_id": 819, "name": "Wildcat Falls (Robbinsville)", "lat": 35.42747, "lon": -83.99967, "comid": 19720847, "drainage_area_sqmi": 9.048, "fetched_at": "2026-09-15"}
+{"feature_id": 820, "name": "Lower Falls (Robbinsville)", "lat": 35.45423, "lon": -83.97219, "comid": 19720795, "drainage_area_sqmi": 15.514, "fetched_at": "2026-09-15"}
+{"feature_id": 821, "name": "Upper Catawba Falls", "lat": 35.60201, "lon": -82.24743, "comid": 9755214, "drainage_area_sqmi": 1.88, "fetched_at": "2026-09-15"}
+{"feature_id": 822, "name": "Upper Dark Prong Falls", "lat": 35.33155, "lon": -82.85739, "comid": 22152757, "drainage_area_sqmi": 1.501, "fetched_at": "2026-09-15"}
+{"feature_id": 823, "name": "Serpentine Falls", "lat": 35.32899, "lon": -82.84084, "comid": 22152757, "drainage_area_sqmi": 1.501, "fetched_at": "2026-09-15"}
+{"feature_id": 824, "name": "Dark Prong Falls", "lat": 35.32828, "lon": -82.83313, "comid": 22152757, "drainage_area_sqmi": 1.501, "fetched_at": "2026-09-15"}
+{"feature_id": 825, "name": "Trillium Falls", "lat": 35.99653, "lon": -82.62738, "comid": 22158568, "drainage_area_sqmi": 5.372, "fetched_at": "2026-09-15"}
+{"feature_id": 826, "name": "West Prong Hickey Fork Falls", "lat": 35.99521, "lon": -82.71746, "comid": 22159404, "drainage_area_sqmi": 1.358, "fetched_at": "2026-09-15"}
+{"feature_id": 827, "name": "Little Sam Falls", "lat": 35.31759, "lon": -82.90655, "comid": 22152771, "drainage_area_sqmi": 3.319, "fetched_at": "2026-09-15"}
+{"feature_id": 828, "name": "Woodfin Cascades", "lat": 35.44212, "lon": -83.09677, "comid": 19729746, "drainage_area_sqmi": 1.529, "fetched_at": "2026-09-15"}
+{"feature_id": 829, "name": "Sleepy Hollow Falls", "lat": 35.31628, "lon": -83.2621, "comid": 19730104, "drainage_area_sqmi": 24.035, "fetched_at": "2026-09-15"}
+{"feature_id": 830, "name": "Mount Toxaway Falls", "lat": 35.13166, "lon": -83.00901, "comid": 11748387, "drainage_area_sqmi": 1.417, "fetched_at": "2026-09-15"}
+{"feature_id": 831, "name": "McGilliard Falls", "lat": 35.76531, "lon": -81.56862, "comid": 9752846, "drainage_area_sqmi": 8.98, "fetched_at": "2026-09-15"}
+{"feature_id": 832, "name": "Boomer Inn Falls", "lat": 35.37375, "lon": -82.96315, "comid": 22152699, "drainage_area_sqmi": 1.01, "fetched_at": "2026-09-15"}
+{"feature_id": 833, "name": "Big Beartrap Falls", "lat": 35.34395, "lon": -82.95262, "comid": 22152729, "drainage_area_sqmi": 1.289, "fetched_at": "2026-09-15"}
+{"feature_id": 834, "name": "Middle Prong Falls", "lat": 35.35155, "lon": -82.94364, "comid": 22152725, "drainage_area_sqmi": 8.472, "fetched_at": "2026-09-15"}
+{"feature_id": 835, "name": "Red Rock Falls", "lat": 35.29186, "lon": -82.90383, "comid": 22164472, "drainage_area_sqmi": 1.715, "fetched_at": "2026-09-15"}
+{"feature_id": 836, "name": "Big Bearpen Falls", "lat": 35.31742, "lon": -82.79948, "comid": 22164166, "drainage_area_sqmi": 1.191, "fetched_at": "2026-09-15"}
+{"feature_id": 837, "name": "Licklog Branch Falls", "lat": 35.70945, "lon": -82.19755, "comid": 9754722, "drainage_area_sqmi": 0.484, "fetched_at": "2026-09-15"}
+{"feature_id": 838, "name": "Sam Branch Falls", "lat": 35.33882, "lon": -82.89149, "comid": 22152749, "drainage_area_sqmi": 0.99, "fetched_at": "2026-09-15"}
+{"feature_id": 839, "name": "Midnight Hole Falls", "lat": 35.73834, "lon": -83.12712, "comid": 22151219, "drainage_area_sqmi": 25.49, "fetched_at": "2026-09-15"}
+{"feature_id": 840, "name": "Waterfall on Gunter Fork", "lat": 35.69667, "lon": -83.1933, "comid": 22151329, "drainage_area_sqmi": 1.389, "fetched_at": "2026-09-15"}
+{"feature_id": 841, "name": "Gunter Fork Falls", "lat": 35.69638, "lon": -83.19599, "comid": 22151331, "drainage_area_sqmi": 0.368, "fetched_at": "2026-09-15"}
+{"feature_id": 842, "name": "Waterfall on Washington Creek", "lat": 35.44901, "lon": -83.24205, "comid": 19729702, "drainage_area_sqmi": 0.713, "fetched_at": "2026-09-15"}
+{"feature_id": 843, "name": "Upper Mingo Falls", "lat": 35.53193, "lon": -83.27397, "comid": 19728582, "drainage_area_sqmi": 1.742, "fetched_at": "2026-09-15"}
+{"feature_id": 844, "name": "Lichen Falls", "lat": 35.18289, "lon": -83.00526, "comid": 19730412, "drainage_area_sqmi": 8.91, "fetched_at": "2026-09-15"}
+{"feature_id": 845, "name": "Lower Camp Creek Falls (Green River)", "lat": 35.27111, "lon": -82.33765, "comid": 12037755, "drainage_area_sqmi": 5.691, "fetched_at": "2026-09-15"}
+{"feature_id": 847, "name": "Little Canyon Falls", "lat": 35.0505, "lon": -83.047, "comid": 11748499, "drainage_area_sqmi": 8.314, "fetched_at": "2026-09-15"}
+{"feature_id": 848, "name": "Big Ledge Falls", "lat": 35.04211, "lon": -83.03774, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 849, "name": "Pulliam Creek Falls", "lat": 35.27844, "lon": -82.34167, "comid": 12037045, "drainage_area_sqmi": 74.656, "fetched_at": "2026-09-15"}
+{"feature_id": 850, "name": "Sunshine Falls (Green River)", "lat": 35.27814, "lon": -82.34221, "comid": 12037045, "drainage_area_sqmi": 74.656, "fetched_at": "2026-09-15"}
+{"feature_id": 851, "name": "Rainy Falls", "lat": 35.29813, "lon": -82.25293, "comid": 12036943, "drainage_area_sqmi": 106.25, "fetched_at": "2026-09-15"}
+{"feature_id": 852, "name": "Turtle Falls", "lat": 35.30046, "lon": -82.25797, "comid": 12036943, "drainage_area_sqmi": 106.25, "fetched_at": "2026-09-15"}
+{"feature_id": 853, "name": "Yellow Fork Falls", "lat": 35.80979, "lon": -81.95221, "comid": 9752606, "drainage_area_sqmi": 2.124, "fetched_at": "2026-09-15"}
+{"feature_id": 854, "name": "Still Falls", "lat": 35.80979, "lon": -81.95221, "comid": 9752606, "drainage_area_sqmi": 2.124, "fetched_at": "2026-09-15"}
+{"feature_id": 855, "name": "Sidepocket Falls", "lat": 35.08051, "lon": -82.95871, "comid": 11747887, "drainage_area_sqmi": 26.655, "fetched_at": "2026-09-15"}
+{"feature_id": 856, "name": "Waddle Branch Falls", "lat": 35.04219, "lon": -83.02631, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 857, "name": "Lower Waddle Branch Falls", "lat": 35.0408, "lon": -83.02627, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 858, "name": "J. Johnson Falls", "lat": 35.39255, "lon": -83.51797, "comid": 19735191, "drainage_area_sqmi": 30.267, "fetched_at": "2026-09-15"}
+{"feature_id": 859, "name": "The Falls", "lat": 35.38658, "lon": -83.44341, "comid": 19735207, "drainage_area_sqmi": 1.588, "fetched_at": "2026-09-15"}
+{"feature_id": 860, "name": "Little Creek Falls", "lat": 35.50625, "lon": -83.37261, "comid": 19728660, "drainage_area_sqmi": 1.088, "fetched_at": "2026-09-15"}
+{"feature_id": 861, "name": "Cliff Branch Falls", "lat": 35.58147, "lon": -83.35143, "comid": 19728400, "drainage_area_sqmi": 15.157, "fetched_at": "2026-09-15"}
+{"feature_id": 862, "name": "Chasteen Creek Falls", "lat": 35.58752, "lon": -83.31063, "comid": 19728362, "drainage_area_sqmi": 0.345, "fetched_at": "2026-09-15"}
+{"feature_id": 863, "name": "Campsite Falls", "lat": 35.07568, "lon": -82.95961, "comid": 11747887, "drainage_area_sqmi": 26.655, "fetched_at": "2026-09-15"}
+{"feature_id": 864, "name": "Bear Rock Falls", "lat": 35.07426, "lon": -82.9585, "comid": 11747903, "drainage_area_sqmi": 27.162, "fetched_at": "2026-09-15"}
+{"feature_id": 865, "name": "Windy Falls", "lat": 35.0752, "lon": -82.95911, "comid": 11747887, "drainage_area_sqmi": 26.655, "fetched_at": "2026-09-15"}
+{"feature_id": 866, "name": "Wolverine Falls", "lat": 35.07115, "lon": -82.95899, "comid": 11747903, "drainage_area_sqmi": 27.162, "fetched_at": "2026-09-15"}
+{"feature_id": 867, "name": "Hentail Falls", "lat": 35.07108, "lon": -82.95843, "comid": 11747903, "drainage_area_sqmi": 27.162, "fetched_at": "2026-09-15"}
+{"feature_id": 868, "name": "Rooster Tail Falls", "lat": 35.07063, "lon": -82.95877, "comid": 11747903, "drainage_area_sqmi": 27.162, "fetched_at": "2026-09-15"}
+{"feature_id": 869, "name": "Rocky Knob Falls", "lat": 35.28097, "lon": -82.98866, "comid": 19729186, "drainage_area_sqmi": 2.085, "fetched_at": "2026-09-15"}
+{"feature_id": 870, "name": "Upper Greasy Cove Falls", "lat": 35.34159, "lon": -82.86104, "comid": 22152743, "drainage_area_sqmi": 1.769, "fetched_at": "2026-09-15"}
+{"feature_id": 871, "name": "Ivestor Ridge Falls", "lat": 35.34171, "lon": -82.84876, "comid": 22152743, "drainage_area_sqmi": 1.769, "fetched_at": "2026-09-15"}
+{"feature_id": 872, "name": "GPS Falls", "lat": 35.34184, "lon": -82.8429, "comid": 22152743, "drainage_area_sqmi": 1.769, "fetched_at": "2026-09-15"}
+{"feature_id": 873, "name": "Lower Greasy Cove Falls", "lat": 35.3418, "lon": -82.84041, "comid": 22152743, "drainage_area_sqmi": 1.769, "fetched_at": "2026-09-15"}
+{"feature_id": 874, "name": "Pristine Falls", "lat": 34.82194, "lon": -83.25674, "comid": 6269200, "drainage_area_sqmi": 1.731, "fetched_at": "2026-09-15"}
+{"feature_id": 875, "name": "Lower Raines Mill Falls", "lat": 34.81637, "lon": -83.24971, "comid": 6269200, "drainage_area_sqmi": 1.731, "fetched_at": "2026-09-15"}
+{"feature_id": 876, "name": "Middle Raines Mill Falls", "lat": 34.81622, "lon": -83.24945, "comid": 6269200, "drainage_area_sqmi": 1.731, "fetched_at": "2026-09-15"}
+{"feature_id": 877, "name": "Upper Raines Mill Falls", "lat": 34.8161, "lon": -83.24919, "comid": 6269200, "drainage_area_sqmi": 1.731, "fetched_at": "2026-09-15"}
+{"feature_id": 878, "name": "Laurel Fork Falls (Lake Jocasse)", "lat": 35.03166, "lon": -82.89412, "comid": 11747969, "drainage_area_sqmi": 5.498, "fetched_at": "2026-09-15"}
+{"feature_id": 879, "name": "Mill Creek Falls", "lat": 35.03928, "lon": -82.94005, "comid": 11748067, "drainage_area_sqmi": 3.648, "fetched_at": "2026-09-15"}
+{"feature_id": 880, "name": "Devil's Hole Falls", "lat": 35.01414, "lon": -82.90254, "comid": 11748095, "drainage_area_sqmi": 91.669, "fetched_at": "2026-09-15"}
+{"feature_id": 881, "name": "Wright Creek Falls", "lat": 35.00778, "lon": -82.97593, "comid": 11747997, "drainage_area_sqmi": 1.282, "fetched_at": "2026-09-15"}
+{"feature_id": 882, "name": "Bad Creek Falls", "lat": 34.97637, "lon": -82.98677, "comid": 11749811, "drainage_area_sqmi": 0.75, "fetched_at": "2026-09-15"}
+{"feature_id": 883, "name": "North Shoal Creek Falls", "lat": 35.17804, "lon": -84.23453, "comid": 19676749, "drainage_area_sqmi": 8.373, "fetched_at": "2026-09-15"}
+{"feature_id": 884, "name": "Tellico Falls", "lat": 35.25993, "lon": -84.04886, "comid": 19722383, "drainage_area_sqmi": 4.989, "fetched_at": "2026-09-15"}
+{"feature_id": 885, "name": "Buck Creek Falls (Marion)", "lat": 35.73301, "lon": -82.11162, "comid": 9754666, "drainage_area_sqmi": 13.162, "fetched_at": "2026-09-15"}
+{"feature_id": 886, "name": "Emerald Village Falls", "lat": 35.84689, "lon": -82.12653, "comid": 19489944, "drainage_area_sqmi": 0.536, "fetched_at": "2026-09-15"}
+{"feature_id": 887, "name": "Cascades Waterfall (Craggy)", "lat": 35.71306, "lon": -82.37204, "comid": 22160592, "drainage_area_sqmi": 1.441, "fetched_at": "2026-09-15"}
+{"feature_id": 888, "name": "Big Creek Falls", "lat": 36.03942, "lon": -82.37628, "comid": 19486506, "drainage_area_sqmi": 5.65, "fetched_at": "2026-09-15"}
+{"feature_id": 889, "name": "Panthertown Creek Falls", "lat": 35.14872, "lon": -83.02371, "comid": 19730456, "drainage_area_sqmi": 1.074, "fetched_at": "2026-09-15"}
+{"feature_id": 890, "name": "First Falls", "lat": 35.20261, "lon": -83.15922, "comid": 19730384, "drainage_area_sqmi": 36.903, "fetched_at": "2026-09-15"}
+{"feature_id": 891, "name": "Little River Falls", "lat": 35.60965, "lon": -81.62355, "comid": 9745466, "drainage_area_sqmi": 1.45, "fetched_at": "2026-09-15"}
+{"feature_id": 892, "name": "Slick Falls", "lat": 35.69141, "lon": -82.20594, "comid": 9754804, "drainage_area_sqmi": 6.688, "fetched_at": "2026-09-15"}
+{"feature_id": 893, "name": "Johnnies Creek Falls", "lat": 35.23691, "lon": -82.91408, "comid": 22164716, "drainage_area_sqmi": 1.691, "fetched_at": "2026-09-15"}
+{"feature_id": 894, "name": "Bruce Knob Falls", "lat": 35.23697, "lon": -82.91177, "comid": 22164716, "drainage_area_sqmi": 1.691, "fetched_at": "2026-09-15"}
+{"feature_id": 895, "name": "Boxcar Falls", "lat": 35.18721, "lon": -82.85258, "comid": 22164912, "drainage_area_sqmi": 31.732, "fetched_at": "2026-09-15"}
+{"feature_id": 896, "name": "Graybeard Falls", "lat": 35.67511, "lon": -82.28518, "comid": 22160848, "drainage_area_sqmi": 1.11, "fetched_at": "2026-09-15"}
+{"feature_id": 897, "name": "Cutler Falls", "lat": 35.18721, "lon": -82.85258, "comid": 22164912, "drainage_area_sqmi": 31.732, "fetched_at": "2026-09-15"}
+{"feature_id": 898, "name": "Bear Den Falls", "lat": 35.90355, "lon": -81.96709, "comid": 9752016, "drainage_area_sqmi": 1.541, "fetched_at": "2026-09-15"}
+{"feature_id": 899, "name": "Cathedral Falls", "lat": 35.90055, "lon": -81.89813, "comid": 9752596, "drainage_area_sqmi": 61.391, "fetched_at": "2026-09-15"}
+{"feature_id": 900, "name": "English Falls (access restricted)", "lat": 35.91313, "lon": -81.96015, "comid": 9751898, "drainage_area_sqmi": 1.144, "fetched_at": "2026-09-15"}
+{"feature_id": 901, "name": "Mossy Ledge Falls", "lat": 35.90404, "lon": -81.8655, "comid": 9751912, "drainage_area_sqmi": 1.984, "fetched_at": "2026-09-15"}
+{"feature_id": 902, "name": "Mossy Chute Falls", "lat": 35.91127, "lon": -81.85206, "comid": 9751912, "drainage_area_sqmi": 1.984, "fetched_at": "2026-09-15"}
+{"feature_id": 903, "name": "Buck Creek Falls", "lat": 35.91135, "lon": -81.84946, "comid": 9751912, "drainage_area_sqmi": 1.984, "fetched_at": "2026-09-15"}
+{"feature_id": 904, "name": "Orange Rock Falls", "lat": 36.10345, "lon": -81.69619, "comid": 9750276, "drainage_area_sqmi": 6.115, "fetched_at": "2026-09-15"}
+{"feature_id": 905, "name": "Gina Falls", "lat": 35.43859, "lon": -83.19051, "comid": 19729784, "drainage_area_sqmi": 1.052, "fetched_at": "2026-09-15"}
+{"feature_id": 906, "name": "Fisher Falls", "lat": 35.4301, "lon": -83.18318, "comid": 19729782, "drainage_area_sqmi": 0.702, "fetched_at": "2026-09-15"}
+{"feature_id": 908, "name": "Shacktown Falls", "lat": 36.12426046, "lon": -80.59321432, "comid": 9247894, "drainage_area_sqmi": 42.142, "fetched_at": "2026-09-15"}
+{"feature_id": 909, "name": "Jumping Fish Falls", "lat": 35.48122, "lon": -78.91025, "comid": 8845373, "drainage_area_sqmi": 14.608, "fetched_at": "2026-09-15"}
+{"feature_id": 913, "name": "Paw Paw Falls", "lat": 35.08805, "lon": -82.93914, "comid": 11747867, "drainage_area_sqmi": 2.477, "fetched_at": "2026-09-15"}
+{"feature_id": 914, "name": "Indian Branch Falls", "lat": 35.08584, "lon": -82.92561, "comid": 11747883, "drainage_area_sqmi": 4.892, "fetched_at": "2026-09-15"}
+{"feature_id": 915, "name": "Bluff Falls", "lat": 35.08184, "lon": -82.91634, "comid": 11747883, "drainage_area_sqmi": 4.892, "fetched_at": "2026-09-15"}
+{"feature_id": 916, "name": "Bear Canyon Falls", "lat": 35.08008, "lon": -82.91251, "comid": 11747883, "drainage_area_sqmi": 4.892, "fetched_at": "2026-09-15"}
+{"feature_id": 917, "name": "Horse Trail Falls", "lat": 35.06033, "lon": -83.50629, "comid": 19736581, "drainage_area_sqmi": 1.492, "fetched_at": "2026-09-15"}
+{"feature_id": 918, "name": "Sassafras Ridge Falls", "lat": 35.05777, "lon": -83.50146, "comid": 19736581, "drainage_area_sqmi": 1.492, "fetched_at": "2026-09-15"}
+{"feature_id": 919, "name": "Hurricane Creek Falls", "lat": 35.05569, "lon": -83.50002, "comid": 19736581, "drainage_area_sqmi": 1.492, "fetched_at": "2026-09-15"}
+{"feature_id": 920, "name": "Factory Branch Falls", "lat": 35.12329, "lon": -83.61433, "comid": 19736037, "drainage_area_sqmi": 1.195, "fetched_at": "2026-09-15"}
+{"feature_id": 921, "name": "Berties Falls", "lat": 35.15334, "lon": -83.57593, "comid": 19735943, "drainage_area_sqmi": 0.14, "fetched_at": "2026-09-15"}
+{"feature_id": 922, "name": "Burningtown Falls", "lat": 35.20751, "lon": -83.49763, "comid": 19735741, "drainage_area_sqmi": 2.518, "fetched_at": "2026-09-15"}
+{"feature_id": 923, "name": "Indian Camp Creek Falls", "lat": 35.22399, "lon": -83.53786, "comid": 19735689, "drainage_area_sqmi": 1.171, "fetched_at": "2026-09-15"}
+{"feature_id": 924, "name": "Sweat Heifer Cascades", "lat": 35.61808, "lon": -83.38079, "comid": 19728302, "drainage_area_sqmi": 1.016, "fetched_at": "2026-09-15"}
+{"feature_id": 925, "name": "Hazel Creek Cascades", "lat": 35.54514, "lon": -83.58291, "comid": 19734577, "drainage_area_sqmi": 1.185, "fetched_at": "2026-09-15"}
+{"feature_id": 926, "name": "Kuykendall Falls", "lat": 35.24443, "lon": -82.78788, "comid": 22164756, "drainage_area_sqmi": 2.953, "fetched_at": "2026-09-15"}
+{"feature_id": 927, "name": "Bee Branch Falls", "lat": 35.42075, "lon": -82.71696, "comid": 22163586, "drainage_area_sqmi": 0.765, "fetched_at": "2026-09-15"}
+{"feature_id": 928, "name": "Otter Falls", "lat": 36.14967, "lon": -81.80797, "comid": 19743676, "drainage_area_sqmi": 1.189, "fetched_at": "2026-09-15"}
+{"feature_id": 929, "name": "Bluff Mountain Falls", "lat": 36.39948, "lon": -81.54705, "comid": 6891752, "drainage_area_sqmi": 3.765, "fetched_at": "2026-09-15"}
+{"feature_id": 930, "name": "Sharpes Falls", "lat": 36.45935, "lon": -81.55483, "comid": 6891528, "drainage_area_sqmi": 112.038, "fetched_at": "2026-09-15"}
+{"feature_id": 931, "name": "Riverview Falls (Nana Falls)", "lat": 36.37881, "lon": -81.41185, "comid": 6892248, "drainage_area_sqmi": 199.22, "fetched_at": "2026-09-15"}
+{"feature_id": 932, "name": "Falls on Horse Cove Branch tributary", "lat": 36.37881, "lon": -81.41185, "comid": 6892248, "drainage_area_sqmi": 199.22, "fetched_at": "2026-09-15"}
+{"feature_id": 933, "name": "Fall Creek Falls (Hanging Rock)", "lat": 36.54121, "lon": -79.98474, "comid": 8673177, "drainage_area_sqmi": 5.843, "fetched_at": "2026-09-15"}
+{"feature_id": 934, "name": "Ledbetter Canyon Falls", "lat": 35.28785, "lon": -83.67749, "comid": 19735465, "drainage_area_sqmi": 2.06, "fetched_at": "2026-09-15"}
+{"feature_id": 935, "name": "Handpole Branch Falls", "lat": 35.28106, "lon": -83.68211, "comid": 19735477, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 936, "name": "Bird Falls", "lat": 35.34309, "lon": -83.56991, "comid": 19736731, "drainage_area_sqmi": 167.706, "fetched_at": "2026-09-15"}
+{"feature_id": 937, "name": "The Energizer (Falls)", "lat": 35.10638, "lon": -82.92674, "comid": 11747829, "drainage_area_sqmi": 9.155, "fetched_at": "2026-09-15"}
+{"feature_id": 938, "name": "Upper Wintergreen Falls", "lat": 35.09797, "lon": -82.92735, "comid": 11747877, "drainage_area_sqmi": 16.408, "fetched_at": "2026-09-15"}
+{"feature_id": 939, "name": "Land Bridge Falls", "lat": 35.09726, "lon": -82.92675, "comid": 11747877, "drainage_area_sqmi": 16.408, "fetched_at": "2026-09-15"}
+{"feature_id": 940, "name": "Chub Line Falls", "lat": 35.08566, "lon": -82.90382, "comid": 11747879, "drainage_area_sqmi": 21.421, "fetched_at": "2026-09-15"}
+{"feature_id": 941, "name": "Step Around Falls", "lat": 35.01862, "lon": -82.89917, "comid": 11748095, "drainage_area_sqmi": 91.669, "fetched_at": "2026-09-15"}
+{"feature_id": 942, "name": "Rock Slab Falls", "lat": 35.54707, "lon": -83.51402, "comid": 19728504, "drainage_area_sqmi": 1.217, "fetched_at": "2026-09-15"}
+{"feature_id": 943, "name": "Steeltrap Creek Falls", "lat": 35.5471, "lon": -83.51425, "comid": 19728504, "drainage_area_sqmi": 1.217, "fetched_at": "2026-09-15"}
+{"feature_id": 944, "name": "Bear Creek Falls", "lat": 35.47135, "lon": -83.5732, "comid": 19729550, "drainage_area_sqmi": 3.458, "fetched_at": "2026-09-15"}
+{"feature_id": 945, "name": "Burnthouse Branch Falls", "lat": 35.95107, "lon": -81.82277, "comid": 9751674, "drainage_area_sqmi": 8.691, "fetched_at": "2026-09-15"}
+{"feature_id": 946, "name": "Raven Cliff Falls", "lat": 35.94781, "lon": -81.82048, "comid": 9751674, "drainage_area_sqmi": 8.691, "fetched_at": "2026-09-15"}
+{"feature_id": 947, "name": "Upper Mouse Creek Falls", "lat": 35.71828, "lon": -83.13238, "comid": 22151259, "drainage_area_sqmi": 1.549, "fetched_at": "2026-09-15"}
+{"feature_id": 948, "name": "West Prong Mouse Creek Falls", "lat": 35.7193, "lon": -83.13317, "comid": 22151311, "drainage_area_sqmi": 0.449, "fetched_at": "2026-09-15"}
+{"feature_id": 949, "name": "Laurel Falls (Corbin Creek)", "lat": 35.03427, "lon": -83.01226, "comid": 11748447, "drainage_area_sqmi": 1.687, "fetched_at": "2026-09-15"}
+{"feature_id": 950, "name": "Clear Creek Falls", "lat": 35.1512, "lon": -83.65813, "comid": 19735953, "drainage_area_sqmi": 2.99, "fetched_at": "2026-09-15"}
+{"feature_id": 951, "name": "Secret Falls (DuPont)", "lat": 35.20008, "lon": -82.58007, "comid": 22164834, "drainage_area_sqmi": 4.437, "fetched_at": "2026-09-15"}
+{"feature_id": 952, "name": "4 X 4 Falls", "lat": 35.91744, "lon": -81.74899, "comid": 9753780, "drainage_area_sqmi": 0.775, "fetched_at": "2026-09-15"}
+{"feature_id": 953, "name": "Laurel Leap Falls", "lat": 35.89515, "lon": -81.924, "comid": 9751988, "drainage_area_sqmi": 1.207, "fetched_at": "2026-09-15"}
+{"feature_id": 954, "name": "Laughing Falls", "lat": 35.29504, "lon": -82.70211, "comid": 22164304, "drainage_area_sqmi": 1.391, "fetched_at": "2026-09-15"}
+{"feature_id": 955, "name": "Upper Little More Cove Falls", "lat": 35.31234, "lon": -82.77877, "comid": 22164220, "drainage_area_sqmi": 0.753, "fetched_at": "2026-09-15"}
+{"feature_id": 956, "name": "Stillwater Branch Falls", "lat": 35.28324, "lon": -82.76318, "comid": 22164456, "drainage_area_sqmi": 28.99, "fetched_at": "2026-09-15"}
+{"feature_id": 957, "name": "Justus Cove Falls", "lat": 35.32434, "lon": -82.79303, "comid": 22164142, "drainage_area_sqmi": 3.741, "fetched_at": "2026-09-15"}
+{"feature_id": 958, "name": "Lower Log Hollow Falls", "lat": 35.3203, "lon": -82.80084, "comid": 22164144, "drainage_area_sqmi": 0.896, "fetched_at": "2026-09-15"}
+{"feature_id": 959, "name": "Middle Log Hollow Falls", "lat": 35.3204, "lon": -82.8013, "comid": 22164144, "drainage_area_sqmi": 0.896, "fetched_at": "2026-09-15"}
+{"feature_id": 960, "name": "Jane Cantrell Falls", "lat": 35.0829, "lon": -82.7385, "comid": 22165346, "drainage_area_sqmi": 1.193, "fetched_at": "2026-09-15"}
+{"feature_id": 961, "name": "Hugh Heffner Falls", "lat": 35.61732, "lon": -83.3822, "comid": 19728302, "drainage_area_sqmi": 1.016, "fetched_at": "2026-09-15"}
+{"feature_id": 962, "name": "Balsam Falls", "lat": 35.26619, "lon": -82.96954, "comid": 19729192, "drainage_area_sqmi": 5.778, "fetched_at": "2026-09-15"}
+{"feature_id": 963, "name": "Lower Balsam Falls", "lat": 35.26579, "lon": -82.96939, "comid": 19729192, "drainage_area_sqmi": 5.778, "fetched_at": "2026-09-15"}
+{"feature_id": 964, "name": "Patricia Falls", "lat": 35.26434, "lon": -82.97027, "comid": 19729192, "drainage_area_sqmi": 5.778, "fetched_at": "2026-09-15"}
+{"feature_id": 965, "name": "Upper Yucca Falls", "lat": 35.01417, "lon": -82.73671, "comid": 9866024, "drainage_area_sqmi": 1.625, "fetched_at": "2026-09-15"}
+{"feature_id": 966, "name": "Yucca Falls", "lat": 35.01386, "lon": -82.7364, "comid": 9866024, "drainage_area_sqmi": 1.625, "fetched_at": "2026-09-15"}
+{"feature_id": 967, "name": "Lower Yucca Falls", "lat": 35.01367, "lon": -82.73626, "comid": 9866024, "drainage_area_sqmi": 1.625, "fetched_at": "2026-09-15"}
+{"feature_id": 968, "name": "Rachel Creek Falls", "lat": 35.01395, "lon": -82.7356, "comid": 9866024, "drainage_area_sqmi": 1.625, "fetched_at": "2026-09-15"}
+{"feature_id": 969, "name": "Middle Rachel Creek Falls", "lat": 35.01306, "lon": -82.73588, "comid": 9866024, "drainage_area_sqmi": 1.625, "fetched_at": "2026-09-15"}
+{"feature_id": 970, "name": "Magic School Bus Falls", "lat": 35.57629, "lon": -81.68948, "comid": 12032601, "drainage_area_sqmi": 1.453, "fetched_at": "2026-09-15"}
+{"feature_id": 971, "name": "Sign Post Falls (GA)", "lat": 34.97533, "lon": -83.75292, "comid": 19680009, "drainage_area_sqmi": 123.876, "fetched_at": "2026-09-15"}
+{"feature_id": 972, "name": "Deception Falls (Laurel Falls) SC", "lat": 35.01828, "lon": -82.85506, "comid": 11748001, "drainage_area_sqmi": 1.925, "fetched_at": "2026-09-15"}
+{"feature_id": 973, "name": "Waterfall on Trib of Laurel Creek", "lat": 35.01853, "lon": -82.85197, "comid": 11748001, "drainage_area_sqmi": 1.925, "fetched_at": "2026-09-15"}
+{"feature_id": 974, "name": "Ashmore Falls", "lat": 35.0885, "lon": -82.57925, "comid": 9865744, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 975, "name": "Hamlin Falls", "lat": 35.08691, "lon": -82.59084, "comid": 9865748, "drainage_area_sqmi": 0.734, "fetched_at": "2026-09-15"}
+{"feature_id": 976, "name": "Waterfall #10 on Wattacoo Creek", "lat": 35.08966, "lon": -82.59212, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 977, "name": "Waterfall #9 on Wattacoo Creek", "lat": 35.09006, "lon": -82.59223, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 978, "name": "Waterfall #8 on Wattacoo Creek", "lat": 35.09034, "lon": -82.59227, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 979, "name": "Devil's Canyon", "lat": 35.16906, "lon": -82.95708, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 980, "name": "Emily's Cascade", "lat": 35.17013, "lon": -82.95412, "comid": 22164956, "drainage_area_sqmi": 1.727, "fetched_at": "2026-09-15"}
+{"feature_id": 981, "name": "Sid's Falls", "lat": 34.75608, "lon": -83.30772, "comid": 6268398, "drainage_area_sqmi": 2.088, "fetched_at": "2026-09-15"}
+{"feature_id": 982, "name": "Sparkle Falls", "lat": 34.75585, "lon": -83.30988, "comid": 6268398, "drainage_area_sqmi": 2.088, "fetched_at": "2026-09-15"}
+{"feature_id": 983, "name": "Maxie Duke Falls", "lat": 34.75741, "lon": -83.30886, "comid": 6268398, "drainage_area_sqmi": 2.088, "fetched_at": "2026-09-15"}
+{"feature_id": 984, "name": "22 Foot Falls", "lat": 35.09684, "lon": -82.60569, "comid": 9865718, "drainage_area_sqmi": 1.478, "fetched_at": "2026-09-15"}
+{"feature_id": 985, "name": "Drip Rock Falls", "lat": 35.10197, "lon": -82.61233, "comid": 9865712, "drainage_area_sqmi": 0.555, "fetched_at": "2026-09-15"}
+{"feature_id": 986, "name": "Lauren Falls", "lat": 35.26405, "lon": -82.96969, "comid": 19729192, "drainage_area_sqmi": 5.778, "fetched_at": "2026-09-15"}
+{"feature_id": 989, "name": "Dargans Cascade (Silver Steps Falls)", "lat": 35.12175, "lon": -82.62715, "comid": 9865672, "drainage_area_sqmi": 2.32, "fetched_at": "2026-09-15"}
+{"feature_id": 990, "name": "Big Branch Falls", "lat": 35.22862, "lon": -83.05082, "comid": 19730740, "drainage_area_sqmi": 66.481, "fetched_at": "2026-09-15"}
+{"feature_id": 991, "name": "Verde Falls", "lat": 35.22313, "lon": -83.04519, "comid": 19730372, "drainage_area_sqmi": 8.712, "fetched_at": "2026-09-15"}
+{"feature_id": 992, "name": "Sols Creek Falls", "lat": 35.23728, "lon": -83.03519, "comid": 19730302, "drainage_area_sqmi": 6.08, "fetched_at": "2026-09-15"}
+{"feature_id": 993, "name": "Baby Bradley Falls", "lat": 35.27261, "lon": -82.29436, "comid": 12037075, "drainage_area_sqmi": 8.98, "fetched_at": "2026-09-15"}
+{"feature_id": 994, "name": "Son of Bradley Falls", "lat": 35.26903, "lon": -82.29288, "comid": 12037085, "drainage_area_sqmi": 7.185, "fetched_at": "2026-09-15"}
+{"feature_id": 995, "name": "Waterfall on Ramsey Prong", "lat": 35.70812, "lon": -83.30407, "comid": 22144036, "drainage_area_sqmi": 2.172, "fetched_at": "2026-09-15"}
+{"feature_id": 996, "name": "Mr T's Cascade", "lat": 35.29685, "lon": -82.96351, "comid": 19729172, "drainage_area_sqmi": 1.578, "fetched_at": "2026-09-15"}
+{"feature_id": 997, "name": "Climbing Wall Falls", "lat": 35.3398, "lon": -82.7892, "comid": 22164142, "drainage_area_sqmi": 3.741, "fetched_at": "2026-09-15"}
+{"feature_id": 998, "name": "Bull Sluice", "lat": 34.81734, "lon": -83.30462, "comid": 6269328, "drainage_area_sqmi": 199.887, "fetched_at": "2026-09-15"}
+{"feature_id": 999, "name": "Coyote Falls", "lat": 35.06716, "lon": -83.07391, "comid": 11748431, "drainage_area_sqmi": 1.643, "fetched_at": "2026-09-15"}
+{"feature_id": 1000, "name": "Crevasse Falls (Split Rock Falls)", "lat": 35.12189, "lon": -82.98367, "comid": 11747815, "drainage_area_sqmi": 0.376, "fetched_at": "2026-09-15"}
+{"feature_id": 1001, "name": "Upper Bear Creek Falls", "lat": 35.47067, "lon": -83.57728, "comid": 19729550, "drainage_area_sqmi": 3.458, "fetched_at": "2026-09-15"}
+{"feature_id": 1002, "name": "Waterfall on Lost Cove Creek", "lat": 35.06797, "lon": -82.40188, "comid": 9698191, "drainage_area_sqmi": 0.531, "fetched_at": "2026-09-15"}
+{"feature_id": 1003, "name": "Trackside Falls (Lost Cove)", "lat": 36.07157, "lon": -82.39897, "comid": 19487350, "drainage_area_sqmi": 0.43, "fetched_at": "2026-09-15"}
+{"feature_id": 1004, "name": "Homer Falls (SC)", "lat": 34.77967, "lon": -83.32097, "comid": 6269374, "drainage_area_sqmi": 263.624, "fetched_at": "2026-09-15"}
+{"feature_id": 1005, "name": "Camp Branch Falls (SC)", "lat": 34.76461, "lon": -83.30908, "comid": 6268376, "drainage_area_sqmi": 0.592, "fetched_at": "2026-09-15"}
+{"feature_id": 1006, "name": "Eastatoe Narrows", "lat": 35.03200855, "lon": -82.81900106, "comid": 11747973, "drainage_area_sqmi": 10.588, "fetched_at": "2026-09-15"}
+{"feature_id": 1007, "name": "Riverside Falls (Mills River)", "lat": 35.35169, "lon": -82.73708, "comid": 22163994, "drainage_area_sqmi": 11.66, "fetched_at": "2026-09-15"}
+{"feature_id": 1008, "name": "Upper Little Creek Falls", "lat": 35.02817, "lon": -83.18156, "comid": 6265822, "drainage_area_sqmi": 0.83, "fetched_at": "2026-09-15"}
+{"feature_id": 1009, "name": "Waterfall on Trib of Shuck Ridge Creek", "lat": 35.29484, "lon": -82.86588, "comid": 22164294, "drainage_area_sqmi": 1.652, "fetched_at": "2026-09-15"}
+{"feature_id": 1010, "name": "Lulu Falls", "lat": 35.30077, "lon": -82.85553, "comid": 22164288, "drainage_area_sqmi": 0.902, "fetched_at": "2026-09-15"}
+{"feature_id": 1011, "name": "Upper Lulu Falls", "lat": 35.30154, "lon": -82.85703, "comid": 22164288, "drainage_area_sqmi": 0.902, "fetched_at": "2026-09-15"}
+{"feature_id": 1012, "name": "Lanning Branch Falls", "lat": 35.29335, "lon": -82.84439, "comid": 22164312, "drainage_area_sqmi": 1.206, "fetched_at": "2026-09-15"}
+{"feature_id": 1013, "name": "Laurie's Falls", "lat": 35.34504, "lon": -82.94489, "comid": 22152725, "drainage_area_sqmi": 8.472, "fetched_at": "2026-09-15"}
+{"feature_id": 1014, "name": "Coon Hollow Falls", "lat": 35.34653, "lon": -82.94455, "comid": 22152725, "drainage_area_sqmi": 8.472, "fetched_at": "2026-09-15"}
+{"feature_id": 1015, "name": "Powerline Falls", "lat": 35.33222, "lon": -82.76796, "comid": 22164112, "drainage_area_sqmi": 1.204, "fetched_at": "2026-09-15"}
+{"feature_id": 1016, "name": "Upper Big Bearpen Falls", "lat": 35.31924, "lon": -82.82413, "comid": 22164166, "drainage_area_sqmi": 1.191, "fetched_at": "2026-09-15"}
+{"feature_id": 1017, "name": "Rough Rock Falls", "lat": 35.32046, "lon": -82.82422, "comid": 22164166, "drainage_area_sqmi": 1.191, "fetched_at": "2026-09-15"}
+{"feature_id": 1018, "name": "Silver Ribbon Falls", "lat": 35.29531, "lon": -82.69982, "comid": 22164338, "drainage_area_sqmi": 1.927, "fetched_at": "2026-09-15"}
+{"feature_id": 1019, "name": "Homestead Falls", "lat": 34.63825, "lon": -83.39669, "comid": 6268752, "drainage_area_sqmi": 1.051, "fetched_at": "2026-09-15"}
+{"feature_id": 1020, "name": "Upper Discovery Falls", "lat": 35.32453, "lon": -82.81147, "comid": 22164122, "drainage_area_sqmi": 0.403, "fetched_at": "2026-09-15"}
+{"feature_id": 1021, "name": "Blue Wall Falls", "lat": 35.18336, "lon": -82.26697, "comid": 12037457, "drainage_area_sqmi": 1.441, "fetched_at": "2026-09-15"}
+{"feature_id": 1022, "name": "Upper Blue Wall Falls", "lat": 35.18101, "lon": -82.25854, "comid": 12037443, "drainage_area_sqmi": 1.893, "fetched_at": "2026-09-15"}
+{"feature_id": 1023, "name": "Cheohee Road Falls (SC)", "lat": 34.91378, "lon": -83.10689, "comid": 11750421, "drainage_area_sqmi": 3.327, "fetched_at": "2026-09-15"}
+{"feature_id": 1024, "name": "Miuka Falls", "lat": 34.93293, "lon": -83.08567, "comid": 11750407, "drainage_area_sqmi": 0.891, "fetched_at": "2026-09-15"}
+{"feature_id": 1025, "name": "Little Miuka Falls", "lat": 34.93057, "lon": -83.08384, "comid": 11750407, "drainage_area_sqmi": 0.891, "fetched_at": "2026-09-15"}
+{"feature_id": 1026, "name": "Secret Falls (SC)", "lat": 34.92519, "lon": -83.08714, "comid": 11750409, "drainage_area_sqmi": 1.48, "fetched_at": "2026-09-15"}
+{"feature_id": 1027, "name": "Lower Crane Creek Falls", "lat": 34.92486, "lon": -83.08227, "comid": 11750409, "drainage_area_sqmi": 1.48, "fetched_at": "2026-09-15"}
+{"feature_id": 1028, "name": "Mountain Cat Falls", "lat": 35.02984, "lon": -82.77171, "comid": 11747977, "drainage_area_sqmi": 1.022, "fetched_at": "2026-09-15"}
+{"feature_id": 1029, "name": "Palmetto Trail Falls", "lat": 35.03063, "lon": -82.77601, "comid": 11747977, "drainage_area_sqmi": 1.022, "fetched_at": "2026-09-15"}
+{"feature_id": 1030, "name": "Vespa Falls", "lat": 35.02977, "lon": -82.77195, "comid": 11747977, "drainage_area_sqmi": 1.022, "fetched_at": "2026-09-15"}
+{"feature_id": 1031, "name": "Eden Falls", "lat": 35.02984, "lon": -82.77171, "comid": 11747977, "drainage_area_sqmi": 1.022, "fetched_at": "2026-09-15"}
+{"feature_id": 1032, "name": "Waterfall #1 on Wattacoo Creek", "lat": 35.09297, "lon": -82.59311, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 1033, "name": "Waterfall #2 on Wattacoo Creek", "lat": 35.09238, "lon": -82.59316, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 1034, "name": "Waterfall #3 on Wattacoo Creek", "lat": 35.09211, "lon": -82.59295, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 1035, "name": "Waterfall #4 on Wattacoo Creek", "lat": 35.09171, "lon": -82.59249, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 1036, "name": "Waterfall #5 on Wattacoo Creek", "lat": 35.09119, "lon": -82.59233, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 1037, "name": "Waterfall #6 on Wattacoo Creek", "lat": 35.09081, "lon": -82.59215, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 1038, "name": "Waterfall #7 on Wattacoo Creek", "lat": 35.09063, "lon": -82.59217, "comid": 9865736, "drainage_area_sqmi": 0.447, "fetched_at": "2026-09-15"}
+{"feature_id": 1039, "name": "Mandible Falls", "lat": 35.03126, "lon": -82.80424, "comid": 11747993, "drainage_area_sqmi": 4.808, "fetched_at": "2026-09-15"}
+{"feature_id": 1040, "name": "Unnamed Waterfall on Reedy Cove Creek", "lat": 35.02677, "lon": -82.80382, "comid": 11747993, "drainage_area_sqmi": 4.808, "fetched_at": "2026-09-15"}
+{"feature_id": 1041, "name": "Camp McCall Falls", "lat": 35.02573, "lon": -82.80231, "comid": 11747993, "drainage_area_sqmi": 4.808, "fetched_at": "2026-09-15"}
+{"feature_id": 1042, "name": "Devil's Fork Falls", "lat": 35.57504, "lon": -81.80224, "comid": 12032585, "drainage_area_sqmi": 1.007, "fetched_at": "2026-09-15"}
+{"feature_id": 1043, "name": "Lower Resurrection Falls", "lat": 35.57008, "lon": -81.79883, "comid": 12032585, "drainage_area_sqmi": 1.007, "fetched_at": "2026-09-15"}
+{"feature_id": 1044, "name": "Resurrection Falls", "lat": 35.57009, "lon": -81.79839, "comid": 12032585, "drainage_area_sqmi": 1.007, "fetched_at": "2026-09-15"}
+{"feature_id": 1045, "name": "Bisection Falls", "lat": 35.57035, "lon": -81.79741, "comid": 12032585, "drainage_area_sqmi": 1.007, "fetched_at": "2026-09-15"}
+{"feature_id": 1046, "name": "Insurrection Falls", "lat": 35.57031, "lon": -81.79423, "comid": 12032585, "drainage_area_sqmi": 1.007, "fetched_at": "2026-09-15"}
+{"feature_id": 1047, "name": "Satan's Spoon Falls", "lat": 35.57663, "lon": -81.79962, "comid": 12032585, "drainage_area_sqmi": 1.007, "fetched_at": "2026-09-15"}
+{"feature_id": 1048, "name": "Silver Creek Falls", "lat": 35.58863, "lon": -81.80757, "comid": 9753608, "drainage_area_sqmi": 3.452, "fetched_at": "2026-09-15"}
+{"feature_id": 1049, "name": "Horseshoe Falls (SC)", "lat": 34.59656, "lon": -81.85425, "comid": 9691098, "drainage_area_sqmi": 16.247, "fetched_at": "2026-09-15"}
+{"feature_id": 1050, "name": "Van Patton Shoals", "lat": 34.75439, "lon": -82.10855, "comid": 9692784, "drainage_area_sqmi": 176.295, "fetched_at": "2026-09-15"}
+{"feature_id": 1051, "name": "Fawn Branch Falls", "lat": 35.25728, "lon": -82.77411, "comid": 22165288, "drainage_area_sqmi": 2.209, "fetched_at": "2026-09-15"}
+{"feature_id": 1052, "name": "Warrior Falls", "lat": 35.25721, "lon": -82.77264, "comid": 22165288, "drainage_area_sqmi": 2.209, "fetched_at": "2026-09-15"}
+{"feature_id": 1053, "name": "Beautimus Falls", "lat": 35.56849, "lon": -81.68482, "comid": 12032601, "drainage_area_sqmi": 1.453, "fetched_at": "2026-09-15"}
+{"feature_id": 1054, "name": "Upper Beautimus Falls", "lat": 35.56891, "lon": -81.68479, "comid": 12032601, "drainage_area_sqmi": 1.453, "fetched_at": "2026-09-15"}
+{"feature_id": 1055, "name": "Upper Brier Creek Falls", "lat": 35.57658, "lon": -81.68708, "comid": 12032601, "drainage_area_sqmi": 1.453, "fetched_at": "2026-09-15"}
+{"feature_id": 1056, "name": "Puny Falls (waterfall on trib of Brier Creek)", "lat": 35.57058, "lon": -81.68412, "comid": 12032601, "drainage_area_sqmi": 1.453, "fetched_at": "2026-09-15"}
+{"feature_id": 1057, "name": "Logjam Falls", "lat": 35.35158, "lon": -83.08809, "comid": 19730140, "drainage_area_sqmi": 9.07, "fetched_at": "2026-09-15"}
+{"feature_id": 1058, "name": "Catamount Falls", "lat": 35.35158, "lon": -83.08809, "comid": 19730140, "drainage_area_sqmi": 9.07, "fetched_at": "2026-09-15"}
+{"feature_id": 1059, "name": "Waterfall on Chastine Creek", "lat": 35.32216, "lon": -83.06255, "comid": 19730096, "drainage_area_sqmi": 4.771, "fetched_at": "2026-09-15"}
+{"feature_id": 1060, "name": "Rocky Bottom Gorge Falls", "lat": 35.04275, "lon": -82.80655, "comid": 11747947, "drainage_area_sqmi": 2.869, "fetched_at": "2026-09-15"}
+{"feature_id": 1061, "name": "Rock Bottom Falls", "lat": 35.04255, "lon": -82.80975, "comid": 11747947, "drainage_area_sqmi": 2.869, "fetched_at": "2026-09-15"}
+{"feature_id": 1062, "name": "Sandy Bottom Falls (unofficial name)", "lat": 35.28384, "lon": -82.30532, "comid": 12037055, "drainage_area_sqmi": 87.858, "fetched_at": "2026-09-15"}
+{"feature_id": 1063, "name": "Right Angle Falls (unofficial name)", "lat": 35.28398, "lon": -82.30626, "comid": 12037055, "drainage_area_sqmi": 87.858, "fetched_at": "2026-09-15"}
+{"feature_id": 1064, "name": "Pace Yourself Falls", "lat": 35.28404, "lon": -82.30819, "comid": 12037055, "drainage_area_sqmi": 87.858, "fetched_at": "2026-09-15"}
+{"feature_id": 1065, "name": "Green Wall Falls (unofficial name)", "lat": 35.30697, "lon": -82.29299, "comid": 12036945, "drainage_area_sqmi": 1.168, "fetched_at": "2026-09-15"}
+{"feature_id": 1066, "name": "Gamelands Falls", "lat": 35.30747, "lon": -82.29362, "comid": 12036945, "drainage_area_sqmi": 1.168, "fetched_at": "2026-09-15"}
+{"feature_id": 1067, "name": "Shot Pouch Falls", "lat": 35.16027, "lon": -83.57376, "comid": 19735913, "drainage_area_sqmi": 0.328, "fetched_at": "2026-09-15"}
+{"feature_id": 1068, "name": "Locust Tree Lake Falls", "lat": 35.16215, "lon": -83.52135, "comid": 19735895, "drainage_area_sqmi": 1.152, "fetched_at": "2026-09-15"}
+{"feature_id": 1069, "name": "Rainbow Falls (Private along US64)", "lat": 35.08676, "lon": -83.5746, "comid": 19736185, "drainage_area_sqmi": 1.696, "fetched_at": "2026-09-15"}
+{"feature_id": 1070, "name": "Bushwhack Falls (SC)", "lat": 35.05101, "lon": -82.84825, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1071, "name": "Upper Laurel Fork Falls (SC)", "lat": 35.05597, "lon": -82.84337, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1072, "name": "Bella Falls (SC)", "lat": 35.05385, "lon": -82.84663, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1073, "name": "Christopher Falls (SC)", "lat": 35.05372, "lon": -82.84583, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1074, "name": "Evil Ducky Falls (SC)", "lat": 35.05356, "lon": -82.84635, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1075, "name": "Waterfall #1 on Chucky Branch", "lat": 34.99585, "lon": -82.85714, "comid": 11748701, "drainage_area_sqmi": 0.944, "fetched_at": "2026-09-15"}
+{"feature_id": 1076, "name": "Waterfall #2 on Chucky Branch", "lat": 34.99564, "lon": -82.85699, "comid": 11748701, "drainage_area_sqmi": 0.944, "fetched_at": "2026-09-15"}
+{"feature_id": 1077, "name": "Waterfall #3 on Chucky Branch", "lat": 34.99454, "lon": -82.85716, "comid": 11748701, "drainage_area_sqmi": 0.944, "fetched_at": "2026-09-15"}
+{"feature_id": 1078, "name": "Waterfall #4 on Chucky Branch", "lat": 34.99352, "lon": -82.85772, "comid": 11748701, "drainage_area_sqmi": 0.944, "fetched_at": "2026-09-15"}
+{"feature_id": 1079, "name": "Waterfall #5 on Chucky Branch", "lat": 34.99316, "lon": -82.85753, "comid": 11748701, "drainage_area_sqmi": 0.944, "fetched_at": "2026-09-15"}
+{"feature_id": 1080, "name": "Waterfall #6 on Chucky Branch", "lat": 34.99191, "lon": -82.85752, "comid": 11748701, "drainage_area_sqmi": 0.944, "fetched_at": "2026-09-15"}
+{"feature_id": 1081, "name": "Waterfall #7 on Chucky Branch", "lat": 34.99113, "lon": -82.85761, "comid": 11748701, "drainage_area_sqmi": 0.944, "fetched_at": "2026-09-15"}
+{"feature_id": 1082, "name": "Kinney Branch Falls", "lat": 34.99547, "lon": -82.86367, "comid": 11749597, "drainage_area_sqmi": 1.703, "fetched_at": "2026-09-15"}
+{"feature_id": 1083, "name": "Middle Kinney Branch Falls", "lat": 34.99541, "lon": -82.86417, "comid": 11749597, "drainage_area_sqmi": 1.703, "fetched_at": "2026-09-15"}
+{"feature_id": 1084, "name": "Upper Kinney Branch Falls", "lat": 34.99671, "lon": -82.86473, "comid": 11749597, "drainage_area_sqmi": 1.703, "fetched_at": "2026-09-15"}
+{"feature_id": 1085, "name": "Narrow Canyon Falls", "lat": 34.99682, "lon": -82.86513, "comid": 11749597, "drainage_area_sqmi": 1.703, "fetched_at": "2026-09-15"}
+{"feature_id": 1086, "name": "Divinity Falls", "lat": 34.99673, "lon": -82.86552, "comid": 11749597, "drainage_area_sqmi": 1.703, "fetched_at": "2026-09-15"}
+{"feature_id": 1087, "name": "Never-Ending Falls", "lat": 34.99758, "lon": -82.86583, "comid": 11749597, "drainage_area_sqmi": 1.703, "fetched_at": "2026-09-15"}
+{"feature_id": 1088, "name": "Duality Falls", "lat": 35.00063, "lon": -82.90016, "comid": 11748005, "drainage_area_sqmi": 0.394, "fetched_at": "2026-09-15"}
+{"feature_id": 1089, "name": "Little Bully Falls", "lat": 35.00017, "lon": -82.90063, "comid": 11748005, "drainage_area_sqmi": 0.394, "fetched_at": "2026-09-15"}
+{"feature_id": 1090, "name": "Big Bully Falls", "lat": 34.99721, "lon": -82.90141, "comid": 11748703, "drainage_area_sqmi": 1.275, "fetched_at": "2026-09-15"}
+{"feature_id": 1091, "name": "Upper Trillium Valley Falls", "lat": 34.99646, "lon": -82.90159, "comid": 11748703, "drainage_area_sqmi": 1.275, "fetched_at": "2026-09-15"}
+{"feature_id": 1092, "name": "Middle Trillium Valley Falls", "lat": 34.99612, "lon": -82.90166, "comid": 11748703, "drainage_area_sqmi": 1.275, "fetched_at": "2026-09-15"}
+{"feature_id": 1093, "name": "Lower Trillium Valley Falls", "lat": 34.99595, "lon": -82.90181, "comid": 11748703, "drainage_area_sqmi": 1.275, "fetched_at": "2026-09-15"}
+{"feature_id": 1094, "name": "Louie Falls (SC)", "lat": 35.05625, "lon": -82.84754, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1095, "name": "Bonita Falls (SC)", "lat": 35.05721, "lon": -82.84874, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1096, "name": "Abbey Falls (SC)", "lat": 35.05737, "lon": -82.84889, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1097, "name": "Deflection Falls (SC)", "lat": 35.06514, "lon": -82.84633, "comid": 11747919, "drainage_area_sqmi": 1.634, "fetched_at": "2026-09-15"}
+{"feature_id": 1098, "name": "Overhang Falls (SC)", "lat": 35.05609, "lon": -82.84653, "comid": 11747955, "drainage_area_sqmi": 1.883, "fetched_at": "2026-09-15"}
+{"feature_id": 1099, "name": "Upper Dam Falls", "lat": 35.41974, "lon": -82.67584, "comid": 22163610, "drainage_area_sqmi": 6.155, "fetched_at": "2026-09-15"}
+{"feature_id": 1100, "name": "Dam Falls", "lat": 35.41957, "lon": -82.67535, "comid": 22163610, "drainage_area_sqmi": 6.155, "fetched_at": "2026-09-15"}
+{"feature_id": 1101, "name": "Long Branch Falls (Mills River)", "lat": 35.42495, "lon": -82.66964, "comid": 22163648, "drainage_area_sqmi": 12.36, "fetched_at": "2026-09-15"}
+{"feature_id": 1102, "name": "Waterfall on Smith Creek (SC)", "lat": 35.00218, "lon": -82.81782, "comid": 11748711, "drainage_area_sqmi": 25.349, "fetched_at": "2026-09-15"}
+{"feature_id": 1103, "name": "Ben's Sluice", "lat": 35.12302, "lon": -82.59872, "comid": 9865654, "drainage_area_sqmi": 5.276, "fetched_at": "2026-09-15"}
+{"feature_id": 1104, "name": "Toll Road Falls (SC)", "lat": 35.12384, "lon": -82.60873, "comid": 9865646, "drainage_area_sqmi": 0.54, "fetched_at": "2026-09-15"}
+{"feature_id": 1105, "name": "Falling Water Branch Falls", "lat": 35.80477, "lon": -82.30708, "comid": 19490052, "drainage_area_sqmi": 0.615, "fetched_at": "2026-09-15"}
+{"feature_id": 1106, "name": "Big Bear Falls", "lat": 35.60281, "lon": -81.63742, "comid": 9745504, "drainage_area_sqmi": 2.964, "fetched_at": "2026-09-15"}
+{"feature_id": 1107, "name": "Indian Camp Branch Falls (Gorges)", "lat": 35.08653, "lon": -82.92722, "comid": 11747883, "drainage_area_sqmi": 4.892, "fetched_at": "2026-09-15"}
+{"feature_id": 1108, "name": "Upper Raven Cliff Falls (SC)", "lat": 35.10443, "lon": -82.66127, "comid": 9865706, "drainage_area_sqmi": 2.9, "fetched_at": "2026-09-15"}
+{"feature_id": 1109, "name": "Tumblin' Fun Falls", "lat": 35.07198, "lon": -83.00087, "comid": 11748423, "drainage_area_sqmi": 1.571, "fetched_at": "2026-09-15"}
+{"feature_id": 1110, "name": "Twin Falls (Thompson River)", "lat": 35.07937, "lon": -83.00809, "comid": 11748421, "drainage_area_sqmi": 2.249, "fetched_at": "2026-09-15"}
+{"feature_id": 1111, "name": "Jonas Creek Falls", "lat": 35.51915, "lon": -83.55632, "comid": 19728568, "drainage_area_sqmi": 3.339, "fetched_at": "2026-09-15"}
+{"feature_id": 1112, "name": "Upper Shoal Creek Falls", "lat": 35.63313, "lon": -82.76205, "comid": 22161676, "drainage_area_sqmi": 7.911, "fetched_at": "2026-09-15"}
+{"feature_id": 1113, "name": "Shoal Creek Falls", "lat": 35.63412, "lon": -82.76541, "comid": 22161676, "drainage_area_sqmi": 7.911, "fetched_at": "2026-09-15"}
+{"feature_id": 1114, "name": "Even Lower Greasy Cove Falls", "lat": 35.33816, "lon": -82.82814, "comid": 22152743, "drainage_area_sqmi": 1.769, "fetched_at": "2026-09-15"}
+{"feature_id": 1115, "name": "Hornet Falls", "lat": 35.05202, "lon": -83.04193, "comid": 11748437, "drainage_area_sqmi": 1.131, "fetched_at": "2026-09-15"}
+{"feature_id": 1116, "name": "Green Party Falls", "lat": 35.05006, "lon": -83.04473, "comid": 11748499, "drainage_area_sqmi": 8.314, "fetched_at": "2026-09-15"}
+{"feature_id": 1117, "name": "FR89 Falls", "lat": 35.04379, "lon": -83.04462, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 1118, "name": "Upper Blackberry Falls", "lat": 35.03668, "lon": -83.032708, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 1119, "name": "Lower Blackberry Falls", "lat": 35.03744, "lon": -83.03204, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 1120, "name": "Waterfall on trib above Portage Left", "lat": 35.04221, "lon": -83.03801, "comid": 11748445, "drainage_area_sqmi": 12.954, "fetched_at": "2026-09-15"}
+{"feature_id": 1121, "name": "Notch Falls (SC)", "lat": 35.13041, "lon": -82.60986, "comid": 9865646, "drainage_area_sqmi": 0.54, "fetched_at": "2026-09-15"}

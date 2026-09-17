@@ -11,7 +11,7 @@ is therefore checked against the coordinate his own page publishes, using the
 pages already cached under data/spider-cache -- no refetching.
 
 Candidates come from two places that were built independently:
-  - a name-matched list at /tmp/_jw/ncwaterfalls-matches.tsv
+  - a name-matched list at data/ncwaterfalls-matches.tsv
   - the ncwaterfalls claim groups already in the database
 
 Agreeing is not evidence when both matched on the name, which is why the
@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'
 import cache
 
 CACHE = 'data/spider-cache/ncwaterfalls.jsonl.gz'
-TSV = '/tmp/_jw/ncwaterfalls-matches.tsv'
+TSV = 'data/ncwaterfalls-matches.tsv'
 NEAR_KM = 2.0       # same waterfall, allowing for trailhead-versus-water
 FAR_KM = 20.0       # a different waterfall that happens to share a name
 

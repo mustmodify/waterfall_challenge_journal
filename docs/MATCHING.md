@@ -13,10 +13,91 @@ actually happened here with its real numbers.
 > not yet merged. Until it lands, those two sections describe a rule with no
 > code behind it. Everything else here is implemented.
 
-Related: [sources-and-matching.md](sources-and-matching.md) for where each
-source came from and whether reading it was allowed;
-[hikingwnc-data-issues.md](hikingwnc-data-issues.md) for defects in the
-upstream data; [ARCHITECTURE.md](../ARCHITECTURE.md) for the claims schema.
+Related: [hikingwnc-data-issues.md](hikingwnc-data-issues.md) for defects in
+the upstream data; [ARCHITECTURE.md](../ARCHITECTURE.md) for the claims
+schema.
+
+---
+
+## 0. The sources
+
+| Source | Groups | Features | What it contributes |
+|---|---|---|---|
+| `hikingwnc` | 943 | 913 | Names, hike distance, all three ratings, accessibility, coordinates, some heights. The backbone. |
+| `openstreetmap` | 640 | 611 | A second independent coordinate for 609 falls, plus names, aliases, heights, and viewpoints. |
+| `ncwaterfalls` | 147 | 125 | Kevin Adams. Hike distance, accessibility, owner, elevation, beauty, parking, heights. |
+| `dwhike` | 114 | 100 | Hike distance, vertical gain, trailheads, and the WC100 KML points. |
+| `hikingwnc-supplement` | 24 | 24 | Later additions from the same site, kept separate so the original scrape stays reproducible. |
+| `wanderfall` | 6 | 6 | Our own corrections, recorded as a source so they can be argued with. |
+| `jw` | 3 | 3 | Hand observations. |
+| `google-maps` | 2 | 1 | |
+| `waterfallshiker` | 1 | 1 | |
+
+Five fields have exactly one source, so losing that source loses the field
+entirely:
+
+- `elevation_ft` and `owner` — only ncwaterfalls
+- `elevation_gain_ft` and `petzoldt` — only dwhike
+- `view_coordinate` — only OpenStreetMap
+
+### How each was obtained, and whether that was allowed
+
+This matters enough to write down, because the polite answer is different for
+each site and the impolite version of any of them would get us blocked.
+
+- **hikingwnc** — scraped once to JSON under `data/`. The claims are built from
+  that JSON rather than from the `features` columns, because those columns have
+  been corrected repeatedly and would otherwise report our own conclusions back
+  to us as hikingwnc's.
+- **ncwaterfalls** — the site allows crawling and publishes a sitemap. Pages
+  were fetched one at a time, a quarter second apart, and cached under
+  `data/spider-cache`. Later work reads the cache and refetches nothing.
+- **dwhike** — a SmugMug site. SmugMug refuses all crawlers because the servers
+  cannot take it, but it does allowlist `archive.org_bot`, so the copies we read
+  are Wayback's. They were made with permission and reading them costs his
+  servers nothing. The links still work for an ordinary visitor: SmugMug blocks
+  crawlers, not people.
+- **OpenStreetMap** — an Overpass extract. Adds no new features, only a third
+  reading of points we already carry.
+- **AllTrails** — see §7. Read through their MCP server, not a crawler:
+  `robots.txt` disallows `ClaudeBot`, `Claude-User` and `Claude-SearchBot` from
+  all of `/`, and `/api/` from everybody. `https://www.alltrails.com/mcp`
+  is the door they built for this instead, no key required. It means the
+  harvest runs one call at a time through a model rather than a loop, and 934
+  waterfalls is a long afternoon. Cache everything under `data/alltrails/` and
+  never ask twice.
+
+### Why claims are not merged
+
+A claim is one source's assertion about one field of one feature. They are
+stored side by side and never reconciled at import time, because a
+disagreement is information. Two sources differing on a height tells you the
+height is uncertain; picking a winner at import throws that away and leaves
+behind a number that looks confident.
+
+`accepted` marks the single claim per `(feature, field)` that the published
+columns reflect. A partial unique index enforces that there is only ever one.
+
+The coordinate is the exception, and it is the one that decides whether a
+waterfall is published at all — see `coordinate_confidence` in
+[ARCHITECTURE.md](../ARCHITECTURE.md).
+
+### Adding a new source
+
+1. Check `robots.txt` and honour it. If the site refuses crawlers, look for an
+   archive that was allowed in, and say so in the migration header.
+2. Cache what you fetch under `data/spider-cache` and read the cache
+   afterwards. Later passes should cost the source nothing.
+3. Import as claims under a new `source` name. Do not write to `features`.
+4. Match by name to get candidates; arbitrate on coordinates per the rule in
+   §3. Mark anything you could not arbitrate as `identity_certain = false`.
+5. **Report what you rejected, not just what you kept.** A matcher that only
+   reports successes cannot be reviewed — the interesting number is how many
+   candidates it threw away and why.
+6. Add a `LINK_LABELS` entry in `static/index.html` if the source has URLs.
+   Read the label off the site's own `<title>` or `og:site_name`: two people
+   independently guessed at waterfallshiker.com's name and both were wrong.
+7. Re-run migration 052 to publish the new URLs.
 
 ---
 
@@ -432,3 +513,16 @@ same principle as every other source defect here.
 **Our own list has internal collisions.** 74 features share 35 coordinates —
 trailheads recorded once per waterfall — and nine features are named
 `Waterfall #N (04-14-2022)` and are unidentifiable.
+
+
+**54 links sit on groups marked `identity_certain = false`**, which reads
+worse than it is. They were checked on 2026-09-14 and every one holds: the
+distance from our coordinate to the coordinate Kevin Adams publishes on the
+linked page runs 0 to 196 m, mean 42 m. None is beyond 2 km. They are
+uncertain because the *name* comparison failed, not the position — Adams
+titles his pages "Silver Run Falls-Visit Guide, Photos" and the matcher was
+comparing that against "Silver Run Falls". All 54 carry a note saying
+"matched on position, with no name agreement". What remains is a judgement,
+not a cleanup: whether position agreement inside 200 m with no name
+agreement is enough to set `identity_certain = true`. If it is, one
+re-arbitration migration settles all 54.

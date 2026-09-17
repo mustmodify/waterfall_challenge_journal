@@ -242,7 +242,7 @@
     /* Two inputs stacked on one track: the browser has no two-handle range, and
        the pieces that would fake it (a div with drag handlers) lose the arrow
        keys, the focus ring and the touch target that a real input brings. */
-    .range { position: relative; flex: 1; min-width: 140px; height: 30px; }
+    .range { position: relative; flex: 1; min-width: 140px; height: 40px; }
 
     .range-track {
       position: absolute; top: 9px; left: 0; right: 0; height: 4px;
@@ -272,12 +272,12 @@
     .range input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--accent); outline-offset: 2px; }
     .range input:focus-visible::-moz-range-thumb { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    .range-ticks { position: absolute; top: 15px; left: 0; right: 0; height: 12px; }
+    .range-ticks { position: absolute; top: 19px; left: 0; right: 0; height: 12px; }
 
     .range-ticks span {
       position: absolute;
       transform: translateX(-50%);
-      font-size: 0.62rem;
+      font-size: 14px;
       color: var(--mist);
       white-space: nowrap;
     }
@@ -874,7 +874,8 @@
       color: var(--haze);
     }
 
-    .badge.challenge { border-color: var(--accent); color: var(--accent); }
+    .badge.challenge { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .badge.challenge:hover { background: var(--accent); color: var(--bg); }
     .badge.visited { background: var(--c-visited); border-color: var(--c-visited); color: var(--on-visited); font-weight: 600; }
     .badge.diff-E { border-color: #59b07f; color: #59b07f; }
     .badge.diff-M { border-color: #dfa94f; color: #dfa94f; }
@@ -943,6 +944,27 @@
       text-decoration: underline;
       padding-left: 0;
     }
+
+    .add-place {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      text-decoration: underline;
+      padding-left: 0;
+    }
+
+    .navigate {
+      margin: 12px 0 4px;
+    }
+    .navigate a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .navigate a:hover { text-decoration: underline; }
 
     .links { margin-top: 4px; }
 
@@ -1195,6 +1217,7 @@
     <div class="chip-row" role="group" aria-label="Show on the map">
       <button class="chip kind" data-kind="waterfall" aria-pressed="true"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</button>
       <button class="chip kind" data-kind="tower" aria-pressed="true"><span class="dot" style="background:var(--c-tower)"></span>Towers</button>
+      <button class="chip kind" data-kind="swimming_hole" aria-pressed="true"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</button>
     </div>
     <div class="chip-row" id="visited-row" role="group" aria-label="How to draw places you have visited">
       <span class="row-label">Visited</span>
@@ -1213,9 +1236,9 @@
       <div class="range" id="walk">
         <div class="range-track"><div class="range-fill" id="walk-fill"></div></div>
         <div class="range-ticks" id="walk-ticks" aria-hidden="true"></div>
-        <input type="range" id="walk-min" min="0" max="16" value="0" step="1"
+        <input type="range" id="walk-min" min="0" max="18" value="0" step="1"
                aria-label="Shortest walk">
-        <input type="range" id="walk-max" min="0" max="16" value="16" step="1"
+        <input type="range" id="walk-max" min="0" max="18" value="18" step="1"
                aria-label="Longest walk">
       </div>
       <span id="walk-read">Any distance</span>
@@ -1269,6 +1292,7 @@
       <button class="tile" data-act="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.5 2.7c-.6.2-1 .8-1 1.4v.4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span>Info</span></button>
       <button class="tile" data-act="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg><span>Account</span></button>
       <button class="tile" data-act="challenges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 3M17 6h2.5a2.5 2.5 0 0 1-2.5 3"/><path d="M10 14v3h4v-3M8 20h8"/></svg><span>Challenges</span></button>
+      <button class="tile" data-act="add-place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="11" r="3"/><path d="M12 2a9 9 0 0 1 9 9c0 5-9 13-9 13S3 16 3 11a9 9 0 0 1 9-9z"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="9" y1="11" x2="15" y2="11"/></svg><span>Add a Place</span></button>
       <button class="tile" data-act="queue" id="tile-queue" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="20" cy="6" r="2.5" fill="currentColor" stroke="none"/></svg><span>Corrections</span></button>
       <button class="tile" data-act="bulk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Bulk Entry</span></button>
       <button class="tile" data-act="signin" id="tile-signin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/><path d="M20 12h-9m0 0 3-3m-3 3 3 3"/></svg><span>Sign In</span></button>
@@ -1299,7 +1323,8 @@
       <div class="how">Here's how to read the map</div>
       <ul class="key-list">
         <li><span class="dot" style="background:var(--c-azure)"></span>blue is a waterfall</li>
-        <li><span class="dot" style="background:var(--c-tower)"></span>brown is a lookout tower</li>
+        <li><span class="dot" style="background:var(--c-tower)"></span>sienna is a lookout tower</li>
+        <li><span class="dot" style="background:var(--c-swim)"></span>teal is a swimming hole</li>
       </ul>
       <div class="how">And when they are close together</div>
       <div class="group-demo">
@@ -1364,6 +1389,47 @@
       <div id="fix-thanks" class="modal-body" hidden>
         <p>Thank you &mdash; that's logged. No account needed, so I can't write
           back, but I read them.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="add-place-backdrop" hidden>
+    <div id="add-place" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="add-place-title">
+      <div class="modal-head">
+        <h2 id="add-place-title">Add a Place</h2>
+        <button class="close quiet" id="add-place-close" aria-label="Close">&#10005;</button>
+      </div>
+      <form id="add-place-form" class="modal-form">
+      <div class="modal-body">
+        <p>Know a waterfall, swimming hole, or lookout that isn't on the map?
+          Tell us about it and we'll add it.</p>
+        <label for="add-place-name">Name</label>
+        <input type="text" id="add-place-name" required autocomplete="off"
+          placeholder="e.g. Toms Creek Falls" />
+        <label for="add-place-kind">Kind</label>
+        <select id="add-place-kind">
+          <option value="waterfall">Waterfall</option>
+          <option value="tower">Lookout tower</option>
+        </select>
+        <label for="add-place-location">Where is it?
+          <span class="opt">&mdash; coordinates or a description</span></label>
+        <input type="text" id="add-place-location" autocomplete="off"
+          placeholder="35.7772, -82.0618 or &ldquo;off US-221 near Marion&rdquo;" />
+        <label for="add-place-notes">Anything else we should know?
+          <span class="opt">&mdash; optional</span></label>
+        <textarea id="add-place-notes" rows="3"
+          placeholder="Distance, access, how you know about it&hellip;"></textarea>
+      </div>
+      <div class="modal-foot">
+        <div class="actions">
+          <button type="submit" class="primary" id="add-place-submit">Send</button>
+          <button type="button" class="quiet" id="add-place-cancel">Cancel</button>
+        </div>
+        <div id="add-place-msg" role="status"></div>
+      </div>
+      </form>
+      <div id="add-place-thanks" class="modal-body" hidden>
+        <p>Thanks &mdash; got it. We'll review and add it to the map.</p>
       </div>
     </div>
   </div>
@@ -1464,6 +1530,7 @@
       C.visited = v('--c-visited');
       C.azure = v('--c-azure');
       C.tower = v('--c-tower');
+      C.swim = v('--c-swim');
       C.sel = v('--c-sel');
       C.scale = ['--r1', '--r2', '--r3', '--r4', '--r5'].map(v);
     }
@@ -1473,7 +1540,7 @@
       features: [],
       // Type is a category, visited is a status -- orthogonal, so they get
       // separate controls. Both kinds on to start; visited muted, not hidden.
-      showKinds: new Set(['waterfall', 'tower']),
+      showKinds: new Set(['waterfall', 'tower', 'swimming_hole']),
       // Signed out nothing is visited, so muting would advertise a treatment
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
@@ -1481,7 +1548,7 @@
       // Indices into WALK_STOPS. Both ends parked means no distance filter at
       // all, which is not the same as 0 to 20 miles: it also keeps the 59 falls
       // whose distance nobody has written down.
-      walk: { min: 0, max: 16 },
+      walk: { min: 0, max: 0 }, // corrected below, once WALK_STOPS exists
       area: '',
       visitStatus: 'all',
       ratings: new Set(),
@@ -1644,6 +1711,7 @@
       // fall are both just "done", and splitting them bought nothing.
       if (goal.last_visited && state.visited === 'mute') return C.visited;
       if (isTower(goal)) return C.tower;
+      if (goal.kind === 'swimming_hole') return C.swim;
       return C.azure;
     }
 
@@ -1658,6 +1726,17 @@
     // slider would spend most of its travel on the handful of walks past ten.
     const WALK_STOPS = [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 10, 12, 15, 20, 36];
     const WALK_TICKS = [0.5, 1, 3, 5, 7, 36];
+
+    // The slider inputs' max attribute is set from this length in markWalkInputs()
+    // below, so the handle's reach can never again drift out of sync with the
+    // stops it is supposed to cover -- which is exactly how it drifted before:
+    // the markup said max="16" (15 miles) while this array already reached 36.
+    state.walk.max = WALK_STOPS.length - 1;
+
+    function markWalkInputs() {
+      $('walk-min').max = WALK_STOPS.length - 1;
+      $('walk-max').max = WALK_STOPS.length - 1;
+    }
 
     // Free text from several sources: "Roadside", "4.4", "0.6 Miles (out and
     // back)", "Approx 1.4 mile each way", "Less than 1.7", and one "2.8.30".
@@ -2086,6 +2165,7 @@
       // had independently guessed "Waterfall Hiker" and "Waterfall Shiker",
       // and it is neither.
       waterfallshiker: 'Waterfalls Hiker',
+      sctrails: 'SC Trails',
     };
 
     const DEPRECATED_LABELS = {
@@ -2128,7 +2208,10 @@
 
       let html = '<h2>' + escapeHtml(goal.name) + '</h2>';
       html += '<div class="badges">';
-      (goal.challenges || []).forEach((c) => { html += '<span class="badge challenge">' + escapeHtml(c) + '</span>'; });
+      (goal.challenges || []).forEach((c) => {
+        const label = CHALLENGE_LABELS[c] || c;
+        html += '<a class="badge challenge" href="/account#challenges" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</a>';
+      });
       if (diffName) html += '<span class="badge diff-' + d + '">' + diffName + '</span>';
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
       html += '</div>';
@@ -2149,6 +2232,15 @@
       html += '<div class="fact"><div class="k">Solitude</div>' + band('solitude', goal.solitude_rating) + '</div>';
       if (goal.cmc_hike_no) html += '<div class="fact"><div class="k">CMC hike</div><div class="v">#' + goal.cmc_hike_no + '</div></div>';
       html += '</div>';
+
+      // Navigate to trailhead if we have parking coords, otherwise the falls.
+      const navLoc = goal.parking_location || goal.location;
+      if (navLoc && navLoc.latitude && navLoc.longitude) {
+        const mapsUrl = 'https://maps.google.com/maps?daddr=' + navLoc.latitude + ',' + navLoc.longitude;
+        html += '<div class="navigate"><a href="' + escapeHtml(mapsUrl) + '" target="_blank" rel="noopener">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>' +
+          (goal.parking_location ? 'Navigate to trailhead' : 'Navigate to falls') + '</a></div>';
+      }
 
       if ((goal.notes || []).length) {
         html += '<div class="notes">';
@@ -2611,7 +2703,7 @@
 
     function activeFilterCount() {
       let n = 0;
-      if (state.showKinds.size !== 2) n++;
+      if (state.showKinds.size !== 3) n++;
       if (state.visited !== (state.user ? 'mute' : 'show')) n++;
       if (state.ratings.size) n++;
       if (state.area) n++;
@@ -2684,6 +2776,7 @@
 
     narrowScreen.addEventListener('change', placeFilters);
     placeFilters();
+    markWalkInputs();
     drawWalkTicks();
     syncWalk();
 
@@ -2695,7 +2788,7 @@
     });
 
     $('filters-reset').addEventListener('click', () => {
-      state.showKinds = new Set(['waterfall', 'tower']);
+      state.showKinds = new Set(['waterfall', 'tower', 'swimming_hole']);
       state.visited = state.user ? 'mute' : 'show';
       state.ratings = new Set();
       state.challenge = 'all';
@@ -2727,6 +2820,71 @@
 
     $('fix-close').addEventListener('click', () => setFix(false));
     $('fix-cancel').addEventListener('click', () => setFix(false));
+
+    function openAddPlace() {
+      $('add-place-form').hidden = false;
+      $('add-place-thanks').hidden = true;
+      $('add-place-msg').textContent = '';
+      $('add-place-name').value = '';
+      $('add-place-location').value = '';
+      $('add-place-notes').value = '';
+      $('add-place-backdrop').hidden = false;
+      $('add-place').focus();
+    }
+
+    function showAddPlaceSignInPrompt() {
+      $('add-place-form').hidden = true;
+      $('add-place-thanks').hidden = true;
+      $('add-place-backdrop').hidden = false;
+      $('add-place-msg').textContent = '';
+      const body = $('add-place').querySelector('.modal-body') || $('add-place-thanks');
+      $('add-place-thanks').innerHTML = '<p>Sign in to suggest a place &mdash; we ask so ' +
+        'we can follow up if we have questions, and to keep out bots.</p>' +
+        '<button class="primary" id="add-place-signin">Sign in</button>';
+      $('add-place-thanks').hidden = false;
+      $('add-place').focus();
+      const signinBtn = $('add-place-signin');
+      if (signinBtn) signinBtn.addEventListener('click', () => {
+        $('add-place-backdrop').hidden = true;
+        toggleAuthCard(true);
+      });
+    }
+
+    $('add-place-close').addEventListener('click', () => { $('add-place-backdrop').hidden = true; });
+    $('add-place-cancel').addEventListener('click', () => { $('add-place-backdrop').hidden = true; });
+    $('add-place-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('add-place-backdrop')) $('add-place-backdrop').hidden = true;
+    });
+
+    $('add-place-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      $('add-place-msg').textContent = '';
+      $('add-place-submit').disabled = true;
+      fetch('/corrections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          feature_id: null,
+          subject: 'add-place',
+          field: 'new_place',
+          suggested_value: $('add-place-name').value +
+            ' (' + $('add-place-kind').value + ')' +
+            ($('add-place-location').value ? ' at ' + $('add-place-location').value : ''),
+          comment: $('add-place-notes').value,
+        }),
+      }).then((r) => {
+        $('add-place-submit').disabled = false;
+        if (r.ok) {
+          $('add-place-form').hidden = true;
+          $('add-place-thanks').hidden = false;
+        } else {
+          $('add-place-msg').textContent = 'Something went wrong. Try again?';
+        }
+      }).catch(() => {
+        $('add-place-submit').disabled = false;
+        $('add-place-msg').textContent = 'Something went wrong. Try again?';
+      });
+    });
     $('fix-backdrop').addEventListener('click', (e) => {
       if (e.target === $('fix-backdrop')) setFix(false);
     });
@@ -2798,7 +2956,11 @@
     const MENU_ACTIONS = {
       info:       () => { setIntro(true); },
       account:    () => { window.location.href = '/account'; },
-      challenges: () => { window.location.href = '/account#challenges'; },
+      challenges: () => { window.location.href = '/challenges'; },
+      'add-place': () => {
+        $('menu-backdrop').hidden = true;
+        if (state.user) { openAddPlace(); } else { showAddPlaceSignInPrompt(); }
+      },
       bulk:       () => { window.location.href = '/bulk'; },
       queue:      () => { window.location.href = '/corrections/queue'; },
       signin:     () => { openAuth(); },
@@ -2816,7 +2978,7 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const box = target.getBoundingClientRect();
       const css = getComputedStyle(document.documentElement);
-      const colors = ['--c-azure', '--c-tower', '--c-visited', '--accent', '--r2', '--r4']
+      const colors = ['--c-azure', '--c-tower', '--c-swim', '--c-visited', '--accent', '--r2', '--r4']
         .map((n) => css.getPropertyValue(n).trim());
       for (let i = 0; i < 28; i++) {
         const bit = document.createElement('i');

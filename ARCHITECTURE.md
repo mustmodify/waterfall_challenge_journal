@@ -62,12 +62,9 @@ it: **the published set is defined by corroboration.** Asking whether most of
 the published falls have two sources is asking what the publication rule is,
 and the answer is yes by construction.
 
-The sources themselves, how each was obtained and whether that was allowed, the
-matching pipeline and its failure modes are in
-[docs/sources-and-matching.md](docs/sources-and-matching.md).
-
-The rules for deciding whether a source's page is about one of our waterfalls
-are in [docs/MATCHING.md](docs/MATCHING.md).
+The sources themselves, how each was obtained and whether that was allowed,
+and the rules for deciding whether a source's page is about one of our
+waterfalls are all in [docs/MATCHING.md](docs/MATCHING.md).
 
 **`identity_certain` asks a different question from whether the data is
 right.** A group matched to its feature by name and never confirmed against a
@@ -120,6 +117,16 @@ had matched on the name and so shared the flaw. **Agreement between two
 matchers that share a defect is not corroboration.** The arbiter is the
 coordinate the source itself publishes, and the matcher now refuses a name
 match more than 20 km from ours.
+
+**Swimming holes: a `swimmable` flag, not a settled design.** Most named
+swimming holes turn out to be the plunge pool of a waterfall we already carry
+(Silver Run Falls, Schoolhouse Falls) rather than a separate place, so giving
+each one its own `swimming_hole`-kind feature would put two pins on one spot.
+For now, `features.swimmable` marks that on the existing `waterfall` feature
+instead, and `swimming_hole` stays a real `kind` for swim spots that are not
+waterfalls at all — lakes, coves, quarries, park beaches. This is a stopgap
+picked 2026-09-17, not a settled shape: it costs the ability to list "swimming
+holes" as one clean `kind = 'swimming_hole'` query, and jw is not sold on it.
 
 **Marker colors live in CSS custom properties**, not in JavaScript, so the
 legend swatches and the map cannot drift apart. JS reads them back via

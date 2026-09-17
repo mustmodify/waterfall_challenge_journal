@@ -21,12 +21,14 @@
   --on-accent: #ffffff;
   --on-visited: #f2f6f2;
   /* map marker palette — read by JS as well as by the legend swatches */
-  --c-visited: #14532d;
-  --c-azure: #007fff;
-  --c-tower: #8a6a4f;
+  --c-visited: lightslategray;
+  --c-azure: deepskyblue;
+  --c-tower: sienna;
+  --c-swim: teal;
   --c-sel: #f2f6f2;
-  /* Rating ramp is purple: it has to stay clear of blue (status), brown
-     (towers), green (visited) and amber (--accent). */
+  /* Rating ramp is purple: it has to stay clear of blue (waterfall), sienna
+     (towers), teal (swimming holes), slategray (visited) and amber
+     (--accent). */
   --r1: #a865e0;
   --r2: #b983e8;
   --r3: #caa0ef;
@@ -39,9 +41,10 @@
 /* Moon: dark basemap. The chrome above is already the dark set, but the
    markers need lifting — navy and deep blues vanish on a near-black map. */
 :root[data-theme="dark"] {
-  --c-visited: #4ade80;
-  --c-azure: #3fa0ff;
-  --c-tower: #c7a07c;
+  --c-visited: lightsteelblue;
+  --c-azure: deepskyblue;
+  --c-tower: peru;
+  --c-swim: lightseagreen;
   --c-sel: #ffffff;
   --on-visited: #06280f;
   /* purple, lifted for a near-black basemap */
@@ -154,3 +157,12 @@ label.rate {
 }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Shared by every admin page's nav, rendered from admin-nav.js so the links
+   themselves live in one place too. */
+header.bar nav a.current { color: var(--ink); font-weight: 600; }
+
+.badge-count {
+  font-size: 0.62rem; border: 1px solid var(--line); border-radius: 999px;
+  padding: 1px 6px; margin-left: 3px; color: var(--haze);
+}
