@@ -61,6 +61,7 @@ type Feature struct {
 	DifficultyRating  *string       `json:"difficulty_rating,omitempty"`
 	Accessibility     *string       `json:"accessibility,omitempty"`
 	HeightFt          *int          `json:"height_ft,omitempty"`
+	ElevationFt       *int          `json:"elevation_ft,omitempty"`
 	BeautyRating      *int          `json:"beauty_rating,omitempty"`
 	PhotoRating       *int          `json:"photo_rating,omitempty"`
 	SolitudeRating    *int          `json:"solitude_rating,omitempty"`
@@ -217,7 +218,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 	}
 	rows, err := db.Query(`
 		SELECT features.id, features.name, kind, parking_location_id, feature_location_id,
-			rt_hike_distance, difficulty_rating, accessibility, height_ft,
+			rt_hike_distance, difficulty_rating, accessibility, height_ft, elevation_ft,
 			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
 			locations.id as location_id, locations.longitude, locations.latitude,
@@ -289,6 +290,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&f.DifficultyRating,
 			&f.Accessibility,
 			&f.HeightFt,
+			&f.ElevationFt,
 			&f.BeautyRating,
 			&f.PhotoRating,
 			&f.SolitudeRating,
