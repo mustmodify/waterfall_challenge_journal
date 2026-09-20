@@ -326,6 +326,12 @@
       padding-right: 3rem;
     }
 
+    /* Elevation's last tick (6000) sits short of the slider's own top stop
+       (7000), unlike walk's last tick, which sits exactly on it -- so there
+       is already headroom before the track's right edge and the same 3rem
+       both over-indents the bar and leaves the thumb looking stranded. */
+    .elevation-row { padding-right: 1rem; }
+
     /* Two inputs stacked on one track: the browser has no two-handle range, and
        the pieces that would fake it (a div with drag handlers) lose the arrow
        keys, the focus ring and the touch target that a real input brings. */
@@ -374,7 +380,7 @@
     .range-ticks span:first-child { transform: none; }
     .range-ticks span:last-child { transform: translateX(-100%); }
 
-    #walk-read {
+    #walk-read, #elevation-read {
       grid-column: 2;
       font-size: 0.72rem;
       color: var(--mist);
