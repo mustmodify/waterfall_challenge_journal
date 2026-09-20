@@ -244,7 +244,17 @@
 
     .chip-row + .chip-row { margin-top: 10px; }
     #filters .chip-row { align-items: center; }
-    #filters #area-pick, #filters #challenge-pick { margin-top: 10px; }
+    #filters #area-pick, #filters .advanced-row { margin-top: 10px; }
+    .advanced-row { margin-top: 10px; }
+    #advanced-count {
+      font-size: 0.62rem;
+      background: var(--on-accent);
+      color: var(--filter-active);
+      border-radius: 999px;
+      padding: 0 5px;
+      margin-left: 5px;
+      font-weight: 700;
+    }
 
     #legend {
       margin-top: 10px;
@@ -280,15 +290,13 @@
     #area-current { flex: 1; min-width: 0; font-size: 0.82rem; font-weight: 600; }
     #area-clear { padding: 4px 6px; }
 
-    #challenge-pick {
+    #advanced-challenge-pick {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 10px;
     }
 
-
-    #challenge-select {
+    #advanced-challenge-select {
       flex: 1;
       min-width: 0;
       padding: 6px 8px;
@@ -301,12 +309,14 @@
       color-scheme: inherit;
     }
 
+    #advanced .modal-body > * + * { margin-top: 14px; }
+
     /* A grid, not the flex row the other filters use. The readout changes
        length as you drag -- "Any distance" against "up to 2 miles, 25 with no
        distance hidden" -- and as a flex sibling it stole that width from the
        bar, so the bar grew and shrank while you were using it. Here it sits on
        its own line and the bar's width depends on nothing but the panel. */
-    .walk-row {
+    .walk-row, .elevation-row {
       display: grid;
       grid-template-columns: auto 1fr;
       align-items: center;
@@ -600,7 +610,7 @@
 
     /* ---------- intro modal ---------- */
     #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop,
-    #add-place-backdrop {
+    #add-place-backdrop, #advanced-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -1303,6 +1313,19 @@
          Scoped to this media query on purpose: on a wide screen the drawer is
          a right-hand panel and never reaches the button. */
       body:has(#drawer.open) #fab { display: none; }
+
+      /* Advanced gets its own treatment rather than joining the centred-modal
+         group above: a form with a dropdown and a two-handle slider reads
+         better as a sheet you pull your thumb up from the bottom of than as
+         a card floating mid-screen, and it matches the drawer's own
+         bottom-sheet habit on a narrow viewport. */
+      #advanced-backdrop { align-items: end; padding: 0 0 84px; }
+      #advanced {
+        width: 100%;
+        max-width: none;
+        max-height: 75vh;
+        border-radius: 16px 16px 0 0;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1418,11 +1441,10 @@
       <span id="area-current"></span>
       <button type="button" class="quiet" id="area-clear" aria-label="Clear area filter">&#10005;</button>
     </div>
-    <div id="challenge-pick" hidden>
-      <label class="row-label" for="challenge-select">Challenge</label>
-      <select id="challenge-select">
-        <option value="all">All challenges</option>
-      </select>
+    <div class="advanced-row">
+      <button type="button" class="chip" id="advanced-open" aria-haspopup="dialog">
+        Advanced<span id="advanced-count" hidden></span>
+      </button>
     </div>
     </div>
     <div id="spectrum" hidden>
@@ -1449,6 +1471,35 @@
         <div class="actions">
           <button type="button" class="primary" id="filters-done">Done</button>
           <button type="button" class="quiet" id="filters-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="advanced-backdrop" hidden>
+    <div id="advanced" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="advanced-title">
+      <div class="modal-head">
+        <h2 id="advanced-title">Advanced Filters</h2>
+        <button class="close quiet" id="advanced-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div id="advanced-challenge-pick">
+          <label class="row-label" for="advanced-challenge-select">Challenge list</label>
+          <select id="advanced-challenge-select">
+            <option value="all">All challenges</option>
+          </select>
+        </div>
+        <div class="chip-row elevation-row" role="group" aria-label="Elevation, where known">
+          <span class="row-label">Elevation</span>
+          <div class="range" id="elevation">
+            <div class="range-track"><div class="range-fill" id="elevation-fill"></div></div>
+            <div class="range-ticks" id="elevation-ticks" aria-hidden="true"></div>
+            <input type="range" id="elevation-min" min="0" max="28" value="0" step="1"
+                   aria-label="Lowest elevation">
+            <input type="range" id="elevation-max" min="0" max="28" value="28" step="1"
+                   aria-label="Highest elevation">
+          </div>
+          <span id="elevation-read">Any elevation</span>
         </div>
       </div>
     </div>
@@ -1722,6 +1773,7 @@
       // all, which is not the same as 0 to 20 miles: it also keeps the 59 falls
       // whose distance nobody has written down.
       walk: { min: 0, max: 0 }, // corrected below, once WALK_STOPS exists
+      elevation: { min: 0, max: 0 }, // corrected below, once ELEVATION_STOPS exists
       area: '',
       visitStatus: 'all',
       // Each rating is independently one of three things: 'all' (no effect),
@@ -2022,6 +2074,83 @@
       });
     });
 
+    // Linear, unlike WALK_STOPS: elevation isn't skewed the way hike distance
+    // is (half under two miles), so evenly spaced 250 ft steps read fine.
+    const ELEVATION_STOPS = Array.from({ length: 29 }, (_, i) => i * 250); // 0..7000
+    const ELEVATION_TICKS = [1000, 2000, 3000, 4000, 5000, 6000];
+
+    state.elevation.max = ELEVATION_STOPS.length - 1;
+
+    function markElevationInputs() {
+      $('elevation-min').max = ELEVATION_STOPS.length - 1;
+      $('elevation-max').max = ELEVATION_STOPS.length - 1;
+    }
+
+    function elevationFilterOn() {
+      return state.elevation.min > 0 || state.elevation.max < ELEVATION_STOPS.length - 1;
+    }
+
+    function matchesElevation(goal) {
+      if (!elevationFilterOn()) return true;
+      // Narrowing by elevation cannot keep what has no elevation on file.
+      if (goal.elevation_ft == null) return false;
+      return goal.elevation_ft >= ELEVATION_STOPS[state.elevation.min] &&
+        goal.elevation_ft <= ELEVATION_STOPS[state.elevation.max];
+    }
+
+    function describeElevation() {
+      const lo = ELEVATION_STOPS[state.elevation.min];
+      const hi = ELEVATION_STOPS[state.elevation.max];
+      const top = state.elevation.max === ELEVATION_STOPS.length - 1;
+      if (!elevationFilterOn()) return 'Any elevation';
+      if (top) return 'over ' + lo + ' ft';
+      if (lo === 0) return 'up to ' + hi + ' ft';
+      return lo + ' to ' + hi + ' ft';
+    }
+
+    function drawElevationTicks() {
+      const span = ELEVATION_STOPS.length - 1;
+      $('elevation-ticks').innerHTML = ELEVATION_TICKS.map((ft) => {
+        const at = ELEVATION_STOPS.indexOf(ft);
+        if (at < 0) return '';
+        return '<span style="left:' + (at / span * 100) + '%">' + ft + '</span>';
+      }).join('');
+    }
+
+    function syncElevation() {
+      $('elevation-min').value = state.elevation.min;
+      $('elevation-max').value = state.elevation.max;
+      const span = ELEVATION_STOPS.length - 1;
+      const fill = $('elevation-fill');
+      fill.style.left = (state.elevation.min / span * 100) + '%';
+      fill.style.right = ((span - state.elevation.max) / span * 100) + '%';
+
+      let text = describeElevation();
+      if (elevationFilterOn()) {
+        const missing = state.features.filter((g) => g.elevation_ft == null).length;
+        if (missing) text += ' · ' + missing + ' with no elevation hidden';
+      }
+      $('elevation-read').textContent = text;
+    }
+
+    function setElevation(which, value) {
+      const other = which === 'min' ? 'max' : 'min';
+      state.elevation[which] = value;
+      if (state.elevation.min > state.elevation.max) state.elevation[other] = value;
+      syncElevation();
+      syncFilterButton();
+      renderMarkers(false);
+    }
+
+    ['min', 'max'].forEach((which) => {
+      $('elevation-' + which).addEventListener('input', (e) => {
+        setElevation(which, Number(e.target.value));
+      });
+      $('elevation-' + which).addEventListener('change', () => {
+        track('filter_elevation', { range: describeElevation() });
+      });
+    });
+
     function inScope(goal) {
       const matchesKind = state.showKinds.has(kindOf(goal));
       const matchesArea = !state.area || (goal.areas || []).includes(state.area);
@@ -2029,7 +2158,7 @@
         (goal.challenges || []).includes(state.challenge);
       const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
       const matchesRated = passesRatingFilter(goal);
-      return matchesKind && matchesArea && matchesChallenge &&
+      return matchesKind && matchesArea && matchesChallenge && matchesElevation(goal) &&
         matchesVisitStatus && matchesRated && matchesWalk(goal);
     }
 
@@ -2732,47 +2861,20 @@
     };
     const CHALLENGE_ORDER = Object.keys(CHALLENGE_LABELS);
 
-    function startedChallenges() {
-      const names = new Set();
-      state.features.forEach((goal) => {
-        if (!goal.last_visited) return;
-        (goal.challenges || []).forEach((c) => names.add(c));
-      });
-      const rank = (n) => {
-        const i = CHALLENGE_ORDER.indexOf(n);
-        return i === -1 ? CHALLENGE_ORDER.length : i;
-      };
-      return [...names].sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
-    }
-
-    // A challenge you have never touched is noise, so the row only lists the
-    // ones you are actually on -- and hides entirely until you are on one.
-    // A dropdown rather than chips: there are four lists now and more coming,
-    // and a wrapping row of them was crowding the card.
+    // Lives in the Advanced modal rather than the main filter list: it isn't
+    // something you tune per-visit, it's "show me one specific list." Every
+    // challenge is offered regardless of whether you've started it -- a
+    // place's "Challenge Lists" badge links here as /?challenge=CODE, and
+    // that has to work for a first-time, signed-out visitor too.
     function renderChallenges() {
-      const names = startedChallenges();
-      // A place's "Challenge Lists" badge links here as /?challenge=CODE so
-      // anyone can browse the list, signed in or not -- keep that code
-      // visible even though startedChallenges() only knows about visits.
-      if (state.challenge !== 'all' && CHALLENGE_LABELS[state.challenge] &&
-          !names.includes(state.challenge)) {
-        names.push(state.challenge);
-      }
-      const box = $('challenge-pick');
-      box.hidden = names.length === 0;
-      if (state.challenge !== 'all' && !names.includes(state.challenge)) {
-        state.challenge = 'all';
-      }
-      if (!names.length) return;
-
-      $('challenge-select').innerHTML =
+      $('advanced-challenge-select').innerHTML =
         '<option value="all">All challenges</option>' +
-        names.map((n) => '<option value="' + escapeHtml(n) + '"' +
+        CHALLENGE_ORDER.map((n) => '<option value="' + escapeHtml(n) + '"' +
           (state.challenge === n ? ' selected' : '') + '>' +
           escapeHtml(CHALLENGE_LABELS[n] || n) + '</option>').join('');
     }
 
-    $('challenge-select').addEventListener('change', (e) => {
+    $('advanced-challenge-select').addEventListener('change', (e) => {
       state.challenge = e.target.value;
       track('select_challenge', { challenge: state.challenge });
       syncFilterButton();
@@ -3007,10 +3109,21 @@
       if (state.area) n++;
       if (state.challenge !== 'all') n++;
       if (walkFilterOn()) n++;
+      if (elevationFilterOn()) n++;
+      return n;
+    }
+
+    function advancedFilterCount() {
+      let n = 0;
+      if (state.challenge !== 'all') n++;
+      if (elevationFilterOn()) n++;
       return n;
     }
 
     function syncFilterButton() {
+      const advN = advancedFilterCount();
+      $('advanced-count').hidden = advN === 0;
+      $('advanced-count').textContent = advN;
       const n = activeFilterCount();
       $('filter-count').hidden = n === 0;
       $('filter-count').textContent = n;
@@ -3077,6 +3190,9 @@
     markWalkInputs();
     drawWalkTicks();
     syncWalk();
+    markElevationInputs();
+    drawElevationTicks();
+    syncElevation();
 
     $('filter-button').addEventListener('click', () => setFilters(true));
     $('filters-close').addEventListener('click', () => setFilters(false));
@@ -3085,13 +3201,30 @@
       if (e.target === $('filters-backdrop')) setFilters(false);
     });
 
+    // Advanced is its own modal rather than another row in the main list --
+    // Challenge and Elevation are things you reach for occasionally, not
+    // every session, and burying them behind one more tap keeps the main
+    // filter card from growing every time something new needs a home.
+    function setAdvanced(open) {
+      $('advanced-backdrop').hidden = !open;
+      if (open) { $('advanced').focus(); refreshFades(); }
+    }
+
+    $('advanced-open').addEventListener('click', () => setAdvanced(true));
+    $('advanced-close').addEventListener('click', () => setAdvanced(false));
+    $('advanced-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('advanced-backdrop')) setAdvanced(false);
+    });
+
     $('filters-reset').addEventListener('click', () => {
       state.showKinds = new Set(['waterfall', 'tower', 'swimming_hole']);
       state.visited = state.user ? 'mute' : 'show';
       state.ratingMode = { beauty: 'all', photo: 'all', solitude: 'all' };
       state.challenge = 'all';
       state.walk = { min: 0, max: WALK_STOPS.length - 1 };
+      state.elevation = { min: 0, max: ELEVATION_STOPS.length - 1 };
       syncWalk();
+      syncElevation();
       setArea('');
       syncFilters();
       renderLegend();
@@ -3339,7 +3472,8 @@
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       // the modal is on top, so it gets the key first
-      if (!$('filters-backdrop').hidden) setFilters(false);
+      if (!$('advanced-backdrop').hidden) setAdvanced(false);
+      else if (!$('filters-backdrop').hidden) setFilters(false);
       else if (!$('fix-backdrop').hidden) setFix(false);
       else if (!$('rateby-backdrop').hidden) setRateby(false);
       else if (!$('anon-backdrop').hidden) setAnon(false);
