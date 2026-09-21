@@ -173,10 +173,12 @@ signs were posted, so nothing confirmed which name belongs to which fall --
 could get to them, which does confirm (1) and (4). A visit strengthens
 whichever of the five it actually touched, not all of them at once.
 
-Also still open: whether this ends up as one summary field per feature or a
-small checklist of these five, each independently at some level of
-confidence (never checked / a source review / a human read the sources / a
-human has been there).
+Settled on a small checklist rather than one summary field, generalized into
+a `facts` table (one row per feature/key, holding the value itself, not a
+log of an action) with two independent confidence measures: a method ladder
+(never checked, up through a human confirming it in person) and a 0-4.3
+outcome score, since the two can genuinely disagree -- see *Facts* in
+[ARCHITECTURE.md](ARCHITECTURE.md).
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the schema and how the pieces fit.
 
