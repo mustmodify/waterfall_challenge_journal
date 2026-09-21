@@ -124,21 +124,49 @@ reviewed data by default, which is exactly backwards after Bubbling Springs.
 those stages can only come from someone actually looking, and claiming
 otherwise would be the same false confidence in a new column.
 
-`key` is not unique per feature. Two keys are explicitly multi-valued:
+`key` is not unique per feature. `aka` is explicitly multi-valued -- one row
+per alternate name. Tom's Spring Falls gets two: "Daniel Ridge Falls" and
+"Jackson Falls", straight out of hikingwnc's own paragraph naming both.
+Another example key, unrelated to confidence: `fall_type`, one of `cascade`,
+`drop`, `slide`, `mixed`, describing the shape of the water rather than how
+sure we are of anything.
 
-- **`aka`** -- an alternate name, one row per alias. Tom's Spring Falls gets
-  two: "Daniel Ridge Falls" and "Jackson Falls", straight out of hikingwnc's
-  own paragraph naming both.
-- **`false_aka`** -- a name people commonly use or confuse this waterfall
-  with that is *not* right, called out rather than silently omitted --
-  "some people think this, but it's not" -- with the correction and
-  reasoning in `notes`. This replaces the separate "ConfusionSet" table
-  floated earlier in design discussion: grouping and narrating confused
-  names doesn't need its own structure, it falls out of `facts` for free.
+A single wrong name attached to one real place (someone calling Bubbling
+Springs Cascades "the upper/lower falls") is a `false_aka` fact -- on
+reflection, not worth a dedicated key yet. A plain note carries that fine
+until a real pattern shows up asking for more structure than that.
 
 This does not replace `accepted`/`field` on `claims`; `facts` sits above it
 as a generalization of what `coordinate_confidence` already does for one
 field, extended to any field worth tracking.
+
+### Confusion sets (designed, not yet built)
+
+Some name collisions aren't "one place, one wrong name attached to it" --
+they're several genuinely different, correctly-named real waterfalls that
+share a confusing family resemblance. "Toms in WNC" is the first one: Tom's
+Creek Falls (feature 398, near Marion), Toms Falls (1268, near
+Hendersonville), Tom Branch Falls (484, near Cherokee), and Tom's Spring
+Falls (366, aka Daniel Ridge Falls, aka Jackson Falls) -- four unrelated
+places, not variants of each other. That doesn't fit `facts`: the useful
+thing to show someone landing on any one of the four is the same shared
+write-up every time, and a shared narrative duplicated across four rows is
+exactly the drift risk this project already avoids elsewhere (claims are
+never merged into one row for that reason).
+
+```
+confusion_sets(id, name, created_at, updated_at)
+confusion_set_members(confusion_set_id, feature_id)
+confusion_set_entries(id, confusion_set_id, body, created_at)
+```
+
+`confusion_set_entries` is a journal, not a field to overwrite: append-only,
+dated, never edited or deleted. When our understanding changes, a new entry
+gets added saying so -- it does not replace the old one. That mirrors how
+`claim_groups` already treats a bad match ("marked, not deleted") and applies
+it to our own reasoning about a cluster, which matters most exactly when
+we've already been wrong here once (the Toms Creek Falls duplicate feature,
+merged in migration 087).
 
 ### Decisions worth knowing
 
