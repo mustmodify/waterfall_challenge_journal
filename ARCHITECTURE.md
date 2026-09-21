@@ -112,11 +112,33 @@ more certain than before (a low score despite the high stage), while the
 on both axes from that same single visit. One method, two facts, two
 different results.
 
-`claims.fact_id` will be a nullable FK once this lands -- additive only,
-existing claims untouched. This does not replace `accepted`/`field` on
-`claims`; `facts` sits above it as a generalization of what
-`coordinate_confidence` already does for one field, extended to any field
-worth tracking.
+`claims.fact_id` will be a nullable FK once this lands. The bottom four
+stages (`unverified` through `corroborated`) are mechanically derivable from
+claims already in the database -- the same logic `coordinate_confidence`
+already runs, just generalized -- so those get backfilled across *all*
+existing history immediately, not just new work: computing them is safe,
+because it is the same trusted computation we already run, and skipping it
+would leave old, never-actually-looked-at data looking no different from
+reviewed data by default, which is exactly backwards after Bubbling Springs.
+`ai_reviewed` / `human_reviewed` / `confirmed_irl` are never backfilled --
+those stages can only come from someone actually looking, and claiming
+otherwise would be the same false confidence in a new column.
+
+`key` is not unique per feature. Two keys are explicitly multi-valued:
+
+- **`aka`** -- an alternate name, one row per alias. Tom's Spring Falls gets
+  two: "Daniel Ridge Falls" and "Jackson Falls", straight out of hikingwnc's
+  own paragraph naming both.
+- **`false_aka`** -- a name people commonly use or confuse this waterfall
+  with that is *not* right, called out rather than silently omitted --
+  "some people think this, but it's not" -- with the correction and
+  reasoning in `notes`. This replaces the separate "ConfusionSet" table
+  floated earlier in design discussion: grouping and narrating confused
+  names doesn't need its own structure, it falls out of `facts` for free.
+
+This does not replace `accepted`/`field` on `claims`; `facts` sits above it
+as a generalization of what `coordinate_confidence` already does for one
+field, extended to any field worth tracking.
 
 ### Decisions worth knowing
 
