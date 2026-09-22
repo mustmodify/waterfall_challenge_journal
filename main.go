@@ -75,13 +75,23 @@ type Feature struct {
 	Challenges        []string      `json:"challenges"`
 	Links             []Link        `json:"links"`
 	Areas             []string      `json:"areas"`
-	Notes             []FeatureNote  `json:"notes"`
-	AccessNotes       []AccessNote   `json:"access_notes"`
-	Confidence        *string        `json:"confidence,omitempty"`
-	Owner             *string       `json:"owner,omitempty"`
-	DeprecatedReason  *string       `json:"deprecated_reason,omitempty"`
-	DeprecatedNote    *string       `json:"deprecated_note,omitempty"`
-	DeprecatedOn      *string       `json:"deprecated_on,omitempty"`
+	Notes             []FeatureNote `json:"notes"`
+	AccessNotes       []AccessNote  `json:"access_notes"`
+	Confidence        *string       `json:"confidence,omitempty"`
+	// Admin-only: which name-collision clusters this feature belongs to.
+	// Omitted entirely for everyone else, the same way last_visited is.
+	ConfusionSets    []ConfusionRef `json:"confusion_sets,omitempty"`
+	Owner            *string        `json:"owner,omitempty"`
+	DeprecatedReason *string        `json:"deprecated_reason,omitempty"`
+	DeprecatedNote   *string        `json:"deprecated_note,omitempty"`
+	DeprecatedOn     *string        `json:"deprecated_on,omitempty"`
+}
+
+// ConfusionRef names a confusion set a feature sits in, so the card can link
+// to the write-up explaining which similarly-named waterfall is which.
+type ConfusionRef struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 // FeatureNote is the trimmed form of a note carried inside a Feature. Source
@@ -217,6 +227,16 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		lastVisited = `(SELECT MAX(visited_on)::text FROM visits WHERE visits.feature_id = features.id AND visits.user_id = $1)`
 		args = append(args, user.ID)
 	}
+	// Confusion sets are editorial notes about our own uncertainty, so they go
+	// to admins only for now. Same conditional-column trick as last_visited
+	// rather than a second query.
+	confusion := `NULL::json`
+	if user := currentUser(r); user != nil && user.IsAdmin {
+		confusion = `(SELECT json_agg(json_build_object('id', cs.id, 'name', cs.name) ORDER BY cs.name)
+			FROM confusion_set_members m
+			JOIN confusion_sets cs ON cs.id = m.confusion_set_id
+			WHERE m.feature_id = features.id)`
+	}
 	rows, err := db.Query(`
 		SELECT features.id, features.name, features.slug, kind, parking_location_id, feature_location_id,
 			rt_hike_distance, difficulty_rating, accessibility, height_ft, elevation_ft,
@@ -249,6 +269,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 				ORDER BY feature_notes.severity, feature_notes.id)
 				FROM feature_notes WHERE feature_notes.feature_id = features.id) AS access_note_json,
 			confidence.tier,
+			`+confusion+` AS confusion_json,
 			features.owner, deprecated_reason, deprecated_note,
 			deprecated_on::text
 		FROM features
@@ -280,6 +301,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var noteJSON []byte
 		var accessNoteJSON []byte
 		var confidence sql.NullString
+		var confusionJSON []byte
 
 		err := rows.Scan(
 			&f.ID,
@@ -312,6 +334,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&noteJSON,
 			&accessNoteJSON,
 			&confidence,
+			&confusionJSON,
 			&f.Owner,
 			&f.DeprecatedReason,
 			&f.DeprecatedNote,
@@ -351,6 +374,13 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		}
 
 		f.AccessNotes = []AccessNote{}
+		f.ConfusionSets = nil
+		if len(confusionJSON) > 0 {
+			if err := json.Unmarshal(confusionJSON, &f.ConfusionSets); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
 		if len(accessNoteJSON) > 0 {
 			if err := json.Unmarshal(accessNoteJSON, &f.AccessNotes); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)

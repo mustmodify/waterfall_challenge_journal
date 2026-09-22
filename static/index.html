@@ -1094,6 +1094,18 @@
     .links a:hover { background: var(--moss); text-decoration: underline; }
     .links a span { font-size: 0.9em; opacity: 0.75; }
 
+    /* Admin-only, so it reads as an editorial aside rather than part of the
+       card proper. */
+    .confusion { margin: 10px 0 4px; display: flex; flex-direction: column; gap: 4px; }
+    .confusion a {
+      font-size: 0.78rem;
+      color: var(--haze);
+      text-decoration: none;
+      border-left: 2px solid var(--accent);
+      padding-left: 8px;
+    }
+    .confusion a:hover { color: var(--mist); text-decoration: underline; }
+
     .challenge-lists { margin-top: 4px; }
 
     .challenge-lists .k {
@@ -2654,6 +2666,17 @@
         goal.notes.forEach((n) => {
           html += '<div class="note' + (n.source ? ' sourced' : '') + '">' +
             escapeHtml(n.text) + '</div>';
+        });
+        html += '</div>';
+      }
+
+      // Admin-only, and only where a set exists. A visitor does not need to
+      // know which of four similarly-named falls confuses us.
+      if (state.user && state.user.is_admin && (goal.confusion_sets || []).length) {
+        html += '<div class="confusion">';
+        goal.confusion_sets.forEach((cs) => {
+          html += '<a href="/admin/confusion_sets/' + cs.id + '">Confusion set: ' +
+            escapeHtml(cs.name) + '</a>';
         });
         html += '</div>';
       }
