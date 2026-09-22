@@ -54,6 +54,7 @@ type Location struct {
 type Feature struct {
 	ID                int           `json:"id"`
 	Name              string        `json:"name"`
+	Slug              *string       `json:"slug,omitempty"`
 	Kind              string        `json:"kind"`
 	FeatureLocationID *int          `json:"feature_location_id"`
 	ParkingLocationID *int          `json:"parking_location_id"`
@@ -217,7 +218,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		args = append(args, user.ID)
 	}
 	rows, err := db.Query(`
-		SELECT features.id, features.name, kind, parking_location_id, feature_location_id,
+		SELECT features.id, features.name, features.slug, kind, parking_location_id, feature_location_id,
 			rt_hike_distance, difficulty_rating, accessibility, height_ft, elevation_ft,
 			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
@@ -283,6 +284,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		err := rows.Scan(
 			&f.ID,
 			&f.Name,
+			&f.Slug,
 			&f.Kind,
 			&f.ParkingLocationID,
 			&f.FeatureLocationID,
