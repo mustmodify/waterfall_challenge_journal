@@ -34,6 +34,13 @@
       margin-bottom: 12px;
     }
     .group.uncertain { border-style: dashed; }
+    details.rejected { margin-top: 18px; }
+    details.rejected > summary {
+      cursor: pointer; color: var(--haze); font-size: 0.85rem;
+      padding: 8px 0; border-top: 1px solid var(--line);
+    }
+    details.rejected > summary:hover { color: var(--ink); }
+    details.rejected[open] > summary { margin-bottom: 10px; }
     .group .top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
     .group .source { font-weight: 600; text-transform: capitalize; }
     .group .url { font-size: 0.8rem; }
@@ -119,9 +126,27 @@
       return String(v);
     }
 
+    // Rejected candidates are kept on purpose -- MATCHING.md: a bad match is
+    // marked, not deleted, so the next import doesn't make it again. But they
+    // outnumber the real sources badly (Wildcat Falls carries two certain
+    // groups and ten rejected AllTrails routes), so they go behind a summary
+    // rather than in the same flat list.
     function render(groups) {
       if (!groups.length) { $('list').innerHTML = '<p class="empty">No claims for this feature.</p>'; return; }
-      $('list').innerHTML = groups.map((g) => {
+      const certain = groups.filter((g) => g.identity_certain);
+      const rejected = groups.filter((g) => !g.identity_certain);
+      $('list').innerHTML = groupsHtml(certain) +
+        (rejected.length
+          ? '<details class="rejected"><summary>' + rejected.length +
+            ' rejected candidate' + (rejected.length === 1 ? '' : 's') +
+            ' &mdash; checked against this feature and discarded, kept so a ' +
+            'future import does not retry them</summary>' +
+            groupsHtml(rejected) + '</details>'
+          : '');
+    }
+
+    function groupsHtml(groups) {
+      return groups.map((g) => {
         const rows = g.claims.map((c) =>
           '<tr class="' + (c.accepted ? 'accepted' : '') + '">' +
           '<td>' + esc(c.field) + '</td>' +
