@@ -54,16 +54,19 @@ winner AS (
 ),
 staged AS (
     SELECT feature_id, lat, lon, n, agreeing,
-           -- jw's definition taken literally: disambiguated is "two or more
-           -- sources agree, floor(n/2) disagree". The "two or more agree"
-           -- half matters. Without it, two sources that flatly contradict
-           -- each other come out as consensus, because one dissenter is
-           -- always within floor(2/2) -- which is how this first produced
-           -- zero disputed rows while coordinate_confidence found five.
+           -- Disambiguated means consensus: a majority agreed and a minority
+           -- did not. You cannot have a consensus with fewer than three
+           -- sources, so n >= 3 is required outright rather than left to
+           -- fall out of the arithmetic. Two sources that contradict each
+           -- other are a dispute, not a consensus -- without this, one
+           -- dissenter is always within floor(2/2) and a flat contradiction
+           -- reads as agreement, which is how the first run produced zero
+           -- disputed rows while coordinate_confidence found five.
            CASE
              WHEN n = 1 THEN 'single_source'
              WHEN n - agreeing = 0 THEN 'corroborated'
-             WHEN agreeing >= 2 AND n - agreeing <= floor(n / 2.0) THEN 'disambiguated'
+             WHEN n >= 3 AND agreeing >= 2 AND n - agreeing <= floor(n / 2.0)
+               THEN 'disambiguated'
              ELSE 'disputed'
            END AS stage
     FROM winner
