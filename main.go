@@ -536,9 +536,7 @@ func main() {
 		http.ServeFile(w, r, "./static/account.html")
 	}).Methods("GET")
 
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/index.html")
-	}).Methods("GET")
+	r.HandleFunc("/", appHome).Methods("GET")
 
 	initMailer()
 

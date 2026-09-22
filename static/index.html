@@ -7,17 +7,20 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
   <script src="/static/analytics.js"></script>
-  <title>Wanderfall</title>
+  <title>{{.Title}}</title>
 
-  <meta name="description" content="A map and logbook for the waterfalls and lookout towers of Western North Carolina. Find somewhere to go, record that you went, and track progress against the challenge lists.">
+  <meta name="description" content="{{.Descr}}">
 
   <!-- Link previews. og:image MUST be absolute — iMessage, Slack and the rest
-       will not follow a relative one, and the failure is a silent blank card. -->
+       will not follow a relative one, and the failure is a silent blank card.
+       Title, description and url are per-place when this page is reached at
+       /falls/<id>-<slug>: a shared link that says "Looking Glass Falls" gets
+       opened, one that says "Wanderfall" does not. -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Wanderfall">
-  <meta property="og:title" content="Wanderfall">
-  <meta property="og:description" content="A map and logbook for the waterfalls and lookout towers of Western North Carolina.">
-  <meta property="og:url" content="https://wanderfall.app/">
+  <meta property="og:title" content="{{.Title}}">
+  <meta property="og:description" content="{{.Descr}}">
+  <meta property="og:url" content="{{.Canonical}}">
   <meta property="og:image" content="https://wanderfall.app/static/wanderfall-og.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
