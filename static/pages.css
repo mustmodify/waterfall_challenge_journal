@@ -9,7 +9,8 @@
   border-bottom: 1px solid var(--line);
 }
 
-.page-head .brand { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--ink); }
+.page-head .brand { font-family: 'Metamorphous', serif; font-weight: 400;
+  font-size: 1.1rem; text-decoration: none; color: var(--ink); }
 .page-head nav { display: flex; gap: 14px; font-size: 0.85rem; }
 
 .sheet {
