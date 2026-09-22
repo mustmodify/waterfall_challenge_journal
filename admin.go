@@ -259,3 +259,100 @@ func listUnresolvedClaims(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(out)
 }
+
+// reviewItem is one fact that wants a human's attention, with the competing
+// readings inline. Showing "1 of 2 sources agree" without showing what the
+// two sources actually say makes a page you have to click out of to use.
+type reviewItem struct {
+	FeatureID int              `json:"feature_id"`
+	Name      string           `json:"name"`
+	Key       string           `json:"key"`
+	Value     *string          `json:"value,omitempty"`
+	Stage     string           `json:"confidence_stage"`
+	Score     *float64         `json:"confidence_score,omitempty"`
+	Notes     *string          `json:"notes,omitempty"`
+	Readings  []reviewReading  `json:"readings"`
+}
+
+type reviewReading struct {
+	Source string `json:"source"`
+	Value  string `json:"value"`
+	URL    *string `json:"url,omitempty"`
+}
+
+// The review queue: facts whose confidence says a person should look. Ordered
+// by score, so active conflicts come before merely unconfirmed ones -- a
+// disputed coordinate is a wrong pin on the map, a single-source one is only
+// an unchecked pin.
+func listReviewQueue(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
+	stage := r.URL.Query().Get("stage")
+	if stage == "" {
+		stage = "disputed"
+	}
+
+	rows, err := db.Query(`
+		SELECT f.id, f.name, fa.key, fa.value, fa.confidence_stage,
+		       fa.confidence_score, fa.notes
+		FROM facts fa
+		JOIN features f ON f.id = fa.feature_id
+		WHERE fa.confidence_stage = $1
+		ORDER BY fa.confidence_score, f.name
+	`, stage)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	items := []reviewItem{}
+	for rows.Next() {
+		var it reviewItem
+		if err := rows.Scan(&it.FeatureID, &it.Name, &it.Key, &it.Value,
+			&it.Stage, &it.Score, &it.Notes); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		it.Readings = []reviewReading{}
+		items = append(items, it)
+	}
+	if err := rows.Err(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// The competing readings, one query for the whole page rather than one
+	// per row. coordinate is stored as jsonb and everything else as a scalar,
+	// so the value is rendered here rather than in the browser.
+	for i := range items {
+		cr, err := db.Query(`
+			SELECT cg.source,
+			       CASE WHEN c.value ? 'lat'
+			            THEN (c.value->>'lat') || ', ' || (c.value->>'lon')
+			            ELSE c.value #>> '{}' END,
+			       cg.url
+			FROM claims c JOIN claim_groups cg ON cg.id = c.group_id
+			WHERE c.feature_id = $1 AND c.field = $2 AND cg.identity_certain
+			ORDER BY cg.source
+		`, items[i].FeatureID, items[i].Key)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		for cr.Next() {
+			var rd reviewReading
+			if err := cr.Scan(&rd.Source, &rd.Value, &rd.URL); err != nil {
+				cr.Close()
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			items[i].Readings = append(items[i].Readings, rd)
+		}
+		cr.Close()
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(items)
+}

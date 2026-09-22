@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
+  <script src="/static/analytics.js"></script>
+  <title>Review &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="icon" href="/static/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="/static/favicon-16.png" sizes="16x16">
+  <link rel="icon" href="/static/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Metamorphous&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; padding: 20px 0 6px;
+    }
+    header.bar h1 {
+      margin: 0; font-family: 'Metamorphous', serif; font-weight: 400; font-size: 1.5rem;
+    }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .lede { color: var(--haze); font-size: 0.9rem; margin: 6px 0 16px; max-width: 62ch; }
+
+    .stages { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .stages button {
+      border: 1px solid var(--line); background: transparent; color: var(--mist);
+      font: inherit; font-size: 0.8rem; padding: 5px 12px;
+      border-radius: 999px; cursor: pointer;
+    }
+    .stages button[aria-pressed="true"] {
+      background: var(--filter-active); border-color: var(--filter-active);
+      color: var(--on-accent); font-weight: 600;
+    }
+
+    .item {
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 13px 15px; margin-bottom: 12px;
+    }
+    .item .top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .item .name { font-weight: 600; }
+    .item .field {
+      font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em;
+      border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
+      color: var(--haze);
+    }
+    .item .score { margin-left: auto; font-size: 0.85rem; color: var(--haze); }
+    .item .why { font-size: 0.85rem; color: var(--haze); margin: 8px 0 10px; }
+
+    table.readings { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    table.readings th {
+      text-align: left; color: var(--haze); font-weight: 500; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px 4px 0;
+    }
+    table.readings td {
+      padding: 4px 8px 4px 0; border-top: 1px solid var(--line); vertical-align: top;
+    }
+    table.readings td.src { text-transform: capitalize; font-weight: 500; }
+    .shown { color: var(--ok); font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.06em; }
+
+    .empty, .note { color: var(--haze); font-size: 0.9rem; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1>Review</h1>
+      <nav id="nav"></nav>
+    </header>
+
+    <div id="denied" class="empty" hidden>
+      This view is for whoever looks after the data.
+      <a href="/">Sign in on the map</a> if that's you.
+    </div>
+
+    <div id="content" hidden>
+      <p class="lede">Facts whose confidence says a person should look, worst
+        first. A disputed coordinate is a wrong pin on the map; a
+        single-source one is only an unchecked pin, so they are not the same
+        job. Each row shows what the sources actually say, so the decision can
+        be made here rather than three clicks away.</p>
+
+      <div class="stages" id="stages"></div>
+      <div id="list"></div>
+    </div>
+  </div>
+
+  <script src="/static/admin-nav.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // Worst first. These are the stages a human can actually act on -- the
+    // review stages above them already had a person in the loop.
+    const STAGES = [
+      ['disputed', 'Disputed'],
+      ['single_source', 'Single source'],
+      ['disambiguated', 'Consensus, with dissent'],
+      ['corroborated', 'Corroborated'],
+    ];
+    let stage = new URLSearchParams(location.search).get('stage') || 'disputed';
+
+    function drawStages() {
+      $('stages').innerHTML = STAGES.map(([key, label]) =>
+        '<button type="button" data-stage="' + key + '" aria-pressed="' +
+        (key === stage) + '">' + label + '</button>').join('');
+      $('stages').querySelectorAll('button').forEach((b) =>
+        b.addEventListener('click', () => {
+          stage = b.dataset.stage;
+          history.replaceState({}, '', '/admin/review?stage=' + stage);
+          drawStages();
+          load();
+        }));
+    }
+
+    function load() {
+      $('list').innerHTML = '<p class="empty">Loading&hellip;</p>';
+      Promise.all([
+        fetch('/admin/review-queue?stage=' + encodeURIComponent(stage)),
+        fetch('/corrections?status=open'),
+      ]).then((rs) => {
+        if (rs.some((r) => r.status === 401 || r.status === 403)) {
+          $('denied').hidden = false; $('content').hidden = true; return null;
+        }
+        return Promise.all(rs.map((r) => r.json()));
+      }).then((data) => {
+        if (!data) return;
+        const [items, corrections] = data;
+        $('content').hidden = false;
+        renderNav('review', corrections.length);
+        render(items);
+      });
+    }
+
+    function render(items) {
+      if (!items.length) {
+        $('list').innerHTML = '<p class="empty">Nothing at this stage.</p>';
+        return;
+      }
+      $('list').innerHTML = items.map((it) => {
+        const readings = it.readings.length
+          ? '<table class="readings"><tr><th>Source</th><th>Says</th><th></th></tr>' +
+            it.readings.map((r) =>
+              '<tr><td class="src">' + esc(r.source) + '</td>' +
+              '<td>' + esc(r.value) + '</td>' +
+              '<td>' + (r.value === it.value ? '<span class="shown">shown</span>' : '') +
+              '</td></tr>').join('') + '</table>'
+          : '<p class="note">No certain claims for this field, so the displayed ' +
+            'value came from somewhere unrecorded.</p>';
+        return '<div class="item">' +
+          '<div class="top">' +
+          '<span class="name"><a href="/admin/claims?feature=' + it.feature_id + '">' +
+          esc(it.name) + '</a></span>' +
+          '<span class="field">' + esc(it.key) + '</span>' +
+          '<span class="score">' + (it.confidence_score == null ? '' :
+            it.confidence_score.toFixed(1)) + '</span>' +
+          '</div>' +
+          (it.notes ? '<p class="why">' + esc(it.notes) + '</p>' : '') +
+          readings +
+          '</div>';
+      }).join('');
+    }
+
+    drawStages();
+    load();
+  </script>
+</body>
+
+</html>

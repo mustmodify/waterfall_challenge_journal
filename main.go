@@ -521,6 +521,10 @@ func main() {
 	r.HandleFunc("/admin/claims", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/admin_claims.html")
 	}).Methods("GET")
+	r.HandleFunc("/admin/review", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_review.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/review-queue", listReviewQueue).Methods("GET")
 	r.HandleFunc("/admin/unresolved", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/admin_unresolved.html")
 	}).Methods("GET")
