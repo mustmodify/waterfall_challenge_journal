@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict OPWXiadZj96P92Up3kQnByI0RqhyHudxFcJ6QiEd0PzZcUqrvsR0VdxrK9HfGme
+\restrict 4iXYKGcmtGzqKAoKkbA87LqCy8sSYc0TXWAzj1Ph2ei2t2JsuMWPTT151kEUqfM
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -119,6 +119,70 @@ $$;
 --
 
 COMMENT ON FUNCTION public.height_is_approximate(feet numeric) IS 'True when a height is rounded at the granularity people use for numbers that size -- under 50 to the nearest 5, 50-100 to 10 or 25, above that to 25 -- which is the signal that it is an estimate rather than a measurement.';
+
+
+--
+-- Name: hike_distance_feet(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.hike_distance_feet(raw text) RETURNS numeric
+    LANGUAGE plpgsql IMMUTABLE
+    AS $_$
+DECLARE
+    t   text;
+    num numeric;
+    ft  numeric;
+BEGIN
+    t := lower(coalesce(raw, ''));
+
+    -- An em dash is ncwaterfalls writing "we do not know", not a distance.
+    IF t = '' OR t ~ '^\s*[—–-]\s*$' THEN
+        RETURN NULL;
+    END IF;
+
+    -- No walk at all.
+    IF t ~ 'roadside' THEN
+        RETURN 0;
+    END IF;
+
+    -- First number in the string. "163 steps plus 123 yards" takes the 163,
+    -- which is wrong, but it is one row and guessing which number a sentence
+    -- means is worse than being predictable.
+    num := nullif(substring(t from '([0-9]+(?:\.[0-9]+)?)'), '')::numeric;
+    IF num IS NULL THEN
+        RETURN NULL;
+    END IF;
+
+    IF t ~ 'yard' THEN
+        ft := num * 3;
+    ELSIF t ~ 'kilometre|kilometer|\ykm\y' THEN
+        ft := num * 3280.84;
+    ELSIF t ~ 'metre|meter' THEN
+        ft := num * 3.28084;
+    ELSIF t ~ '\yft\y|foot|feet' THEN
+        ft := num;
+    ELSIF t ~ '\ym\y' AND num >= 20 THEN
+        -- Bare "m" with a big number is metres; a small one is miles.
+        ft := num * 3.28084;
+    ELSE
+        ft := num * 5280;
+    END IF;
+
+    -- The column means round trip, so halve-distance phrasing doubles.
+    IF t ~ 'each way|one way' THEN
+        ft := ft * 2;
+    END IF;
+
+    RETURN round(ft);
+END;
+$_$;
+
+
+--
+-- Name: FUNCTION hike_distance_feet(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.hike_distance_feet(raw text) IS 'Round-trip walking distance in feet, parsed out of the free text the sources write. Doubles anything marked each way or one way, since the field means round trip. Null where the value is not a distance at all.';
 
 
 --
@@ -1993,5 +2057,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict OPWXiadZj96P92Up3kQnByI0RqhyHudxFcJ6QiEd0PzZcUqrvsR0VdxrK9HfGme
+\unrestrict 4iXYKGcmtGzqKAoKkbA87LqCy8sSYc0TXWAzj1Ph2ei2t2JsuMWPTT151kEUqfM
 
