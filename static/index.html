@@ -2083,7 +2083,9 @@
     // Linear, unlike WALK_STOPS: elevation isn't skewed the way hike distance
     // is (half under two miles), so evenly spaced 250 ft steps read fine.
     const ELEVATION_STOPS = Array.from({ length: 29 }, (_, i) => i * 250); // 0..7000
-    const ELEVATION_TICKS = [1000, 2000, 3000, 4000, 5000, 6000];
+    // Three ticks, not six. Four-digit labels every 1000 ft collided into
+    // each other ("10002000 3000") on a bar this wide.
+    const ELEVATION_TICKS = [2000, 4000, 6000];
 
     state.elevation.max = ELEVATION_STOPS.length - 1;
 
