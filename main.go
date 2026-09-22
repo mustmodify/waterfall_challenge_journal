@@ -521,6 +521,15 @@ func main() {
 	r.HandleFunc("/admin/claims", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/admin_claims.html")
 	}).Methods("GET")
+	r.HandleFunc("/admin/confusion_sets", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_confusion_sets.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/confusion_sets/{id:[0-9]+}", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_confusion_sets.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/confusion-set-list", listConfusionSets).Methods("GET")
+	r.HandleFunc("/admin/confusion-set/{id:[0-9]+}", getConfusionSet).Methods("GET")
+	r.HandleFunc("/admin/confusion-set/{id:[0-9]+}/entries", addConfusionEntry).Methods("POST")
 	r.HandleFunc("/admin/review", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/admin_review.html")
 	}).Methods("GET")
