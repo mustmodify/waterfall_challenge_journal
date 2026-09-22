@@ -12,3 +12,6 @@ data/alltrails/raw/
 .env
 .env.*
 __pycache__/
+
+# Locally built dev binary, not an artifact.
+wanderfall_dev

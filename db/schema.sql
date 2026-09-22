@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict y9nirAe90kvGfQFiYAUnsYtEuLbZdc2ft8qY16v6qMN5aPmBZfAnddDNapuRw1g
+\restrict OPWXiadZj96P92Up3kQnByI0RqhyHudxFcJ6QiEd0PzZcUqrvsR0VdxrK9HfGme
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -17,6 +17,109 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: accessibility_rank(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.accessibility_rank(raw text) RETURNS numeric
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    WITH base AS (
+        -- Drop the parenthetical caveat; it is commentary, not difficulty.
+        SELECT trim(regexp_replace(lower(coalesce(raw, '')), '\([^)]*\)', '', 'g')) AS b
+    )
+    SELECT CASE
+        -- Access mode or permission, not difficulty.
+        WHEN b ~ '(kayak|boat|private|no access|not accessible)' THEN NULL
+        ELSE (
+            CASE
+                -- Highest first: "very hard" must not be read as "hard", and
+                -- a range like "Easy/Moderate" resolves to its harder end,
+                -- which is the safer way to be wrong when someone is deciding
+                -- whether to take it on.
+                WHEN b ~ 'very\s+hard'              THEN 4
+                WHEN b ~ '(hard|difficult)'         THEN 3
+                WHEN b ~ '(moderate|medium|average)' THEN 2
+                WHEN b ~ 'easy'                     THEN 1
+                WHEN b ~ 'roadside'                 THEN 0
+                ELSE NULL
+            END
+            + CASE WHEN b ~ '\+\+' THEN 1.0 WHEN b ~ '\+' THEN 0.5 ELSE 0 END
+        )
+    END FROM base
+$$;
+
+
+--
+-- Name: FUNCTION accessibility_rank(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.accessibility_rank(raw text) IS 'Difficulty as a number so two sources can be compared: Roadside 0 to Very Hard 4, a trailing + worth half a step. Null where the value is about permission or transport rather than difficulty. Agreement is within half a step, because the + is a hikingwnc habit other sources do not share.';
+
+
+--
+-- Name: confusion_set_entries_are_append_only(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.confusion_set_entries_are_append_only() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF TG_OP = 'DELETE'
+       AND NOT EXISTS (SELECT 1 FROM confusion_sets WHERE id = OLD.confusion_set_id) THEN
+        -- The set itself is being removed; the journal goes with it.
+        RETURN OLD;
+    END IF;
+    RAISE EXCEPTION
+        'confusion_set_entries is append-only: add a new entry correcting the old one';
+END;
+$$;
+
+
+--
+-- Name: height_gap(numeric, numeric); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.height_gap(a numeric, b numeric) RETURNS numeric
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    SELECT CASE
+        WHEN a IS NULL OR b IS NULL OR greatest(a, b) = 0 THEN NULL
+        ELSE (greatest(a, b) - least(a, b)) / greatest(a, b)
+    END
+$$;
+
+
+--
+-- Name: FUNCTION height_gap(a numeric, b numeric); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.height_gap(a numeric, b numeric) IS 'Difference between two heights as a fraction of the larger. Within 0.15, an exact reading beats an approximate one; beyond it, neither wins and the honest answer is a range.';
+
+
+--
+-- Name: height_is_approximate(numeric); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.height_is_approximate(feet numeric) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    SELECT CASE
+        WHEN feet IS NULL THEN NULL
+        WHEN feet < 50  THEN feet::numeric % 5 = 0
+        WHEN feet <= 100 THEN feet::numeric % 10 = 0 OR feet::numeric % 25 = 0
+        ELSE feet::numeric % 25 = 0
+    END
+$$;
+
+
+--
+-- Name: FUNCTION height_is_approximate(feet numeric); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.height_is_approximate(feet numeric) IS 'True when a height is rounded at the granularity people use for numbers that size -- under 50 to the nearest 5, 50-100 to 10 or 25, above that to 25 -- which is the signal that it is an estimate rather than a measurement.';
+
 
 --
 -- Name: name_core(text); Type: FUNCTION; Schema: public; Owner: -
@@ -225,6 +328,7 @@ CREATE TABLE public.claims (
     note text,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    fact_id integer,
     CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'height_ft'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'coordinate_raw'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
@@ -391,6 +495,95 @@ ALTER SEQUENCE public.claims_id_seq OWNED BY public.claims.id;
 
 
 --
+-- Name: confusion_set_entries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.confusion_set_entries (
+    id integer NOT NULL,
+    confusion_set_id integer NOT NULL,
+    body text NOT NULL,
+    author text NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: TABLE confusion_set_entries; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.confusion_set_entries IS 'Append-only journal. A changed conclusion is a new entry, never an edit. author may be jw only when the words are his verbatim; anything an agent composed or paraphrased is authored by the agent, even when the thinking came from jw.';
+
+
+--
+-- Name: confusion_set_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.confusion_set_entries_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: confusion_set_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.confusion_set_entries_id_seq OWNED BY public.confusion_set_entries.id;
+
+
+--
+-- Name: confusion_set_members; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.confusion_set_members (
+    confusion_set_id integer NOT NULL,
+    feature_id integer NOT NULL
+);
+
+
+--
+-- Name: confusion_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.confusion_sets (
+    id integer NOT NULL,
+    name text NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: TABLE confusion_sets; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.confusion_sets IS 'A named cluster of similarly-named but distinct features. Names are written by hand -- a generated "Falls Named {x}" default was considered and dropped, since most collisions here are descriptive words (Big, High, Rainbow) where it reads badly.';
+
+
+--
+-- Name: confusion_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.confusion_sets_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: confusion_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.confusion_sets_id_seq OWNED BY public.confusion_sets.id;
+
+
+--
 -- Name: locations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -502,6 +695,56 @@ CREATE SEQUENCE public.corrections_id_seq
 --
 
 ALTER SEQUENCE public.corrections_id_seq OWNED BY public.corrections.id;
+
+
+--
+-- Name: facts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.facts (
+    id integer NOT NULL,
+    feature_id integer NOT NULL,
+    key text NOT NULL,
+    value text,
+    value_type text DEFAULT 'string'::text NOT NULL,
+    units text,
+    confidence_stage text DEFAULT 'single_source'::text NOT NULL,
+    confidence_score numeric(2,1),
+    notes text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    CONSTRAINT facts_coordinate_lat_first CHECK (((value_type <> 'coordinate'::text) OR (value IS NULL) OR ((((split_part(value, ','::text, 1))::numeric >= (30)::numeric) AND ((split_part(value, ','::text, 1))::numeric <= (40)::numeric)) AND (((split_part(value, ','::text, 2))::numeric >= ('-90'::integer)::numeric) AND ((split_part(value, ','::text, 2))::numeric <= ('-75'::integer)::numeric))))),
+    CONSTRAINT facts_score_range CHECK (((confidence_score IS NULL) OR ((confidence_score >= (0)::numeric) AND (confidence_score <= 4.3)))),
+    CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['disputed'::text, 'single_source'::text, 'disambiguated'::text, 'corroborated'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text]))),
+    CONSTRAINT facts_value_type_known CHECK ((value_type = ANY (ARRAY['string'::text, 'integer'::text, 'decimal'::text, 'coordinate'::text])))
+);
+
+
+--
+-- Name: TABLE facts; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.facts IS 'What we currently think about each feature, derived from claims. A cache: rebuildable from claims at any time. Review work belongs in claims, not here.';
+
+
+--
+-- Name: facts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.facts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: facts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.facts_id_seq OWNED BY public.facts.id;
 
 
 --
@@ -943,10 +1186,31 @@ ALTER TABLE ONLY public.claims ALTER COLUMN id SET DEFAULT nextval('public.claim
 
 
 --
+-- Name: confusion_set_entries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_set_entries ALTER COLUMN id SET DEFAULT nextval('public.confusion_set_entries_id_seq'::regclass);
+
+
+--
+-- Name: confusion_sets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_sets ALTER COLUMN id SET DEFAULT nextval('public.confusion_sets_id_seq'::regclass);
+
+
+--
 -- Name: corrections id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.corrections ALTER COLUMN id SET DEFAULT nextval('public.corrections_id_seq'::regclass);
+
+
+--
+-- Name: facts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.facts ALTER COLUMN id SET DEFAULT nextval('public.facts_id_seq'::regclass);
 
 
 --
@@ -1085,11 +1349,43 @@ ALTER TABLE ONLY public.claims
 
 
 --
+-- Name: confusion_set_entries confusion_set_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_set_entries
+    ADD CONSTRAINT confusion_set_entries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: confusion_set_members confusion_set_members_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_set_members
+    ADD CONSTRAINT confusion_set_members_pkey PRIMARY KEY (confusion_set_id, feature_id);
+
+
+--
+-- Name: confusion_sets confusion_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_sets
+    ADD CONSTRAINT confusion_sets_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: corrections corrections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.corrections
     ADD CONSTRAINT corrections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: facts facts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.facts
+    ADD CONSTRAINT facts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1286,6 +1582,20 @@ CREATE UNIQUE INDEX claims_one_value_per_group ON public.claims USING btree (gro
 
 
 --
+-- Name: confusion_set_entries_set; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX confusion_set_entries_set ON public.confusion_set_entries USING btree (confusion_set_id, created_at DESC);
+
+
+--
+-- Name: confusion_set_members_feature; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX confusion_set_members_feature ON public.confusion_set_members USING btree (feature_id);
+
+
+--
 -- Name: corrections_feature_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1297,6 +1607,13 @@ CREATE INDEX corrections_feature_idx ON public.corrections USING btree (feature_
 --
 
 CREATE INDEX corrections_open_idx ON public.corrections USING btree (status, created_at DESC);
+
+
+--
+-- Name: facts_feature_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX facts_feature_key ON public.facts USING btree (feature_id, key);
 
 
 --
@@ -1356,6 +1673,13 @@ CREATE INDEX visits_user_feature_idx ON public.visits USING btree (user_id, feat
 
 
 --
+-- Name: confusion_set_entries append_only; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER append_only BEFORE DELETE OR UPDATE ON public.confusion_set_entries FOR EACH ROW EXECUTE FUNCTION public.confusion_set_entries_are_append_only();
+
+
+--
 -- Name: areas touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -1384,10 +1708,24 @@ CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.claims FOR EACH ROW EXEC
 
 
 --
+-- Name: confusion_sets touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.confusion_sets FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
 -- Name: corrections touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.corrections FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+
+
+--
+-- Name: facts touch_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER touch_updated_at BEFORE UPDATE ON public.facts FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
 
 
 --
@@ -1476,11 +1814,43 @@ ALTER TABLE ONLY public.claim_groups
 
 
 --
+-- Name: claims claims_fact_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claims
+    ADD CONSTRAINT claims_fact_id_fkey FOREIGN KEY (fact_id) REFERENCES public.facts(id) ON DELETE SET NULL;
+
+
+--
 -- Name: claims claims_group_id_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.claims
     ADD CONSTRAINT claims_group_id_feature_id_fkey FOREIGN KEY (group_id, feature_id) REFERENCES public.claim_groups(id, feature_id) ON DELETE CASCADE;
+
+
+--
+-- Name: confusion_set_entries confusion_set_entries_confusion_set_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_set_entries
+    ADD CONSTRAINT confusion_set_entries_confusion_set_id_fkey FOREIGN KEY (confusion_set_id) REFERENCES public.confusion_sets(id) ON DELETE CASCADE;
+
+
+--
+-- Name: confusion_set_members confusion_set_members_confusion_set_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_set_members
+    ADD CONSTRAINT confusion_set_members_confusion_set_id_fkey FOREIGN KEY (confusion_set_id) REFERENCES public.confusion_sets(id) ON DELETE CASCADE;
+
+
+--
+-- Name: confusion_set_members confusion_set_members_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.confusion_set_members
+    ADD CONSTRAINT confusion_set_members_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
 
 
 --
@@ -1505,6 +1875,14 @@ ALTER TABLE ONLY public.corrections
 
 ALTER TABLE ONLY public.corrections
     ADD CONSTRAINT corrections_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: facts facts_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.facts
+    ADD CONSTRAINT facts_feature_id_fkey FOREIGN KEY (feature_id) REFERENCES public.features(id) ON DELETE CASCADE;
 
 
 --
@@ -1615,5 +1993,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict y9nirAe90kvGfQFiYAUnsYtEuLbZdc2ft8qY16v6qMN5aPmBZfAnddDNapuRw1g
+\unrestrict OPWXiadZj96P92Up3kQnByI0RqhyHudxFcJ6QiEd0PzZcUqrvsR0VdxrK9HfGme
 
