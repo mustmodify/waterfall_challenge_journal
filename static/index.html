@@ -1978,6 +1978,17 @@
 
     // Uneven on purpose. Half the catalogue is under two miles, so a linear
     // slider would spend most of its travel on the handful of walks past ten.
+    // A native range thumb's CENTRE only travels from half a thumb in to half
+    // a thumb short of the end -- so positioning the fill or a tick at a flat
+    // percentage of the track lines up with the thumb's left edge at 0%, its
+    // centre at 50%, and its right edge at 100%. Inset by half a thumb and
+    // scale to the shortened travel, and the fill meets the thumb's centre at
+    // every value instead of only in the middle.
+    const THUMB = 16;
+    function trackPos(fraction) {
+      return 'calc(' + THUMB / 2 + 'px + ' + fraction * 100 + '% - ' + fraction * THUMB + 'px)';
+    }
+
     const WALK_STOPS = [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 10, 12, 15, 20, 36];
     const WALK_TICKS = [0.5, 1, 2, 3, 5, 7, 36];
 
@@ -2040,7 +2051,7 @@
         const at = WALK_STOPS.indexOf(miles);
         if (at < 0) return '';
         const label = miles === 0.5 ? '\u00bd' : String(miles);
-        return '<span style="left:' + (at / span * 100) + '%">' + label + '</span>';
+        return '<span style="left:' + trackPos(at / span) + '">' + label + '</span>';
       }).join('');
     }
 
@@ -2049,8 +2060,8 @@
       $('walk-max').value = state.walk.max;
       const span = WALK_STOPS.length - 1;
       const fill = $('walk-fill');
-      fill.style.left = (state.walk.min / span * 100) + '%';
-      fill.style.right = ((span - state.walk.max) / span * 100) + '%';
+      fill.style.left = trackPos(state.walk.min / span);
+      fill.style.right = trackPos((span - state.walk.max) / span);
 
       let text = describeWalk();
       if (walkFilterOn()) {
@@ -2121,7 +2132,7 @@
       $('elevation-ticks').innerHTML = ELEVATION_TICKS.map((ft) => {
         const at = ELEVATION_STOPS.indexOf(ft);
         if (at < 0) return '';
-        return '<span style="left:' + (at / span * 100) + '%">' + ft + '</span>';
+        return '<span style="left:' + trackPos(at / span) + '">' + ft + '</span>';
       }).join('');
     }
 
@@ -2130,8 +2141,8 @@
       $('elevation-max').value = state.elevation.max;
       const span = ELEVATION_STOPS.length - 1;
       const fill = $('elevation-fill');
-      fill.style.left = (state.elevation.min / span * 100) + '%';
-      fill.style.right = ((span - state.elevation.max) / span * 100) + '%';
+      fill.style.left = trackPos(state.elevation.min / span);
+      fill.style.right = trackPos((span - state.elevation.max) / span);
 
       let text = describeElevation();
       if (elevationFilterOn()) {
