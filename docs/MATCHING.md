@@ -182,6 +182,31 @@ on Toms Spring Branch — different water, 80 km apart, and nothing about
 "Tom" separates them. See the "Falls Named Tom" confusion set for the
 worked case.
 
+### Elevation is a check on the coordinate
+
+USGS's point service answers with the ground elevation **at the coordinate we
+hold**, not at the waterfall — so when it disagrees badly with a source's
+stated elevation for the same fall, the argument is really about the
+coordinate.
+
+Across the 116 features where both USGS and ncwaterfalls give an elevation,
+they agree to 2.6% on average, 83 ft. Two do not:
+
+| | usgs | ncwaterfalls | our coordinate |
+|---|---|---|---|
+| Big Bearwallow Falls | 3,681 ft | 2,420 ft | single source |
+| Cutler Falls | 2,492 ft | 3,819 ft | single source |
+
+Both are features where only one source has ever said where the waterfall is,
+so nothing corroborates the pin — and Cutler Falls is already in §3's table as
+an ncwaterfalls match refused at 118 km. A 1,300 ft disagreement about a
+waterfall in mountains that top out around 6,700 ft is not a measurement
+dispute; it is two parties describing different places.
+
+This generalises the same way the creek rule does: a field we were not
+treating as evidence about position turns out to be exactly that, for free,
+because it was measured *at* the position.
+
 ### Read the prose, not just the fields
 
 Related, and worth saying because it is easy to write an importer that only
