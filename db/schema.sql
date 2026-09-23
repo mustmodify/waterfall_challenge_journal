@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict TBkY1VOE3Sun1e4dUtLvZdiEe50JnooDE55p6p7PYK44v7vMPxyHM1qYGAqI0eR
+\restrict VYEZQPiySQR7GuY8zsYF2fu6iSGd3WgRtKCRjAglDhm4oLvvFeQlzcLBzu9Nc6j
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -232,6 +232,29 @@ COMMENT ON FUNCTION public.name_core(raw text) IS 'Reduces a source page title t
 
 
 --
+-- Name: name_display(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_display(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(regexp_replace(
+    regexp_replace(
+      regexp_replace(coalesce(raw, ''), '\([^)]*\)', ' ', 'g'),
+      '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\M.*$',
+      '', 'i'),
+    '\s+', ' ', 'g'), ' ,;-'), '');
+$_$;
+
+
+--
+-- Name: FUNCTION name_display(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.name_display(raw text) IS 'name_core() for people rather than for matching: drops the parenthetical and the SEO tail, but keeps case and punctuation.';
+
+
+--
 -- Name: name_key(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -243,6 +266,17 @@ $$;
 
 
 --
+-- Name: name_parenthetical(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_parenthetical(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT nullif(btrim(substring(coalesce(raw, '') from '\(([^)]*)\)')), '');
+$$;
+
+
+--
 -- Name: normalize_claim_value(text, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -250,14 +284,10 @@ CREATE FUNCTION public.normalize_claim_value(raw text, field text) RETURNS text
     LANGUAGE sql IMMUTABLE
     AS $$
   SELECT CASE
-    -- A name's parenthesis is its disambiguator, not an aside.
-    WHEN field IN ('name', 'alias') THEN NULL
+    WHEN field IN ('name', 'alias') THEN name_display(raw)
     ELSE nullif(btrim(regexp_replace(
       regexp_replace(
         regexp_replace(
-          -- Asides first, or "(sliding distance is about 60')" leaves its own
-          -- "about" behind. Kept when the parenthesis says which direction,
-          -- since hike_distance_feet() doubles "each way".
           regexp_replace(coalesce(raw, ''),
             '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
             ' ', 'gi'),
@@ -277,6 +307,33 @@ COMMENT ON FUNCTION public.normalize_claim_value(raw text, field text) IS 'Strip
 
 
 --
+-- Name: parenthetical_kind(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.parenthetical_kind(inside text, field text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT CASE
+    WHEN field NOT IN ('name', 'alias') THEN NULL
+    WHEN inside IS NULL OR btrim(inside) = '' THEN NULL
+    -- An alias is another name for the same water, so it names water.
+    WHEN inside ~* '(falls|waterfall|cascade|shoals|cataract)' THEN 'alias'
+    -- Provenance and status, not part of anybody's name.
+    WHEN inside ~* '^(my name|name|unofficial name|private|access restricted|th|gone|closed)\M'
+      OR inside ~ '^[0-9]{2}-[0-9]{2}-[0-9]{4}$' THEN 'note'
+    ELSE 'disambiguator'
+  END;
+$_$;
+
+
+--
+-- Name: FUNCTION parenthetical_kind(inside text, field text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.parenthetical_kind(inside text, field text) IS 'Which of the three things a name''s parenthesis is holding: alias, disambiguator or note. Null for every other field, whose parentheses are description rather than naming. A reading, not a verdict -- see 116 for the counts it was derived from.';
+
+
+--
 -- Name: petzoldt_band(numeric); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -293,6 +350,21 @@ CREATE FUNCTION public.petzoldt_band(d numeric) RETURNS text
         ELSE                    'extreme'
     END;
 $$;
+
+
+--
+-- Name: proto_display(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.proto_display(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(regexp_replace(
+    regexp_replace(
+      regexp_replace(coalesce(raw,''), '\([^)]*\)', ' ', 'g'),
+      '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\M.*$', '', 'i'),
+    '\s+', ' ', 'g'), ' ,;-'), '');
+$_$;
 
 
 --
@@ -450,6 +522,7 @@ CREATE TABLE public.claims (
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     fact_id integer,
     normalized_value jsonb,
+    parenthetical text,
     CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'height_ft'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'coordinate_raw'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
@@ -469,6 +542,13 @@ END)
 --
 
 COMMENT ON COLUMN public.claims.normalized_value IS 'value with hedges ("approx", "about", "~") and parenthetical asides removed. Null when value needed no tidying, so read it as coalesce(normalized_value, value).';
+
+
+--
+-- Name: COLUMN claims.parenthetical; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.claims.parenthetical IS 'What normalizing lifted out of value, verbatim and unclassified -- "Gorges", "Upper", "Guardrail Falls", "My name". Derived, not claimed: the raw value is still the claim. For a name, parenthetical_kind() reads it as an alias, a disambiguator or a note, but that reading is not stored yet. On other fields it is plain description.';
 
 
 --
@@ -2121,5 +2201,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict TBkY1VOE3Sun1e4dUtLvZdiEe50JnooDE55p6p7PYK44v7vMPxyHM1qYGAqI0eR
+\unrestrict VYEZQPiySQR7GuY8zsYF2fu6iSGd3WgRtKCRjAglDhm4oLvvFeQlzcLBzu9Nc6j
 
