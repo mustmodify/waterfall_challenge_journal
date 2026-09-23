@@ -42,13 +42,21 @@
       border: 1px solid var(--line); border-radius: var(--radius);
       padding: 13px 15px; margin-bottom: 14px;
     }
-    .field > .top {
+    /* name: value, and nothing competing with it. */
+    .field h2.headline {
+      margin: 0 0 7px; font-size: 1.5rem; font-weight: 400;
+      line-height: 1.25; letter-spacing: 0.01em;
+    }
+    .field h2.headline .k { color: var(--haze); }
+    .field h2.headline .v { font-weight: 700; }
+    .field h2.headline .v.unset { font-weight: 400; font-style: italic; opacity: 0.6; }
+
+    /* Everything about the value, rather than the value itself. */
+    .field .meta {
       display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
-    .field h2 {
-      margin: 0; font-size: 1rem; font-weight: 600; letter-spacing: 0.01em;
-    }
+    .field .meta .units { font-size: 0.78rem; color: var(--haze); }
     .grade {
       display: inline-flex; align-items: baseline; gap: 7px;
       border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px;
@@ -59,10 +67,6 @@
     .grade.g-c { color: var(--mist); }
     .grade.g-a, .grade.g-b { color: var(--ok); border-color: var(--ok); }
     .grade.g-none { opacity: 0.6; font-style: italic; }
-
-    .settled { margin-left: auto; font-size: 0.85rem; }
-    .settled .val { font-weight: 600; }
-    .settled .units { color: var(--haze); font-size: 0.8rem; }
 
     .why { font-size: 0.85rem; color: var(--haze); margin: 2px 0 10px; }
 
@@ -178,7 +182,15 @@
     }
 
     function settledValue(sec) {
-      if (sec.value == null) return null;
+      if (sec.value == null) {
+        // Only five keys are backfilled into facts. For the rest there is no
+        // computed answer, but there is often an accepted claim, and that is
+        // still what the site shows -- so say so rather than leaving the
+        // headline blank.
+        const won = sec.claims.find((c) => c.accepted);
+        return won == null ? null
+          : { text: showValue(won.value), units: 'accepted claim, not graded' };
+      }
       const n = Number(sec.value);
       if (sec.field === 'accessibility' && !isNaN(n)) {
         return { text: rankWord(n), units: 'rank ' + sec.value + ' of 4' };
@@ -245,14 +257,22 @@
         ' rejected candidate' + (refused.length === 1 ? '' : 's') +
         ' &mdash; not counted</summary>' + table(refused) + '</details>';
 
+      // The headline is the whole answer: "Accessibility: Moderate". Nothing
+      // else belongs on that line -- the grade, the units and the reasoning
+      // are all about the answer, so they sit under it.
       const s2 = settledValue(sec);
-      const settled = s2 == null ? '' :
-        '<span class="settled"><span class="val">' + esc(s2.text) + '</span>' +
-        (s2.units ? ' <span class="units">' + esc(s2.units) + '</span>' : '') + '</span>';
+      const headline = '<h2 class="headline">' +
+        '<span class="k">' + esc(label(sec.field)) + ':</span> ' +
+        (s2 == null ? '<span class="v unset">not settled</span>'
+                    : '<span class="v">' + esc(s2.text) + '</span>') +
+        '</h2>';
+
+      const meta = '<div class="meta">' + gradeHtml(sec) +
+        (s2 && s2.units ? '<span class="units">' + esc(s2.units) + '</span>' : '') +
+        '</div>';
 
       return '<section class="field">' +
-        '<div class="top"><h2>' + esc(label(sec.field)) + '</h2>' +
-          gradeHtml(sec) + settled + '</div>' +
+        headline + meta +
         (sec.notes ? '<p class="why">' + esc(sec.notes) + '</p>' : '') +
         table(counted) + refusedBlock +
         '</section>';

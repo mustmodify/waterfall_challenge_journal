@@ -481,6 +481,20 @@ func clientConfig(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "window.WJ_CONFIG = { stadiaKey: %s };\n", key)
 }
 
+// servePage serves one of the static HTML shells.
+//
+// Each of these carries its own inline <script>, so a browser holding a
+// cached copy is running stale code, not just showing a stale page -- which
+// is how a fixed link kept 404ing after the fix shipped. /static/ has been
+// wrapped in noCache since the beginning for this reason; the pages that
+// embed the behaviour need it at least as much.
+func servePage(path string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache")
+		http.ServeFile(w, r, path)
+	}
+}
+
 func noCache(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "no-cache")
@@ -533,52 +547,28 @@ func main() {
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", noCache(http.FileServer(http.Dir("static/")))))
 
-	r.HandleFunc("/bulk", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/bulk.html")
-	}).Methods("GET")
-	r.HandleFunc("/corrections/queue", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/corrections.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/users", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/users.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/features", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_features.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/features/{id:[0-9]+}", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_feature.html")
-	}).Methods("GET")
+	r.HandleFunc("/bulk", servePage("./static/bulk.html")).Methods("GET")
+	r.HandleFunc("/corrections/queue", servePage("./static/corrections.html")).Methods("GET")
+	r.HandleFunc("/admin/users", servePage("./static/users.html")).Methods("GET")
+	r.HandleFunc("/admin", servePage("./static/admin.html")).Methods("GET")
+	r.HandleFunc("/admin/features", servePage("./static/admin_features.html")).Methods("GET")
+	r.HandleFunc("/admin/features/{id:[0-9]+}", servePage("./static/admin_feature.html")).Methods("GET")
 	r.HandleFunc("/admin/feature/{id:[0-9]+}/facts", showFeatureFacts).Methods("GET")
-	r.HandleFunc("/admin/claims", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_claims.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/confusion_sets", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_confusion_sets.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/confusion_sets/{id:[0-9]+}", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_confusion_sets.html")
-	}).Methods("GET")
+	r.HandleFunc("/admin/claims", servePage("./static/admin_claims.html")).Methods("GET")
+	r.HandleFunc("/admin/confusion_sets", servePage("./static/admin_confusion_sets.html")).Methods("GET")
+	r.HandleFunc("/admin/confusion_sets/{id:[0-9]+}", servePage("./static/admin_confusion_sets.html")).Methods("GET")
 	r.HandleFunc("/admin/confusion-set-list", listConfusionSets).Methods("GET")
 	r.HandleFunc("/admin/confusion-set/{id:[0-9]+}", getConfusionSet).Methods("GET")
 	r.HandleFunc("/admin/confusion-set/{id:[0-9]+}/entries", addConfusionEntry).Methods("POST")
-	r.HandleFunc("/admin/review", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_review.html")
-	}).Methods("GET")
+	r.HandleFunc("/admin/review", servePage("./static/admin_review.html")).Methods("GET")
 	r.HandleFunc("/admin/review-queue", listReviewQueue).Methods("GET")
-	r.HandleFunc("/admin/unresolved", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_unresolved.html")
-	}).Methods("GET")
+	r.HandleFunc("/admin/unresolved", servePage("./static/admin_unresolved.html")).Methods("GET")
 	r.HandleFunc("/admin/feature-list", listFeaturesAdmin).Methods("GET")
 	r.HandleFunc("/claims", listClaims).Methods("GET")
 	r.HandleFunc("/claims/unresolved", listUnresolvedClaims).Methods("GET")
 	r.HandleFunc("/falls/{ref}", placeHandler).Methods("GET")
 	r.HandleFunc("/features/{id}/view", recordView).Methods("POST")
-	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/account.html")
-	}).Methods("GET")
+	r.HandleFunc("/account", servePage("./static/account.html")).Methods("GET")
 
 	r.HandleFunc("/", appHome).Methods("GET")
 
