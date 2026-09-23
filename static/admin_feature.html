@@ -44,10 +44,14 @@
     }
     .head3 {
       display: grid; grid-template-columns: 1fr 1.4fr auto;
-      gap: 10px 20px; align-items: start; margin-bottom: 10px;
+      gap: 10px 20px; align-items: start; margin-bottom: 22px;
     }
+    /* Same treatment as the readings table's column headings, so the page
+       has one kind of label rather than two. */
     .head3 .lbl {
-      font-size: 1rem; color: var(--haze); font-weight: 400; line-height: 1.3;
+      color: var(--haze); font-weight: 500; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      line-height: 1.3; margin-bottom: 2px;
     }
     .head3 .big {
       font-size: 1.5rem; font-weight: 600; line-height: 1.25;
@@ -143,10 +147,13 @@
     };
 
     const FIELD_LABELS = {
-      coordinate: 'Coordinate',
-      parking_coordinate: 'Parking coordinate',
-      view_coordinate: 'View coordinate',
-      coordinate_raw: 'Coordinate (raw)',
+      // A coordinate is a lat and a lon, so it reads as a plural even though
+      // the claims field is singular. Display only; the field name is the
+      // field name.
+      coordinate: 'Coordinates',
+      parking_coordinate: 'Parking coordinates',
+      view_coordinate: 'View coordinates',
+      coordinate_raw: 'Coordinates (raw)',
       height_ft: 'Height',
       elevation_ft: 'Elevation',
       elevation_gain_ft: 'Elevation gain',
