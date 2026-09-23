@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict h15Z603Bu7acyvennPfRvXHLqQQkpZ1vYkqX52L3la1mrJen4AXmtz4aleEZ9bJ
+\restrict MTdTkDXwam0BEMMLKhR4HVDJ6FyHKiCIk8x496Qh7cCJZh9hWf3hbxPsbS1PTDG
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -78,6 +78,31 @@ $$;
 --
 
 COMMENT ON FUNCTION public.agreement_note(agreeing integer, n integer, tolerance text) IS 'The sentence under a fact''s grade. Counts come from a self-join that includes the row itself, so an agreeing count of 1 means nothing agreed and must not be printed as though something did.';
+
+
+--
+-- Name: agreement_stage(integer, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.agreement_stage(agreeing integer, n integer) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    WHEN n <= 1        THEN 'single_source'
+    WHEN agreeing <= 1 THEN 'disputed'
+    WHEN agreeing = 2  THEN 'two_sources'
+    WHEN agreeing = 3  THEN 'corroborated'
+    WHEN agreeing = 4  THEN 'four_sources'
+    ELSE 'five_sources'
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION agreement_stage(agreeing integer, n integer); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.agreement_stage(agreeing integer, n integer) IS 'The rung a fact earns from how many distinct sources agree. Three is the first rung that counts as consensus, per jw.';
 
 
 --
@@ -492,6 +517,36 @@ CREATE FUNCTION public.slugify(name text) RETURNS text
              '[^a-z0-9]+', '-', 'g'),
              '-{2,}', '-', 'g'));
 $$;
+
+
+--
+-- Name: stage_score(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stage_score(stage text) RETURNS numeric
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE stage
+    WHEN 'disputed'             THEN 1.0
+    WHEN 'single_source'        THEN 1.7
+    WHEN 'two_sources'          THEN 2.3
+    WHEN 'disambiguated'        THEN 2.3
+    WHEN 'corroborated'         THEN 3.0
+    WHEN 'four_sources'         THEN 3.3
+    WHEN 'ai_reviewed'          THEN 3.3
+    WHEN 'five_sources'         THEN 3.7
+    WHEN 'human_reviewed'       THEN 3.7
+    WHEN 'confirmed_irl'        THEN 4.0
+    WHEN 'confirmed_and_agreed' THEN 4.3
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION stage_score(stage text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.stage_score(stage text) IS 'The 0-4.3 score for a rung. Review rungs share scores with agreement rungs deliberately: four agreeing sources is worth about what an AI review is worth, and five about what a human review is worth.';
 
 
 --
@@ -1032,7 +1087,7 @@ CREATE TABLE public.facts (
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT facts_coordinate_lat_first CHECK (((value_type <> 'coordinate'::text) OR (value IS NULL) OR ((((split_part(value, ','::text, 1))::numeric >= (30)::numeric) AND ((split_part(value, ','::text, 1))::numeric <= (40)::numeric)) AND (((split_part(value, ','::text, 2))::numeric >= ('-90'::integer)::numeric) AND ((split_part(value, ','::text, 2))::numeric <= ('-75'::integer)::numeric))))),
     CONSTRAINT facts_score_range CHECK (((confidence_score IS NULL) OR ((confidence_score >= (0)::numeric) AND (confidence_score <= 4.3)))),
-    CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['disputed'::text, 'single_source'::text, 'disambiguated'::text, 'corroborated'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text]))),
+    CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['disputed'::text, 'single_source'::text, 'two_sources'::text, 'corroborated'::text, 'four_sources'::text, 'five_sources'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text, 'confirmed_and_agreed'::text, 'disambiguated'::text]))),
     CONSTRAINT facts_value_type_known CHECK ((value_type = ANY (ARRAY['string'::text, 'integer'::text, 'decimal'::text, 'coordinate'::text])))
 );
 
@@ -2310,5 +2365,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict h15Z603Bu7acyvennPfRvXHLqQQkpZ1vYkqX52L3la1mrJen4AXmtz4aleEZ9bJ
+\unrestrict MTdTkDXwam0BEMMLKhR4HVDJ6FyHKiCIk8x496Qh7cCJZh9hWf3hbxPsbS1PTDG
 

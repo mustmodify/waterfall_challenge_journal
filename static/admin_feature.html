@@ -157,13 +157,17 @@
     // The ladder, with the sentence each rung actually means. A score on its
     // own tells you the order; the description tells you the job.
     const STAGES = {
-      disputed:      ['Disputed', 'sources contradict each other'],
+      disputed:      ['Disputed', 'no two sources agree'],
       single_source: ['Single source', 'one source said it, nobody checked'],
+      two_sources:   ['Two sources', 'they agree, but two is not a consensus'],
       disambiguated: ['Consensus, with dissent', 'a majority agree, someone does not'],
-      corroborated:  ['Corroborated', 'three or more sources agree'],
+      corroborated:  ['Three sources', 'the first rung that counts as consensus'],
+      four_sources:  ['Four sources', 'as much agreement as this data reaches'],
+      five_sources:  ['Five or more sources', 'nothing has managed this yet'],
       ai_reviewed:   ['AI reviewed', 'read and judged, not visited'],
       human_reviewed:['Human reviewed', 'a person went through the evidence'],
       confirmed_irl: ['Confirmed in person', 'someone stood there'],
+      confirmed_and_agreed: ['Confirmed, and the sources agree', 'been there, and the data backs it'],
     };
 
     const FIELD_LABELS = {

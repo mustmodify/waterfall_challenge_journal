@@ -112,8 +112,9 @@
     const STAGES = [
       ['disputed', 'Disputed'],
       ['single_source', 'Single source'],
-      ['disambiguated', 'Consensus, with dissent'],
-      ['corroborated', 'Corroborated'],
+      ['two_sources', 'Two sources'],
+      ['corroborated', 'Three sources'],
+      ['four_sources', 'Four sources'],
     ];
     let stage = new URLSearchParams(location.search).get('stage') || 'disputed';
 
