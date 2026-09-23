@@ -259,7 +259,7 @@
         // so that falls back to the neutral word.
         const derived =
           (c.normalized_value != null && showValue(c.normalized_value) !== showValue(c.value)
-            ? '<span class="derived">tidied: ' + esc(showValue(c.normalized_value)) + '</span>'
+            ? '<span class="derived">normalized: ' + esc(showValue(c.normalized_value)) + '</span>'
             : '') +
           (c.parenthetical
             ? '<span class="derived ' + (c.parenthetical_kind || '') + '">' +

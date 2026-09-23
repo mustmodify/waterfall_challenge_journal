@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 6gSn6ndDFB6ZfkGFWeSMMR7d1WfMMl7OmgwqbCVo991HlAvoWlyVbPs7HGdsvDO
+\restrict I8YymsNPszaVbk2NOor178DQOZKyFhcpzdokOsTu7FflZiazmZe9fDQv5EAHC2c
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -88,28 +88,12 @@ CREATE FUNCTION public.claim_units(raw text, field text) RETURNS text
     LANGUAGE sql IMMUTABLE
     AS $$
   SELECT CASE
-    -- Converted on the way in, so the claim is already in feet whatever the
-    -- source wrote. 117 does not fix that; it only reports it.
     WHEN field IN ('height_ft', 'elevation_ft', 'elevation_gain_ft') THEN 'feet'
+    -- Uniform by construction now, rather than by luck of what was written.
+    WHEN field = 'hike_distance' THEN 'feet'
     WHEN field IN ('coordinate', 'parking_coordinate', 'view_coordinate',
                    'coordinate_raw') THEN 'degrees'
     WHEN field IN ('beauty_rating', 'photo_rating', 'solitude_rating') THEN 'of 10'
-    WHEN field = 'hike_distance' THEN
-      CASE
-        WHEN lower(coalesce(raw, '')) ~ 'roadside' THEN 'no walk'
-        WHEN raw ~* 'yard'                         THEN 'yards'
-        WHEN raw ~* 'kilometre|kilometer|\ykm\y'   THEN 'kilometres'
-        WHEN raw ~* 'metre|meter'                  THEN 'metres'
-        WHEN raw ~* '\yft\y|foot|feet'             THEN 'feet'
-        WHEN raw ~* '\ym\y'
-         AND coalesce(nullif(substring(raw from '([0-9]+(?:\.[0-9]+)?)'), '')::numeric, 0) >= 20
-                                                   THEN 'metres'
-        WHEN raw ~* 'mi\y|mile'                    THEN 'miles'
-        -- A bare number is miles; the sources that spell it out all mean
-        -- miles, and jw's call is to say so plainly rather than hedge.
-        WHEN raw ~ '[0-9]'                         THEN 'miles'
-        ELSE NULL
-      END
     ELSE NULL
   END;
 $$;
@@ -119,7 +103,7 @@ $$;
 -- Name: FUNCTION claim_units(raw text, field text); Type: COMMENT; Schema: public; Owner: -
 --
 
-COMMENT ON FUNCTION public.claim_units(raw text, field text) IS 'The unit one claim is expressed in. Per claim rather than per field, because distances arrive as "3.8 mi", "0.9 miles" and a bare "0.7". Shares hike_distance_feet()''s vocabulary on purpose.';
+COMMENT ON FUNCTION public.claim_units(raw text, field text) IS 'The unit a claim''s normalized_value is in. Uniform per field, because normalizing converts to it -- the source''s own unit stays visible in the raw value.';
 
 
 --
@@ -327,6 +311,23 @@ CREATE FUNCTION public.normalize_claim_value(raw text, field text) RETURNS text
     AS $$
   SELECT CASE
     WHEN field IN ('name', 'alias') THEN name_display(raw)
+    -- All the way to feet, not just tidied. hike_distance_feet() already
+    -- knows the vocabulary and already doubles "each way", so the hedges and
+    -- asides are stripped first and handed to it.
+    WHEN field = 'hike_distance' THEN
+      hike_distance_feet(
+        coalesce(
+          nullif(btrim(regexp_replace(
+            regexp_replace(
+              regexp_replace(
+                regexp_replace(coalesce(raw, ''),
+                  '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
+                  ' ', 'gi'),
+                '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M',
+                ' ', 'gi'),
+              '~', ' ', 'g'),
+            '\s+', ' ', 'g'), ' .,;'), ''),
+          coalesce(raw, '')))::text
     ELSE nullif(btrim(regexp_replace(
       regexp_replace(
         regexp_replace(
@@ -2243,5 +2244,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 6gSn6ndDFB6ZfkGFWeSMMR7d1WfMMl7OmgwqbCVo991HlAvoWlyVbPs7HGdsvDO
+\unrestrict I8YymsNPszaVbk2NOor178DQOZKyFhcpzdokOsTu7FflZiazmZe9fDQv5EAHC2c
 
