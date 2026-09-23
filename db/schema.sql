@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict s0KQecv3GDiNukfDfr9WfCeqVanIePc4NZW8GoclKulmoCujwW4bGspRF0M9mgJ
+\restrict AT6VxvWZjPZdGb3xs3Oi5KeZuieMhJzEIfPLdqeFj5oVT4oxiviFHUJVkhfppJE
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -158,9 +158,11 @@ CREATE FUNCTION public.claim_units(raw text, field text) RETURNS text
     AS $$
   SELECT CASE
     WHEN field IN ('height', 'elevation_ft', 'elevation_gain_ft') THEN 'feet'
-    WHEN field = 'hike_distance' THEN 'feet'
+    WHEN field IN ('hike_distance', 'detour_hike_distance') THEN 'feet'
     WHEN field IN ('coordinate', 'parking_coordinate', 'view_coordinate',
-                   'coordinate_raw') THEN 'degrees'
+                   'coordinate_raw', 'trailhead_coordinate',
+                   'detour_parking_coordinate', 'detour_trailhead_coordinate')
+      THEN 'degrees'
     WHEN field IN ('beauty_rating', 'photo_rating', 'solitude_rating') THEN 'of 10'
     ELSE NULL
   END;
@@ -457,7 +459,7 @@ CREATE FUNCTION public.normalize_claim_value(raw text, field text, source text) 
     AS $$
   SELECT CASE
     WHEN field IN ('name', 'alias') THEN name_display(raw)
-    WHEN field = 'hike_distance' THEN
+    WHEN field IN ('hike_distance', 'detour_hike_distance') THEN
       (hike_distance_feet(
          coalesce(
            nullif(btrim(regexp_replace(
@@ -471,8 +473,6 @@ CREATE FUNCTION public.normalize_claim_value(raw text, field text, source text) 
                '~', ' ', 'g'),
              '\s+', ' ', 'g'), ' .,;'), ''),
            coalesce(raw, '')))
-       -- One way, so a round trip is twice. Only where the text has not
-       -- already said so and had it doubled for us.
        * CASE WHEN source = 'ncwaterfalls'
                 AND coalesce(raw, '') !~* 'each way|one way|out and back|round trip'
               THEN 2 ELSE 1 END)::text
@@ -735,7 +735,7 @@ CREATE TABLE public.claims (
     id integer NOT NULL,
     group_id integer NOT NULL,
     feature_id integer NOT NULL,
-    field character varying(24) NOT NULL,
+    field text NOT NULL,
     value jsonb NOT NULL,
     accepted boolean DEFAULT false NOT NULL,
     note text,
@@ -744,14 +744,15 @@ CREATE TABLE public.claims (
     fact_id integer,
     normalized_value jsonb,
     parenthetical text,
-    CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
+    CONSTRAINT claims_field_known CHECK ((field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text, 'detour_hike_distance'::text, 'access_status'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
-    WHEN ((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
-    WHEN ((field)::text = ANY (ARRAY['elevation_ft'::text, 'elevation_gain_ft'::text])) THEN (jsonb_typeof(value) = 'number'::text)
-    WHEN ((field)::text = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
-    WHEN ((field)::text = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND ((((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric)))
-    WHEN ((field)::text = ANY (ARRAY['photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
+    WHEN (field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
+    WHEN (field = 'access_status'::text) THEN ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) = ANY (ARRAY['ok'::text, 'detour'::text, 'inaccessible'::text, 'unverified'::text])))
+    WHEN (field = ANY (ARRAY['elevation_ft'::text, 'elevation_gain_ft'::text])) THEN (jsonb_typeof(value) = 'number'::text)
+    WHEN (field = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
+    WHEN (field = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND ((((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric)))
+    WHEN (field = ANY (ARRAY['photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
     ELSE ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) <> ''::text))
 END)
 );
@@ -846,7 +847,7 @@ CREATE VIEW public.claim_conflicts AS
    FROM ((public.claims c
      JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
      JOIN public.features f ON ((f.id = c.feature_id)))
-  WHERE ((c.field)::text <> 'alias'::text)
+  WHERE (c.field <> 'alias'::text)
   GROUP BY c.feature_id, f.name, c.field
  HAVING ((count(DISTINCT c.value) > 1) OR (count(*) FILTER (WHERE c.accepted) = 0));
 
@@ -864,7 +865,7 @@ CREATE VIEW public.claim_coordinate_spread AS
             ((c.value ->> 'lon'::text))::numeric AS lon
            FROM (public.claims c
              JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
-          WHERE ((c.field)::text = 'coordinate'::text)
+          WHERE (c.field = 'coordinate'::text)
         )
  SELECT s.feature_id,
     f.name,
@@ -1039,7 +1040,7 @@ CREATE VIEW public.coordinate_confidence AS
             ((c.value ->> 'lon'::text))::numeric AS lon
            FROM (public.claims c
              JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
-          WHERE (((c.field)::text = 'coordinate'::text) AND cg.identity_certain)
+          WHERE ((c.field = 'coordinate'::text) AND cg.identity_certain)
         ), stored AS (
          SELECT f.id AS feature_id,
             f.name,
@@ -1453,8 +1454,8 @@ CREATE VIEW public.route_ratings AS
     public.petzoldt_band(round(((regexp_replace((d.value #>> '{}'::text[]), '[^0-9.].*$'::text, ''::text))::numeric + ((((g.value #>> '{}'::text[]))::integer)::numeric / 500.0)), 2)) AS band
    FROM (((public.claim_groups cg
      JOIN public.features f ON ((f.id = cg.feature_id)))
-     JOIN public.claims d ON (((d.group_id = cg.id) AND ((d.field)::text = 'hike_distance'::text))))
-     JOIN public.claims g ON (((g.group_id = cg.id) AND ((g.field)::text = 'elevation_gain_ft'::text))))
+     JOIN public.claims d ON (((d.group_id = cg.id) AND (d.field = 'hike_distance'::text))))
+     JOIN public.claims g ON (((g.group_id = cg.id) AND (g.field = 'elevation_gain_ft'::text))))
   WHERE ((d.value #>> '{}'::text[]) ~ '^[0-9]'::text);
 
 
@@ -1497,17 +1498,10 @@ CREATE VIEW public.trail_engagement AS
     round((((p.value #>> '{}'::text[]))::numeric / ((h.value #>> '{}'::text[]))::numeric), 4) AS photos_per_hike
    FROM ((((public.claim_groups cg
      JOIN public.features f ON ((f.id = cg.feature_id)))
-     JOIN public.claims p ON (((p.group_id = cg.id) AND ((p.field)::text = 'photos_count'::text))))
-     JOIN public.claims h ON (((h.group_id = cg.id) AND ((h.field)::text = 'completed_hikes_count'::text))))
-     LEFT JOIN public.claims r ON (((r.group_id = cg.id) AND ((r.field)::text = 'reviews_count'::text))))
+     JOIN public.claims p ON (((p.group_id = cg.id) AND (p.field = 'photos_count'::text))))
+     JOIN public.claims h ON (((h.group_id = cg.id) AND (h.field = 'completed_hikes_count'::text))))
+     LEFT JOIN public.claims r ON (((r.group_id = cg.id) AND (r.field = 'reviews_count'::text))))
   WHERE ((((h.value #>> '{}'::text[]))::numeric > (0)::numeric) AND cg.identity_certain);
-
-
---
--- Name: VIEW trail_engagement; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON VIEW public.trail_engagement IS 'Photos and completed hikes per route, with their ratio. One row per claim group, never summed onto a feature: the counts describe a walk, and the walk is not the waterfall.';
 
 
 --
@@ -1999,7 +1993,7 @@ CREATE INDEX claims_field_idx ON public.claims USING btree (field);
 -- Name: claims_one_accepted; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX claims_one_accepted ON public.claims USING btree (feature_id, field) WHERE (accepted AND ((field)::text <> 'alias'::text));
+CREATE UNIQUE INDEX claims_one_accepted ON public.claims USING btree (feature_id, field) WHERE (accepted AND (field <> 'alias'::text));
 
 
 --
@@ -2421,5 +2415,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict s0KQecv3GDiNukfDfr9WfCeqVanIePc4NZW8GoclKulmoCujwW4bGspRF0M9mgJ
+\unrestrict AT6VxvWZjPZdGb3xs3Oi5KeZuieMhJzEIfPLdqeFj5oVT4oxiviFHUJVkhfppJE
 

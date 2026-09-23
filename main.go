@@ -52,32 +52,36 @@ type Location struct {
 }
 
 type Feature struct {
-	ID                int           `json:"id"`
-	Name              string        `json:"name"`
-	Slug              *string       `json:"slug,omitempty"`
-	Kind              string        `json:"kind"`
-	FeatureLocationID *int          `json:"feature_location_id"`
-	ParkingLocationID *int          `json:"parking_location_id"`
-	RtHikeDistance    *string       `json:"rt_hike_distance,omitempty"`
-	DifficultyRating  *string       `json:"difficulty_rating,omitempty"`
-	Accessibility     *string       `json:"accessibility,omitempty"`
-	HeightFt          *int          `json:"height_ft,omitempty"`
-	ElevationFt       *int          `json:"elevation_ft,omitempty"`
-	BeautyRating      *int          `json:"beauty_rating,omitempty"`
-	PhotoRating       *int          `json:"photo_rating,omitempty"`
-	SolitudeRating    *int          `json:"solitude_rating,omitempty"`
-	HwncID            *int          `json:"hwnc_id,omitempty"`
-	CmcHikeNo         *int          `json:"cmc_hike_no,omitempty"`
-	BookPage          *int          `json:"book_page,omitempty"`
-	Location          *Location     `json:"location,omitempty"`
-	ParkingLocation   *Location     `json:"parking_location,omitempty"`
-	LastVisited       *string       `json:"last_visited,omitempty"`
-	Challenges        []string      `json:"challenges"`
-	Links             []Link        `json:"links"`
-	Areas             []string      `json:"areas"`
-	Notes             []FeatureNote `json:"notes"`
-	AccessNotes       []AccessNote  `json:"access_notes"`
-	Confidence        *string       `json:"confidence,omitempty"`
+	ID                int     `json:"id"`
+	Name              string  `json:"name"`
+	Slug              *string `json:"slug,omitempty"`
+	Kind              string  `json:"kind"`
+	FeatureLocationID *int    `json:"feature_location_id"`
+	ParkingLocationID *int    `json:"parking_location_id"`
+	RtHikeDistance    *string `json:"rt_hike_distance,omitempty"`
+	// Round-trip feet, arbitrated across sources in facts. The prose above is
+	// what one source wrote; this is what we believe, and it is what the map
+	// filters and formats from.
+	HikeDistanceFt   *int          `json:"hike_distance_ft,omitempty"`
+	DifficultyRating *string       `json:"difficulty_rating,omitempty"`
+	Accessibility    *string       `json:"accessibility,omitempty"`
+	HeightFt         *int          `json:"height_ft,omitempty"`
+	ElevationFt      *int          `json:"elevation_ft,omitempty"`
+	BeautyRating     *int          `json:"beauty_rating,omitempty"`
+	PhotoRating      *int          `json:"photo_rating,omitempty"`
+	SolitudeRating   *int          `json:"solitude_rating,omitempty"`
+	HwncID           *int          `json:"hwnc_id,omitempty"`
+	CmcHikeNo        *int          `json:"cmc_hike_no,omitempty"`
+	BookPage         *int          `json:"book_page,omitempty"`
+	Location         *Location     `json:"location,omitempty"`
+	ParkingLocation  *Location     `json:"parking_location,omitempty"`
+	LastVisited      *string       `json:"last_visited,omitempty"`
+	Challenges       []string      `json:"challenges"`
+	Links            []Link        `json:"links"`
+	Areas            []string      `json:"areas"`
+	Notes            []FeatureNote `json:"notes"`
+	AccessNotes      []AccessNote  `json:"access_notes"`
+	Confidence       *string       `json:"confidence,omitempty"`
 	// Admin-only: which name-collision clusters this feature belongs to.
 	// Omitted entirely for everyone else, the same way last_visited is.
 	ConfusionSets    []ConfusionRef `json:"confusion_sets,omitempty"`
@@ -239,7 +243,11 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 	}
 	rows, err := db.Query(`
 		SELECT features.id, features.name, features.slug, kind, parking_location_id, feature_location_id,
-			rt_hike_distance, difficulty_rating, accessibility, height_ft, elevation_ft,
+			rt_hike_distance,
+			(SELECT facts.value::numeric::integer FROM facts
+				WHERE facts.feature_id = features.id AND facts.key = 'hike_distance'
+				  AND facts.value ~ '^[0-9]+$') AS hike_distance_ft,
+			difficulty_rating, accessibility, height_ft, elevation_ft,
 			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
 			locations.id as location_id, locations.longitude, locations.latitude,
@@ -310,7 +318,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&f.Kind,
 			&f.ParkingLocationID,
 			&f.FeatureLocationID,
-			&f.RtHikeDistance,
+			&f.RtHikeDistance, &f.HikeDistanceFt,
 			&f.DifficultyRating,
 			&f.Accessibility,
 			&f.HeightFt,
