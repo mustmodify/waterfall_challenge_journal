@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict MTdTkDXwam0BEMMLKhR4HVDJ6FyHKiCIk8x496Qh7cCJZh9hWf3hbxPsbS1PTDG
+\restrict eGSHx2RkZYqV44qaTZbaPJPXmBCPAOtm5pwft6QjnFhykudi980DAblEdzA8kGd
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -88,11 +88,14 @@ CREATE FUNCTION public.agreement_stage(agreeing integer, n integer) RETURNS text
     LANGUAGE sql IMMUTABLE
     AS $$
   SELECT CASE
-    WHEN n <= 1        THEN 'single_source'
-    WHEN agreeing <= 1 THEN 'disputed'
-    WHEN agreeing = 2  THEN 'two_sources'
-    WHEN agreeing = 3  THEN 'corroborated'
-    WHEN agreeing = 4  THEN 'four_sources'
+    WHEN n <= 1         THEN 'single_source'
+    WHEN agreeing <= 1  THEN 'disputed'
+    -- Anyone still disagreeing means this is not a consensus, whatever the
+    -- majority looks like.
+    WHEN agreeing < n   THEN 'disambiguated'
+    WHEN agreeing = 2   THEN 'two_sources'
+    WHEN agreeing = 3   THEN 'corroborated'
+    WHEN agreeing = 4   THEN 'four_sources'
     ELSE 'five_sources'
   END;
 $$;
@@ -102,7 +105,7 @@ $$;
 -- Name: FUNCTION agreement_stage(agreeing integer, n integer); Type: COMMENT; Schema: public; Owner: -
 --
 
-COMMENT ON FUNCTION public.agreement_stage(agreeing integer, n integer) IS 'The rung a fact earns from how many distinct sources agree. Three is the first rung that counts as consensus, per jw.';
+COMMENT ON FUNCTION public.agreement_stage(agreeing integer, n integer) IS 'The rung a fact earns from its sources. Unanimity is required for the count-based rungs -- a single dissenting source drops it to disambiguated, because consensus means nobody disagrees. Three is the first unanimous rung that counts as consensus, per jw.';
 
 
 --
@@ -2365,5 +2368,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict MTdTkDXwam0BEMMLKhR4HVDJ6FyHKiCIk8x496Qh7cCJZh9hWf3hbxPsbS1PTDG
+\unrestrict eGSHx2RkZYqV44qaTZbaPJPXmBCPAOtm5pwft6QjnFhykudi980DAblEdzA8kGd
 
