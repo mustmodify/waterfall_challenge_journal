@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 4iXYKGcmtGzqKAoKkbA87LqCy8sSYc0TXWAzj1Ph2ei2t2JsuMWPTT151kEUqfM
+\restrict TBkY1VOE3Sun1e4dUtLvZdiEe50JnooDE55p6p7PYK44v7vMPxyHM1qYGAqI0eR
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -56,6 +56,28 @@ $$;
 --
 
 COMMENT ON FUNCTION public.accessibility_rank(raw text) IS 'Difficulty as a number so two sources can be compared: Roadside 0 to Very Hard 4, a trailing + worth half a step. Null where the value is about permission or transport rather than difficulty. Agreement is within half a step, because the + is a hikingwnc habit other sources do not share.';
+
+
+--
+-- Name: agreement_note(integer, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.agreement_note(agreeing integer, n integer, tolerance text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    SELECT CASE
+      WHEN n <= 1 THEN 'Only one source has a value, so there is nothing to compare it with.'
+      WHEN agreeing <= 1 THEN 'No two of the ' || n || ' sources agree ' || tolerance || '.'
+      ELSE agreeing || ' of ' || n || ' sources agree ' || tolerance || '.'
+    END;
+$$;
+
+
+--
+-- Name: FUNCTION agreement_note(agreeing integer, n integer, tolerance text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.agreement_note(agreeing integer, n integer, tolerance text) IS 'The sentence under a fact''s grade. Counts come from a self-join that includes the row itself, so an agreeing count of 1 means nothing agreed and must not be printed as though something did.';
 
 
 --
@@ -218,6 +240,40 @@ CREATE FUNCTION public.name_key(raw text) RETURNS text
     AS $$
   SELECT nullif(regexp_replace(name_core(raw), '\s+', ' ', 'g'), '')
 $$;
+
+
+--
+-- Name: normalize_claim_value(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.normalize_claim_value(raw text, field text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    -- A name's parenthesis is its disambiguator, not an aside.
+    WHEN field IN ('name', 'alias') THEN NULL
+    ELSE nullif(btrim(regexp_replace(
+      regexp_replace(
+        regexp_replace(
+          -- Asides first, or "(sliding distance is about 60')" leaves its own
+          -- "about" behind. Kept when the parenthesis says which direction,
+          -- since hike_distance_feet() doubles "each way".
+          regexp_replace(coalesce(raw, ''),
+            '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
+            ' ', 'gi'),
+          '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M',
+          ' ', 'gi'),
+        '~', ' ', 'g'),
+      '\s+', ' ', 'g'), ' .,;'), '')
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION normalize_claim_value(raw text, field text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.normalize_claim_value(raw text, field text) IS 'Strips hedging words, tildes and parenthetical asides, then collapses whitespace. Case is preserved: this tidies a value, it does not fold it. Names and aliases are returned null -- their parentheses disambiguate colliding waterfalls and must survive. Parentheses naming a direction survive too, because the distance parser reads them.';
 
 
 --
@@ -393,6 +449,7 @@ CREATE TABLE public.claims (
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     fact_id integer,
+    normalized_value jsonb,
     CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'height_ft'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'coordinate_raw'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
@@ -405,6 +462,13 @@ CASE
     ELSE ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) <> ''::text))
 END)
 );
+
+
+--
+-- Name: COLUMN claims.normalized_value; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.claims.normalized_value IS 'value with hedges ("approx", "about", "~") and parenthetical asides removed. Null when value needed no tidying, so read it as coalesce(normalized_value, value).';
 
 
 --
@@ -2057,5 +2121,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 4iXYKGcmtGzqKAoKkbA87LqCy8sSYc0TXWAzj1Ph2ei2t2JsuMWPTT151kEUqfM
+\unrestrict TBkY1VOE3Sun1e4dUtLvZdiEe50JnooDE55p6p7PYK44v7vMPxyHM1qYGAqI0eR
 
