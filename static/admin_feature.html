@@ -86,6 +86,9 @@
     table.readings tr.rejected td { opacity: 0.55; }
     table.readings td.val { font-variant-numeric: tabular-nums; }
     table.readings td.units { color: var(--haze); white-space: nowrap; }
+    table.readings td.grp { white-space: nowrap; }
+    /* Unchanged by normalizing: present, but not worth a second look. */
+    table.readings td.val.unchanged { color: var(--haze); }
 
     .tag {
       font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
@@ -251,36 +254,44 @@
           : esc(c.source);
         const tags = (c.accepted ? '<span class="tag accepted">accepted</span> ' : '') +
           (c.identity_certain ? '' : '<span class="tag uncertain">identity uncertain</span>');
-        // The derived columns sit under the raw value, and the parenthetical
-        // is labelled by what parenthetical_kind() made of it rather than by
-        // where it came from -- "disambiguator: Gorges" is the useful thing
-        // to read, and showing the reading is how a wrong reading gets
-        // caught. Names get a kind; a distance's "(usually dry)" does not,
-        // so that falls back to the neutral word.
-        const derived =
-          (c.normalized_value != null && showValue(c.normalized_value) !== showValue(c.value)
-            ? '<span class="derived">normalized: ' + esc(showValue(c.normalized_value)) + '</span>'
-            : '') +
-          (c.parenthetical
-            ? '<span class="derived ' + (c.parenthetical_kind || '') + '">' +
-              esc(c.parenthetical_kind || 'parenthetical') + ': ' +
-              esc(c.parenthetical) + '</span>'
-            : '');
+
+        // The parenthetical stays under what was observed, because it was
+        // lifted out of that text. It is labelled by what
+        // parenthetical_kind() made of it rather than by where it came from:
+        // "disambiguator: Gorges" is the useful thing to read, and putting
+        // the reading on the page is how a wrong reading gets caught. Names
+        // get a kind; a distance's "(usually dry)" does not, so that falls
+        // back to the neutral word.
+        const aside = c.parenthetical
+          ? '<span class="derived ' + (c.parenthetical_kind || '') + '">' +
+            esc(c.parenthetical_kind || 'parenthetical') + ': ' +
+            esc(c.parenthetical) + '</span>'
+          : '';
+
+        // Null normalized means nothing needed changing, so the column shows
+        // the observed value dimmed rather than a dash. The point of the
+        // column is a uniform set to scan down; a gap every third row defeats
+        // that, and "unchanged" is not the same as "missing".
+        const observed = showValue(c.value);
+        const norm = c.normalized_value != null ? showValue(c.normalized_value) : observed;
+        const same = norm === observed;
 
         return '<tr class="' + cls + '">' +
           '<td class="src">' + src + '</td>' +
-          '<td class="val">' + esc(showValue(c.value)) + derived +
+          '<td class="grp"><a href="/admin/claims?feature=' + FEATURE_ID +
+            '#group-' + c.group_id + '">#' + c.group_id + '</a></td>' +
+          '<td class="val">' + esc(observed) + aside +
             (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
+          '<td class="val' + (same ? ' unchanged' : '') + '">' + esc(norm) + '</td>' +
           '<td class="units">' + esc(c.units || '') + '</td>' +
           '<td>' + tags + '</td>' +
-          '<td><a href="/admin/claims?feature=' + FEATURE_ID + '#group-' + c.group_id + '">#' +
-            c.group_id + '</a></td>' +
           '</tr>';
       };
 
       const table = (claims) =>
         '<table class="readings"><thead><tr>' +
-          '<th>Source</th><th>Value</th><th>Units</th><th></th><th>Group</th>' +
+          '<th>Source</th><th>Group</th><th>Observed</th><th>Normalized</th>' +
+          '<th>Units</th><th></th>' +
         '</tr></thead><tbody>' + claims.map(row).join('') + '</tbody></table>';
 
       const refusedBlock = refused.length === 0 ? '' :
