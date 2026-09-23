@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict I8YymsNPszaVbk2NOor178DQOZKyFhcpzdokOsTu7FflZiazmZe9fDQv5EAHC2c
+\restrict wS0KYLIV3qXhIpdZ7DQYT14hl5PRGCja1MPuAwkkkCBcZBJA0UzerlLa1dcA3NZ
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -266,7 +266,10 @@ CREATE FUNCTION public.name_display(raw text) RETURNS text
     AS $_$
   SELECT nullif(btrim(regexp_replace(
     regexp_replace(
-      regexp_replace(coalesce(raw, ''), '\([^)]*\)', ' ', 'g'),
+      regexp_replace(
+        -- "... via Summey Cove Trail" is the route, not the waterfall.
+        regexp_replace(coalesce(raw, ''), '\s+via\s+.*$', '', 'i'),
+        '\([^)]*\)', ' ', 'g'),
       '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\M.*$',
       '', 'i'),
     '\s+', ' ', 'g'), ' ,;-'), '');
@@ -309,25 +312,45 @@ $$;
 CREATE FUNCTION public.normalize_claim_value(raw text, field text) RETURNS text
     LANGUAGE sql IMMUTABLE
     AS $$
+  SELECT normalize_claim_value(raw, field, NULL);
+$$;
+
+
+--
+-- Name: FUNCTION normalize_claim_value(raw text, field text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.normalize_claim_value(raw text, field text) IS 'Strips hedging words, tildes and parenthetical asides, then collapses whitespace. Case is preserved: this tidies a value, it does not fold it. Names and aliases are returned null -- their parentheses disambiguate colliding waterfalls and must survive. Parentheses naming a direction survive too, because the distance parser reads them.';
+
+
+--
+-- Name: normalize_claim_value(text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.normalize_claim_value(raw text, field text, source text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
   SELECT CASE
     WHEN field IN ('name', 'alias') THEN name_display(raw)
-    -- All the way to feet, not just tidied. hike_distance_feet() already
-    -- knows the vocabulary and already doubles "each way", so the hedges and
-    -- asides are stripped first and handed to it.
     WHEN field = 'hike_distance' THEN
-      hike_distance_feet(
-        coalesce(
-          nullif(btrim(regexp_replace(
-            regexp_replace(
-              regexp_replace(
-                regexp_replace(coalesce(raw, ''),
-                  '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
-                  ' ', 'gi'),
-                '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M',
-                ' ', 'gi'),
-              '~', ' ', 'g'),
-            '\s+', ' ', 'g'), ' .,;'), ''),
-          coalesce(raw, '')))::text
+      (hike_distance_feet(
+         coalesce(
+           nullif(btrim(regexp_replace(
+             regexp_replace(
+               regexp_replace(
+                 regexp_replace(coalesce(raw, ''),
+                   '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
+                   ' ', 'gi'),
+                 '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M',
+                 ' ', 'gi'),
+               '~', ' ', 'g'),
+             '\s+', ' ', 'g'), ' .,;'), ''),
+           coalesce(raw, '')))
+       -- One way, so a round trip is twice. Only where the text has not
+       -- already said so and had it doubled for us.
+       * CASE WHEN source = 'ncwaterfalls'
+                AND coalesce(raw, '') !~* 'each way|one way|out and back|round trip'
+              THEN 2 ELSE 1 END)::text
     ELSE nullif(btrim(regexp_replace(
       regexp_replace(
         regexp_replace(
@@ -343,10 +366,10 @@ $$;
 
 
 --
--- Name: FUNCTION normalize_claim_value(raw text, field text); Type: COMMENT; Schema: public; Owner: -
+-- Name: FUNCTION normalize_claim_value(raw text, field text, source text); Type: COMMENT; Schema: public; Owner: -
 --
 
-COMMENT ON FUNCTION public.normalize_claim_value(raw text, field text) IS 'Strips hedging words, tildes and parenthetical asides, then collapses whitespace. Case is preserved: this tidies a value, it does not fold it. Names and aliases are returned null -- their parentheses disambiguate colliding waterfalls and must survive. Parentheses naming a direction survive too, because the distance parser reads them.';
+COMMENT ON FUNCTION public.normalize_claim_value(raw text, field text, source text) IS 'The uniform form of a claim: a display name for names, round-trip feet for distances, tidied text otherwise. Takes the source because two conventions cannot be read off the text -- AllTrails names routes, and ncwaterfalls measures one way.';
 
 
 --
@@ -2244,5 +2267,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict I8YymsNPszaVbk2NOor178DQOZKyFhcpzdokOsTu7FflZiazmZe9fDQv5EAHC2c
+\unrestrict wS0KYLIV3qXhIpdZ7DQYT14hl5PRGCja1MPuAwkkkCBcZBJA0UzerlLa1dcA3NZ
 
