@@ -96,7 +96,17 @@
     }
     .tag.accepted { color: var(--ok); border: 1px solid var(--ok); }
     .tag.uncertain { color: var(--danger); border: 1px solid var(--danger); }
-    .claim-note { display: block; color: var(--haze); font-size: 0.8rem; margin-top: 3px; }
+    sup.fn {
+      font-size: 0.62rem; margin-left: 2px; color: var(--accent);
+      vertical-align: super; line-height: 0;
+    }
+    .footnotes {
+      margin: 16px 0 0; padding: 12px 0 0 20px;
+      border-top: 1px solid var(--line);
+      color: var(--haze); font-size: 0.78rem; line-height: 1.5;
+    }
+    .footnotes li { margin-bottom: 4px; }
+    .footnotes li::marker { color: var(--accent); }
     .derived {
       display: block; font-size: 0.78rem; color: var(--haze); margin-top: 2px;
     }
@@ -247,6 +257,19 @@
       const counted = sec.claims.filter((c) => c.identity_certain);
       const refused = sec.claims.filter((c) => !c.identity_certain);
 
+      // Claim notes are explanations, and an explanation is usually longer
+      // than the value it explains -- inline, one of them swamps the table it
+      // belongs to. So they become numbered footnotes under the card, and the
+      // row keeps only the marker. Identical notes share a number, since a
+      // per-source note lands on every one of that source's claims.
+      const notes = [];
+      const noteNum = (c) => {
+        if (!c.note) return 0;
+        let i = notes.indexOf(c.note);
+        if (i < 0) { notes.push(c.note); i = notes.length - 1; }
+        return i + 1;
+      };
+
       const row = (c) => {
         const cls = c.accepted ? '' : (c.identity_certain ? '' : 'rejected');
         const src = c.url
@@ -276,12 +299,13 @@
         const norm = c.normalized_value != null ? showValue(c.normalized_value) : observed;
         const same = norm === observed;
 
+        const n = noteNum(c);
         return '<tr class="' + cls + '">' +
           '<td class="src">' + src + '</td>' +
           '<td class="grp"><a href="/admin/claims?feature=' + FEATURE_ID +
             '#group-' + c.group_id + '">#' + c.group_id + '</a></td>' +
-          '<td class="val">' + esc(observed) + aside +
-            (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
+          '<td class="val">' + esc(observed) +
+            (n ? '<sup class="fn">' + n + '</sup>' : '') + aside + '</td>' +
           '<td class="val' + (same ? ' unchanged' : '') + '">' + esc(norm) + '</td>' +
           '<td class="units">' + esc(c.units || '') + '</td>' +
           '<td>' + tags + '</td>' +
@@ -316,10 +340,17 @@
         cell('Correctness', correctnessCell(sec)) +
         '</div>';
 
+      // Built last: the tables have to render before notes is populated.
+      const body = table(counted) + refusedBlock;
+      const footnotes = notes.length === 0 ? '' :
+        '<ol class="footnotes">' +
+        notes.map((t) => '<li>' + esc(t) + '</li>').join('') +
+        '</ol>';
+
       return '<section class="field">' +
         head +
         (sec.notes ? '<p class="why">' + esc(sec.notes) + '</p>' : '') +
-        table(counted) + refusedBlock +
+        body + footnotes +
         '</section>';
     }
 
