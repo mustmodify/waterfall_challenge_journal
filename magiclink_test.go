@@ -58,9 +58,7 @@ func postSignIn(t *testing.T, email string) *httptest.ResponseRecorder {
 }
 
 func TestSignInActuallyMailsTheLink(t *testing.T) {
-	conn := testDB(t)
-	defer conn.Close()
-	db = conn
+	db = borrowDB(t)
 
 	rec := &recordingMailer{}
 	old := mailer
@@ -93,9 +91,7 @@ func TestSignInActuallyMailsTheLink(t *testing.T) {
 }
 
 func TestSignInSaysSoWhenTheMailFails(t *testing.T) {
-	conn := testDB(t)
-	defer conn.Close()
-	db = conn
+	db = borrowDB(t)
 
 	rec := &recordingMailer{fail: http.ErrServerClosed}
 	old := mailer

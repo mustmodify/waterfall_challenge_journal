@@ -148,6 +148,38 @@ Known problems in the upstream data are written up in
 [docs/hikingwnc-data-issues.md](docs/hikingwnc-data-issues.md) — including six
 waterfalls recorded one degree of longitude too far east.
 
+### Verifying a place is real
+
+Being published answers "do two sources agree on where this is." It does not
+answer "has anyone actually checked it out" -- that is a separate, ongoing,
+deliberately manual review, one feature at a time, not a script. What
+"checked it out" means is still being worked out; this is jw's list so far,
+and he expects to add to it.
+
+For a given feature, has anyone verified that:
+
+1. the coordinate actually has a waterfall at it
+2. there is some consensus around its name
+3. the links we provide are about that same waterfall, not a namesake
+4. it has the access point (trailhead/parking) we say it does
+5. its difficulty/access-point info is accurate -- needs a word that isn't
+   "accessibility", since that name is already taken by the hike-difficulty
+   field (`Easy`, `Moderate+`, `Hard`, ...). Candidate: *reachability*.
+
+These are independent, and a single check rarely answers all five at once.
+jw, visiting Bubbling Springs Branch (Upper and Lower falls) in person: no
+signs were posted, so nothing confirmed which name belongs to which fall --
+(2) stayed unverified. But there were definitely waterfalls there, and he
+could get to them, which does confirm (1) and (4). A visit strengthens
+whichever of the five it actually touched, not all of them at once.
+
+Settled on a small checklist rather than one summary field, generalized into
+a `facts` table (one row per feature/key, holding the value itself, not a
+log of an action) with two independent confidence measures: a method ladder
+(never checked, up through a human confirming it in person) and a 0-4.3
+outcome score, since the two can genuinely disagree -- see *Facts* in
+[ARCHITECTURE.md](ARCHITECTURE.md).
+
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the schema and how the pieces fit.
 
 ## Looking after it

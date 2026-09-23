@@ -8,6 +8,8 @@ function renderNav(current, correctionsCount) {
     ['admin', '/admin', 'Admin'],
     ['users', '/admin/users', 'Users'],
     ['features', '/admin/features', 'Features'],
+    ['review', '/admin/review', 'Review'],
+    ['confusion', '/admin/confusion_sets', 'Confusion'],
     ['unresolved', '/admin/unresolved', 'Unresolved'],
     ['corrections', '/corrections/queue', 'Corrections'],
     ['account', '/account', 'Account'],

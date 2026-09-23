@@ -155,6 +155,68 @@ landowner, a person: **Poundingmill Branch Falls, Rufus Morgan Falls, Joe Pack
 Falls, Catheys Creek Falls**. Nothing else is called that, because the naming
 had no generative rule behind it.
 
+### A name that carries a creek carries a coordinate check with it
+
+**If a fall is called "XYZ Creek Falls", it is almost certainly on XYZ Creek.**
+That sounds too obvious to write down until you notice it is a free,
+independent check on the coordinate: the name tells you which water the fall
+should be sitting on, and OpenStreetMap will tell you what water is actually
+at the point we hold. A "Catheys Creek Falls" whose coordinate sits on
+Davidson River is either the wrong coordinate or the wrong name, and either
+way it wants a human.
+
+It cuts the other way too, and that is where it earns its keep. hikingwnc on
+Tom's Spring Falls:
+
+> This may be confusing but this waterfall goes by several different names. It
+> is known as Daniel Ridge Falls even though it isn't on the nearby Daniel
+> Ridge Creek. The waterfall in on the Toms Spring Branch so many refer to it
+> as Toms Spring Falls. It's also known as Jackson Falls. [...] When in doubt,
+> I like to refer to them by the body of water they reside on.
+
+So one of that fall's three names is actively misleading about its own
+location, and the creek is what settles it. That generalises: **where a
+cluster of falls share a person's name, the creek discriminates better than
+the name does.** Toms Creek Falls is on Toms Creek and Tom's Spring Falls is
+on Toms Spring Branch — different water, 80 km apart, and nothing about
+"Tom" separates them. See the "Falls Named Tom" confusion set for the
+worked case.
+
+### Elevation is a check on the coordinate
+
+USGS's point service answers with the ground elevation **at the coordinate we
+hold**, not at the waterfall — so when it disagrees badly with a source's
+stated elevation for the same fall, the argument is really about the
+coordinate.
+
+Across the 116 features where both USGS and ncwaterfalls give an elevation,
+they agree to 2.6% on average, 83 ft. Two do not:
+
+| | usgs | ncwaterfalls | our coordinate |
+|---|---|---|---|
+| Big Bearwallow Falls | 3,681 ft | 2,420 ft | single source |
+| Cutler Falls | 2,492 ft | 3,819 ft | single source |
+
+Both are features where only one source has ever said where the waterfall is,
+so nothing corroborates the pin — and Cutler Falls is already in §3's table as
+an ncwaterfalls match refused at 118 km. A 1,300 ft disagreement about a
+waterfall in mountains that top out around 6,700 ft is not a measurement
+dispute; it is two parties describing different places.
+
+This generalises the same way the creek rule does: a field we were not
+treating as evidence about position turns out to be exactly that, for free,
+because it was measured *at* the position.
+
+### Read the prose, not just the fields
+
+Related, and worth saying because it is easy to write an importer that only
+reads the structured bits: hikingwnc's driving directions are of no use for
+matching, but its prose regularly carries the alias and disambiguation
+information nothing else has. The paragraph above is the only place any of
+our sources says that Daniel Ridge Falls, Toms Spring Falls and Jackson
+Falls are one waterfall. Coordinates remain the arbiter — but the thing that
+tells you *which candidates to arbitrate between* is often a sentence.
+
 ### What that means for a matcher
 
 Name agreement is real evidence. It is just a different *quantity* of evidence
@@ -225,6 +287,36 @@ High Falls- Little River  ->  "high falls little river"
 Both still matched, because the comparison also accepts one key being a prefix
 of the other — so the prefix test is quietly carrying an inconsistent
 normalisation. Worth fixing before anything else depends on `name_core`.
+
+**Update, migration 098.** Something now does depend on it, and building that
+turned up what the comparison actually needs: `name_core` **and** the spaces
+taken out. `name_core` renders punctuation as a space, so "Pearson's" becomes
+`pearson s` while ncwaterfalls' "Pearsons" becomes `pearsons`, and they still
+fail to match. Removing the spaces is migration 088's rule — the one that
+recovered "4 X 4 Falls" against "4x4 Falls" with nothing false inside 3.8 km.
+
+Pearson's Falls is the case that needs both halves. Three sources claim it as
+"Pearson's Falls", "Pearsons Falls-Visiting Guide, Photos, Map", and
+"Pearson's Falls and Glen". Raw equality sees three different names.
+`name_core` alone still sees three, because of the apostrophe. Together they
+see two agreeing and AllTrails describing a trail rather than the fall, which
+is the right answer.
+
+Applied across the catalogue, that combination moved **57 features out of
+disputed and into corroborated** — they had only ever been disagreeing about
+punctuation and marketing.
+
+Two other things that pass for agreement and are not:
+
+- **Counting claim rows instead of sources.** `hikingwnc` and
+  `hikingwnc-supplement` are one site twice, so two readings from them is not
+  corroboration — §5.2's rule, in a new disguise. Deduplicate by source before
+  counting.
+- **Treating two as a majority.** Two sources that contradict each other are a
+  dispute, not a consensus; there is no majority in a group of two. Requiring
+  three before calling anything consensus is what separates the two cases, and
+  omitting it produced zero disputed coordinates where the existing
+  `coordinate_confidence` view found five.
 
 ---
 

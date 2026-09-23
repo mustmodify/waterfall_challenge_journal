@@ -73,6 +73,101 @@ waterfall entirely. Those groups are kept rather than deleted, because a source
 saying something about the wrong fall is still a thing the source said, and
 deleting it invites the next importer to make the same match again.
 
+### Facts: confidence beyond the coordinate (designed, not yet built)
+
+`coordinate_confidence` only tiers one field. Everything else -- the name,
+whether the links actually point at this waterfall and not a namesake,
+whether the access point is where we say, whether the difficulty info is
+accurate -- has no confidence tracking at all today. `facts` generalizes the
+idea: one row per `(feature, key)`, holding the value itself (a fact *is*
+what the page shows, not a log of an action taken) plus two independent
+measures of how sure we are of it.
+
+```
+facts(id, feature_id, key, value, value_type, confidence_stage,
+      confidence_score, notes, created_at, updated_at)
+```
+
+Two axes on purpose, because they answer different questions and can
+disagree:
+
+- **`confidence_stage`** -- the method used to get here, an ordinal ladder
+  that only ever moves forward: `unverified` -> `one_source_reviewed` ->
+  `disambiguated` (two or more sources, a minority still disagrees) ->
+  `corroborated` (two or more sources, none disagree) -> `ai_reviewed` ->
+  `human_reviewed` -> `confirmed_irl`.
+- **`confidence_score`** -- the outcome, a decimal 0-4.3 (jw's convention
+  from other projects, GPA-shaped): 0 critical, 0.7 "get to a hospital now",
+  1 significant problem, 2 borderline, 3 acceptable, 4 perfect, 4.3
+  unrealistically good -- reserved for a fact every source agrees on, the
+  signage agrees with, and there is no spelling inconsistency anywhere
+  (Crabtree Falls, Looking Glass Falls, Linville Falls). 4.0 is a perfectly
+  fine ceiling in practice.
+
+They are allowed to disagree, and that is the point, not a bug: jw visited
+Bubbling Springs Branch (Upper and Lower) in person -- `confirmed_irl`, the
+highest stage there is -- but no signage meant the *name* fact stayed barely
+more certain than before (a low score despite the high stage), while the
+*reachability* fact ("is there a waterfall here, can you get to it") jumped
+on both axes from that same single visit. One method, two facts, two
+different results.
+
+`claims.fact_id` will be a nullable FK once this lands. The bottom four
+stages (`unverified` through `corroborated`) are mechanically derivable from
+claims already in the database -- the same logic `coordinate_confidence`
+already runs, just generalized -- so those get backfilled across *all*
+existing history immediately, not just new work: computing them is safe,
+because it is the same trusted computation we already run, and skipping it
+would leave old, never-actually-looked-at data looking no different from
+reviewed data by default, which is exactly backwards after Bubbling Springs.
+`ai_reviewed` / `human_reviewed` / `confirmed_irl` are never backfilled --
+those stages can only come from someone actually looking, and claiming
+otherwise would be the same false confidence in a new column.
+
+`key` is not unique per feature. `aka` is explicitly multi-valued -- one row
+per alternate name. Tom's Spring Falls gets two: "Daniel Ridge Falls" and
+"Jackson Falls", straight out of hikingwnc's own paragraph naming both.
+Another example key, unrelated to confidence: `fall_type`, one of `cascade`,
+`drop`, `slide`, `mixed`, describing the shape of the water rather than how
+sure we are of anything.
+
+A single wrong name attached to one real place (someone calling Bubbling
+Springs Cascades "the upper/lower falls") is a `false_aka` fact -- on
+reflection, not worth a dedicated key yet. A plain note carries that fine
+until a real pattern shows up asking for more structure than that.
+
+This does not replace `accepted`/`field` on `claims`; `facts` sits above it
+as a generalization of what `coordinate_confidence` already does for one
+field, extended to any field worth tracking.
+
+### Confusion sets (designed, not yet built)
+
+Some name collisions aren't "one place, one wrong name attached to it" --
+they're several genuinely different, correctly-named real waterfalls that
+share a confusing family resemblance. "Toms in WNC" is the first one: Tom's
+Creek Falls (feature 398, near Marion), Toms Falls (1268, near
+Hendersonville), Tom Branch Falls (484, near Cherokee), and Tom's Spring
+Falls (366, aka Daniel Ridge Falls, aka Jackson Falls) -- four unrelated
+places, not variants of each other. That doesn't fit `facts`: the useful
+thing to show someone landing on any one of the four is the same shared
+write-up every time, and a shared narrative duplicated across four rows is
+exactly the drift risk this project already avoids elsewhere (claims are
+never merged into one row for that reason).
+
+```
+confusion_sets(id, name, created_at, updated_at)
+confusion_set_members(confusion_set_id, feature_id)
+confusion_set_entries(id, confusion_set_id, body, created_at)
+```
+
+`confusion_set_entries` is a journal, not a field to overwrite: append-only,
+dated, never edited or deleted. When our understanding changes, a new entry
+gets added saying so -- it does not replace the old one. That mirrors how
+`claim_groups` already treats a bad match ("marked, not deleted") and applies
+it to our own reasoning about a cluster, which matters most exactly when
+we've already been wrong here once (the Toms Creek Falls duplicate feature,
+merged in migration 087).
+
 ### Decisions worth knowing
 
 **Areas are flat tags, not a hierarchy.** A fall can be tagged both

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
+  <script src="/static/analytics.js"></script>
+  <title>Feature &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="icon" href="/static/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="/static/favicon-16.png" sizes="16x16">
+  <link rel="icon" href="/static/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Metamorphous&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; padding: 20px 0 6px;
+    }
+    header.bar h1 {
+      margin: 0; font-family: 'Metamorphous', serif; font-weight: 400; font-size: 1.5rem;
+    }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .lede { color: var(--haze); font-size: 0.9rem; margin: 6px 0 16px; max-width: 62ch; }
+    .crumbs { font-size: 0.85rem; color: var(--haze); margin: 0 0 18px; }
+    .crumbs a + a { margin-left: 12px; }
+
+    /* One section per field, headed by three columns: what this is a claim
+       about, what the site publishes, and how much that is worth. The
+       readings below are the evidence for the third one. */
+    .field {
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 13px 15px; margin-bottom: 14px;
+    }
+    .head3 {
+      display: grid; grid-template-columns: 1fr 1.4fr auto;
+      gap: 10px 20px; align-items: start; margin-bottom: 22px;
+    }
+    /* Same treatment as the readings table's column headings, so the page
+       has one kind of label rather than two. */
+    .head3 .lbl {
+      color: var(--haze); font-weight: 500; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      line-height: 1.3; margin-bottom: 2px;
+    }
+    .head3 .big {
+      font-size: 1.5rem; font-weight: 600; line-height: 1.25;
+      letter-spacing: 0.01em; overflow-wrap: anywhere;
+    }
+    .head3 .big.unset { font-weight: 400; font-style: italic; opacity: 0.6; }
+    .head3 .big.g-none { font-size: 1.1rem; font-weight: 400; font-style: italic; opacity: 0.6; }
+    .head3 .big .num {
+      font-size: 0.95rem; font-weight: 500; margin-left: 8px;
+      color: var(--haze); font-variant-numeric: tabular-nums;
+    }
+    .head3 .sub { font-size: 0.78rem; color: var(--haze); margin-top: 2px; }
+    .head3 .big.g-d, .head3 .big.g-f { color: var(--danger); }
+    .head3 .big.g-c { color: var(--mist); }
+    .head3 .big.g-a, .head3 .big.g-b { color: var(--ok); }
+
+    @media (max-width: 560px) {
+      .head3 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .why { font-size: 0.85rem; color: var(--haze); margin: 2px 0 10px; }
+
+    table.readings { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    table.readings th {
+      text-align: left; color: var(--haze); font-weight: 500; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px 4px 0;
+    }
+    table.readings td {
+      padding: 5px 8px 5px 0; border-top: 1px solid var(--line); vertical-align: top;
+    }
+    table.readings td.src { text-transform: capitalize; font-weight: 500; white-space: nowrap; }
+    table.readings tr.rejected td { opacity: 0.55; }
+    table.readings td.val { font-variant-numeric: tabular-nums; }
+
+    .tag {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
+      border-radius: 999px; padding: 1px 7px; white-space: nowrap;
+    }
+    .tag.accepted { color: var(--ok); border: 1px solid var(--ok); }
+    .tag.uncertain { color: var(--danger); border: 1px solid var(--danger); }
+    .claim-note { display: block; color: var(--haze); font-size: 0.8rem; margin-top: 3px; }
+
+    details.rejected { margin-top: 10px; }
+    details.rejected > summary {
+      cursor: pointer; color: var(--haze); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    .empty, .note { color: var(--haze); font-size: 0.9rem; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1 id="title">Feature</h1>
+      <nav id="nav"></nav>
+    </header>
+
+    <div id="denied" class="empty" hidden>
+      This view is for whoever looks after the data.
+      <a href="/">Sign in on the map</a> if that's you.
+    </div>
+
+    <div id="content" hidden>
+      <p class="crumbs" id="crumbs"></p>
+      <p class="lede">Every claim about this place, grouped by what it is a
+        claim <em>about</em>. /admin/claims asks what each source said, which
+        is how the rows are stored; this asks what we believe and how sure we
+        are, which is the question the sources were collected to answer.
+        Worst grade first.</p>
+      <div id="sections"></div>
+    </div>
+  </div>
+
+  <script src="/static/admin-nav.js"></script>
+  <script src="/static/grades.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // The ladder, with the sentence each rung actually means. A score on its
+    // own tells you the order; the description tells you the job.
+    const STAGES = {
+      disputed:      ['Disputed', 'sources contradict each other'],
+      single_source: ['Single source', 'one source said it, nobody checked'],
+      disambiguated: ['Consensus, with dissent', 'a majority agree, someone does not'],
+      corroborated:  ['Corroborated', 'three or more sources agree'],
+      ai_reviewed:   ['AI reviewed', 'read and judged, not visited'],
+      human_reviewed:['Human reviewed', 'a person went through the evidence'],
+      confirmed_irl: ['Confirmed in person', 'someone stood there'],
+    };
+
+    const FIELD_LABELS = {
+      // A coordinate is a lat and a lon, so it reads as a plural even though
+      // the claims field is singular. Display only; the field name is the
+      // field name.
+      coordinate: 'Coordinates',
+      parking_coordinate: 'Parking coordinates',
+      view_coordinate: 'View coordinates',
+      coordinate_raw: 'Coordinates (raw)',
+      height_ft: 'Height',
+      elevation_ft: 'Elevation',
+      elevation_gain_ft: 'Elevation gain',
+      hike_distance: 'Hike distance',
+      beauty_rating: 'Beauty', photo_rating: 'Photo', solitude_rating: 'Solitude',
+    };
+    const label = (f) => FIELD_LABELS[f] ||
+      f.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
+
+    // Coordinates are objects; everything else is a scalar wrapped in JSON.
+    function showValue(v) {
+      if (v == null) return '—';
+      if (typeof v === 'object') {
+        if ('lat' in v && 'lon' in v) return v.lat + ', ' + v.lon;
+        return JSON.stringify(v);
+      }
+      return String(v);
+    }
+
+    // facts stores whichever form compares cleanly: accessibility as a rank,
+    // distance in feet. Good for arbitration, unreadable on a page -- "2" is
+    // not an answer to "how hard is it?". So translate back here, and keep
+    // the stored form visible as the unit rather than hiding it.
+    const RANK_WORDS = [[0, 'Roadside'], [1, 'Easy'], [2, 'Moderate'],
+                        [3, 'Strenuous'], [4, 'Very hard']];
+
+    function rankWord(n) {
+      let best = RANK_WORDS[0];
+      for (const band of RANK_WORDS) if (n >= band[0]) best = band;
+      // A half step up is the source's own "+", so say so rather than
+      // rounding it away.
+      return best[1] + (n - best[0] >= 0.5 ? '+' : '');
+    }
+
+    function settledValue(sec) {
+      if (sec.value == null) {
+        // Only five keys are backfilled into facts. For the rest there is no
+        // computed answer, but there is often an accepted claim, and that is
+        // still what the site shows -- so say so rather than leaving the
+        // headline blank.
+        const won = sec.claims.find((c) => c.accepted);
+        return won == null ? null
+          : { text: showValue(won.value), units: 'accepted claim, not graded' };
+      }
+      const n = Number(sec.value);
+      if (sec.field === 'accessibility' && !isNaN(n)) {
+        return { text: rankWord(n), units: 'rank ' + sec.value + ' of 4' };
+      }
+      if (sec.field === 'hike_distance' && !isNaN(n)) {
+        const mi = n / 5280;
+        return { text: (mi < 0.1 ? 'Roadside' : mi.toFixed(1) + ' mi'),
+                 units: 'round trip' };
+      }
+      return { text: sec.value, units: sec.units };
+    }
+
+    // The grade carries the meaning, so it is what you see; the score is the
+    // same thing to one decimal, kept beside it for anyone comparing two
+    // fields that both came out B.
+    function correctnessCell(sec) {
+      if (!sec.stage) {
+        return '<div class="big g-none">not graded</div>';
+      }
+      const [name] = STAGES[sec.stage] || [sec.stage, ''];
+      return '<div class="big ' + gradeClass(sec.score) + '">' +
+          esc(letterGrade(sec.score) || '?') +
+          (sec.score == null ? '' :
+            '<span class="num">' + Number(sec.score).toFixed(1) + '</span>') +
+        '</div>' +
+        '<div class="sub">' + esc(name) + '</div>';
+    }
+
+    function sectionHtml(sec) {
+      // Only groups we are certain about feed the grade, so the ones we
+      // rejected must not sit in the same list as the ones that counted --
+      // otherwise "3 of 4 sources agree" appears above eight rows. These are
+      // AllTrails trails that passed near this waterfall and were matched on
+      // position, then refused: Kiesee Falls and Farlow Gap are real places,
+      // just not this one. Kept, not deleted, per MATCHING.md, and collapsed
+      // the way /admin/claims collapses them.
+      const counted = sec.claims.filter((c) => c.identity_certain);
+      const refused = sec.claims.filter((c) => !c.identity_certain);
+
+      const row = (c) => {
+        const cls = c.accepted ? '' : (c.identity_certain ? '' : 'rejected');
+        const src = c.url
+          ? '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.source) + '</a>'
+          : esc(c.source);
+        const tags = (c.accepted ? '<span class="tag accepted">accepted</span> ' : '') +
+          (c.identity_certain ? '' : '<span class="tag uncertain">identity uncertain</span>');
+        return '<tr class="' + cls + '">' +
+          '<td class="src">' + src + '</td>' +
+          '<td class="val">' + esc(showValue(c.value)) +
+            (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
+          '<td>' + tags + '</td>' +
+          '<td><a href="/admin/claims?feature=' + FEATURE_ID + '#group-' + c.group_id + '">#' +
+            c.group_id + '</a></td>' +
+          '</tr>';
+      };
+
+      const table = (claims) =>
+        '<table class="readings"><thead><tr>' +
+          '<th>Source</th><th>Value</th><th></th><th>Group</th>' +
+        '</tr></thead><tbody>' + claims.map(row).join('') + '</tbody></table>';
+
+      const refusedBlock = refused.length === 0 ? '' :
+        '<details class="rejected"><summary>' + refused.length +
+        ' rejected candidate' + (refused.length === 1 ? '' : 's') +
+        ' &mdash; not counted</summary>' + table(refused) + '</details>';
+
+      // Three columns, each a small label over the thing itself: what this is
+      // a claim about, what the site publishes, and how much that is worth.
+      // No rules or borders -- three headed columns read as a row on their
+      // own, and lines would only compete with the readings below.
+      const s2 = settledValue(sec);
+      const cell = (lbl, body) =>
+        '<div class="cell"><div class="lbl">' + lbl + '</div>' + body + '</div>';
+
+      const head = '<div class="head3">' +
+        cell('Field', '<div class="big">' + esc(label(sec.field)) + '</div>') +
+        cell('Pub value',
+          (s2 == null ? '<div class="big unset">not settled</div>'
+                      : '<div class="big">' + esc(s2.text) + '</div>') +
+          (s2 && s2.units ? '<div class="sub">' + esc(s2.units) + '</div>' : '')) +
+        cell('Correctness', correctnessCell(sec)) +
+        '</div>';
+
+      return '<section class="field">' +
+        head +
+        (sec.notes ? '<p class="why">' + esc(sec.notes) + '</p>' : '') +
+        table(counted) + refusedBlock +
+        '</section>';
+    }
+
+    const FEATURE_ID = location.pathname.split('/').pop();
+
+    function load() {
+      fetch('/admin/feature/' + encodeURIComponent(FEATURE_ID) + '/facts')
+        .then((r) => {
+          if (r.status === 401 || r.status === 403) {
+            $('denied').hidden = false; return null;
+          }
+          if (r.status === 404) {
+            $('content').hidden = false;
+            $('sections').innerHTML = '<p class="empty">No feature with that id.</p>';
+            return null;
+          }
+          return r.json();
+        })
+        .then((f) => {
+          if (!f) return;
+          document.title = f.name + ' · Wanderfall';
+          $('title').textContent = f.name;
+          $('content').hidden = false;
+
+          const links = ['<a href="/admin/features">All features</a>',
+            '<a href="/admin/claims?feature=' + f.id + '">Claims by source</a>'];
+          // The canonical place URL is id-slug; the bare slug 404s.
+          if (f.slug) links.push('<a href="/falls/' + f.id + '-' + esc(f.slug) + '">Public page</a>');
+          $('crumbs').innerHTML = esc(f.kind) + ' #' + f.id + ' &middot; ' + links.join('');
+
+          $('sections').innerHTML = f.sections.length
+            ? f.sections.map(sectionHtml).join('')
+            : '<p class="empty">No claims on this feature yet.</p>';
+        });
+    }
+
+    renderNav('features');
+    load();
+  </script>
+</body>
+
+</html>

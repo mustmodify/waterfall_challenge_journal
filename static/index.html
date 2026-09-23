@@ -7,17 +7,20 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
   <script src="/static/analytics.js"></script>
-  <title>Wanderfall</title>
+  <title>{{.Title}}</title>
 
-  <meta name="description" content="A map and logbook for the waterfalls and lookout towers of Western North Carolina. Find somewhere to go, record that you went, and track progress against the challenge lists.">
+  <meta name="description" content="{{.Descr}}">
 
   <!-- Link previews. og:image MUST be absolute — iMessage, Slack and the rest
-       will not follow a relative one, and the failure is a silent blank card. -->
+       will not follow a relative one, and the failure is a silent blank card.
+       Title, description and url are per-place when this page is reached at
+       /falls/<id>-<slug>: a shared link that says "Looking Glass Falls" gets
+       opened, one that says "Wanderfall" does not. -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Wanderfall">
-  <meta property="og:title" content="Wanderfall">
-  <meta property="og:description" content="A map and logbook for the waterfalls and lookout towers of Western North Carolina.">
-  <meta property="og:url" content="https://wanderfall.app/">
+  <meta property="og:title" content="{{.Title}}">
+  <meta property="og:description" content="{{.Descr}}">
+  <meta property="og:url" content="{{.Canonical}}">
   <meta property="og:image" content="https://wanderfall.app/static/wanderfall-og.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
@@ -51,7 +54,7 @@
   <link rel="stylesheet" href="/static/app.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Metamorphous&display=swap" rel="stylesheet">
   <style>
 
     #map { position: fixed; inset: 0; z-index: 0; }
@@ -104,10 +107,12 @@
       margin-bottom: 8px;
     }
 
+    /* The wordmark only. Metamorphous ships a single weight, so asking for
+       600 would get a synthesised bold and smear a face this decorative. */
     #brand h1 {
       margin: 0;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
+      font-family: 'Metamorphous', serif;
+      font-weight: 400;
       font-size: 1.35rem;
       letter-spacing: 0.01em;
     }
@@ -190,7 +195,7 @@
          2-way Hide/Show and a 3-way All/Best/Color line up on a shared grid
          rather than each sizing to its own longest word. */
       flex: 1;
-      min-width: 44px;
+      min-width: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -244,7 +249,17 @@
 
     .chip-row + .chip-row { margin-top: 10px; }
     #filters .chip-row { align-items: center; }
-    #filters #area-pick, #filters #challenge-pick { margin-top: 10px; }
+    #filters #area-pick, #filters .advanced-row { margin-top: 10px; }
+    .advanced-row { margin-top: 10px; }
+    #advanced-count {
+      font-size: 0.62rem;
+      background: var(--on-accent);
+      color: var(--filter-active);
+      border-radius: 999px;
+      padding: 0 5px;
+      margin-left: 5px;
+      font-weight: 700;
+    }
 
     #legend {
       margin-top: 10px;
@@ -280,15 +295,13 @@
     #area-current { flex: 1; min-width: 0; font-size: 0.82rem; font-weight: 600; }
     #area-clear { padding: 4px 6px; }
 
-    #challenge-pick {
+    #advanced-challenge-pick {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 10px;
     }
 
-
-    #challenge-select {
+    #advanced-challenge-select {
       flex: 1;
       min-width: 0;
       padding: 6px 8px;
@@ -301,12 +314,14 @@
       color-scheme: inherit;
     }
 
+    #advanced .modal-body > * + * { margin-top: 14px; }
+
     /* A grid, not the flex row the other filters use. The readout changes
        length as you drag -- "Any distance" against "up to 2 miles, 25 with no
        distance hidden" -- and as a flex sibling it stole that width from the
        bar, so the bar grew and shrank while you were using it. Here it sits on
        its own line and the bar's width depends on nothing but the panel. */
-    .walk-row {
+    .walk-row, .elevation-row {
       display: grid;
       grid-template-columns: auto 1fr;
       align-items: center;
@@ -315,6 +330,12 @@
          thumb has nowhere to sit and the last tick label hangs off. */
       padding-right: 3rem;
     }
+
+    /* Elevation's last tick (6000) sits short of the slider's own top stop
+       (7000), unlike walk's last tick, which sits exactly on it -- so there
+       is already headroom before the track's right edge and the same 3rem
+       both over-indents the bar and leaves the thumb looking stranded. */
+    .elevation-row { padding-right: 1rem; }
 
     /* Two inputs stacked on one track: the browser has no two-handle range, and
        the pieces that would fake it (a div with drag handlers) lose the arrow
@@ -364,7 +385,7 @@
     .range-ticks span:first-child { transform: none; }
     .range-ticks span:last-child { transform: translateX(-100%); }
 
-    #walk-read {
+    #walk-read, #elevation-read {
       grid-column: 2;
       font-size: 0.72rem;
       color: var(--mist);
@@ -554,8 +575,8 @@
 
     #auth-card h2 {
       margin: 0 0 12px;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
+      font-family: 'Metamorphous', serif;
+      font-weight: 400;
       font-size: 1.05rem;
     }
 
@@ -600,7 +621,7 @@
 
     /* ---------- intro modal ---------- */
     #intro-backdrop, #anon-backdrop, #rateby-backdrop, #fix-backdrop, #filters-backdrop,
-    #add-place-backdrop {
+    #add-place-backdrop, #advanced-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -721,8 +742,8 @@
 
     #intro h2 {
       margin: 0;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
+      font-family: 'Metamorphous', serif;
+      font-weight: 400;
       font-size: 1.5rem;
     }
 
@@ -790,8 +811,8 @@
 
     #rateby h2 {
       margin: 0;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
+      font-family: 'Metamorphous', serif;
+      font-weight: 400;
       font-size: 1.25rem;
     }
 
@@ -823,8 +844,8 @@
 
     #anon h2 {
       margin: 0;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
+      font-family: 'Metamorphous', serif;
+      font-weight: 400;
       font-size: 1.25rem;
     }
 
@@ -865,8 +886,8 @@
 
     #fix h2 {
       margin: 0 0 12px;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
+      font-family: 'Metamorphous', serif;
+      font-weight: 400;
       font-size: 1.25rem;
     }
 
@@ -934,8 +955,8 @@
 
     #drawer h2 {
       margin: 4px 0 2px;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
+      font-family: 'Metamorphous', serif;
+      font-weight: 400;
       font-size: 1.45rem;
       line-height: 1.2;
     }
@@ -1072,6 +1093,18 @@
 
     .links a:hover { background: var(--moss); text-decoration: underline; }
     .links a span { font-size: 0.9em; opacity: 0.75; }
+
+    /* Admin-only, so it reads as an editorial aside rather than part of the
+       card proper. */
+    .confusion { margin: 10px 0 4px; display: flex; flex-direction: column; gap: 4px; }
+    .confusion a {
+      font-size: 0.78rem;
+      color: var(--haze);
+      text-decoration: none;
+      border-left: 2px solid var(--accent);
+      padding-left: 8px;
+    }
+    .confusion a:hover { color: var(--mist); text-decoration: underline; }
 
     .challenge-lists { margin-top: 4px; }
 
@@ -1303,6 +1336,19 @@
          Scoped to this media query on purpose: on a wide screen the drawer is
          a right-hand panel and never reaches the button. */
       body:has(#drawer.open) #fab { display: none; }
+
+      /* Advanced gets its own treatment rather than joining the centred-modal
+         group above: a form with a dropdown and a two-handle slider reads
+         better as a sheet you pull your thumb up from the bottom of than as
+         a card floating mid-screen, and it matches the drawer's own
+         bottom-sheet habit on a narrow viewport. */
+      #advanced-backdrop { align-items: end; padding: 0 0 84px; }
+      #advanced {
+        width: 100%;
+        max-width: none;
+        max-height: 75vh;
+        border-radius: 16px 16px 0 0;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1418,11 +1464,10 @@
       <span id="area-current"></span>
       <button type="button" class="quiet" id="area-clear" aria-label="Clear area filter">&#10005;</button>
     </div>
-    <div id="challenge-pick" hidden>
-      <label class="row-label" for="challenge-select">Challenge</label>
-      <select id="challenge-select">
-        <option value="all">All challenges</option>
-      </select>
+    <div class="advanced-row">
+      <button type="button" class="chip" id="advanced-open" aria-haspopup="dialog">
+        Advanced<span id="advanced-count" hidden></span>
+      </button>
     </div>
     </div>
     <div id="spectrum" hidden>
@@ -1449,6 +1494,35 @@
         <div class="actions">
           <button type="button" class="primary" id="filters-done">Done</button>
           <button type="button" class="quiet" id="filters-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="advanced-backdrop" hidden>
+    <div id="advanced" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="advanced-title">
+      <div class="modal-head">
+        <h2 id="advanced-title">Advanced Filters</h2>
+        <button class="close quiet" id="advanced-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div id="advanced-challenge-pick">
+          <label class="row-label" for="advanced-challenge-select">Challenge list</label>
+          <select id="advanced-challenge-select">
+            <option value="all">All challenges</option>
+          </select>
+        </div>
+        <div class="chip-row elevation-row" role="group" aria-label="Elevation, where known">
+          <span class="row-label">Elevation</span>
+          <div class="range" id="elevation">
+            <div class="range-track"><div class="range-fill" id="elevation-fill"></div></div>
+            <div class="range-ticks" id="elevation-ticks" aria-hidden="true"></div>
+            <input type="range" id="elevation-min" min="0" max="28" value="0" step="1"
+                   aria-label="Lowest elevation">
+            <input type="range" id="elevation-max" min="0" max="28" value="28" step="1"
+                   aria-label="Highest elevation">
+          </div>
+          <span id="elevation-read">Any elevation</span>
         </div>
       </div>
     </div>
@@ -1722,6 +1796,7 @@
       // all, which is not the same as 0 to 20 miles: it also keeps the 59 falls
       // whose distance nobody has written down.
       walk: { min: 0, max: 0 }, // corrected below, once WALK_STOPS exists
+      elevation: { min: 0, max: 0 }, // corrected below, once ELEVATION_STOPS exists
       area: '',
       visitStatus: 'all',
       // Each rating is independently one of three things: 'all' (no effect),
@@ -1905,18 +1980,32 @@
       return C.azure;
     }
 
-    // Best narrows to the top two tiers (9-10 or 7-8.99) for every dimension
-    // set to it -- ANDed, not OR'd: Best beauty plus Best solitude shows only
-    // what clears both bars, not either one.
+    // Best narrows to the top tier (9-10) for every dimension set to it --
+    // ANDed, not OR'd: Best beauty plus Best solitude shows only what clears
+    // both bars, not either one. Top two tiers (9-10 or 7-8.99) was tried
+    // first and barely narrowed anything -- beauty alone stayed at 233 of
+    // 495, because a 7 or 8 rating is common. Top tier alone brings beauty
+    // to 65 and all three combined to 15, which is what "Best" implies.
     function passesRatingFilter(goal) {
       return bestRatingKeys().every((k) => {
         const v = goal[k + '_rating'];
-        return v !== undefined && v !== null && ratingTier(v) <= 1;
+        return v !== undefined && v !== null && ratingTier(v) <= 0;
       });
     }
 
     // Uneven on purpose. Half the catalogue is under two miles, so a linear
     // slider would spend most of its travel on the handful of walks past ten.
+    // A native range thumb's CENTRE only travels from half a thumb in to half
+    // a thumb short of the end -- so positioning the fill or a tick at a flat
+    // percentage of the track lines up with the thumb's left edge at 0%, its
+    // centre at 50%, and its right edge at 100%. Inset by half a thumb and
+    // scale to the shortened travel, and the fill meets the thumb's centre at
+    // every value instead of only in the middle.
+    const THUMB = 16;
+    function trackPos(fraction) {
+      return 'calc(' + THUMB / 2 + 'px + ' + fraction * 100 + '% - ' + fraction * THUMB + 'px)';
+    }
+
     const WALK_STOPS = [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 10, 12, 15, 20, 36];
     const WALK_TICKS = [0.5, 1, 2, 3, 5, 7, 36];
 
@@ -1979,7 +2068,7 @@
         const at = WALK_STOPS.indexOf(miles);
         if (at < 0) return '';
         const label = miles === 0.5 ? '\u00bd' : String(miles);
-        return '<span style="left:' + (at / span * 100) + '%">' + label + '</span>';
+        return '<span style="left:' + trackPos(at / span) + '">' + label + '</span>';
       }).join('');
     }
 
@@ -1988,8 +2077,8 @@
       $('walk-max').value = state.walk.max;
       const span = WALK_STOPS.length - 1;
       const fill = $('walk-fill');
-      fill.style.left = (state.walk.min / span * 100) + '%';
-      fill.style.right = ((span - state.walk.max) / span * 100) + '%';
+      fill.style.left = trackPos(state.walk.min / span);
+      fill.style.right = trackPos((span - state.walk.max) / span);
 
       let text = describeWalk();
       if (walkFilterOn()) {
@@ -2019,6 +2108,85 @@
       });
     });
 
+    // Linear, unlike WALK_STOPS: elevation isn't skewed the way hike distance
+    // is (half under two miles), so evenly spaced 250 ft steps read fine.
+    const ELEVATION_STOPS = Array.from({ length: 29 }, (_, i) => i * 250); // 0..7000
+    // Three ticks, not six. Four-digit labels every 1000 ft collided into
+    // each other ("10002000 3000") on a bar this wide.
+    const ELEVATION_TICKS = [2000, 4000, 6000];
+
+    state.elevation.max = ELEVATION_STOPS.length - 1;
+
+    function markElevationInputs() {
+      $('elevation-min').max = ELEVATION_STOPS.length - 1;
+      $('elevation-max').max = ELEVATION_STOPS.length - 1;
+    }
+
+    function elevationFilterOn() {
+      return state.elevation.min > 0 || state.elevation.max < ELEVATION_STOPS.length - 1;
+    }
+
+    function matchesElevation(goal) {
+      if (!elevationFilterOn()) return true;
+      // Narrowing by elevation cannot keep what has no elevation on file.
+      if (goal.elevation_ft == null) return false;
+      return goal.elevation_ft >= ELEVATION_STOPS[state.elevation.min] &&
+        goal.elevation_ft <= ELEVATION_STOPS[state.elevation.max];
+    }
+
+    function describeElevation() {
+      const lo = ELEVATION_STOPS[state.elevation.min];
+      const hi = ELEVATION_STOPS[state.elevation.max];
+      const top = state.elevation.max === ELEVATION_STOPS.length - 1;
+      if (!elevationFilterOn()) return 'Any elevation';
+      if (top) return 'over ' + lo + ' ft';
+      if (lo === 0) return 'up to ' + hi + ' ft';
+      return lo + ' to ' + hi + ' ft';
+    }
+
+    function drawElevationTicks() {
+      const span = ELEVATION_STOPS.length - 1;
+      $('elevation-ticks').innerHTML = ELEVATION_TICKS.map((ft) => {
+        const at = ELEVATION_STOPS.indexOf(ft);
+        if (at < 0) return '';
+        return '<span style="left:' + trackPos(at / span) + '">' + ft + '</span>';
+      }).join('');
+    }
+
+    function syncElevation() {
+      $('elevation-min').value = state.elevation.min;
+      $('elevation-max').value = state.elevation.max;
+      const span = ELEVATION_STOPS.length - 1;
+      const fill = $('elevation-fill');
+      fill.style.left = trackPos(state.elevation.min / span);
+      fill.style.right = trackPos((span - state.elevation.max) / span);
+
+      let text = describeElevation();
+      if (elevationFilterOn()) {
+        const missing = state.features.filter((g) => g.elevation_ft == null).length;
+        if (missing) text += ' · ' + missing + ' with no elevation hidden';
+      }
+      $('elevation-read').textContent = text;
+    }
+
+    function setElevation(which, value) {
+      const other = which === 'min' ? 'max' : 'min';
+      state.elevation[which] = value;
+      if (state.elevation.min > state.elevation.max) state.elevation[other] = value;
+      syncElevation();
+      syncFilterButton();
+      renderMarkers(false);
+    }
+
+    ['min', 'max'].forEach((which) => {
+      $('elevation-' + which).addEventListener('input', (e) => {
+        setElevation(which, Number(e.target.value));
+      });
+      $('elevation-' + which).addEventListener('change', () => {
+        track('filter_elevation', { range: describeElevation() });
+      });
+    });
+
     function inScope(goal) {
       const matchesKind = state.showKinds.has(kindOf(goal));
       const matchesArea = !state.area || (goal.areas || []).includes(state.area);
@@ -2026,7 +2194,7 @@
         (goal.challenges || []).includes(state.challenge);
       const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
       const matchesRated = passesRatingFilter(goal);
-      return matchesKind && matchesArea && matchesChallenge &&
+      return matchesKind && matchesArea && matchesChallenge && matchesElevation(goal) &&
         matchesVisitStatus && matchesRated && matchesWalk(goal);
     }
 
@@ -2281,6 +2449,18 @@
     let viewRestored = false;
     let lastShownCount = null;
 
+    // Restyling the two markers whose selected state actually changed, rather
+    // than a full renderMarkers() rebuild, so opening a drawer from inside a
+    // spiderfied cluster doesn't clear every cluster layer and collapse it
+    // back on top of the very marker just picked -- burying it with no way
+    // to tell it apart, which is what a full rebuild on every click did.
+    function setMarkerSelected(id, selected) {
+      const marker = state.markers.get(id);
+      if (!marker) return;
+      marker.setIcon(goalIcon(marker.wjGoal, selected));
+      marker.setZIndexOffset(selected ? 1000 : 0);
+    }
+
     function renderMarkers(fit) {
       const goals = visibleGoals();
       const showing = $('showing');
@@ -2422,6 +2602,7 @@
     let drawerSource = 'pin';
 
     function openDrawer(goal, flyTo) {
+      const previous = state.selected;
       state.selected = goal;
       track('view_waterfall', {
         slug: goal.slug, place: goal.name, kind: goal.kind, source: drawerSource,
@@ -2486,6 +2667,17 @@
         goal.notes.forEach((n) => {
           html += '<div class="note' + (n.source ? ' sourced' : '') + '">' +
             escapeHtml(n.text) + '</div>';
+        });
+        html += '</div>';
+      }
+
+      // Admin-only, and only where a set exists. A visitor does not need to
+      // know which of four similarly-named falls confuses us.
+      if (state.user && state.user.is_admin && (goal.confusion_sets || []).length) {
+        html += '<div class="confusion">';
+        goal.confusion_sets.forEach((cs) => {
+          html += '<a href="/admin/confusion_sets/' + cs.id + '">Confusion set: ' +
+            escapeHtml(cs.name) + '</a>';
         });
         html += '</div>';
       }
@@ -2563,7 +2755,8 @@
         btn.addEventListener('click', () => removeVisit(btn.dataset.id));
       });
 
-      renderMarkers(false);
+      if (previous && previous.id !== goal.id) setMarkerSelected(previous.id, false);
+      setMarkerSelected(goal.id, true);
       if (flyTo && goal.location) {
         // Flying to a fixed zoom can leave the pin swallowed by its cluster.
         // zoomToShowLayer goes exactly as deep as it takes to expose it.
@@ -2593,8 +2786,8 @@
       const was = state.selected;
       state.selected = null;
       $('drawer').classList.remove('open');
-      renderMarkers(false);
       if (was) {
+        setMarkerSelected(was.id, false);
         track('close_waterfall', { slug: was.slug });
         setPath('/', 'Wanderfall');
       }
@@ -2716,47 +2909,20 @@
     };
     const CHALLENGE_ORDER = Object.keys(CHALLENGE_LABELS);
 
-    function startedChallenges() {
-      const names = new Set();
-      state.features.forEach((goal) => {
-        if (!goal.last_visited) return;
-        (goal.challenges || []).forEach((c) => names.add(c));
-      });
-      const rank = (n) => {
-        const i = CHALLENGE_ORDER.indexOf(n);
-        return i === -1 ? CHALLENGE_ORDER.length : i;
-      };
-      return [...names].sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
-    }
-
-    // A challenge you have never touched is noise, so the row only lists the
-    // ones you are actually on -- and hides entirely until you are on one.
-    // A dropdown rather than chips: there are four lists now and more coming,
-    // and a wrapping row of them was crowding the card.
+    // Lives in the Advanced modal rather than the main filter list: it isn't
+    // something you tune per-visit, it's "show me one specific list." Every
+    // challenge is offered regardless of whether you've started it -- a
+    // place's "Challenge Lists" badge links here as /?challenge=CODE, and
+    // that has to work for a first-time, signed-out visitor too.
     function renderChallenges() {
-      const names = startedChallenges();
-      // A place's "Challenge Lists" badge links here as /?challenge=CODE so
-      // anyone can browse the list, signed in or not -- keep that code
-      // visible even though startedChallenges() only knows about visits.
-      if (state.challenge !== 'all' && CHALLENGE_LABELS[state.challenge] &&
-          !names.includes(state.challenge)) {
-        names.push(state.challenge);
-      }
-      const box = $('challenge-pick');
-      box.hidden = names.length === 0;
-      if (state.challenge !== 'all' && !names.includes(state.challenge)) {
-        state.challenge = 'all';
-      }
-      if (!names.length) return;
-
-      $('challenge-select').innerHTML =
+      $('advanced-challenge-select').innerHTML =
         '<option value="all">All challenges</option>' +
-        names.map((n) => '<option value="' + escapeHtml(n) + '"' +
+        CHALLENGE_ORDER.map((n) => '<option value="' + escapeHtml(n) + '"' +
           (state.challenge === n ? ' selected' : '') + '>' +
           escapeHtml(CHALLENGE_LABELS[n] || n) + '</option>').join('');
     }
 
-    $('challenge-select').addEventListener('change', (e) => {
+    $('advanced-challenge-select').addEventListener('change', (e) => {
       state.challenge = e.target.value;
       track('select_challenge', { challenge: state.challenge });
       syncFilterButton();
@@ -2991,10 +3157,21 @@
       if (state.area) n++;
       if (state.challenge !== 'all') n++;
       if (walkFilterOn()) n++;
+      if (elevationFilterOn()) n++;
+      return n;
+    }
+
+    function advancedFilterCount() {
+      let n = 0;
+      if (state.challenge !== 'all') n++;
+      if (elevationFilterOn()) n++;
       return n;
     }
 
     function syncFilterButton() {
+      const advN = advancedFilterCount();
+      $('advanced-count').hidden = advN === 0;
+      $('advanced-count').textContent = advN;
       const n = activeFilterCount();
       $('filter-count').hidden = n === 0;
       $('filter-count').textContent = n;
@@ -3061,6 +3238,9 @@
     markWalkInputs();
     drawWalkTicks();
     syncWalk();
+    markElevationInputs();
+    drawElevationTicks();
+    syncElevation();
 
     $('filter-button').addEventListener('click', () => setFilters(true));
     $('filters-close').addEventListener('click', () => setFilters(false));
@@ -3069,13 +3249,30 @@
       if (e.target === $('filters-backdrop')) setFilters(false);
     });
 
+    // Advanced is its own modal rather than another row in the main list --
+    // Challenge and Elevation are things you reach for occasionally, not
+    // every session, and burying them behind one more tap keeps the main
+    // filter card from growing every time something new needs a home.
+    function setAdvanced(open) {
+      $('advanced-backdrop').hidden = !open;
+      if (open) { $('advanced').focus(); refreshFades(); }
+    }
+
+    $('advanced-open').addEventListener('click', () => setAdvanced(true));
+    $('advanced-close').addEventListener('click', () => setAdvanced(false));
+    $('advanced-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('advanced-backdrop')) setAdvanced(false);
+    });
+
     $('filters-reset').addEventListener('click', () => {
       state.showKinds = new Set(['waterfall', 'tower', 'swimming_hole']);
       state.visited = state.user ? 'mute' : 'show';
       state.ratingMode = { beauty: 'all', photo: 'all', solitude: 'all' };
       state.challenge = 'all';
       state.walk = { min: 0, max: WALK_STOPS.length - 1 };
+      state.elevation = { min: 0, max: ELEVATION_STOPS.length - 1 };
       syncWalk();
+      syncElevation();
       setArea('');
       syncFilters();
       renderLegend();
@@ -3323,7 +3520,8 @@
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       // the modal is on top, so it gets the key first
-      if (!$('filters-backdrop').hidden) setFilters(false);
+      if (!$('advanced-backdrop').hidden) setAdvanced(false);
+      else if (!$('filters-backdrop').hidden) setFilters(false);
       else if (!$('fix-backdrop').hidden) setFix(false);
       else if (!$('rateby-backdrop').hidden) setRateby(false);
       else if (!$('anon-backdrop').hidden) setAnon(false);

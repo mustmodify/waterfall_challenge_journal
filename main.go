@@ -54,6 +54,7 @@ type Location struct {
 type Feature struct {
 	ID                int           `json:"id"`
 	Name              string        `json:"name"`
+	Slug              *string       `json:"slug,omitempty"`
 	Kind              string        `json:"kind"`
 	FeatureLocationID *int          `json:"feature_location_id"`
 	ParkingLocationID *int          `json:"parking_location_id"`
@@ -61,6 +62,7 @@ type Feature struct {
 	DifficultyRating  *string       `json:"difficulty_rating,omitempty"`
 	Accessibility     *string       `json:"accessibility,omitempty"`
 	HeightFt          *int          `json:"height_ft,omitempty"`
+	ElevationFt       *int          `json:"elevation_ft,omitempty"`
 	BeautyRating      *int          `json:"beauty_rating,omitempty"`
 	PhotoRating       *int          `json:"photo_rating,omitempty"`
 	SolitudeRating    *int          `json:"solitude_rating,omitempty"`
@@ -73,13 +75,23 @@ type Feature struct {
 	Challenges        []string      `json:"challenges"`
 	Links             []Link        `json:"links"`
 	Areas             []string      `json:"areas"`
-	Notes             []FeatureNote  `json:"notes"`
-	AccessNotes       []AccessNote   `json:"access_notes"`
-	Confidence        *string        `json:"confidence,omitempty"`
-	Owner             *string       `json:"owner,omitempty"`
-	DeprecatedReason  *string       `json:"deprecated_reason,omitempty"`
-	DeprecatedNote    *string       `json:"deprecated_note,omitempty"`
-	DeprecatedOn      *string       `json:"deprecated_on,omitempty"`
+	Notes             []FeatureNote `json:"notes"`
+	AccessNotes       []AccessNote  `json:"access_notes"`
+	Confidence        *string       `json:"confidence,omitempty"`
+	// Admin-only: which name-collision clusters this feature belongs to.
+	// Omitted entirely for everyone else, the same way last_visited is.
+	ConfusionSets    []ConfusionRef `json:"confusion_sets,omitempty"`
+	Owner            *string        `json:"owner,omitempty"`
+	DeprecatedReason *string        `json:"deprecated_reason,omitempty"`
+	DeprecatedNote   *string        `json:"deprecated_note,omitempty"`
+	DeprecatedOn     *string        `json:"deprecated_on,omitempty"`
+}
+
+// ConfusionRef names a confusion set a feature sits in, so the card can link
+// to the write-up explaining which similarly-named waterfall is which.
+type ConfusionRef struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 // FeatureNote is the trimmed form of a note carried inside a Feature. Source
@@ -215,9 +227,19 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		lastVisited = `(SELECT MAX(visited_on)::text FROM visits WHERE visits.feature_id = features.id AND visits.user_id = $1)`
 		args = append(args, user.ID)
 	}
+	// Confusion sets are editorial notes about our own uncertainty, so they go
+	// to admins only for now. Same conditional-column trick as last_visited
+	// rather than a second query.
+	confusion := `NULL::json`
+	if user := currentUser(r); user != nil && user.IsAdmin {
+		confusion = `(SELECT json_agg(json_build_object('id', cs.id, 'name', cs.name) ORDER BY cs.name)
+			FROM confusion_set_members m
+			JOIN confusion_sets cs ON cs.id = m.confusion_set_id
+			WHERE m.feature_id = features.id)`
+	}
 	rows, err := db.Query(`
-		SELECT features.id, features.name, kind, parking_location_id, feature_location_id,
-			rt_hike_distance, difficulty_rating, accessibility, height_ft,
+		SELECT features.id, features.name, features.slug, kind, parking_location_id, feature_location_id,
+			rt_hike_distance, difficulty_rating, accessibility, height_ft, elevation_ft,
 			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
 			locations.id as location_id, locations.longitude, locations.latitude,
@@ -247,6 +269,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 				ORDER BY feature_notes.severity, feature_notes.id)
 				FROM feature_notes WHERE feature_notes.feature_id = features.id) AS access_note_json,
 			confidence.tier,
+			`+confusion+` AS confusion_json,
 			features.owner, deprecated_reason, deprecated_note,
 			deprecated_on::text
 		FROM features
@@ -278,10 +301,12 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var noteJSON []byte
 		var accessNoteJSON []byte
 		var confidence sql.NullString
+		var confusionJSON []byte
 
 		err := rows.Scan(
 			&f.ID,
 			&f.Name,
+			&f.Slug,
 			&f.Kind,
 			&f.ParkingLocationID,
 			&f.FeatureLocationID,
@@ -289,6 +314,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&f.DifficultyRating,
 			&f.Accessibility,
 			&f.HeightFt,
+			&f.ElevationFt,
 			&f.BeautyRating,
 			&f.PhotoRating,
 			&f.SolitudeRating,
@@ -308,6 +334,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&noteJSON,
 			&accessNoteJSON,
 			&confidence,
+			&confusionJSON,
 			&f.Owner,
 			&f.DeprecatedReason,
 			&f.DeprecatedNote,
@@ -347,6 +374,13 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		}
 
 		f.AccessNotes = []AccessNote{}
+		f.ConfusionSets = nil
+		if len(confusionJSON) > 0 {
+			if err := json.Unmarshal(confusionJSON, &f.ConfusionSets); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
 		if len(accessNoteJSON) > 0 {
 			if err := json.Unmarshal(accessNoteJSON, &f.AccessNotes); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -447,6 +481,20 @@ func clientConfig(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "window.WJ_CONFIG = { stadiaKey: %s };\n", key)
 }
 
+// servePage serves one of the static HTML shells.
+//
+// Each of these carries its own inline <script>, so a browser holding a
+// cached copy is running stale code, not just showing a stale page -- which
+// is how a fixed link kept 404ing after the fix shipped. /static/ has been
+// wrapped in noCache since the beginning for this reason; the pages that
+// embed the behaviour need it at least as much.
+func servePage(path string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache")
+		http.ServeFile(w, r, path)
+	}
+}
+
 func noCache(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "no-cache")
@@ -499,39 +547,30 @@ func main() {
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", noCache(http.FileServer(http.Dir("static/")))))
 
-	r.HandleFunc("/bulk", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/bulk.html")
-	}).Methods("GET")
-	r.HandleFunc("/corrections/queue", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/corrections.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/users", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/users.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/features", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_features.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/claims", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_claims.html")
-	}).Methods("GET")
-	r.HandleFunc("/admin/unresolved", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/admin_unresolved.html")
-	}).Methods("GET")
+	r.HandleFunc("/bulk", servePage("./static/bulk.html")).Methods("GET")
+	r.HandleFunc("/corrections/queue", servePage("./static/corrections.html")).Methods("GET")
+	r.HandleFunc("/admin/users", servePage("./static/users.html")).Methods("GET")
+	r.HandleFunc("/admin", servePage("./static/admin.html")).Methods("GET")
+	r.HandleFunc("/admin/features", servePage("./static/admin_features.html")).Methods("GET")
+	r.HandleFunc("/admin/features/{id:[0-9]+}", servePage("./static/admin_feature.html")).Methods("GET")
+	r.HandleFunc("/admin/feature/{id:[0-9]+}/facts", showFeatureFacts).Methods("GET")
+	r.HandleFunc("/admin/claims", servePage("./static/admin_claims.html")).Methods("GET")
+	r.HandleFunc("/admin/confusion_sets", servePage("./static/admin_confusion_sets.html")).Methods("GET")
+	r.HandleFunc("/admin/confusion_sets/{id:[0-9]+}", servePage("./static/admin_confusion_sets.html")).Methods("GET")
+	r.HandleFunc("/admin/confusion-set-list", listConfusionSets).Methods("GET")
+	r.HandleFunc("/admin/confusion-set/{id:[0-9]+}", getConfusionSet).Methods("GET")
+	r.HandleFunc("/admin/confusion-set/{id:[0-9]+}/entries", addConfusionEntry).Methods("POST")
+	r.HandleFunc("/admin/review", servePage("./static/admin_review.html")).Methods("GET")
+	r.HandleFunc("/admin/review-queue", listReviewQueue).Methods("GET")
+	r.HandleFunc("/admin/unresolved", servePage("./static/admin_unresolved.html")).Methods("GET")
 	r.HandleFunc("/admin/feature-list", listFeaturesAdmin).Methods("GET")
 	r.HandleFunc("/claims", listClaims).Methods("GET")
 	r.HandleFunc("/claims/unresolved", listUnresolvedClaims).Methods("GET")
 	r.HandleFunc("/falls/{ref}", placeHandler).Methods("GET")
 	r.HandleFunc("/features/{id}/view", recordView).Methods("POST")
-	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/account.html")
-	}).Methods("GET")
+	r.HandleFunc("/account", servePage("./static/account.html")).Methods("GET")
 
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/index.html")
-	}).Methods("GET")
+	r.HandleFunc("/", appHome).Methods("GET")
 
 	initMailer()
 

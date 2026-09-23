@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -208,7 +209,15 @@ func placeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var name, slug string
-	err = db.QueryRow(`SELECT name, slug FROM features WHERE id = $1`, id).Scan(&name, &slug)
+	var kind string
+	var height *int
+	var distance, owner, area *string
+	err = db.QueryRow(`
+		SELECT f.name, f.slug, f.kind, f.height_ft, f.rt_hike_distance, f.owner,
+		       (SELECT a.name FROM feature_areas fa JOIN areas a ON a.id = fa.area_id
+		         WHERE fa.feature_id = f.id ORDER BY length(a.name) LIMIT 1)
+		FROM features f WHERE f.id = $1
+	`, id).Scan(&name, &slug, &kind, &height, &distance, &owner, &area)
 	if err == sql.ErrNoRows {
 		http.NotFound(w, r)
 		return
@@ -224,7 +233,91 @@ func placeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.ServeFile(w, r, "./static/index.html")
+	renderApp(w, appHead{
+		Title:     name,
+		Descr:     describePlace(kind, height, distance, owner, area),
+		Canonical: "https://wanderfall.app/falls/" + strconv.Itoa(id) + "-" + slug,
+	})
+}
+
+// The map page is a template now, not a static file, so a link to one
+// waterfall can preview as that waterfall. Everything a scraper reads --
+// title, description, canonical url -- is per-place when the page is reached
+// at /falls/<id>-<slug>, and site-level at /.
+//
+// Parsed once at startup. index.html contains no other template actions, so
+// the only thing this changes about the file is those four placeholders.
+var bareDistance = regexp.MustCompile(`^[0-9]+(\.[0-9]+)?$`)
+
+var appTemplate = template.Must(template.ParseFiles("static/index.html"))
+
+type appHead struct {
+	Title     string
+	Descr     string
+	Canonical string
+}
+
+const siteDescr = "A map and logbook for the waterfalls and lookout towers of " +
+	"Western North Carolina. Find somewhere to go, record that you went, and " +
+	"track progress against the challenge lists."
+
+func renderApp(w http.ResponseWriter, head appHead) {
+	// no-cache for the same reason the static file carried it: the page and
+	// the scripts it loads are edited together and a browser holding
+	// yesterday's ratings.js against today's page breaks the drawer.
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	if err := appTemplate.Execute(w, head); err != nil {
+		log.Printf("rendering the map page: %v", err)
+	}
+}
+
+func appHome(w http.ResponseWriter, r *http.Request) {
+	renderApp(w, appHead{
+		Title:     "Wanderfall",
+		Descr:     siteDescr,
+		Canonical: "https://wanderfall.app/",
+	})
+}
+
+// describePlace writes the sentence a shared link previews with, out of
+// whatever we actually hold. Each clause is skipped rather than guessed, so a
+// feature with nothing on file still gets a sentence rather than "a
+// waterfall of undefined feet".
+func describePlace(kind string, height *int, distance, owner, area *string) string {
+	noun := map[string]string{
+		"waterfall":     "waterfall",
+		"tower":         "lookout tower",
+		"swimming_hole": "swimming hole",
+	}[kind]
+	if noun == "" {
+		noun = "place"
+	}
+
+	s := "A "
+	if height != nil && *height > 0 {
+		s += fmt.Sprintf("%d ft ", *height)
+	}
+	s += noun
+	if area != nil && *area != "" {
+		s += " in " + *area
+	} else if owner != nil && *owner != "" {
+		s += " on " + *owner + " land"
+	}
+	s += "."
+	// rt_hike_distance is free text from several sources: "1.9", "0.8 mi",
+	// "Approx 1 mile each way", "Roadside". Only a bare number can safely
+	// have "round trip" appended -- doing it to "each way" produces a
+	// sentence that contradicts itself.
+	if distance != nil && strings.TrimSpace(*distance) != "" {
+		d := strings.TrimSpace(*distance)
+		if bareDistance.MatchString(d) {
+			s += " " + d + " miles round trip."
+		} else {
+			s += " " + strings.TrimSuffix(d, ".") + "."
+		}
+	}
+	return s + " Open it on the map to see where it is and what the sources say."
 }
 
 // recordView increments the daily view count for the waterfall the client just
