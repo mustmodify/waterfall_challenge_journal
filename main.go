@@ -59,29 +59,30 @@ type Feature struct {
 	FeatureLocationID *int    `json:"feature_location_id"`
 	ParkingLocationID *int    `json:"parking_location_id"`
 	RtHikeDistance    *string `json:"rt_hike_distance,omitempty"`
-	// Round-trip feet, arbitrated across sources in facts. The prose above is
-	// what one source wrote; this is what we believe, and it is what the map
-	// filters and formats from.
-	HikeDistanceFt   *int          `json:"hike_distance_ft,omitempty"`
-	DifficultyRating *string       `json:"difficulty_rating,omitempty"`
-	Accessibility    *string       `json:"accessibility,omitempty"`
-	HeightFt         *int          `json:"height_ft,omitempty"`
-	ElevationFt      *int          `json:"elevation_ft,omitempty"`
-	BeautyRating     *int          `json:"beauty_rating,omitempty"`
-	PhotoRating      *int          `json:"photo_rating,omitempty"`
-	SolitudeRating   *int          `json:"solitude_rating,omitempty"`
-	HwncID           *int          `json:"hwnc_id,omitempty"`
-	CmcHikeNo        *int          `json:"cmc_hike_no,omitempty"`
-	BookPage         *int          `json:"book_page,omitempty"`
-	Location         *Location     `json:"location,omitempty"`
-	ParkingLocation  *Location     `json:"parking_location,omitempty"`
-	LastVisited      *string       `json:"last_visited,omitempty"`
-	Challenges       []string      `json:"challenges"`
-	Links            []Link        `json:"links"`
-	Areas            []string      `json:"areas"`
-	Notes            []FeatureNote `json:"notes"`
-	AccessNotes      []AccessNote  `json:"access_notes"`
-	Confidence       *string       `json:"confidence,omitempty"`
+	// What we believe, arbitrated across sources, keyed by fact. The columns
+	// around this one are what a single source wrote or what an older
+	// pipeline settled on; this is the graded answer, and it is what the map
+	// formats and filters from wherever it has one.
+	Facts            map[string]FactOut `json:"facts,omitempty"`
+	DifficultyRating *string            `json:"difficulty_rating,omitempty"`
+	Accessibility    *string            `json:"accessibility,omitempty"`
+	HeightFt         *int               `json:"height_ft,omitempty"`
+	ElevationFt      *int               `json:"elevation_ft,omitempty"`
+	BeautyRating     *int               `json:"beauty_rating,omitempty"`
+	PhotoRating      *int               `json:"photo_rating,omitempty"`
+	SolitudeRating   *int               `json:"solitude_rating,omitempty"`
+	HwncID           *int               `json:"hwnc_id,omitempty"`
+	CmcHikeNo        *int               `json:"cmc_hike_no,omitempty"`
+	BookPage         *int               `json:"book_page,omitempty"`
+	Location         *Location          `json:"location,omitempty"`
+	ParkingLocation  *Location          `json:"parking_location,omitempty"`
+	LastVisited      *string            `json:"last_visited,omitempty"`
+	Challenges       []string           `json:"challenges"`
+	Links            []Link             `json:"links"`
+	Areas            []string           `json:"areas"`
+	Notes            []FeatureNote      `json:"notes"`
+	AccessNotes      []AccessNote       `json:"access_notes"`
+	Confidence       *string            `json:"confidence,omitempty"`
 	// Admin-only: which name-collision clusters this feature belongs to.
 	// Omitted entirely for everyone else, the same way last_visited is.
 	ConfusionSets    []ConfusionRef `json:"confusion_sets,omitempty"`
@@ -89,6 +90,17 @@ type Feature struct {
 	DeprecatedReason *string        `json:"deprecated_reason,omitempty"`
 	DeprecatedNote   *string        `json:"deprecated_note,omitempty"`
 	DeprecatedOn     *string        `json:"deprecated_on,omitempty"`
+}
+
+// FactOut is one arbitrated fact as the front end needs it: the value, the
+// unit it is in, and how much the value is worth. Score is null for a fact
+// nothing has graded -- an unverified access status is not a bad grade, it is
+// the absence of one.
+type FactOut struct {
+	Value string   `json:"value"`
+	Units *string  `json:"units,omitempty"`
+	Stage string   `json:"stage"`
+	Score *float64 `json:"score,omitempty"`
 }
 
 // ConfusionRef names a confusion set a feature sits in, so the card can link
@@ -244,9 +256,10 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query(`
 		SELECT features.id, features.name, features.slug, kind, parking_location_id, feature_location_id,
 			rt_hike_distance,
-			(SELECT facts.value::numeric::integer FROM facts
-				WHERE facts.feature_id = features.id AND facts.key = 'hike_distance'
-				  AND facts.value ~ '^[0-9]+$') AS hike_distance_ft,
+			(SELECT json_object_agg(facts.key, json_build_object(
+					'value', facts.value, 'units', facts.units,
+					'stage', facts.confidence_stage, 'score', facts.confidence_score))
+				FROM facts WHERE facts.feature_id = features.id) AS fact_json,
 			difficulty_rating, accessibility, height_ft, elevation_ft,
 			beauty_rating, photo_rating, solitude_rating,
 			hwnc_id, cmc_hike_no, book_page,
@@ -310,6 +323,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		var accessNoteJSON []byte
 		var confidence sql.NullString
 		var confusionJSON []byte
+		var factJSON []byte
 
 		err := rows.Scan(
 			&f.ID,
@@ -318,7 +332,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&f.Kind,
 			&f.ParkingLocationID,
 			&f.FeatureLocationID,
-			&f.RtHikeDistance, &f.HikeDistanceFt,
+			&f.RtHikeDistance, &factJSON,
 			&f.DifficultyRating,
 			&f.Accessibility,
 			&f.HeightFt,
@@ -374,6 +388,12 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 		}
 
 		f.Notes = []FeatureNote{}
+		if len(factJSON) > 0 {
+			if err := json.Unmarshal(factJSON, &f.Facts); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
 		if len(noteJSON) > 0 {
 			if err := json.Unmarshal(noteJSON, &f.Notes); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)

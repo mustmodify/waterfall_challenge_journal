@@ -2042,7 +2042,39 @@
     // Free text from several sources: "Roadside", "4.4", "0.6 Miles (out and
     // back)", "Approx 1.4 mile each way", "Less than 1.7", and one "2.8.30".
     // Requiring a leading digit threw away seventeen real distances.
+    // The arbitrated answer, where there is one. facts is keyed by the thing
+    // the fact is about, and carries the value, its unit, and how much it is
+    // worth -- so the card can show the number and the map can filter on it
+    // without either re-parsing whatever prose a source happened to write.
+    function factOf(goal, key) {
+      return (goal.facts && goal.facts[key]) || null;
+    }
+    function factNumber(goal, key) {
+      const f = factOf(goal, key);
+      if (!f) return null;
+      const n = Number(f.value);
+      return isFinite(n) ? n : null;
+    }
+
+    // Miles once it is far enough for miles to mean anything, feet below
+    // that. A tenth of a mile is 528 feet, which reads as a number nobody can
+    // picture; "400 ft" is a walk you can see the end of.
+    const FEET_PER_MILE = 5280;
+    const MILES_THRESHOLD_FT = 0.6 * FEET_PER_MILE;   // 3168
+
+    function describeDistanceFt(ft) {
+      if (ft === null || ft === undefined) return null;
+      if (ft <= 0) return 'Roadside';
+      if (ft >= MILES_THRESHOLD_FT) return (ft / FEET_PER_MILE).toFixed(1) + ' mi';
+      return Math.round(ft / 10) * 10 + ' ft';
+    }
+
     function walkMiles(goal) {
+      // The fact first: it has been through the same parser for every
+      // source, including the ones that publish one-way distances.
+      const ft = factNumber(goal, 'hike_distance');
+      if (ft !== null) return ft / FEET_PER_MILE;
+
       const raw = (goal.rt_hike_distance || '').trim();
       if (!raw) return null;
       if (/^roadside/i.test(raw)) return 0;
@@ -2647,6 +2679,24 @@
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
       html += '</div>';
 
+      // Access comes before the deprecation notice: "you cannot get there"
+      // outranks "it is not what it was". Only 'ok' and 'unverified' stay
+      // quiet -- the first needs no warning and the second would put a banner
+      // on almost every waterfall, which would train people to ignore it.
+      const access = factOf(goal, 'access_status');
+      if (access && (access.value === 'inaccessible' || access.value === 'detour')) {
+        const detourFt = factNumber(goal, 'detour_hike_distance');
+        html += '<div class="warn"><strong>' +
+          (access.value === 'inaccessible'
+            ? 'Reported inaccessible'
+            : 'Reported open, but not by the usual way') + '</strong>';
+        if (access.value === 'detour' && detourFt !== null) {
+          html += '<p>The walk is ' + escapeHtml(describeDistanceFt(detourFt)) +
+            ' while access is impaired.</p>';
+        }
+        html += '</div>';
+      }
+
       if (goal.deprecated_reason) {
         html += '<div class="warn"><strong>' +
           escapeHtml(DEPRECATED_LABELS[goal.deprecated_reason] || goal.deprecated_reason) +
@@ -2662,7 +2712,18 @@
       });
 
       html += '<div class="fact-grid">';
-      html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;') + '</div></div>';
+      const walkFt = factNumber(goal, 'hike_distance');
+      const walkText = describeDistanceFt(walkFt) ||
+        (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;');
+      html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + walkText + '</div></div>';
+      const heightFt = factNumber(goal, 'height');
+      if (heightFt !== null) {
+        html += '<div class="fact"><div class="k">Height</div><div class="v">' +
+          Math.round(heightFt) + ' ft</div></div>';
+      } else if (goal.height_ft) {
+        html += '<div class="fact"><div class="k">Height</div><div class="v">' +
+          goal.height_ft + ' ft</div></div>';
+      }
       html += '<div class="fact"><div class="k">Last visited</div><div class="v">' + (goal.last_visited ? escapeHtml(goal.last_visited) : 'Never') + '</div></div>';
       html += '<div class="fact"><div class="k">Beauty</div>' + band('beauty', goal.beauty_rating) + '</div>';
       html += '<div class="fact"><div class="k">Photo</div>' + band('photo', goal.photo_rating) + '</div>';
