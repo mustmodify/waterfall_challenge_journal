@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict eGSHx2RkZYqV44qaTZbaPJPXmBCPAOtm5pwft6QjnFhykudi980DAblEdzA8kGd
+\restrict hEvaUp9XaR3RbAxLtsZN7cyhNvv06N70GO8duSOF6LPHgwmqkdwDkCP8aSQfOnC
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -81,6 +81,47 @@ COMMENT ON FUNCTION public.agreement_note(agreeing integer, n integer, tolerance
 
 
 --
+-- Name: agreement_score(integer, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.agreement_score(agreeing integer, n integer) RETURNS numeric
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+DECLARE
+    base int;
+BEGIN
+    IF n IS NULL OR n <= 1 THEN
+        RETURN 1.7;          -- one source: C-, nothing to compare
+    END IF;
+    IF agreeing IS NULL OR agreeing <= 1 THEN
+        RETURN 1.0;          -- no two agree: D
+    END IF;
+
+    base := CASE
+              WHEN agreeing = 2 THEN 5   -- C+
+              WHEN agreeing = 3 THEN 7   -- B
+              WHEN agreeing = 4 THEN 8   -- B+
+              ELSE 9                     -- A-, five or more
+            END;
+
+    IF agreeing = n THEN
+        RETURN grade_rung(base);
+    END IF;
+
+    -- Not a consensus: one rung for that, and one more per dissenting source.
+    RETURN grade_rung(base - (1 + (n - agreeing)));
+END;
+$$;
+
+
+--
+-- Name: FUNCTION agreement_score(agreeing integer, n integer); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.agreement_score(agreeing integer, n integer) IS 'The 0-4.3 score a fact earns from its sources. Unanimity scores by count -- two C+, three B, four B+, five A-. Anything short of unanimity costs a rung for not being a consensus plus a rung for each source that disagrees, floored at D.';
+
+
+--
 -- Name: agreement_stage(integer, integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -149,6 +190,18 @@ BEGIN
     RAISE EXCEPTION
         'confusion_set_entries is append-only: add a new entry correcting the old one';
 END;
+$$;
+
+
+--
+-- Name: grade_rung(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.grade_rung(rung integer) RETURNS numeric
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT (ARRAY[1.0, 1.3, 1.7, 2.0, 2.3, 2.7, 3.0, 3.3, 3.7, 4.0]::numeric[])
+         [greatest(least(rung, 10), 1)];
 $$;
 
 
@@ -2368,5 +2421,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict eGSHx2RkZYqV44qaTZbaPJPXmBCPAOtm5pwft6QjnFhykudi980DAblEdzA8kGd
+\unrestrict hEvaUp9XaR3RbAxLtsZN7cyhNvv06N70GO8duSOF6LPHgwmqkdwDkCP8aSQfOnC
 
