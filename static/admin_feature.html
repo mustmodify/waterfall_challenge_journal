@@ -292,7 +292,7 @@
 
       const head = '<div class="head3">' +
         cell('Field', '<div class="big">' + esc(label(sec.field)) + '</div>') +
-        cell('Pub value',
+        cell('Final value',
           (s2 == null ? '<div class="big unset">not settled</div>'
                       : '<div class="big">' + esc(s2.text) + '</div>') +
           (s2 && s2.units ? '<div class="sub">' + esc(s2.units) + '</div>' : '')) +
