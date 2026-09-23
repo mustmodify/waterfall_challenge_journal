@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict T9kx0zaabJEJx5X5jWmOdCuyPYDmyNoxhw8poeHoiciVNCeYng68GRMVwiDRhGH
+\restrict OEV5HFUpoVa6afbNlETVrlB8Tr6vwTq2pfWIdqplCHnyFZnaslPwEAYqYeqf53f
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -88,8 +88,7 @@ CREATE FUNCTION public.claim_units(raw text, field text) RETURNS text
     LANGUAGE sql IMMUTABLE
     AS $$
   SELECT CASE
-    WHEN field IN ('height_ft', 'elevation_ft', 'elevation_gain_ft') THEN 'feet'
-    -- Uniform by construction now, rather than by luck of what was written.
+    WHEN field IN ('height', 'elevation_ft', 'elevation_gain_ft') THEN 'feet'
     WHEN field = 'hike_distance' THEN 'feet'
     WHEN field IN ('coordinate', 'parking_coordinate', 'view_coordinate',
                    'coordinate_raw') THEN 'degrees'
@@ -123,6 +122,51 @@ BEGIN
         'confusion_set_entries is append-only: add a new entry correcting the old one';
 END;
 $$;
+
+
+--
+-- Name: height_feet(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.height_feet(raw text) RETURNS numeric
+    LANGUAGE plpgsql IMMUTABLE
+    AS $_$
+DECLARE
+    t   text;
+    num numeric;
+BEGIN
+    t := lower(coalesce(raw, ''));
+    IF t = '' OR t ~ '^\s*[—–-]\s*$' THEN
+        RETURN NULL;
+    END IF;
+
+    -- First number wins: the rule hike_distance_feet() uses, with the same
+    -- weakness. "Upper 7-foot drop with a lower long slide about 16 feet
+    -- high" takes the 7. Predictable beats clever.
+    num := nullif(substring(t from '([0-9]+(?:\.[0-9]+)?)'), '')::numeric;
+    IF num IS NULL THEN
+        RETURN NULL;
+    END IF;
+
+    -- A foot mark or the word: already feet.
+    IF t ~ '\yft\y|foot|feet' OR t LIKE '%''%' THEN
+        RETURN round(num);
+    END IF;
+    -- Metres, spelled out or the bare unit OpenStreetMap implies.
+    IF t ~ 'metre|meter|\ym\y' THEN
+        RETURN round(num * 3.28084);
+    END IF;
+    -- Bare number: feet, which is what every source here writes in.
+    RETURN round(num);
+END;
+$_$;
+
+
+--
+-- Name: FUNCTION height_feet(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.height_feet(raw text) IS 'Height in feet from whatever the source wrote. Metres only when said, because a bare number in these sources means feet -- except OpenStreetMap, whose values carry an explicit m once 122 restores them.';
 
 
 --
@@ -589,14 +633,13 @@ CREATE TABLE public.claims (
     fact_id integer,
     normalized_value jsonb,
     parenthetical text,
-    CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'height_ft'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'coordinate_raw'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
+    CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
-    WHEN ((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND (((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric) AND (((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric))
-    WHEN ((field)::text = 'height_ft'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric > (0)::numeric))
+    WHEN ((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
     WHEN ((field)::text = ANY (ARRAY['elevation_ft'::text, 'elevation_gain_ft'::text])) THEN (jsonb_typeof(value) = 'number'::text)
     WHEN ((field)::text = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
-    WHEN ((field)::text = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric))
+    WHEN ((field)::text = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND ((((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric)))
     WHEN ((field)::text = ANY (ARRAY['photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
     ELSE ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) <> ''::text))
 END)
@@ -2267,5 +2310,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict T9kx0zaabJEJx5X5jWmOdCuyPYDmyNoxhw8poeHoiciVNCeYng68GRMVwiDRhGH
+\unrestrict OEV5HFUpoVa6afbNlETVrlB8Tr6vwTq2pfWIdqplCHnyFZnaslPwEAYqYeqf53f
 
