@@ -94,6 +94,12 @@
     .tag.accepted { color: var(--ok); border: 1px solid var(--ok); }
     .tag.uncertain { color: var(--danger); border: 1px solid var(--danger); }
     .claim-note { display: block; color: var(--haze); font-size: 0.8rem; margin-top: 3px; }
+    .derived {
+      display: block; font-size: 0.78rem; color: var(--haze); margin-top: 2px;
+    }
+    /* The reading is a guess, so the ones most worth arguing with stand out. */
+    .derived.disambiguator { color: var(--mist); }
+    .derived.alias { color: var(--ok); }
 
     details.rejected { margin-top: 10px; }
     details.rejected > summary {
@@ -261,9 +267,25 @@
           : esc(c.source);
         const tags = (c.accepted ? '<span class="tag accepted">accepted</span> ' : '') +
           (c.identity_certain ? '' : '<span class="tag uncertain">identity uncertain</span>');
+        // The derived columns sit under the raw value, and the parenthetical
+        // is labelled by what parenthetical_kind() made of it rather than by
+        // where it came from -- "disambiguator: Gorges" is the useful thing
+        // to read, and showing the reading is how a wrong reading gets
+        // caught. Names get a kind; a distance's "(usually dry)" does not,
+        // so that falls back to the neutral word.
+        const derived =
+          (c.normalized_value != null && showValue(c.normalized_value) !== showValue(c.value)
+            ? '<span class="derived">tidied: ' + esc(showValue(c.normalized_value)) + '</span>'
+            : '') +
+          (c.parenthetical
+            ? '<span class="derived ' + (c.parenthetical_kind || '') + '">' +
+              esc(c.parenthetical_kind || 'parenthetical') + ': ' +
+              esc(c.parenthetical) + '</span>'
+            : '');
+
         return '<tr class="' + cls + '">' +
           '<td class="src">' + src + '</td>' +
-          '<td class="val">' + esc(showValue(c.value)) +
+          '<td class="val">' + esc(showValue(c.value)) + derived +
             (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
           '<td class="units">' + esc(FIELD_UNITS[sec.field] || '') + '</td>' +
           '<td>' + tags + '</td>' +

@@ -544,8 +544,17 @@ type fieldClaimRow struct {
 	URL             *string         `json:"url,omitempty"`
 	IdentityCertain bool            `json:"identity_certain"`
 	Value           json.RawMessage `json:"value"`
-	Accepted        bool            `json:"accepted"`
-	Note            *string         `json:"note,omitempty"`
+	// Both derived from Value rather than claimed: what the source wrote with
+	// the hedging and asides taken out, and the aside that was taken out.
+	// Null when there was nothing to do, so the page shows them only where
+	// they differ from the raw value.
+	Normalized    json.RawMessage `json:"normalized_value,omitempty"`
+	Parenthetical *string         `json:"parenthetical,omitempty"`
+	// What parenthetical_kind() makes of it -- alias, disambiguator or note,
+	// and only for names. A reading, not a verdict.
+	ParentheticalKind *string `json:"parenthetical_kind,omitempty"`
+	Accepted          bool    `json:"accepted"`
+	Note              *string `json:"note,omitempty"`
 }
 
 type featureShow struct {
@@ -587,7 +596,9 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		SELECT c.field,
 		       f.confidence_stage, f.confidence_score, f.value, f.units, f.notes,
 		       c.id, c.group_id, cg.source, cg.url, cg.identity_certain,
-		       c.value, c.accepted, c.note
+		       c.value, c.normalized_value, c.parenthetical,
+		       parenthetical_kind(c.parenthetical, c.field),
+		       c.accepted, c.note
 		FROM claims c
 		JOIN claim_groups cg ON cg.id = c.group_id
 		LEFT JOIN facts f ON f.feature_id = c.feature_id AND f.key = c.field
@@ -608,11 +619,14 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var field string
 		var stage, factValue, units, notes, url, claimNote sql.NullString
+		var parenthetical, parentheticalKind sql.NullString
+		var normalized []byte
 		var score sql.NullFloat64
 		var c fieldClaimRow
 		if err := rows.Scan(&field, &stage, &score, &factValue, &units, &notes,
 			&c.ID, &c.GroupID, &c.Source, &url, &c.IdentityCertain,
-			&c.Value, &c.Accepted, &claimNote); err != nil {
+			&c.Value, &normalized, &parenthetical, &parentheticalKind,
+			&c.Accepted, &claimNote); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -621,6 +635,15 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		}
 		if claimNote.Valid {
 			c.Note = &claimNote.String
+		}
+		if len(normalized) > 0 {
+			c.Normalized = json.RawMessage(normalized)
+		}
+		if parenthetical.Valid {
+			c.Parenthetical = &parenthetical.String
+		}
+		if parentheticalKind.Valid {
+			c.ParentheticalKind = &parentheticalKind.String
 		}
 
 		sec, ok := byField[field]
