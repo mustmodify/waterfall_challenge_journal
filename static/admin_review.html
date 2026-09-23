@@ -55,7 +55,9 @@
       border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
       color: var(--haze);
     }
-    .item .score { margin-left: auto; font-size: 0.85rem; color: var(--haze); }
+    .item .score { margin-left: auto; font-size: 1rem; font-weight: 700; color: var(--haze); }
+    .item .score.g-d, .item .score.g-f { color: var(--danger); }
+    .item .score.g-a, .item .score.g-b { color: var(--ok); }
     .item .why { font-size: 0.85rem; color: var(--haze); margin: 8px 0 10px; }
 
     table.readings { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
@@ -99,6 +101,7 @@
   </div>
 
   <script src="/static/admin-nav.js"></script>
+  <script src="/static/grades.js"></script>
   <script>
     const $ = (id) => document.getElementById(id);
     const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
@@ -163,11 +166,13 @@
             'value came from somewhere unrecorded.</p>';
         return '<div class="item">' +
           '<div class="top">' +
-          '<span class="name"><a href="/admin/claims?feature=' + it.feature_id + '">' +
+          '<span class="name"><a href="/admin/features/' + it.feature_id + '">' +
           esc(it.name) + '</a></span>' +
           '<span class="field">' + esc(it.key) + '</span>' +
-          '<span class="score">' + (it.confidence_score == null ? '' :
-            it.confidence_score.toFixed(1)) + '</span>' +
+          '<span class="score ' + gradeClass(it.confidence_score) + '" title="' +
+            (it.confidence_score == null ? 'not graded'
+              : it.confidence_score.toFixed(1) + ' of 4.3') + '">' +
+            (letterGrade(it.confidence_score) || '') + '</span>' +
           '</div>' +
           (it.notes ? '<p class="why">' + esc(it.notes) + '</p>' : '') +
           readings +

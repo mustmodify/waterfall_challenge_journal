@@ -54,15 +54,11 @@
       border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px;
       font-size: 0.78rem; color: var(--haze);
     }
-    .grade .score { font-weight: 700; font-variant-numeric: tabular-nums; }
-    .grade.s-disputed { color: var(--danger); border-color: var(--danger); }
-    .grade.s-single_source { color: var(--haze); }
-    .grade.s-disambiguated { color: var(--mist); }
-    .grade.s-corroborated,
-    .grade.s-ai_reviewed,
-    .grade.s-human_reviewed,
-    .grade.s-confirmed_irl { color: var(--ok); border-color: var(--ok); }
-    .grade.s-none { opacity: 0.6; font-style: italic; }
+    .grade .score { font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; }
+    .grade.g-d, .grade.g-f { color: var(--danger); border-color: var(--danger); }
+    .grade.g-c { color: var(--mist); }
+    .grade.g-a, .grade.g-b { color: var(--ok); border-color: var(--ok); }
+    .grade.g-none { opacity: 0.6; font-style: italic; }
 
     .settled { margin-left: auto; font-size: 0.85rem; }
     .settled .val { font-weight: 600; }
@@ -89,6 +85,12 @@
     .tag.accepted { color: var(--ok); border: 1px solid var(--ok); }
     .tag.uncertain { color: var(--danger); border: 1px solid var(--danger); }
     .claim-note { display: block; color: var(--haze); font-size: 0.8rem; margin-top: 3px; }
+
+    details.rejected { margin-top: 10px; }
+    details.rejected > summary {
+      cursor: pointer; color: var(--haze); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
 
     .empty, .note { color: var(--haze); font-size: 0.9rem; }
   </style>
@@ -118,6 +120,7 @@
   </div>
 
   <script src="/static/admin-nav.js"></script>
+  <script src="/static/grades.js"></script>
   <script>
     const $ = (id) => document.getElementById(id);
     const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
@@ -159,20 +162,63 @@
       return String(v);
     }
 
+    // facts stores whichever form compares cleanly: accessibility as a rank,
+    // distance in feet. Good for arbitration, unreadable on a page -- "2" is
+    // not an answer to "how hard is it?". So translate back here, and keep
+    // the stored form visible as the unit rather than hiding it.
+    const RANK_WORDS = [[0, 'Roadside'], [1, 'Easy'], [2, 'Moderate'],
+                        [3, 'Strenuous'], [4, 'Very hard']];
+
+    function rankWord(n) {
+      let best = RANK_WORDS[0];
+      for (const band of RANK_WORDS) if (n >= band[0]) best = band;
+      // A half step up is the source's own "+", so say so rather than
+      // rounding it away.
+      return best[1] + (n - best[0] >= 0.5 ? '+' : '');
+    }
+
+    function settledValue(sec) {
+      if (sec.value == null) return null;
+      const n = Number(sec.value);
+      if (sec.field === 'accessibility' && !isNaN(n)) {
+        return { text: rankWord(n), units: 'rank ' + sec.value + ' of 4' };
+      }
+      if (sec.field === 'hike_distance' && !isNaN(n)) {
+        const mi = n / 5280;
+        return { text: (mi < 0.1 ? 'Roadside' : mi.toFixed(1) + ' mi'),
+                 units: 'round trip' };
+      }
+      return { text: sec.value, units: sec.units };
+    }
+
     function gradeHtml(sec) {
       if (!sec.stage) {
-        return '<span class="grade s-none">not graded</span>';
+        return '<span class="grade g-none">not graded</span>';
       }
       const [name, blurb] = STAGES[sec.stage] || [sec.stage, ''];
-      const score = sec.score == null ? '' :
-        '<span class="score">' + Number(sec.score).toFixed(1) + '</span>';
-      return '<span class="grade s' + '-' + esc(sec.stage) + '">' + score +
+      const letter = letterGrade(sec.score);
+      // The number stays on the title, so it is there when someone wants to
+      // know why a B and not a B+, without putting two scales on the page.
+      const mark = letter == null ? '' :
+        '<span class="score" title="' + Number(sec.score).toFixed(1) +
+        ' of 4.3">' + letter + '</span>';
+      return '<span class="grade ' + gradeClass(sec.score) + '">' + mark +
         '<span>' + esc(name) + '</span></span>' +
         (blurb ? ' <span class="why-inline note">' + esc(blurb) + '</span>' : '');
     }
 
     function sectionHtml(sec) {
-      const rows = sec.claims.map((c) => {
+      // Only groups we are certain about feed the grade, so the ones we
+      // rejected must not sit in the same list as the ones that counted --
+      // otherwise "3 of 4 sources agree" appears above eight rows. These are
+      // AllTrails trails that passed near this waterfall and were matched on
+      // position, then refused: Kiesee Falls and Farlow Gap are real places,
+      // just not this one. Kept, not deleted, per MATCHING.md, and collapsed
+      // the way /admin/claims collapses them.
+      const counted = sec.claims.filter((c) => c.identity_certain);
+      const refused = sec.claims.filter((c) => !c.identity_certain);
+
+      const row = (c) => {
         const cls = c.accepted ? '' : (c.identity_certain ? '' : 'rejected');
         const src = c.url
           ? '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.source) + '</a>'
@@ -187,19 +233,28 @@
           '<td><a href="/admin/claims?feature=' + FEATURE_ID + '#group-' + c.group_id + '">#' +
             c.group_id + '</a></td>' +
           '</tr>';
-      }).join('');
+      };
 
-      const settled = sec.value == null ? '' :
-        '<span class="settled"><span class="val">' + esc(sec.value) + '</span>' +
-        (sec.units ? ' <span class="units">' + esc(sec.units) + '</span>' : '') + '</span>';
+      const table = (claims) =>
+        '<table class="readings"><thead><tr>' +
+          '<th>Source</th><th>Value</th><th></th><th>Group</th>' +
+        '</tr></thead><tbody>' + claims.map(row).join('') + '</tbody></table>';
+
+      const refusedBlock = refused.length === 0 ? '' :
+        '<details class="rejected"><summary>' + refused.length +
+        ' rejected candidate' + (refused.length === 1 ? '' : 's') +
+        ' &mdash; not counted</summary>' + table(refused) + '</details>';
+
+      const s2 = settledValue(sec);
+      const settled = s2 == null ? '' :
+        '<span class="settled"><span class="val">' + esc(s2.text) + '</span>' +
+        (s2.units ? ' <span class="units">' + esc(s2.units) + '</span>' : '') + '</span>';
 
       return '<section class="field">' +
         '<div class="top"><h2>' + esc(label(sec.field)) + '</h2>' +
           gradeHtml(sec) + settled + '</div>' +
         (sec.notes ? '<p class="why">' + esc(sec.notes) + '</p>' : '') +
-        '<table class="readings"><thead><tr>' +
-          '<th>Source</th><th>Reading</th><th></th><th>Group</th>' +
-        '</tr></thead><tbody>' + rows + '</tbody></table>' +
+        table(counted) + refusedBlock +
         '</section>';
     }
 
@@ -226,7 +281,8 @@
 
           const links = ['<a href="/admin/features">All features</a>',
             '<a href="/admin/claims?feature=' + f.id + '">Claims by source</a>'];
-          if (f.slug) links.push('<a href="/falls/' + esc(f.slug) + '">Public page</a>');
+          // The canonical place URL is id-slug; the bare slug 404s.
+          if (f.slug) links.push('<a href="/falls/' + f.id + '-' + esc(f.slug) + '">Public page</a>');
           $('crumbs').innerHTML = esc(f.kind) + ' #' + f.id + ' &middot; ' + links.join('');
 
           $('sections').innerHTML = f.sections.length
