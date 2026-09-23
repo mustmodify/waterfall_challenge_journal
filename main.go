@@ -571,6 +571,7 @@ func main() {
 	r.HandleFunc("/claims", listClaims).Methods("GET")
 	r.HandleFunc("/claims/unresolved", listUnresolvedClaims).Methods("GET")
 	r.HandleFunc("/falls/{ref}", placeHandler).Methods("GET")
+	r.HandleFunc("/features/{id}/view", recordView).Methods("POST")
 	r.HandleFunc("/account", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/account.html")
 	}).Methods("GET")

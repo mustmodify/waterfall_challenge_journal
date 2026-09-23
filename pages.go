@@ -319,3 +319,25 @@ func describePlace(kind string, height *int, distance, owner, area *string) stri
 	}
 	return s + " Open it on the map to see where it is and what the sources say."
 }
+
+// recordView increments the daily view count for the waterfall the client just
+// opened. Called by the JS drawer on every open — map click, direct link, or
+// search result — so the count covers all paths in, not just /falls/ page loads.
+func recordView(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+	_, err = db.Exec(`
+		INSERT INTO feature_views (feature_id, date, view_count)
+		VALUES ($1, CURRENT_DATE, 1)
+		ON CONFLICT (feature_id, date) DO UPDATE
+		SET view_count = feature_views.view_count + 1`, id)
+	if err != nil {
+		log.Printf("recordView %d: %v", id, err)
+		http.Error(w, "unavailable", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}
