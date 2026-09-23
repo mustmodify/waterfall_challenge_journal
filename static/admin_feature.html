@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z01BFBJM7V"></script>
+  <script src="/static/analytics.js"></script>
+  <title>Feature &middot; Wanderfall</title>
+  <script src="/static/theme.js"></script>
+  <link rel="stylesheet" href="/static/app.css" />
+  <link rel="icon" href="/static/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="/static/favicon-16.png" sizes="16x16">
+  <link rel="icon" href="/static/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Metamorphous&display=swap" rel="stylesheet">
+  <style>
+    body { padding: 0 0 64px; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+
+    header.bar {
+      display: flex; align-items: baseline; gap: 14px;
+      flex-wrap: wrap; padding: 20px 0 6px;
+    }
+    header.bar h1 {
+      margin: 0; font-family: 'Metamorphous', serif; font-weight: 400; font-size: 1.5rem;
+    }
+    header.bar nav { margin-left: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .lede { color: var(--haze); font-size: 0.9rem; margin: 6px 0 16px; max-width: 62ch; }
+    .crumbs { font-size: 0.85rem; color: var(--haze); margin: 0 0 18px; }
+    .crumbs a + a { margin-left: 12px; }
+
+    /* One section per field. The heading carries the grade, because the
+       grade is the point of the page -- the readings underneath are the
+       evidence for it. */
+    .field {
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 13px 15px; margin-bottom: 14px;
+    }
+    .field > .top {
+      display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .field h2 {
+      margin: 0; font-size: 1rem; font-weight: 600; letter-spacing: 0.01em;
+    }
+    .grade {
+      display: inline-flex; align-items: baseline; gap: 7px;
+      border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px;
+      font-size: 0.78rem; color: var(--haze);
+    }
+    .grade .score { font-weight: 700; font-variant-numeric: tabular-nums; }
+    .grade.s-disputed { color: var(--danger); border-color: var(--danger); }
+    .grade.s-single_source { color: var(--haze); }
+    .grade.s-disambiguated { color: var(--mist); }
+    .grade.s-corroborated,
+    .grade.s-ai_reviewed,
+    .grade.s-human_reviewed,
+    .grade.s-confirmed_irl { color: var(--ok); border-color: var(--ok); }
+    .grade.s-none { opacity: 0.6; font-style: italic; }
+
+    .settled { margin-left: auto; font-size: 0.85rem; }
+    .settled .val { font-weight: 600; }
+    .settled .units { color: var(--haze); font-size: 0.8rem; }
+
+    .why { font-size: 0.85rem; color: var(--haze); margin: 2px 0 10px; }
+
+    table.readings { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    table.readings th {
+      text-align: left; color: var(--haze); font-weight: 500; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px 4px 0;
+    }
+    table.readings td {
+      padding: 5px 8px 5px 0; border-top: 1px solid var(--line); vertical-align: top;
+    }
+    table.readings td.src { text-transform: capitalize; font-weight: 500; white-space: nowrap; }
+    table.readings tr.rejected td { opacity: 0.55; }
+    table.readings td.val { font-variant-numeric: tabular-nums; }
+
+    .tag {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
+      border-radius: 999px; padding: 1px 7px; white-space: nowrap;
+    }
+    .tag.accepted { color: var(--ok); border: 1px solid var(--ok); }
+    .tag.uncertain { color: var(--danger); border: 1px solid var(--danger); }
+    .claim-note { display: block; color: var(--haze); font-size: 0.8rem; margin-top: 3px; }
+
+    .empty, .note { color: var(--haze); font-size: 0.9rem; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <h1 id="title">Feature</h1>
+      <nav id="nav"></nav>
+    </header>
+
+    <div id="denied" class="empty" hidden>
+      This view is for whoever looks after the data.
+      <a href="/">Sign in on the map</a> if that's you.
+    </div>
+
+    <div id="content" hidden>
+      <p class="crumbs" id="crumbs"></p>
+      <p class="lede">Every claim about this place, grouped by what it is a
+        claim <em>about</em>. /admin/claims asks what each source said, which
+        is how the rows are stored; this asks what we believe and how sure we
+        are, which is the question the sources were collected to answer.
+        Worst grade first.</p>
+      <div id="sections"></div>
+    </div>
+  </div>
+
+  <script src="/static/admin-nav.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // The ladder, with the sentence each rung actually means. A score on its
+    // own tells you the order; the description tells you the job.
+    const STAGES = {
+      disputed:      ['Disputed', 'sources contradict each other'],
+      single_source: ['Single source', 'one source said it, nobody checked'],
+      disambiguated: ['Consensus, with dissent', 'a majority agree, someone does not'],
+      corroborated:  ['Corroborated', 'three or more sources agree'],
+      ai_reviewed:   ['AI reviewed', 'read and judged, not visited'],
+      human_reviewed:['Human reviewed', 'a person went through the evidence'],
+      confirmed_irl: ['Confirmed in person', 'someone stood there'],
+    };
+
+    const FIELD_LABELS = {
+      coordinate: 'Coordinate',
+      parking_coordinate: 'Parking coordinate',
+      view_coordinate: 'View coordinate',
+      coordinate_raw: 'Coordinate (raw)',
+      height_ft: 'Height',
+      elevation_ft: 'Elevation',
+      elevation_gain_ft: 'Elevation gain',
+      hike_distance: 'Hike distance',
+      beauty_rating: 'Beauty', photo_rating: 'Photo', solitude_rating: 'Solitude',
+    };
+    const label = (f) => FIELD_LABELS[f] ||
+      f.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
+
+    // Coordinates are objects; everything else is a scalar wrapped in JSON.
+    function showValue(v) {
+      if (v == null) return '—';
+      if (typeof v === 'object') {
+        if ('lat' in v && 'lon' in v) return v.lat + ', ' + v.lon;
+        return JSON.stringify(v);
+      }
+      return String(v);
+    }
+
+    function gradeHtml(sec) {
+      if (!sec.stage) {
+        return '<span class="grade s-none">not graded</span>';
+      }
+      const [name, blurb] = STAGES[sec.stage] || [sec.stage, ''];
+      const score = sec.score == null ? '' :
+        '<span class="score">' + Number(sec.score).toFixed(1) + '</span>';
+      return '<span class="grade s' + '-' + esc(sec.stage) + '">' + score +
+        '<span>' + esc(name) + '</span></span>' +
+        (blurb ? ' <span class="why-inline note">' + esc(blurb) + '</span>' : '');
+    }
+
+    function sectionHtml(sec) {
+      const rows = sec.claims.map((c) => {
+        const cls = c.accepted ? '' : (c.identity_certain ? '' : 'rejected');
+        const src = c.url
+          ? '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.source) + '</a>'
+          : esc(c.source);
+        const tags = (c.accepted ? '<span class="tag accepted">accepted</span> ' : '') +
+          (c.identity_certain ? '' : '<span class="tag uncertain">identity uncertain</span>');
+        return '<tr class="' + cls + '">' +
+          '<td class="src">' + src + '</td>' +
+          '<td class="val">' + esc(showValue(c.value)) +
+            (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
+          '<td>' + tags + '</td>' +
+          '<td><a href="/admin/claims?feature=' + FEATURE_ID + '#group-' + c.group_id + '">#' +
+            c.group_id + '</a></td>' +
+          '</tr>';
+      }).join('');
+
+      const settled = sec.value == null ? '' :
+        '<span class="settled"><span class="val">' + esc(sec.value) + '</span>' +
+        (sec.units ? ' <span class="units">' + esc(sec.units) + '</span>' : '') + '</span>';
+
+      return '<section class="field">' +
+        '<div class="top"><h2>' + esc(label(sec.field)) + '</h2>' +
+          gradeHtml(sec) + settled + '</div>' +
+        (sec.notes ? '<p class="why">' + esc(sec.notes) + '</p>' : '') +
+        '<table class="readings"><thead><tr>' +
+          '<th>Source</th><th>Reading</th><th></th><th>Group</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table>' +
+        '</section>';
+    }
+
+    const FEATURE_ID = location.pathname.split('/').pop();
+
+    function load() {
+      fetch('/admin/feature/' + encodeURIComponent(FEATURE_ID) + '/facts')
+        .then((r) => {
+          if (r.status === 401 || r.status === 403) {
+            $('denied').hidden = false; return null;
+          }
+          if (r.status === 404) {
+            $('content').hidden = false;
+            $('sections').innerHTML = '<p class="empty">No feature with that id.</p>';
+            return null;
+          }
+          return r.json();
+        })
+        .then((f) => {
+          if (!f) return;
+          document.title = f.name + ' · Wanderfall';
+          $('title').textContent = f.name;
+          $('content').hidden = false;
+
+          const links = ['<a href="/admin/features">All features</a>',
+            '<a href="/admin/claims?feature=' + f.id + '">Claims by source</a>'];
+          if (f.slug) links.push('<a href="/falls/' + esc(f.slug) + '">Public page</a>');
+          $('crumbs').innerHTML = esc(f.kind) + ' #' + f.id + ' &middot; ' + links.join('');
+
+          $('sections').innerHTML = f.sections.length
+            ? f.sections.map(sectionHtml).join('')
+            : '<p class="empty">No claims on this feature yet.</p>';
+        });
+    }
+
+    renderNav('features');
+    load();
+  </script>
+</body>
+
+</html>

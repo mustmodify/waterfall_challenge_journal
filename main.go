@@ -548,6 +548,10 @@ func main() {
 	r.HandleFunc("/admin/features", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/admin_features.html")
 	}).Methods("GET")
+	r.HandleFunc("/admin/features/{id:[0-9]+}", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/admin_feature.html")
+	}).Methods("GET")
+	r.HandleFunc("/admin/feature/{id:[0-9]+}/facts", showFeatureFacts).Methods("GET")
 	r.HandleFunc("/admin/claims", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/admin_claims.html")
 	}).Methods("GET")

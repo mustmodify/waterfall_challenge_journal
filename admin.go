@@ -516,3 +516,144 @@ func addConfusionEntry(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(map[string]any{"id": id})
 }
+
+// A feature's claims regrouped by field rather than by source.
+//
+// /admin/claims answers "what did this source say?", which is the shape the
+// schema stores and the right shape for judging whether a source is talking
+// about the right waterfall. It is the wrong shape for the other question --
+// "what do we believe about the height, and how sure are we?" -- because the
+// readings that disagree are scattered across groups.
+//
+// So this inverts it. One section per field, headed by that field's grade
+// out of the facts table, with every source's reading underneath.
+type fieldSection struct {
+	Field  string          `json:"field"`
+	Stage  *string         `json:"stage,omitempty"`
+	Score  *float64        `json:"score,omitempty"`
+	Value  *string         `json:"value,omitempty"`
+	Units  *string         `json:"units,omitempty"`
+	Notes  *string         `json:"notes,omitempty"`
+	Claims []fieldClaimRow `json:"claims"`
+}
+
+type fieldClaimRow struct {
+	ID              int             `json:"id"`
+	GroupID         int             `json:"group_id"`
+	Source          string          `json:"source"`
+	URL             *string         `json:"url,omitempty"`
+	IdentityCertain bool            `json:"identity_certain"`
+	Value           json.RawMessage `json:"value"`
+	Accepted        bool            `json:"accepted"`
+	Note            *string         `json:"note,omitempty"`
+}
+
+type featureShow struct {
+	ID       int            `json:"id"`
+	Name     string         `json:"name"`
+	Kind     string         `json:"kind"`
+	Slug     *string        `json:"slug,omitempty"`
+	Sections []fieldSection `json:"sections"`
+}
+
+// showFeatureFacts backs /admin/features/{id}.
+func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
+	if !requireAdmin(w, r) {
+		return
+	}
+	id := mux.Vars(r)["id"]
+
+	var out featureShow
+	var slug sql.NullString
+	err := db.QueryRow(`SELECT id, name, kind, slug FROM features WHERE id = $1`, id).
+		Scan(&out.ID, &out.Name, &out.Kind, &slug)
+	if err == sql.ErrNoRows {
+		http.Error(w, "no such feature", http.StatusNotFound)
+		return
+	}
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if slug.Valid {
+		out.Slug = &slug.String
+	}
+
+	// Every field this feature has a claim for, left-joined to its grade.
+	// A left join because facts only covers the five keys backfilled so far:
+	// a field with no row is ungraded, which is a different thing from a
+	// field graded badly, and the page says so.
+	rows, err := db.Query(`
+		SELECT c.field,
+		       f.confidence_stage, f.confidence_score, f.value, f.units, f.notes,
+		       c.id, c.group_id, cg.source, cg.url, cg.identity_certain,
+		       c.value, c.accepted, c.note
+		FROM claims c
+		JOIN claim_groups cg ON cg.id = c.group_id
+		LEFT JOIN facts f ON f.feature_id = c.feature_id AND f.key = c.field
+		WHERE c.feature_id = $1
+		ORDER BY
+		  -- Graded fields first, worst grade at the top, since that is where
+		  -- the work is. Ungraded fields sort last rather than as zero.
+		  (f.confidence_score IS NULL), f.confidence_score, c.field,
+		  c.accepted DESC, cg.identity_certain DESC, cg.source, c.id
+	`, id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	byField := map[string]*fieldSection{}
+	for rows.Next() {
+		var field string
+		var stage, factValue, units, notes, url, claimNote sql.NullString
+		var score sql.NullFloat64
+		var c fieldClaimRow
+		if err := rows.Scan(&field, &stage, &score, &factValue, &units, &notes,
+			&c.ID, &c.GroupID, &c.Source, &url, &c.IdentityCertain,
+			&c.Value, &c.Accepted, &claimNote); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		if url.Valid {
+			c.URL = &url.String
+		}
+		if claimNote.Valid {
+			c.Note = &claimNote.String
+		}
+
+		sec, ok := byField[field]
+		if !ok {
+			sec = &fieldSection{Field: field, Claims: []fieldClaimRow{}}
+			if stage.Valid {
+				sec.Stage = &stage.String
+			}
+			if score.Valid {
+				v := score.Float64
+				sec.Score = &v
+			}
+			if factValue.Valid {
+				sec.Value = &factValue.String
+			}
+			if units.Valid {
+				sec.Units = &units.String
+			}
+			if notes.Valid {
+				sec.Notes = &notes.String
+			}
+			byField[field] = sec
+			out.Sections = append(out.Sections, *sec)
+		}
+		sec.Claims = append(sec.Claims, c)
+	}
+
+	// out.Sections holds copies taken before the claims were appended, so
+	// refresh them from the map rather than duplicating the append logic.
+	for i := range out.Sections {
+		out.Sections[i].Claims = byField[out.Sections[i].Field].Claims
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(out)
+}

@@ -36,9 +36,7 @@ func signedInAs(t *testing.T, email string, admin bool) *http.Request {
 // The list carries every address on the site, so the gate matters more than
 // the contents.
 func TestUserListIsAdminOnly(t *testing.T) {
-	conn := testDB(t)
-	defer conn.Close()
-	db = conn
+	db = borrowDB(t)
 
 	t.Run("signed out", func(t *testing.T) {
 		w := httptest.NewRecorder()
@@ -71,9 +69,7 @@ func TestUserListIsAdminOnly(t *testing.T) {
 // The reason this endpoint exists: somebody who asked for a link and never
 // used one has to be visible as such.
 func TestUserListShowsWhoNeverGotIn(t *testing.T) {
-	conn := testDB(t)
-	defer conn.Close()
-	db = conn
+	db = borrowDB(t)
 
 	// Unique per run: the row is asserted to have exactly one link, and a
 	// fixed address would accumulate one more on every run against the same
