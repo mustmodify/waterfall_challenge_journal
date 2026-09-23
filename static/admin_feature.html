@@ -170,22 +170,6 @@
     const label = (f) => FIELD_LABELS[f] ||
       f.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
 
-    // claims has no units column: the unit is baked into the field name and
-    // the conversion happens at import, so every claim in a section is
-    // already in the same unit. That is what this column states -- the unit
-    // the value is stored IN, not the unit the source wrote. Where the two
-    // differ the only record is the claim's note, which is how an
-    // OpenStreetMap row can read 197 with a note saying height=60.
-    const FIELD_UNITS = {
-      height_ft: 'ft', elevation_ft: 'ft', elevation_gain_ft: 'ft',
-      coordinate: '\u00b0', parking_coordinate: '\u00b0', view_coordinate: '\u00b0',
-      coordinate_raw: '\u00b0',
-      beauty_rating: '/10', photo_rating: '/10', solitude_rating: '/10',
-      // Distances are kept as the source wrote them -- "0.7", "3.8 mi",
-      // "About 100 yards" -- and only parsed to feet on the way into facts.
-      hike_distance: 'as written',
-    };
-
     // Coordinates are objects; everything else is a scalar wrapped in JSON.
     function showValue(v) {
       if (v == null) return '—';
@@ -287,7 +271,7 @@
           '<td class="src">' + src + '</td>' +
           '<td class="val">' + esc(showValue(c.value)) + derived +
             (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
-          '<td class="units">' + esc(FIELD_UNITS[sec.field] || '') + '</td>' +
+          '<td class="units">' + esc(c.units || '') + '</td>' +
           '<td>' + tags + '</td>' +
           '<td><a href="/admin/claims?feature=' + FEATURE_ID + '#group-' + c.group_id + '">#' +
             c.group_id + '</a></td>' +

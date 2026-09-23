@@ -553,8 +553,11 @@ type fieldClaimRow struct {
 	// What parenthetical_kind() makes of it -- alias, disambiguator or note,
 	// and only for names. A reading, not a verdict.
 	ParentheticalKind *string `json:"parenthetical_kind,omitempty"`
-	Accepted          bool    `json:"accepted"`
-	Note              *string `json:"note,omitempty"`
+	// The unit this one claim is in, derived per claim rather than per field:
+	// "3.8 mi" and a bare "0.7" are both miles, but only one of them says so.
+	Units    *string `json:"units,omitempty"`
+	Accepted bool    `json:"accepted"`
+	Note     *string `json:"note,omitempty"`
 }
 
 type featureShow struct {
@@ -598,6 +601,7 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		       c.id, c.group_id, cg.source, cg.url, cg.identity_certain,
 		       c.value, c.normalized_value, c.parenthetical,
 		       parenthetical_kind(c.parenthetical, c.field),
+		       claim_units(c.value #>> '{}', c.field),
 		       c.accepted, c.note
 		FROM claims c
 		JOIN claim_groups cg ON cg.id = c.group_id
@@ -619,14 +623,14 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var field string
 		var stage, factValue, units, notes, url, claimNote sql.NullString
-		var parenthetical, parentheticalKind sql.NullString
+		var parenthetical, parentheticalKind, claimUnits sql.NullString
 		var normalized []byte
 		var score sql.NullFloat64
 		var c fieldClaimRow
 		if err := rows.Scan(&field, &stage, &score, &factValue, &units, &notes,
 			&c.ID, &c.GroupID, &c.Source, &url, &c.IdentityCertain,
 			&c.Value, &normalized, &parenthetical, &parentheticalKind,
-			&c.Accepted, &claimNote); err != nil {
+			&claimUnits, &c.Accepted, &claimNote); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -644,6 +648,9 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		}
 		if parentheticalKind.Valid {
 			c.ParentheticalKind = &parentheticalKind.String
+		}
+		if claimUnits.Valid {
+			c.Units = &claimUnits.String
 		}
 
 		sec, ok := byField[field]

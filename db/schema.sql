@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict VYEZQPiySQR7GuY8zsYF2fu6iSGd3WgRtKCRjAglDhm4oLvvFeQlzcLBzu9Nc6j
+\restrict 6gSn6ndDFB6ZfkGFWeSMMR7d1WfMMl7OmgwqbCVo991HlAvoWlyVbPs7HGdsvDO
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -78,6 +78,48 @@ $$;
 --
 
 COMMENT ON FUNCTION public.agreement_note(agreeing integer, n integer, tolerance text) IS 'The sentence under a fact''s grade. Counts come from a self-join that includes the row itself, so an agreeing count of 1 means nothing agreed and must not be printed as though something did.';
+
+
+--
+-- Name: claim_units(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.claim_units(raw text, field text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    -- Converted on the way in, so the claim is already in feet whatever the
+    -- source wrote. 117 does not fix that; it only reports it.
+    WHEN field IN ('height_ft', 'elevation_ft', 'elevation_gain_ft') THEN 'feet'
+    WHEN field IN ('coordinate', 'parking_coordinate', 'view_coordinate',
+                   'coordinate_raw') THEN 'degrees'
+    WHEN field IN ('beauty_rating', 'photo_rating', 'solitude_rating') THEN 'of 10'
+    WHEN field = 'hike_distance' THEN
+      CASE
+        WHEN lower(coalesce(raw, '')) ~ 'roadside' THEN 'no walk'
+        WHEN raw ~* 'yard'                         THEN 'yards'
+        WHEN raw ~* 'kilometre|kilometer|\ykm\y'   THEN 'kilometres'
+        WHEN raw ~* 'metre|meter'                  THEN 'metres'
+        WHEN raw ~* '\yft\y|foot|feet'             THEN 'feet'
+        WHEN raw ~* '\ym\y'
+         AND coalesce(nullif(substring(raw from '([0-9]+(?:\.[0-9]+)?)'), '')::numeric, 0) >= 20
+                                                   THEN 'metres'
+        WHEN raw ~* 'mi\y|mile'                    THEN 'miles'
+        -- A bare number is miles; the sources that spell it out all mean
+        -- miles, and jw's call is to say so plainly rather than hedge.
+        WHEN raw ~ '[0-9]'                         THEN 'miles'
+        ELSE NULL
+      END
+    ELSE NULL
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION claim_units(raw text, field text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.claim_units(raw text, field text) IS 'The unit one claim is expressed in. Per claim rather than per field, because distances arrive as "3.8 mi", "0.9 miles" and a bare "0.7". Shares hike_distance_feet()''s vocabulary on purpose.';
 
 
 --
@@ -2201,5 +2243,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict VYEZQPiySQR7GuY8zsYF2fu6iSGd3WgRtKCRjAglDhm4oLvvFeQlzcLBzu9Nc6j
+\unrestrict 6gSn6ndDFB6ZfkGFWeSMMR7d1WfMMl7OmgwqbCVo991HlAvoWlyVbPs7HGdsvDO
 
