@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict AT6VxvWZjPZdGb3xs3Oi5KeZuieMhJzEIfPLdqeFj5oVT4oxiviFHUJVkhfppJE
+\restrict w7f0Lag6ZOAsOgauqadyks2DcilglMuxfY6d5XIGZjbIhFzBG978AFmVP7nPb1J
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -17,6 +17,60 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: access_verdict(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.access_verdict(raw text) RETURNS text
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+DECLARE
+    t         text;
+    blocked   boolean;   -- something is shut
+    walkable  boolean;   -- but you can still get there on foot
+BEGIN
+    t := coalesce(raw, '');
+    IF btrim(t) = '' THEN
+        RETURN 'unverified';
+    END IF;
+    -- Already a verdict: a claim we wrote ourselves.
+    IF lower(btrim(t)) = ANY (ARRAY['ok','detour','inaccessible','unverified']::text[]) THEN
+        RETURN lower(btrim(t));
+    END IF;
+
+    blocked := t ~* ('(closed|closure|gated|inaccessible|no access|impassable|'
+                  || 'destroyed|washed out|do not (enter|visit))');
+
+    -- Two signals rather than one pattern, because a detour notice almost
+    -- always contains a closure notice inside it. "The road to the trailhead
+    -- is closed ... it''s an easy hike on the road, just longer" is shut AND
+    -- walkable, and reading only the first half gets it exactly wrong.
+    walkable := t ~* ('((just|but|only|simply)\s+longer|longer (hike|walk|route|by)|'
+                   || 'walk(ing)? (in|up|around|the road|on the road|from the gate)|'
+                   || 'hik(e|ing) (in|up|around|the road|on the road|from the gate)|'
+                   || 'on foot|by foot|'
+                   || 'add(s|ing|ed)?[^.]{0,24}[0-9.]+\s*(mile|mi\y|km|yard|feet|foot)|'
+                   || 'park(ing)? (at|before|by) the (gate|closure)|'
+                   || 'detour|re-?route)');
+
+    IF blocked AND walkable THEN RETURN 'detour'; END IF;
+    IF blocked                THEN RETURN 'inaccessible'; END IF;
+    IF walkable               THEN RETURN 'detour'; END IF;
+    IF t ~* '(reopen|re-open|is open|now open|accessible|no (issues|damage)|passable|in good condition)'
+        THEN RETURN 'ok';
+    END IF;
+    RETURN 'unverified';
+END;
+$$;
+
+
+--
+-- Name: FUNCTION access_verdict(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.access_verdict(raw text) IS 'ok | detour | inaccessible | unverified, read out of a source''s prose. Two signals, not one pattern: whether something is shut, and whether you can still walk in. A detour notice nearly always contains a closure notice inside it, so reading only the first half gets it backwards. Shut with no sign of a way in comes out inaccessible, because the costly mistake is telling someone a closed trail is open.';
+
 
 --
 -- Name: accessibility_rank(text); Type: FUNCTION; Schema: public; Owner: -
@@ -459,6 +513,7 @@ CREATE FUNCTION public.normalize_claim_value(raw text, field text, source text) 
     AS $$
   SELECT CASE
     WHEN field IN ('name', 'alias') THEN name_display(raw)
+    WHEN field = 'access_status' THEN access_verdict(raw)
     WHEN field IN ('hike_distance', 'detour_hike_distance') THEN
       (hike_distance_feet(
          coalesce(
@@ -748,7 +803,6 @@ CREATE TABLE public.claims (
     CONSTRAINT claims_value_shape CHECK (
 CASE
     WHEN (field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
-    WHEN (field = 'access_status'::text) THEN ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) = ANY (ARRAY['ok'::text, 'detour'::text, 'inaccessible'::text, 'unverified'::text])))
     WHEN (field = ANY (ARRAY['elevation_ft'::text, 'elevation_gain_ft'::text])) THEN (jsonb_typeof(value) = 'number'::text)
     WHEN (field = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
     WHEN (field = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND ((((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric)))
@@ -1144,7 +1198,7 @@ CREATE TABLE public.facts (
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT facts_coordinate_lat_first CHECK (((value_type <> 'coordinate'::text) OR (value IS NULL) OR ((((split_part(value, ','::text, 1))::numeric >= (30)::numeric) AND ((split_part(value, ','::text, 1))::numeric <= (40)::numeric)) AND (((split_part(value, ','::text, 2))::numeric >= ('-90'::integer)::numeric) AND ((split_part(value, ','::text, 2))::numeric <= ('-75'::integer)::numeric))))),
     CONSTRAINT facts_score_range CHECK (((confidence_score IS NULL) OR ((confidence_score >= (0)::numeric) AND (confidence_score <= 4.3)))),
-    CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['disputed'::text, 'single_source'::text, 'two_sources'::text, 'corroborated'::text, 'four_sources'::text, 'five_sources'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text, 'confirmed_and_agreed'::text, 'disambiguated'::text]))),
+    CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['unverified'::text, 'disputed'::text, 'single_source'::text, 'two_sources'::text, 'corroborated'::text, 'four_sources'::text, 'five_sources'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text, 'confirmed_and_agreed'::text, 'disambiguated'::text]))),
     CONSTRAINT facts_value_type_known CHECK ((value_type = ANY (ARRAY['string'::text, 'integer'::text, 'decimal'::text, 'coordinate'::text])))
 );
 
@@ -2415,5 +2469,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict AT6VxvWZjPZdGb3xs3Oi5KeZuieMhJzEIfPLdqeFj5oVT4oxiviFHUJVkhfppJE
+\unrestrict w7f0Lag6ZOAsOgauqadyks2DcilglMuxfY6d5XIGZjbIhFzBG978AFmVP7nPb1J
 

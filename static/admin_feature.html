@@ -157,6 +157,7 @@
     // The ladder, with the sentence each rung actually means. A score on its
     // own tells you the order; the description tells you the job.
     const STAGES = {
+      unverified:    ['Unverified', 'no source has said anything about this'],
       disputed:      ['Disputed', 'no two sources agree'],
       single_source: ['Single source', 'one source said it, nobody checked'],
       two_sources:   ['Two sources agree', 'unanimous, but two is a thin consensus'],
@@ -182,6 +183,11 @@
       elevation_ft: 'Elevation',
       elevation_gain_ft: 'Elevation gain',
       hike_distance: 'Hike distance',
+      detour_hike_distance: 'Hike distance (detour)',
+      trailhead_coordinate: 'Trailhead coordinates',
+      detour_parking_coordinate: 'Parking coordinates (detour)',
+      detour_trailhead_coordinate: 'Trailhead coordinates (detour)',
+      access_status: 'Access',
       beauty_rating: 'Beauty', photo_rating: 'Photo', solitude_rating: 'Solitude',
     };
     const label = (f) => FIELD_LABELS[f] ||
