@@ -93,7 +93,6 @@ func areasWithCounts() ([]areaListing, error) {
 		FROM areas
 		JOIN feature_areas ON feature_areas.area_id = areas.id
 		JOIN features ON features.id = feature_areas.feature_id
-		WHERE features.deprecated_reason IS NULL
 		GROUP BY areas.name, areas.slug
 		ORDER BY count(*) DESC, areas.name`)
 	if err != nil {
@@ -151,7 +150,7 @@ func areaHandler(w http.ResponseWriter, r *http.Request) {
 		FROM features
 		JOIN feature_areas ON feature_areas.feature_id = features.id
 		JOIN areas ON areas.id = feature_areas.area_id
-		WHERE areas.slug = $1 AND features.deprecated_reason IS NULL
+		WHERE areas.slug = $1
 		ORDER BY features.name`, slug)
 	if err != nil {
 		log.Printf("area page %s: %v", slug, err)

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict mNf2RgeGjGmtWSvBF21eSdN9xJlSEMiKHDuFQyaWqFJ6axp3fBkwG5mrAlBA6CP
+\restrict 3CWdmqRtEXOux4pdPVd8ib8inIWabQx7bWVWx5aLgaodFYHPbodB1CaeDq1cfsL
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -1102,7 +1102,6 @@ CREATE VIEW public.coordinate_confidence AS
             l.longitude AS lon
            FROM (public.features f
              LEFT JOIN public.locations l ON ((l.id = f.feature_location_id)))
-          WHERE (f.deprecated_reason IS NULL)
         ), spread AS (
          SELECT a.feature_id,
             max(((111320)::double precision * sqrt(((power((a.lat - b.lat), (2)::numeric))::double precision + power((((a.lon - b.lon))::double precision * cos(radians((a.lat)::double precision))), (2)::double precision))))) AS metres
@@ -2469,5 +2468,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict mNf2RgeGjGmtWSvBF21eSdN9xJlSEMiKHDuFQyaWqFJ6axp3fBkwG5mrAlBA6CP
+\unrestrict 3CWdmqRtEXOux4pdPVd8ib8inIWabQx7bWVWx5aLgaodFYHPbodB1CaeDq1cfsL
 
