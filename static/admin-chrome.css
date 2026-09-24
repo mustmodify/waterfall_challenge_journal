@@ -40,9 +40,9 @@
 
 .admin-hero > * { position: relative; }
 
-/* Tall enough for the photograph to be a view rather than a strip. The title
- * sits at the bottom of it, so the height is headroom above the words rather
- * than space they float in the middle of. */
+/* Tall enough for the photograph to be a view rather than a strip. The
+ * wordmark sits at the bottom, so the height is headroom above it rather than
+ * space it floats in the middle of. */
 .admin-hero header.bar {
   max-width: 900px;
   margin: 0 auto;
@@ -52,22 +52,36 @@
   gap: 10px 14px;
 }
 
-/* The nav belongs at the top of that headroom, not level with the title. */
+/* The nav belongs at the top of that headroom, not level with the wordmark. */
 .admin-hero header.bar nav { align-self: flex-start; }
 
-/* The place marker, at the size a favicon is legible rather than the size the
- * file happens to be. */
+/* Pin and wordmark together, the way the public pages set it. Over a
+ * photograph this is always on dark, whatever the theme is doing elsewhere. */
+.admin-hero .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'Metamorphous', serif;
+  font-weight: 400;
+  font-size: 1.45rem;
+  color: #f4f8f4;
+  text-shadow: 0 1px 10px rgba(10, 24, 20, 0.65);
+}
+
 .admin-hero .mark {
   width: 38px; height: 38px; flex: none;
   filter: drop-shadow(0 2px 6px rgba(10, 24, 20, 0.55));
 }
 
-/* Over a photograph the title is always on dark, whatever the theme is doing
- * to the rest of the page. */
-.admin-hero header.bar h1 {
-  color: #f4f8f4;
-  text-shadow: 0 1px 10px rgba(10, 24, 20, 0.6);
-  margin: 0;
+/* The page's own name, now below the photograph where a document title goes.
+ * One level today; a longer trail would start here. */
+.page-title {
+  margin: 0 0 16px;
+  font-family: 'Metamorphous', serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--mist);
 }
 
 .admin-hero .sub {
@@ -117,4 +131,5 @@
 @media (max-width: 640px) {
   .admin-hero header.bar { min-height: 170px; padding: 14px 16px 16px; }
   .admin-hero .mark { width: 32px; height: 32px; }
+  .admin-hero .brand { font-size: 1.2rem; }
 }

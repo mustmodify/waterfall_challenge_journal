@@ -47,16 +47,35 @@ function ensureChrome(header) {
   hero.setAttribute('role', 'img');
   hero.setAttribute('aria-label', alt);
 
+  // The pin and the wordmark together, the way the public pages do it. The
+  // hero says which site you are on; the page says which page you are on, and
+  // those are different jobs that were sharing one line.
+  const brand = document.createElement('a');
+  brand.className = 'brand';
+  brand.href = '/';
+
   const mark = document.createElement('img');
   mark.className = 'mark';
   mark.src = '/static/logo-192.png';
   mark.alt = '';
   mark.width = 38;
   mark.height = 38;
+  brand.appendChild(mark);
+  brand.appendChild(document.createTextNode('Wanderfall'));
 
   document.body.insertBefore(hero, document.body.firstChild);
   hero.appendChild(header);
-  header.insertBefore(mark, header.firstChild);
+  header.insertBefore(brand, header.firstChild);
+
+  // The page's own name is one level of breadcrumb, so it belongs at the top
+  // of the content rather than competing with the wordmark over a photograph.
+  // If it ever grows a second level, this is where the trail goes.
+  const title = header.querySelector('h1');
+  const column = document.querySelector('.wrap');
+  if (title && column) {
+    title.classList.add('page-title');
+    column.insertBefore(title, column.firstChild);
+  }
 
   // The nine pages use four different column widths -- 820, 880, 900, 1000 --
   // so a hero with one hardcoded width would sit a few pixels off the content
