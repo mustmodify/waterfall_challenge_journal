@@ -712,3 +712,30 @@ are the same water. Only his prose separates them: one page places Bella and
 Evil Ducky on the unnamed trib, the other says two of three are on the trib
 and the third on Laurel Fork. Position alone said "two adjacent falls", which
 is exactly what a duplicate looks like.
+
+### 9.7 A creek name is not a key either
+
+The watercourse is the best discriminator we have, and it is still not
+unique. jw: "creek names are not guaranteed to be unique. More likely, but
+still, there are a TON of creeks."
+
+Measured against our own 121 watercourse claims, by how far apart the falls
+sharing a creek name actually are:
+
+    Big Creek                16 falls    136 km apart
+    Fall Creek                4 falls    117 km apart
+    Cullasaja River          36 falls     10 km
+    Looking Glass Creek       9 falls      5 km
+    Courthouse Creek          9 falls    2.6 km
+
+Big Creek and Fall Creek are several different creeks. They fail for the same
+reason High Falls and Rainbow Falls fail: they are generic English words, and
+generic names recur wherever the feature does. Cullasaja, Yellowstone Prong
+and Courthouse hold together because nobody else named their creek that.
+
+So use the watercourse **with** position, never instead of it. Two falls on
+"Big Creek" are the same creek only if they are also near each other; two
+falls 4 m apart are the same waterfall only if they are also on the same
+creek, which is what settled Chute Falls against Christopher Falls. Each test
+is weak alone and strong in company, which is the general shape of everything
+in this document.
