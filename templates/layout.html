@@ -26,13 +26,27 @@
 {{define "chrome-top"}}
 <header class="page-head">
   <a class="brand" href="/">Wanderfall</a>
-  <nav><a href="/areas">Waterfalls by area</a></nav>
+  <nav aria-label="Main">
+    <a href="/">Map</a>
+    <a href="/areas"{{if eq .Nav "areas"}} aria-current="page"{{end}}>Areas</a>
+    <a href="/account"{{if eq .Nav "account"}} aria-current="page"{{end}}>Account</a>
+  </nav>
 </header>
+<div class="banner" role="img"
+     aria-label="A side cascade dropping into a creek running high through
+     rhododendron and bare hardwoods"></div>
 {{end}}
 
 {{define "chrome-bottom"}}
 <footer class="page-foot">
+  <nav aria-label="Footer">
+    <a href="/">Map</a>
+    <a href="/areas">Areas</a>
+    <a href="/account">Account</a>
+  </nav>
   <p><a href="/">Open the map</a> to filter by challenge, rating or area, and to
   log the ones you have visited.</p>
+  <p class="fine">Waterfall data is gathered from published sources and is not
+  always current. Check conditions before you go.</p>
 </footer>
 {{end}}

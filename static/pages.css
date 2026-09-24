@@ -3,15 +3,43 @@
 .page-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 8px 18px;
-  padding: 14px 20px;
+  padding: 12px 20px;
   border-bottom: 1px solid var(--line);
 }
 
-.page-head .brand { font-family: 'Metamorphous', serif; font-weight: 400;
-  font-size: 1.1rem; text-decoration: none; color: var(--ink); }
-.page-head nav { display: flex; gap: 14px; font-size: 0.85rem; }
+.page-head .brand {
+  font-family: 'Metamorphous', serif; font-weight: 400;
+  font-size: 1.15rem; text-decoration: none; color: var(--mist);
+  margin-right: auto;
+}
+
+/* Every destination, every time, in the same order. The old nav offered one
+   link and left the way back to the map to the wordmark, which is a thing
+   you have to already know. */
+.page-head nav { display: flex; gap: 4px; font-size: 0.85rem; }
+.page-head nav a {
+  padding: 6px 11px; border-radius: 999px;
+  text-decoration: none; color: var(--mist);
+}
+.page-head nav a:hover { background: rgba(242, 246, 242, 0.08); color: var(--ink); }
+.page-head nav a[aria-current="page"] {
+  background: var(--filter-active); color: var(--on-accent); font-weight: 600;
+}
+
+/* A photograph rather than a colour block, because these pages are about
+   going outside. Fixed height and cover so the crop stays the water whatever
+   the viewport does. */
+.banner {
+  height: 220px;
+  background-image: url('/static/banner-creek.jpg');
+  background-size: cover;
+  background-position: center 62%;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 640px) { .banner { height: 140px; } }
 
 .sheet {
   max-width: 44rem;
@@ -44,7 +72,11 @@
   padding: 18px 20px 40px;
   color: var(--mist);
   font-size: 0.9rem;
+  border-top: 1px solid var(--line);
 }
+
+.page-foot nav { display: flex; gap: 16px; margin-bottom: 12px; }
+.page-foot .fine { font-size: 0.82rem; opacity: 0.8; }
 
 @media (max-width: 520px) {
   .facts { grid-template-columns: 1fr; gap: 2px 0; }

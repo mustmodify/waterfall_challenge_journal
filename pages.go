@@ -38,6 +38,10 @@ type areaPage struct {
 	Canonical string
 	Title     string
 	Descr     string
+	// Which nav link to mark as current. Empty on a page that is not one of
+	// the nav destinations, which is right for a single area: it sits under
+	// Areas without being it.
+	Nav string
 }
 
 type areaListing struct {
@@ -52,6 +56,7 @@ type areaIndex struct {
 	Canonical string
 	Title     string
 	Descr     string
+	Nav       string
 }
 
 var pageTemplates *template.Template
@@ -119,6 +124,7 @@ func areaIndexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	page := areaIndex{
 		Areas:     areas,
+		Nav:       "areas",
 		Canonical: "https://wanderfall.app/areas",
 		Title:     "Waterfalls of Western North Carolina, by area - Wanderfall",
 		Descr: "Every area we carry waterfalls in, from Brevard and DuPont to " +
@@ -160,6 +166,7 @@ func areaHandler(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	page := areaPage{Name: name, Slug: slug,
+		Nav:       "areas",
 		Canonical: "https://wanderfall.app/areas/" + slug}
 	for rows.Next() {
 		var f areaFeature
