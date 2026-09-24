@@ -23,8 +23,11 @@ function bannerFor(path) {
   return ADMIN_BANNERS[h % ADMIN_BANNERS.length];
 }
 
-// The nav's appearance lived in nine copies of an inline style block, which
-// is how it ends up looking different depending on which page you came from.
+// The header is lifted out of the page's 900px column and into a full-bleed
+// hero, so the photograph reads as the top of the page rather than as an
+// illustration boxed in beside the title. The nav's appearance moves with it:
+// it had been living in nine copies of an inline style block, which is how it
+// ends up looking different depending on which page you came from.
 function ensureChrome(header) {
   if (!document.querySelector('link[data-admin-chrome]')) {
     const link = document.createElement('link');
@@ -33,14 +36,36 @@ function ensureChrome(header) {
     link.dataset.adminChrome = '1';
     document.head.appendChild(link);
   }
-  if (header && !document.querySelector('.admin-banner')) {
-    const [file, alt] = bannerFor(location.pathname);
-    const banner = document.createElement('div');
-    banner.className = 'admin-banner';
-    banner.setAttribute('role', 'img');
-    banner.setAttribute('aria-label', alt);
-    banner.style.backgroundImage = "url('/static/" + file + "')";
-    header.parentNode.insertBefore(banner, header);
+  if (!header || document.querySelector('.admin-hero')) return;
+
+  const [file, alt] = bannerFor(location.pathname);
+  const hero = document.createElement('div');
+  hero.className = 'admin-hero';
+  hero.style.backgroundImage = "url('/static/" + file + "')";
+  // The photograph is decoration here -- the title carries the meaning -- so
+  // it is labelled but not announced as the page's subject.
+  hero.setAttribute('role', 'img');
+  hero.setAttribute('aria-label', alt);
+
+  const mark = document.createElement('img');
+  mark.className = 'mark';
+  mark.src = '/static/logo-192.png';
+  mark.alt = '';
+  mark.width = 38;
+  mark.height = 38;
+
+  document.body.insertBefore(hero, document.body.firstChild);
+  hero.appendChild(header);
+  header.insertBefore(mark, header.firstChild);
+
+  // The nine pages use four different column widths -- 820, 880, 900, 1000 --
+  // so a hero with one hardcoded width would sit a few pixels off the content
+  // on five of them, which is exactly the kind of small wrongness that reads
+  // as sloppy. Take the width from whatever this page actually uses.
+  const wrap = document.querySelector('.wrap');
+  if (wrap) {
+    const w = getComputedStyle(wrap).maxWidth;
+    if (w && w !== 'none') header.style.maxWidth = w;
   }
 }
 
