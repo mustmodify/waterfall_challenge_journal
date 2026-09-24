@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 3CWdmqRtEXOux4pdPVd8ib8inIWabQx7bWVWx5aLgaodFYHPbodB1CaeDq1cfsL
+\restrict j4r2EcvQKlza6KCWHv1SvDoBCfSTa01Mtnl8ZMZxVbSryoX35jAB7kcX3W0JAFA
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -439,6 +439,30 @@ COMMENT ON FUNCTION public.name_core(raw text) IS 'Reduces a source page title t
 
 
 --
+-- Name: name_disambiguator(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_disambiguator(nm text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(coalesce(
+    CASE WHEN parenthetical_kind(name_parenthetical(nm), 'name') = 'disambiguator'
+         THEN name_parenthetical(nm) END,
+    substring(nm from '(?:[-—–]|@)\s*([A-Z][^()]*)$'),
+    -- A bare state code, whether it ends the name or precedes a parenthesis.
+    substring(nm from '\s(SC|TN|GA|VA|NC)\s*(?:\(|$)')
+  ), ''), '');
+$_$;
+
+
+--
+-- Name: FUNCTION name_disambiguator(nm text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.name_disambiguator(nm text) IS 'The qualifier that separates this waterfall from others of the same name, read off our own curated feature name: a non-alias parenthetical, text after a dash or an @, or a bare state code.';
+
+
+--
 -- Name: name_display(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -448,12 +472,13 @@ CREATE FUNCTION public.name_display(raw text) RETURNS text
   SELECT nullif(btrim(regexp_replace(
     regexp_replace(
       regexp_replace(
-        -- "... via Summey Cove Trail" is the route, not the waterfall.
-        regexp_replace(coalesce(raw, ''), '\s+via\s+.*$', '', 'i'),
-        '\([^)]*\)', ' ', 'g'),
-      '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\M.*$',
-      '', 'i'),
-    '\s+', ' ', 'g'), ' ,;-'), '');
+        regexp_replace(
+          regexp_replace(coalesce(raw, ''), '\s+via\s+.*$', '', 'i'),
+          '\([^)]*\)', ' ', 'g'),
+        '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\M.*$',
+        '', 'i'),
+      '\*+\s*$', '', 'g'),
+    '\s+', ' ', 'g'), ' ,;-*'), '');
 $_$;
 
 
@@ -562,10 +587,8 @@ CREATE FUNCTION public.parenthetical_kind(inside text, field text) RETURNS text
   SELECT CASE
     WHEN field NOT IN ('name', 'alias') THEN NULL
     WHEN inside IS NULL OR btrim(inside) = '' THEN NULL
-    -- An alias is another name for the same water, so it names water.
     WHEN inside ~* '(falls|waterfall|cascade|shoals|cataract)' THEN 'alias'
-    -- Provenance and status, not part of anybody's name.
-    WHEN inside ~* '^(my name|name|unofficial name|private|access restricted|th|gone|closed)\M'
+    WHEN inside ~* '^(my name|name|unofficial name|private|access restricted|gone|closed)\M'
       OR inside ~ '^[0-9]{2}-[0-9]{2}-[0-9]{4}$' THEN 'note'
     ELSE 'disambiguator'
   END;
@@ -596,6 +619,25 @@ CREATE FUNCTION public.petzoldt_band(d numeric) RETURNS text
         ELSE                    'extreme'
     END;
 $$;
+
+
+--
+-- Name: proto_dis(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.proto_dis(nm text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(coalesce(
+    -- (Gorges), (SC), (Upper) -- but not an alias or a remark
+    CASE WHEN parenthetical_kind(name_parenthetical(nm), 'name') = 'disambiguator'
+         THEN name_parenthetical(nm) END,
+    -- High Falls- Thompson River, Upper Falls @ Graveyard Fields
+    substring(nm from '(?:[-–—]|@)\s*([A-Z][^()]*)$'),
+    -- a bare trailing state code
+    substring(nm from '\s(SC|TN|GA|VA|NC)$')
+  )), '');
+$_$;
 
 
 --
@@ -799,7 +841,7 @@ CREATE TABLE public.claims (
     fact_id integer,
     normalized_value jsonb,
     parenthetical text,
-    CONSTRAINT claims_field_known CHECK ((field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text, 'detour_hike_distance'::text, 'access_status'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
+    CONSTRAINT claims_field_known CHECK ((field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text, 'detour_hike_distance'::text, 'access_status'::text, 'disambiguator'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
     WHEN (field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
@@ -1198,7 +1240,7 @@ CREATE TABLE public.facts (
     CONSTRAINT facts_coordinate_lat_first CHECK (((value_type <> 'coordinate'::text) OR (value IS NULL) OR ((((split_part(value, ','::text, 1))::numeric >= (30)::numeric) AND ((split_part(value, ','::text, 1))::numeric <= (40)::numeric)) AND (((split_part(value, ','::text, 2))::numeric >= ('-90'::integer)::numeric) AND ((split_part(value, ','::text, 2))::numeric <= ('-75'::integer)::numeric))))),
     CONSTRAINT facts_score_range CHECK (((confidence_score IS NULL) OR ((confidence_score >= (0)::numeric) AND (confidence_score <= 4.3)))),
     CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['unverified'::text, 'disputed'::text, 'single_source'::text, 'two_sources'::text, 'corroborated'::text, 'four_sources'::text, 'five_sources'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text, 'confirmed_and_agreed'::text, 'disambiguated'::text]))),
-    CONSTRAINT facts_value_type_known CHECK ((value_type = ANY (ARRAY['string'::text, 'integer'::text, 'decimal'::text, 'coordinate'::text])))
+    CONSTRAINT facts_value_type_known CHECK ((value_type = ANY (ARRAY['string'::text, 'integer'::text, 'decimal'::text, 'coordinate'::text, 'array'::text])))
 );
 
 
@@ -2468,5 +2510,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 3CWdmqRtEXOux4pdPVd8ib8inIWabQx7bWVWx5aLgaodFYHPbodB1CaeDq1cfsL
+\unrestrict j4r2EcvQKlza6KCWHv1SvDoBCfSTa01Mtnl8ZMZxVbSryoX35jAB7kcX3W0JAFA
 

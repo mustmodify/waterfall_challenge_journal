@@ -139,6 +139,9 @@
 
     #search::placeholder { color: var(--haze); }
 
+    /* The other names a waterfall answers to, under its heading. */
+    .aka { color: var(--haze); font-size: 0.85rem; margin: -4px 0 10px; }
+
     /* Near misses. Shown only when what was typed matched nothing exactly --
        a datalist already handles the case where it did. */
     #search-hits {
@@ -2049,6 +2052,23 @@
     function factOf(goal, key) {
       return (goal.facts && goal.facts[key]) || null;
     }
+    // What to call a place: the name we believe, plus whatever tells it from
+    // the others that share it. Five waterfalls are called High Falls, so the
+    // short name alone is not an answer -- and the combined string was not
+    // either, because sources publish the short name and we were grading
+    // their agreement against ours.
+    function displayName(goal) {
+      const name = (factOf(goal, 'name') || {}).value || goal.name;
+      const dis = (factOf(goal, 'disambiguator') || {}).value;
+      return dis ? name + ' (' + dis + ')' : name;
+    }
+
+    function aliasesOf(goal) {
+      const f = factOf(goal, 'aliases');
+      if (!f) return [];
+      try { return JSON.parse(f.value) || []; } catch (e) { return []; }
+    }
+
     function factNumber(goal, key) {
       const f = factOf(goal, key);
       if (!f) return null;
@@ -2549,7 +2569,7 @@
           ? 'Visited ' + goal.last_visited
           : (goal.challenges || []).join(' &middot; ') || 'Not visited';
         marker.bindTooltip(
-          '<strong>' + escapeHtml(goal.name) + '</strong><div class="tip-sub">' + sub + '</div>',
+          '<strong>' + escapeHtml(displayName(goal)) + '</strong><div class="tip-sub">' + sub + '</div>',
           { className: 'goal-tip', direction: 'top', offset: [0, -8] }
         );
         marker.on('click', () => openDrawer(goal, false));
@@ -2673,7 +2693,12 @@
       const d = goal.difficulty_rating ? goal.difficulty_rating.trim() : '';
       const diffName = { E: 'Easy', M: 'Moderate', D: 'Difficult' }[d];
 
-      let html = '<h2>' + escapeHtml(goal.name) + '</h2>';
+      let html = '<h2>' + escapeHtml(displayName(goal)) + '</h2>';
+      const aka = aliasesOf(goal);
+      if (aka.length) {
+        html += '<p class="aka">Also called ' +
+          aka.map((a) => escapeHtml(a)).join(', ') + '</p>';
+      }
       html += '<div class="badges">';
       if (diffName) html += '<span class="badge diff-' + d + '">' + diffName + '</span>';
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
@@ -3033,7 +3058,7 @@
 
     function renderDatalist() {
       const places = state.features
-        .map((g) => '<option value="' + escapeHtml(g.name) + '"></option>');
+        .map((g) => '<option value="' + escapeHtml(displayName(g)) + '"></option>');
       const areas = [...areaNames].sort()
         .map((a) => '<option value="' + escapeHtml(a + AREA_SUFFIX) + '"></option>');
       $('goal-names').innerHTML = places.concat(areas).join('');
@@ -3094,8 +3119,14 @@
       if (key.length < 2) return [];
       const hits = [];
       state.features.forEach((g) => {
-        const score = scoreName(key, searchKey(g.name));
-        if (score) hits.push({ score, label: g.name, goal: g });
+        // Every name it answers to, so "Guardrail Falls" finds Bubbling
+        // Springs Cascades and "Cullowhee" finds High Falls.
+        let best = scoreName(key, searchKey(displayName(g)));
+        best = Math.max(best, scoreName(key, searchKey(g.name)));
+        aliasesOf(g).forEach((a) => {
+          best = Math.max(best, scoreName(key, searchKey(a)) - 3);
+        });
+        if (best) hits.push({ score: best, label: displayName(g), goal: g });
       });
       areaNames.forEach((a) => {
         const score = scoreName(key, searchKey(a));
@@ -3160,7 +3191,7 @@
       // The term is reported only when it matches a place or area we publish,
       // so what reaches Google is our own vocabulary rather than whatever
       // someone typed into a box.
-      const goal = state.features.find((g) => g.name === typed);
+      const goal = state.features.find((g) => g.name === typed || displayName(g) === typed);
       if (goal) {
         track('search', { found: 'place', term: goal.name });
         openDrawer(goal, true);
