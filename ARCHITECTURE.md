@@ -68,6 +68,24 @@ Twenty-four fields are claimable. Beyond the obvious ones:
 - `access_status` holds a closure notice verbatim and normalizes to
   `ok | detour | inaccessible | unverified`.
 
+**Raw values are never edited.** Not a source's claim, not `features.name`,
+not anything that came out of `data/`. A correction is filed as an override
+claim from a superuser source — `jw` for a person, `wanderfall` for an AI
+reading — carrying the raw text in `value`, the correction in
+`normalized_value`, and the reasoning in the note.
+
+The test this protects is reproducibility: you should be able to delete
+everything except the override claims, regenerate claims from the files in
+`data/`, regenerate facts from claims, and land on exactly the same result. An
+edit to a raw value fails that test — it survives no regeneration, leaves no
+audit trail, and silently disagrees with the file it came from. An override
+claim is itself an input, so it replays.
+
+The other half of the same rule: derived columns are caches and *should* be
+recomputed freely. `normalized_value`, `parenthetical` and everything in
+`facts` are rebuilt by rerunning a migration, and several of them have been
+rebuilt repeatedly as the rules improved.
+
 **Claims are not merged.** Two sources disagreeing about a height is a fact
 worth keeping, not a conflict to settle at import time. `accepted` marks the
 one claim per (feature, field) that the published columns reflect, and a
