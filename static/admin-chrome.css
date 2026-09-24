@@ -32,21 +32,28 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg,
-    rgba(10, 24, 20, 0.62) 0%,
-    rgba(10, 24, 20, 0.38) 45%,
-    rgba(10, 24, 20, 0.72) 100%);
+    rgba(10, 24, 20, 0.48) 0%,
+    rgba(10, 24, 20, 0.18) 38%,
+    rgba(10, 24, 20, 0.30) 62%,
+    rgba(10, 24, 20, 0.78) 100%);
 }
 
 .admin-hero > * { position: relative; }
 
+/* Tall enough for the photograph to be a view rather than a strip. The title
+ * sits at the bottom of it, so the height is headroom above the words rather
+ * than space they float in the middle of. */
 .admin-hero header.bar {
   max-width: 900px;
   margin: 0 auto;
-  padding: 18px 16px 20px;
-  min-height: 132px;
-  align-items: center;
+  padding: 26px 16px 22px;
+  min-height: 260px;
+  align-items: flex-end;
   gap: 10px 14px;
 }
+
+/* The nav belongs at the top of that headroom, not level with the title. */
+.admin-hero header.bar nav { align-self: flex-start; }
 
 /* The place marker, at the size a favicon is legible rather than the size the
  * file happens to be. */
@@ -108,6 +115,6 @@
 }
 
 @media (max-width: 640px) {
-  .admin-hero header.bar { min-height: 96px; padding: 12px 16px 14px; }
-  .admin-hero .mark { width: 30px; height: 30px; }
+  .admin-hero header.bar { min-height: 170px; padding: 14px 16px 16px; }
+  .admin-hero .mark { width: 32px; height: 32px; }
 }
