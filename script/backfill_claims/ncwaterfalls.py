@@ -107,7 +107,7 @@ for rec in cache.latest(CACHE):
     if wf:
         add('coordinate', '{"lat": %s, "lon": %s}' % wf)
     if th:
-        add('parking_coordinate', '{"lat": %s, "lon": %s}' % th,
+        add('trailhead_coordinate', '{"lat": %s, "lon": %s}' % th,
             lit('Given as Trailhead GPS.'))
     b = number(got.get('Beauty Rating'))
     if b and 1 <= b <= 10:
@@ -115,10 +115,11 @@ for rec in cache.latest(CACHE):
     e = number(got.get('Elevation'))
     if e is not None:
         add('elevation_ft', str(int(e)))
-    h = re.search(r'(\d+(?:\.\d+)?)\s*(?:foot|feet|ft)', got.get('Type and Height', ''))
-    if h:
-        add('height_ft', str(int(float(h.group(1)))),
-            lit('From "%s".' % got['Type and Height'][:120]))
+    # The page's own sentence, not a number pulled out of it -- it often says
+    # how the height was arrived at ("Height estimated", "measured with
+    # rangefinder"), and the parsing belongs in normalize_claim_value.
+    if got.get('Type and Height'):
+        add('height', json.dumps(got['Type and Height']))
     if got.get('Hike Difficulty'):
         add('accessibility', json.dumps(got['Hike Difficulty']))
     if got.get('Hike Distance'):
