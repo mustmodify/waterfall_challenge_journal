@@ -32,9 +32,8 @@
     <a href="/account"{{if eq .Nav "account"}} aria-current="page"{{end}}>Account</a>
   </nav>
 </header>
-<div class="banner" role="img"
-     aria-label="A side cascade dropping into a creek running high through
-     rhododendron and bare hardwoods"></div>
+<div class="banner" role="img" aria-label="{{.Banner.Alt}}"
+     style="background-image: url('/static/{{.Banner.File}}')"></div>
 {{end}}
 
 {{define "chrome-bottom"}}

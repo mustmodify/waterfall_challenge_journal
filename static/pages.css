@@ -33,7 +33,7 @@
    the viewport does. */
 .banner {
   height: 220px;
-  background-image: url('/static/banner-creek.jpg');
+  /* The image itself is set per page; the file rotates. */
   background-size: cover;
   background-position: center 62%;
   border-bottom: 1px solid var(--line);
