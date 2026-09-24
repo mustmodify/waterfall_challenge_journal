@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 2l4pMMRVPkYwa5Kpmv63oknVwxjInk5mGhW2I1yWJdkNjUxLVeDf1e8TqsZi3pL
+\restrict wf1RvJ6wKWOpiZEoXtekfXEeb2TpfZWVYXTOq4P4vgvjDUeafXpszjuQmwSyii5
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -17,6 +17,23 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: access_from_name(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.access_from_name(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    WHEN p.inside IS NULL THEN NULL
+    WHEN p.inside ~* '\mprivate\M' THEN 'private'
+    WHEN p.inside ~* '(access restricted|no public access|permission required|by permission|permission only)'
+      THEN 'restricted'
+  END
+  FROM (SELECT name_parenthetical(raw) AS inside) p;
+$$;
+
 
 --
 -- Name: access_verdict(text); Type: FUNCTION; Schema: public; Owner: -
@@ -2511,5 +2528,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 2l4pMMRVPkYwa5Kpmv63oknVwxjInk5mGhW2I1yWJdkNjUxLVeDf1e8TqsZi3pL
+\unrestrict wf1RvJ6wKWOpiZEoXtekfXEeb2TpfZWVYXTOq4P4vgvjDUeafXpszjuQmwSyii5
 
