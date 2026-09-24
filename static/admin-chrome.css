@@ -40,20 +40,33 @@
 
 .admin-hero > * { position: relative; }
 
-/* Tall enough for the photograph to be a view rather than a strip. The
- * wordmark sits at the bottom, so the height is headroom above it rather than
- * space it floats in the middle of. */
+/* Tall enough for the photograph to be a view rather than a strip, with the
+ * wordmark anchored at the bottom and the nav at the top.
+ *
+ * A column, deliberately, because as a row this depended on line layout and
+ * so landed differently from page to page. The wordmark and the nav were two
+ * items in a wrapping row; the pills fit, but they fit on a line of their own,
+ * so the row became two lines. align-content then stretched both to share the
+ * 260px, leaving the wordmark at the bottom of the upper line and the pills at
+ * the top of the lower one -- the two of them meeting in the middle, which is
+ * neither of the places either was asked to go.
+ *
+ * Reversed so the DOM keeps the wordmark first, where a screen reader should
+ * reach it, while the nav renders above it. */
 .admin-hero header.bar {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: stretch;
   max-width: 900px;
   margin: 0 auto;
-  padding: 26px 16px 22px;
+  padding: 18px 16px 22px;
   min-height: 260px;
-  align-items: flex-end;
-  gap: 10px 14px;
+  gap: 14px;
 }
 
-/* The nav belongs at the top of that headroom, not level with the wordmark. */
-.admin-hero header.bar nav { align-self: flex-start; }
+/* Only as wide as the words, so the link is not a full-width hit area. */
+.admin-hero .brand { align-self: flex-start; }
 
 /* Pin and wordmark together, the way the public pages set it. Over a
  * photograph this is always on dark, whatever the theme is doing elsewhere. */
@@ -93,10 +106,11 @@
 }
 
 /* Pills, matching the map's filters, so the admin side and the public side
- * read as one site. */
+ * read as one site. They keep to the right by their own alignment: the auto
+ * left margin that did it before only worked while this was a row. */
 .admin-hero header.bar nav {
-  margin-left: auto;
   display: flex;
+  justify-content: flex-end;
   gap: 4px;
   flex-wrap: wrap;
   font-size: 0.85rem;
