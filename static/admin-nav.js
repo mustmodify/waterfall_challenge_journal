@@ -58,8 +58,8 @@ function ensureChrome(header) {
   mark.className = 'mark';
   mark.src = '/static/logo-192.png';
   mark.alt = '';
-  mark.width = 38;
-  mark.height = 38;
+  mark.width = 57;
+  mark.height = 57;
   brand.appendChild(mark);
   brand.appendChild(document.createTextNode('Wanderfall'));
 
