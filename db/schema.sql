@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict afGrRtS6BRPAdCfCLF6ZaWCU29owRzLwQI0gH8cHCGHYl5vHamFoL0noexpmnIJ
+\restrict c5S8RUoQwqPObsF1hfOjTKcisPRiFeHRprTu4EGbq7K0lkeLCHJhSAFgbER4rmB
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -548,7 +548,7 @@ CREATE FUNCTION public.normalize_claim_value(raw text, field text, source text) 
                  regexp_replace(coalesce(raw, ''),
                    '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
                    ' ', 'gi'),
-                 '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M',
+                 '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M(?=\s*[~.]?\s*[0-9])',
                  ' ', 'gi'),
                '~', ' ', 'g'),
              '\s+', ' ', 'g'), ' .,;'), ''),
@@ -562,7 +562,8 @@ CREATE FUNCTION public.normalize_claim_value(raw text, field text, source text) 
           regexp_replace(coalesce(raw, ''),
             '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
             ' ', 'gi'),
-          '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M',
+          -- Only in front of a quantity. That is what makes it a hedge.
+          '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M(?=\s*[~.]?\s*[0-9])',
           ' ', 'gi'),
         '~', ' ', 'g'),
       '\s+', ' ', 'g'), ' .,;'), '')
@@ -841,7 +842,7 @@ CREATE TABLE public.claims (
     fact_id integer,
     normalized_value jsonb,
     parenthetical text,
-    CONSTRAINT claims_field_known CHECK ((field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text, 'detour_hike_distance'::text, 'access_status'::text, 'disambiguator'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
+    CONSTRAINT claims_field_known CHECK ((field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text, 'detour_hike_distance'::text, 'access_status'::text, 'disambiguator'::text, 'watercourse'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
     WHEN (field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
@@ -2510,5 +2511,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict afGrRtS6BRPAdCfCLF6ZaWCU29owRzLwQI0gH8cHCGHYl5vHamFoL0noexpmnIJ
+\unrestrict c5S8RUoQwqPObsF1hfOjTKcisPRiFeHRprTu4EGbq7K0lkeLCHJhSAFgbER4rmB
 
