@@ -122,7 +122,7 @@
         (u.accepted === 0 ? '<span class="badge none">nothing accepted</span>' : '') +
         (u.distinct_values > 1 ? '<span class="badge">' + u.distinct_values + ' values disagree</span>' : '') +
         '<span class="sources">' + esc(u.sources) + '</span>' +
-        '<a class="go" href="/admin/claims?feature=' + u.feature_id + '">Review &rarr;</a>' +
+        '<a class="go" href="/admin/features/' + u.feature_id + '?tab=claims_by_field">Review &rarr;</a>' +
         '</div>').join('');
     }
 
