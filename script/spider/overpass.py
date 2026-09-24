@@ -32,10 +32,17 @@ import urllib.parse
 import urllib.request
 
 # Same software, same data. Listed slowest-to-refuse first.
+#
+# overpass.osm.ch is deliberately not here. On 2026-09-24 it answered valid
+# JSON with zero results for questions the others answered normally --
+# including "does node 309814375 exist", which is Looking Glass Falls and has
+# since 2008. Its osm3s timestamp_osm_base came back as "117253" where the
+# others give a date, so it is serving from a database that never finished
+# loading. A refusal costs one retry; an empty answer that looks like a real
+# one gets cached and believed. Worth trying again another day.
 MIRRORS = [
     'https://overpass-api.de/api/interpreter',
     'https://overpass.kumi.systems/api/interpreter',
-    'https://overpass.osm.ch/api/interpreter',
 ]
 
 CACHE_DIR = 'data/spider-cache/overpass'
