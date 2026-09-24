@@ -53,22 +53,27 @@ def _post(url, q, timeout):
         return resp.read()
 
 
-def query(q, name, tries=4, pause=6, timeout=180, refresh=False):
+def query(q, name, tries=4, pause=6, timeout=180, refresh=False, start=0):
     """Run an Overpass query, returning parsed JSON and caching the raw body.
 
     `name` is the cache filename, so it should describe the question rather
     than the moment -- the point of the cache is that the same question is
     only ever asked once.
+
+    `start` picks which mirror to try first. Callers running more than one
+    query at a time should give each a different one; otherwise every worker
+    opens on the same host, which is the opposite of spreading the load.
     """
     os.makedirs(CACHE_DIR, exist_ok=True)
     path = os.path.join(CACHE_DIR, name + '.json')
     if os.path.exists(path) and not refresh:
         return json.load(open(path))
 
+    order = MIRRORS[start % len(MIRRORS):] + MIRRORS[:start % len(MIRRORS)]
     delay = pause
     last = None
     for attempt in range(tries):
-        for url in MIRRORS:
+        for url in order:
             host = urllib.parse.urlparse(url).hostname
             try:
                 body = _post(url, q, timeout)
