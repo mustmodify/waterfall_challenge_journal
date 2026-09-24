@@ -1,0 +1,55 @@
+/* Chrome shared by the admin pages.
+ *
+ * Nine pages carry the same header and the same nav, and admin-nav.js exists
+ * so the links live in one file rather than nine. Their appearance had stayed
+ * behind in nine copies of an inline style block, which is how a nav ends up
+ * looking different depending on which page you reached it from. This is the
+ * other half of that: injected by admin-nav.js, so a change here reaches all
+ * nine.
+ */
+
+/* A band rather than the full 220px the public pages use. These are tools --
+ * worth a horizon, not worth a third of the screen before the data starts. */
+.admin-banner {
+  height: 120px;
+  margin: 0 0 4px;
+  background-size: cover;
+  background-position: center 55%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 640px) { .admin-banner { height: 80px; } }
+
+/* Pills, matching the map's filters, so the admin side and the public side
+ * read as one site. */
+header.bar nav {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+header.bar nav a {
+  padding: 5px 11px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--mist);
+  white-space: nowrap;
+}
+
+header.bar nav a:hover,
+header.bar nav a:focus-visible {
+  background: rgba(242, 246, 242, 0.08);
+  color: var(--ink);
+}
+
+header.bar nav a.current {
+  background: var(--filter-active);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+/* The count on Corrections has to stay legible against a filled pill. */
+header.bar nav a.current .badge-count { background: rgba(0, 0, 0, 0.25); color: inherit; }
