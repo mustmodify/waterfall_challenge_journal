@@ -57,6 +57,17 @@ such fallback — it requires `DATABASE_URL`, hence the longer line above. On a
 local socket install, `host=/var/run/postgresql` is what gets you peer
 authentication; `postgres://user:pass@host/db` works anywhere else.
 
+### Branches
+
+Work goes on a branch named for the work, and that branch is opened as a pull
+request and merged once. `ty-feedback` was reused four times — merged, then
+committed to again, then merged again — which is how forty-four commits ended
+up sitting unmerged with no pull request open and nothing deployed. A branch
+name that describes what is on it can't be reused that way, because the next
+piece of work needs a different name.
+
+Merging is jw's; nobody else merges.
+
 ### Signing in
 
 Sign-in is passwordless. Enter an email address and the server issues a
