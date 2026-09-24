@@ -159,13 +159,13 @@
           (published ? '' : '<span class="badge">unpublished</span>') +
           (f.deprecated_reason ? '<span class="badge deprecated">' + esc(f.deprecated_reason) + '</span>' : '') +
           (f.owner ? '<span class="owner">' + esc(f.owner) + '</span>' : '') +
-          '<span class="claims-count"><a href="/admin/claims?feature=' + f.id + '">' +
+          '<span class="claims-count"><a href="/admin/features/' + f.id + '?tab=claims_by_source">' +
           f.claim_count + ' claim' + (f.claim_count === 1 ? '' : 's') + '</a></span>' +
           '</div>' +
           '<div class="acts">' +
           '<button class="chip" data-edit="' + f.id + '">Edit</button>' +
           '<a class="chip" href="/admin/features/' + f.id + '">Facts</a>' +
-          '<a class="chip" href="/admin/claims?feature=' + f.id + '">Claims</a>' +
+          '<a class="chip" href="/admin/features/' + f.id + '?tab=claims_by_source">Claims</a>' +
           '<a class="chip" href="/?feature=' + f.id + '" target="_blank" rel="noopener">On the map</a>' +
           '</div>' +
           '<div class="edit-form" id="edit-' + f.id + '">' +

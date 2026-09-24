@@ -566,6 +566,76 @@ type featureShow struct {
 	Kind     string         `json:"kind"`
 	Slug     *string        `json:"slug,omitempty"`
 	Sections []fieldSection `json:"sections"`
+	// Everything the tabs need arrives in one response. A fetch per tab would
+	// buy nothing here -- a feature's whole record is a few kilobytes -- and
+	// switching tabs should not wait on the network.
+	Notes   []featureNoteOut `json:"notes"`
+	Remarks []remarkOut      `json:"remarks"`
+}
+
+// featureNoteOut is an access condition: a closure, a fee, a hazard, carrying
+// the date we saw it.
+type featureNoteOut struct {
+	Severity   string  `json:"severity"`
+	Text       string  `json:"text"`
+	Source     string  `json:"source"`
+	ObservedOn *string `json:"observed_on,omitempty"`
+}
+
+// remarkOut is free prose about a feature, from a publication or from the
+// account owner. Different from featureNoteOut despite both being called
+// notes: one is a dated condition about getting there, the other is about
+// the place.
+type remarkOut struct {
+	Text   string  `json:"text"`
+	Source *string `json:"source,omitempty"`
+}
+
+// loadFeatureNotes fills the two note kinds the Notes tab shows.
+func loadFeatureNotes(out *featureShow, id string) error {
+	out.Notes = []featureNoteOut{}
+	out.Remarks = []remarkOut{}
+
+	rows, err := db.Query(`
+		SELECT severity, text, source, observed_on::text
+		FROM feature_notes WHERE feature_id = $1
+		ORDER BY observed_on DESC NULLS LAST, id`, id)
+	if err != nil {
+		return err
+	}
+	for rows.Next() {
+		var n featureNoteOut
+		var on sql.NullString
+		if err := rows.Scan(&n.Severity, &n.Text, &n.Source, &on); err != nil {
+			rows.Close()
+			return err
+		}
+		if on.Valid {
+			n.ObservedOn = &on.String
+		}
+		out.Notes = append(out.Notes, n)
+	}
+	rows.Close()
+
+	rows, err = db.Query(`
+		SELECT text, source FROM notes
+		WHERE feature_id = $1 AND coalesce(text, '') <> '' ORDER BY id`, id)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var r remarkOut
+		var src sql.NullString
+		if err := rows.Scan(&r.Text, &src); err != nil {
+			return err
+		}
+		if src.Valid && src.String != "" {
+			r.Source = &src.String
+		}
+		out.Remarks = append(out.Remarks, r)
+	}
+	return nil
 }
 
 // showFeatureFacts backs /admin/features/{id}.
@@ -682,6 +752,11 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 	// refresh them from the map rather than duplicating the append logic.
 	for i := range out.Sections {
 		out.Sections[i].Claims = byField[out.Sections[i].Field].Claims
+	}
+
+	if err := loadFeatureNotes(&out, id); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
