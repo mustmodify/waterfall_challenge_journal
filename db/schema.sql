@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 4iXYKGcmtGzqKAoKkbA87LqCy8sSYc0TXWAzj1Ph2ei2t2JsuMWPTT151kEUqfM
+\restrict TZmWocNqeh7jr4Ud4OhQ2ETCfgMPjKHJRWWfVKCbMK02bWfj8AFiYYhRZq2cZmR
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -17,6 +17,77 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: access_from_name(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.access_from_name(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    WHEN p.inside IS NULL THEN NULL
+    WHEN p.inside ~* '\mprivate\M' THEN 'private'
+    WHEN p.inside ~* '(access restricted|no public access|permission required|by permission|permission only)'
+      THEN 'restricted'
+  END
+  FROM (SELECT name_parenthetical(raw) AS inside) p;
+$$;
+
+
+--
+-- Name: access_verdict(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.access_verdict(raw text) RETURNS text
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+DECLARE
+    t         text;
+    blocked   boolean;   -- something is shut
+    walkable  boolean;   -- but you can still get there on foot
+BEGIN
+    t := coalesce(raw, '');
+    IF btrim(t) = '' THEN
+        RETURN 'unverified';
+    END IF;
+    -- Already a verdict: a claim we wrote ourselves.
+    IF lower(btrim(t)) = ANY (ARRAY['ok','detour','inaccessible','unverified']::text[]) THEN
+        RETURN lower(btrim(t));
+    END IF;
+
+    blocked := t ~* ('(closed|closure|gated|inaccessible|no access|impassable|'
+                  || 'destroyed|washed out|do not (enter|visit))');
+
+    -- Two signals rather than one pattern, because a detour notice almost
+    -- always contains a closure notice inside it. "The road to the trailhead
+    -- is closed ... it''s an easy hike on the road, just longer" is shut AND
+    -- walkable, and reading only the first half gets it exactly wrong.
+    walkable := t ~* ('((just|but|only|simply)\s+longer|longer (hike|walk|route|by)|'
+                   || 'walk(ing)? (in|up|around|the road|on the road|from the gate)|'
+                   || 'hik(e|ing) (in|up|around|the road|on the road|from the gate)|'
+                   || 'on foot|by foot|'
+                   || 'add(s|ing|ed)?[^.]{0,24}[0-9.]+\s*(mile|mi\y|km|yard|feet|foot)|'
+                   || 'park(ing)? (at|before|by) the (gate|closure)|'
+                   || 'detour|re-?route)');
+
+    IF blocked AND walkable THEN RETURN 'detour'; END IF;
+    IF blocked                THEN RETURN 'inaccessible'; END IF;
+    IF walkable               THEN RETURN 'detour'; END IF;
+    IF t ~* '(reopen|re-open|is open|now open|accessible|no (issues|damage)|passable|in good condition)'
+        THEN RETURN 'ok';
+    END IF;
+    RETURN 'unverified';
+END;
+$$;
+
+
+--
+-- Name: FUNCTION access_verdict(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.access_verdict(raw text) IS 'ok | detour | inaccessible | unverified, read out of a source''s prose. Two signals, not one pattern: whether something is shut, and whether you can still walk in. A detour notice nearly always contains a closure notice inside it, so reading only the first half gets it backwards. Shut with no sign of a way in comes out inaccessible, because the costly mistake is telling someone a closed trail is open.';
+
 
 --
 -- Name: accessibility_rank(text); Type: FUNCTION; Schema: public; Owner: -
@@ -59,6 +130,124 @@ COMMENT ON FUNCTION public.accessibility_rank(raw text) IS 'Difficulty as a numb
 
 
 --
+-- Name: agreement_note(integer, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.agreement_note(agreeing integer, n integer, tolerance text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+    SELECT CASE
+      WHEN n <= 1 THEN 'Only one source has a value, so there is nothing to compare it with.'
+      WHEN agreeing <= 1 THEN 'No two of the ' || n || ' sources agree ' || tolerance || '.'
+      ELSE agreeing || ' of ' || n || ' sources agree ' || tolerance || '.'
+    END;
+$$;
+
+
+--
+-- Name: FUNCTION agreement_note(agreeing integer, n integer, tolerance text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.agreement_note(agreeing integer, n integer, tolerance text) IS 'The sentence under a fact''s grade. Counts come from a self-join that includes the row itself, so an agreeing count of 1 means nothing agreed and must not be printed as though something did.';
+
+
+--
+-- Name: agreement_score(integer, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.agreement_score(agreeing integer, n integer) RETURNS numeric
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+DECLARE
+    base int;
+BEGIN
+    IF n IS NULL OR n <= 1 THEN
+        RETURN 1.7;          -- one source: C-, nothing to compare
+    END IF;
+    IF agreeing IS NULL OR agreeing <= 1 THEN
+        RETURN 1.0;          -- no two agree: D
+    END IF;
+
+    base := CASE
+              WHEN agreeing = 2 THEN 5   -- C+
+              WHEN agreeing = 3 THEN 7   -- B
+              WHEN agreeing = 4 THEN 8   -- B+
+              ELSE 9                     -- A-, five or more
+            END;
+
+    IF agreeing = n THEN
+        RETURN grade_rung(base);
+    END IF;
+
+    -- Not a consensus: one rung for that, and one more per dissenting source.
+    RETURN grade_rung(base - (1 + (n - agreeing)));
+END;
+$$;
+
+
+--
+-- Name: FUNCTION agreement_score(agreeing integer, n integer); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.agreement_score(agreeing integer, n integer) IS 'The 0-4.3 score a fact earns from its sources. Unanimity scores by count -- two C+, three B, four B+, five A-. Anything short of unanimity costs a rung for not being a consensus plus a rung for each source that disagrees, floored at D.';
+
+
+--
+-- Name: agreement_stage(integer, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.agreement_stage(agreeing integer, n integer) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    WHEN n <= 1         THEN 'single_source'
+    WHEN agreeing <= 1  THEN 'disputed'
+    -- Anyone still disagreeing means this is not a consensus, whatever the
+    -- majority looks like.
+    WHEN agreeing < n   THEN 'disambiguated'
+    WHEN agreeing = 2   THEN 'two_sources'
+    WHEN agreeing = 3   THEN 'corroborated'
+    WHEN agreeing = 4   THEN 'four_sources'
+    ELSE 'five_sources'
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION agreement_stage(agreeing integer, n integer); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.agreement_stage(agreeing integer, n integer) IS 'The rung a fact earns from its sources. Unanimity is required for the count-based rungs -- a single dissenting source drops it to disambiguated, because consensus means nobody disagrees. Three is the first unanimous rung that counts as consensus, per jw.';
+
+
+--
+-- Name: claim_units(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.claim_units(raw text, field text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    WHEN field IN ('height', 'elevation_ft', 'elevation_gain_ft') THEN 'feet'
+    WHEN field IN ('hike_distance', 'detour_hike_distance') THEN 'feet'
+    WHEN field IN ('coordinate', 'parking_coordinate', 'view_coordinate',
+                   'coordinate_raw', 'trailhead_coordinate',
+                   'detour_parking_coordinate', 'detour_trailhead_coordinate')
+      THEN 'degrees'
+    WHEN field IN ('beauty_rating', 'photo_rating', 'solitude_rating') THEN 'of 10'
+    ELSE NULL
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION claim_units(raw text, field text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.claim_units(raw text, field text) IS 'The unit a claim''s normalized_value is in. Uniform per field, because normalizing converts to it -- the source''s own unit stays visible in the raw value.';
+
+
+--
 -- Name: confusion_set_entries_are_append_only(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -75,6 +264,63 @@ BEGIN
         'confusion_set_entries is append-only: add a new entry correcting the old one';
 END;
 $$;
+
+
+--
+-- Name: grade_rung(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.grade_rung(rung integer) RETURNS numeric
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT (ARRAY[1.0, 1.3, 1.7, 2.0, 2.3, 2.7, 3.0, 3.3, 3.7, 4.0]::numeric[])
+         [greatest(least(rung, 10), 1)];
+$$;
+
+
+--
+-- Name: height_feet(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.height_feet(raw text) RETURNS numeric
+    LANGUAGE plpgsql IMMUTABLE
+    AS $_$
+DECLARE
+    t   text;
+    num numeric;
+BEGIN
+    t := lower(coalesce(raw, ''));
+    IF t = '' OR t ~ '^\s*[—–-]\s*$' THEN
+        RETURN NULL;
+    END IF;
+
+    -- First number wins: the rule hike_distance_feet() uses, with the same
+    -- weakness. "Upper 7-foot drop with a lower long slide about 16 feet
+    -- high" takes the 7. Predictable beats clever.
+    num := nullif(substring(t from '([0-9]+(?:\.[0-9]+)?)'), '')::numeric;
+    IF num IS NULL THEN
+        RETURN NULL;
+    END IF;
+
+    -- A foot mark or the word: already feet.
+    IF t ~ '\yft\y|foot|feet' OR t LIKE '%''%' THEN
+        RETURN round(num);
+    END IF;
+    -- Metres, spelled out or the bare unit OpenStreetMap implies.
+    IF t ~ 'metre|meter|\ym\y' THEN
+        RETURN round(num * 3.28084);
+    END IF;
+    -- Bare number: feet, which is what every source here writes in.
+    RETURN round(num);
+END;
+$_$;
+
+
+--
+-- Name: FUNCTION height_feet(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.height_feet(raw text) IS 'Height in feet from whatever the source wrote. Metres only when said, because a bare number in these sources means feet -- except OpenStreetMap, whose values carry an explicit m once 122 restores them.';
 
 
 --
@@ -210,6 +456,57 @@ COMMENT ON FUNCTION public.name_core(raw text) IS 'Reduces a source page title t
 
 
 --
+-- Name: name_disambiguator(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_disambiguator(nm text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(coalesce(
+    CASE WHEN parenthetical_kind(name_parenthetical(nm), 'name') = 'disambiguator'
+         THEN name_parenthetical(nm) END,
+    substring(nm from '(?:[-—–]|@)\s*([A-Z][^()]*)$'),
+    -- A bare state code, whether it ends the name or precedes a parenthesis.
+    substring(nm from '\s(SC|TN|GA|VA|NC)\s*(?:\(|$)')
+  ), ''), '');
+$_$;
+
+
+--
+-- Name: FUNCTION name_disambiguator(nm text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.name_disambiguator(nm text) IS 'The qualifier that separates this waterfall from others of the same name, read off our own curated feature name: a non-alias parenthetical, text after a dash or an @, or a bare state code.';
+
+
+--
+-- Name: name_display(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_display(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(regexp_replace(
+    regexp_replace(
+      regexp_replace(
+        regexp_replace(
+          regexp_replace(coalesce(raw, ''), '\s+via\s+.*$', '', 'i'),
+          '\([^)]*\)', ' ', 'g'),
+        '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\M.*$',
+        '', 'i'),
+      '\*+\s*$', '', 'g'),
+    '\s+', ' ', 'g'), ' ,;-*'), '');
+$_$;
+
+
+--
+-- Name: FUNCTION name_display(raw text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.name_display(raw text) IS 'name_core() for people rather than for matching: drops the parenthetical and the SEO tail, but keeps case and punctuation.';
+
+
+--
 -- Name: name_key(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -218,6 +515,109 @@ CREATE FUNCTION public.name_key(raw text) RETURNS text
     AS $$
   SELECT nullif(regexp_replace(name_core(raw), '\s+', ' ', 'g'), '')
 $$;
+
+
+--
+-- Name: name_parenthetical(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.name_parenthetical(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT nullif(btrim(substring(coalesce(raw, '') from '\(([^)]*)\)')), '');
+$$;
+
+
+--
+-- Name: normalize_claim_value(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.normalize_claim_value(raw text, field text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT normalize_claim_value(raw, field, NULL);
+$$;
+
+
+--
+-- Name: FUNCTION normalize_claim_value(raw text, field text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.normalize_claim_value(raw text, field text) IS 'Strips hedging words, tildes and parenthetical asides, then collapses whitespace. Case is preserved: this tidies a value, it does not fold it. Names and aliases are returned null -- their parentheses disambiguate colliding waterfalls and must survive. Parentheses naming a direction survive too, because the distance parser reads them.';
+
+
+--
+-- Name: normalize_claim_value(text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.normalize_claim_value(raw text, field text, source text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE
+    WHEN field IN ('name', 'alias') THEN name_display(raw)
+    WHEN field = 'access_status' THEN access_verdict(raw)
+    WHEN field IN ('hike_distance', 'detour_hike_distance') THEN
+      (hike_distance_feet(
+         coalesce(
+           nullif(btrim(regexp_replace(
+             regexp_replace(
+               regexp_replace(
+                 regexp_replace(coalesce(raw, ''),
+                   '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
+                   ' ', 'gi'),
+                 '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M(?=\s*[~.]?\s*[0-9])',
+                 ' ', 'gi'),
+               '~', ' ', 'g'),
+             '\s+', ' ', 'g'), ' .,;'), ''),
+           coalesce(raw, '')))
+       * CASE WHEN source = 'ncwaterfalls'
+                AND coalesce(raw, '') !~* 'each way|one way|out and back|round trip'
+              THEN 2 ELSE 1 END)::text
+    ELSE nullif(btrim(regexp_replace(
+      regexp_replace(
+        regexp_replace(
+          regexp_replace(coalesce(raw, ''),
+            '\((?![^)]*(each way|one way|out and back|round trip))[^)]*\)',
+            ' ', 'gi'),
+          -- Only in front of a quantity. That is what makes it a hedge.
+          '\m(approx\.?|approximately|about|around|roughly|est\.?|estimated|circa|ca\.?)\M(?=\s*[~.]?\s*[0-9])',
+          ' ', 'gi'),
+        '~', ' ', 'g'),
+      '\s+', ' ', 'g'), ' .,;'), '')
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION normalize_claim_value(raw text, field text, source text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.normalize_claim_value(raw text, field text, source text) IS 'The uniform form of a claim: a display name for names, round-trip feet for distances, tidied text otherwise. Takes the source because two conventions cannot be read off the text -- AllTrails names routes, and ncwaterfalls measures one way.';
+
+
+--
+-- Name: parenthetical_kind(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.parenthetical_kind(inside text, field text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT CASE
+    WHEN field NOT IN ('name', 'alias') THEN NULL
+    WHEN inside IS NULL OR btrim(inside) = '' THEN NULL
+    WHEN inside ~* '(falls|waterfall|cascade|shoals|cataract)' THEN 'alias'
+    WHEN inside ~* '^(my name|name|unofficial name|private|access restricted|gone|closed)\M'
+      OR inside ~ '^[0-9]{2}-[0-9]{2}-[0-9]{4}$' THEN 'note'
+    ELSE 'disambiguator'
+  END;
+$_$;
+
+
+--
+-- Name: FUNCTION parenthetical_kind(inside text, field text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.parenthetical_kind(inside text, field text) IS 'Which of the three things a name''s parenthesis is holding: alias, disambiguator or note. Null for every other field, whose parentheses are description rather than naming. A reading, not a verdict -- see 116 for the counts it was derived from.';
 
 
 --
@@ -240,6 +640,40 @@ $$;
 
 
 --
+-- Name: proto_dis(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.proto_dis(nm text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(coalesce(
+    -- (Gorges), (SC), (Upper) -- but not an alias or a remark
+    CASE WHEN parenthetical_kind(name_parenthetical(nm), 'name') = 'disambiguator'
+         THEN name_parenthetical(nm) END,
+    -- High Falls- Thompson River, Upper Falls @ Graveyard Fields
+    substring(nm from '(?:[-–—]|@)\s*([A-Z][^()]*)$'),
+    -- a bare trailing state code
+    substring(nm from '\s(SC|TN|GA|VA|NC)$')
+  )), '');
+$_$;
+
+
+--
+-- Name: proto_display(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.proto_display(raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  SELECT nullif(btrim(regexp_replace(
+    regexp_replace(
+      regexp_replace(coalesce(raw,''), '\([^)]*\)', ' ', 'g'),
+      '\s*[-—–]\s*(a\.k\.a\.|hiking|photos?|maps?|guides?|directions?|history|visit(ing)?|info)\M.*$', '', 'i'),
+    '\s+', ' ', 'g'), ' ,;-'), '');
+$_$;
+
+
+--
 -- Name: slugify(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -254,6 +688,36 @@ CREATE FUNCTION public.slugify(name text) RETURNS text
              '[^a-z0-9]+', '-', 'g'),
              '-{2,}', '-', 'g'));
 $$;
+
+
+--
+-- Name: stage_score(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.stage_score(stage text) RETURNS numeric
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  SELECT CASE stage
+    WHEN 'disputed'             THEN 1.0
+    WHEN 'single_source'        THEN 1.7
+    WHEN 'two_sources'          THEN 2.3
+    WHEN 'disambiguated'        THEN 2.3
+    WHEN 'corroborated'         THEN 3.0
+    WHEN 'four_sources'         THEN 3.3
+    WHEN 'ai_reviewed'          THEN 3.3
+    WHEN 'five_sources'         THEN 3.7
+    WHEN 'human_reviewed'       THEN 3.7
+    WHEN 'confirmed_irl'        THEN 4.0
+    WHEN 'confirmed_and_agreed' THEN 4.3
+  END;
+$$;
+
+
+--
+-- Name: FUNCTION stage_score(stage text); Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON FUNCTION public.stage_score(stage text) IS 'The 0-4.3 score for a rung. Review rungs share scores with agreement rungs deliberately: four agreeing sources is worth about what an AI review is worth, and five about what a human review is worth.';
 
 
 --
@@ -386,25 +850,40 @@ CREATE TABLE public.claims (
     id integer NOT NULL,
     group_id integer NOT NULL,
     feature_id integer NOT NULL,
-    field character varying(24) NOT NULL,
+    field text NOT NULL,
     value jsonb NOT NULL,
     accepted boolean DEFAULT false NOT NULL,
     note text,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     fact_id integer,
-    CONSTRAINT claims_field_known CHECK (((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'height_ft'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'coordinate_raw'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text]))),
+    normalized_value jsonb,
+    parenthetical text,
+    CONSTRAINT claims_field_known CHECK ((field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text, 'detour_hike_distance'::text, 'access_status'::text, 'disambiguator'::text, 'watercourse'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text, 'wikidata'::text, 'wikipedia'::text, 'gnis_id'::text, 'waterway_type'::text, 'tourism'::text, 'access'::text, 'wheelchair'::text, 'intermittent'::text, 'website'::text, 'description'::text, 'direction'::text, 'county'::text, 'river_basin'::text, 'watershed'::text, 'usgs_map'::text, 'fall_type'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
-    WHEN ((field)::text = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND (((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric) AND (((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric))
-    WHEN ((field)::text = 'height_ft'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric > (0)::numeric))
-    WHEN ((field)::text = ANY (ARRAY['elevation_ft'::text, 'elevation_gain_ft'::text])) THEN (jsonb_typeof(value) = 'number'::text)
-    WHEN ((field)::text = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
-    WHEN ((field)::text = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric))
-    WHEN ((field)::text = ANY (ARRAY['photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
+    WHEN (field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text])) THEN ((jsonb_typeof((value -> 'lat'::text)) = 'number'::text) AND (jsonb_typeof((value -> 'lon'::text)) = 'number'::text) AND ((((value ->> 'lat'::text))::numeric >= ('-90'::integer)::numeric) AND (((value ->> 'lat'::text))::numeric <= (90)::numeric)) AND ((((value ->> 'lon'::text))::numeric >= ('-180'::integer)::numeric) AND (((value ->> 'lon'::text))::numeric <= (180)::numeric)))
+    WHEN (field = ANY (ARRAY['elevation_ft'::text, 'elevation_gain_ft'::text])) THEN (jsonb_typeof(value) = 'number'::text)
+    WHEN (field = 'petzoldt'::text) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
+    WHEN (field = ANY (ARRAY['beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND ((((value #>> '{}'::text[]))::numeric >= (1)::numeric) AND (((value #>> '{}'::text[]))::numeric <= (10)::numeric)))
+    WHEN (field = ANY (ARRAY['photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text])) THEN ((jsonb_typeof(value) = 'number'::text) AND (((value #>> '{}'::text[]))::numeric >= (0)::numeric))
     ELSE ((jsonb_typeof(value) = 'string'::text) AND ((value #>> '{}'::text[]) <> ''::text))
 END)
 );
+
+
+--
+-- Name: COLUMN claims.normalized_value; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.claims.normalized_value IS 'value with hedges ("approx", "about", "~") and parenthetical asides removed. Null when value needed no tidying, so read it as coalesce(normalized_value, value).';
+
+
+--
+-- Name: COLUMN claims.parenthetical; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.claims.parenthetical IS 'What normalizing lifted out of value, verbatim and unclassified -- "Gorges", "Upper", "Guardrail Falls", "My name". Derived, not claimed: the raw value is still the claim. For a name, parenthetical_kind() reads it as an alias, a disambiguator or a note, but that reading is not stored yet. On other fields it is plain description.';
 
 
 --
@@ -482,7 +961,7 @@ CREATE VIEW public.claim_conflicts AS
    FROM ((public.claims c
      JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
      JOIN public.features f ON ((f.id = c.feature_id)))
-  WHERE ((c.field)::text <> 'alias'::text)
+  WHERE (c.field <> 'alias'::text)
   GROUP BY c.feature_id, f.name, c.field
  HAVING ((count(DISTINCT c.value) > 1) OR (count(*) FILTER (WHERE c.accepted) = 0));
 
@@ -500,7 +979,7 @@ CREATE VIEW public.claim_coordinate_spread AS
             ((c.value ->> 'lon'::text))::numeric AS lon
            FROM (public.claims c
              JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
-          WHERE ((c.field)::text = 'coordinate'::text)
+          WHERE (c.field = 'coordinate'::text)
         )
  SELECT s.feature_id,
     f.name,
@@ -675,7 +1154,7 @@ CREATE VIEW public.coordinate_confidence AS
             ((c.value ->> 'lon'::text))::numeric AS lon
            FROM (public.claims c
              JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
-          WHERE (((c.field)::text = 'coordinate'::text) AND cg.identity_certain)
+          WHERE ((c.field = 'coordinate'::text) AND cg.identity_certain)
         ), stored AS (
          SELECT f.id AS feature_id,
             f.name,
@@ -683,7 +1162,6 @@ CREATE VIEW public.coordinate_confidence AS
             l.longitude AS lon
            FROM (public.features f
              LEFT JOIN public.locations l ON ((l.id = f.feature_location_id)))
-          WHERE (f.deprecated_reason IS NULL)
         ), spread AS (
          SELECT a.feature_id,
             max(((111320)::double precision * sqrt(((power((a.lat - b.lat), (2)::numeric))::double precision + power((((a.lon - b.lon))::double precision * cos(radians((a.lat)::double precision))), (2)::double precision))))) AS metres
@@ -779,8 +1257,8 @@ CREATE TABLE public.facts (
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT facts_coordinate_lat_first CHECK (((value_type <> 'coordinate'::text) OR (value IS NULL) OR ((((split_part(value, ','::text, 1))::numeric >= (30)::numeric) AND ((split_part(value, ','::text, 1))::numeric <= (40)::numeric)) AND (((split_part(value, ','::text, 2))::numeric >= ('-90'::integer)::numeric) AND ((split_part(value, ','::text, 2))::numeric <= ('-75'::integer)::numeric))))),
     CONSTRAINT facts_score_range CHECK (((confidence_score IS NULL) OR ((confidence_score >= (0)::numeric) AND (confidence_score <= 4.3)))),
-    CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['disputed'::text, 'single_source'::text, 'disambiguated'::text, 'corroborated'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text]))),
-    CONSTRAINT facts_value_type_known CHECK ((value_type = ANY (ARRAY['string'::text, 'integer'::text, 'decimal'::text, 'coordinate'::text])))
+    CONSTRAINT facts_stage_known CHECK ((confidence_stage = ANY (ARRAY['unverified'::text, 'disputed'::text, 'single_source'::text, 'two_sources'::text, 'corroborated'::text, 'four_sources'::text, 'five_sources'::text, 'ai_reviewed'::text, 'human_reviewed'::text, 'confirmed_irl'::text, 'confirmed_and_agreed'::text, 'disambiguated'::text]))),
+    CONSTRAINT facts_value_type_known CHECK ((value_type = ANY (ARRAY['string'::text, 'integer'::text, 'decimal'::text, 'coordinate'::text, 'array'::text])))
 );
 
 
@@ -1089,8 +1567,8 @@ CREATE VIEW public.route_ratings AS
     public.petzoldt_band(round(((regexp_replace((d.value #>> '{}'::text[]), '[^0-9.].*$'::text, ''::text))::numeric + ((((g.value #>> '{}'::text[]))::integer)::numeric / 500.0)), 2)) AS band
    FROM (((public.claim_groups cg
      JOIN public.features f ON ((f.id = cg.feature_id)))
-     JOIN public.claims d ON (((d.group_id = cg.id) AND ((d.field)::text = 'hike_distance'::text))))
-     JOIN public.claims g ON (((g.group_id = cg.id) AND ((g.field)::text = 'elevation_gain_ft'::text))))
+     JOIN public.claims d ON (((d.group_id = cg.id) AND (d.field = 'hike_distance'::text))))
+     JOIN public.claims g ON (((g.group_id = cg.id) AND (g.field = 'elevation_gain_ft'::text))))
   WHERE ((d.value #>> '{}'::text[]) ~ '^[0-9]'::text);
 
 
@@ -1133,17 +1611,10 @@ CREATE VIEW public.trail_engagement AS
     round((((p.value #>> '{}'::text[]))::numeric / ((h.value #>> '{}'::text[]))::numeric), 4) AS photos_per_hike
    FROM ((((public.claim_groups cg
      JOIN public.features f ON ((f.id = cg.feature_id)))
-     JOIN public.claims p ON (((p.group_id = cg.id) AND ((p.field)::text = 'photos_count'::text))))
-     JOIN public.claims h ON (((h.group_id = cg.id) AND ((h.field)::text = 'completed_hikes_count'::text))))
-     LEFT JOIN public.claims r ON (((r.group_id = cg.id) AND ((r.field)::text = 'reviews_count'::text))))
+     JOIN public.claims p ON (((p.group_id = cg.id) AND (p.field = 'photos_count'::text))))
+     JOIN public.claims h ON (((h.group_id = cg.id) AND (h.field = 'completed_hikes_count'::text))))
+     LEFT JOIN public.claims r ON (((r.group_id = cg.id) AND (r.field = 'reviews_count'::text))))
   WHERE ((((h.value #>> '{}'::text[]))::numeric > (0)::numeric) AND cg.identity_certain);
-
-
---
--- Name: VIEW trail_engagement; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON VIEW public.trail_engagement IS 'Photos and completed hikes per route, with their ratio. One row per claim group, never summed onto a feature: the counts describe a walk, and the walk is not the waterfall.';
 
 
 --
@@ -1635,7 +2106,7 @@ CREATE INDEX claims_field_idx ON public.claims USING btree (field);
 -- Name: claims_one_accepted; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX claims_one_accepted ON public.claims USING btree (feature_id, field) WHERE (accepted AND ((field)::text <> 'alias'::text));
+CREATE UNIQUE INDEX claims_one_accepted ON public.claims USING btree (feature_id, field) WHERE (accepted AND (field <> 'alias'::text));
 
 
 --
@@ -2057,5 +2528,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 4iXYKGcmtGzqKAoKkbA87LqCy8sSYc0TXWAzj1Ph2ei2t2JsuMWPTT151kEUqfM
+\unrestrict TZmWocNqeh7jr4Ud4OhQ2ETCfgMPjKHJRWWfVKCbMK02bWfj8AFiYYhRZq2cZmR
 

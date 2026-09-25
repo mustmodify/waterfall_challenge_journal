@@ -32,6 +32,55 @@
     header.bar nav { margin-left: auto; display: flex; gap: 12px; flex-wrap: wrap; }
 
     .lede { color: var(--haze); font-size: 0.9rem; margin: 6px 0 16px; max-width: 62ch; }
+
+    /* One feature, four ways of looking at it. Tabs rather than four pages
+       because it is the same record throughout -- the question is which
+       shape answers what you came for. */
+    .tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 0 0 18px;
+      border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+    .tabs button {
+      border: 1px solid var(--line); background: transparent; color: var(--mist);
+      font: inherit; font-size: 0.85rem; padding: 6px 13px;
+      border-radius: 999px; cursor: pointer;
+    }
+    .tabs button:hover { background: rgba(242, 246, 242, 0.08); }
+    .tabs button[aria-selected="true"] {
+      background: var(--filter-active); border-color: var(--filter-active);
+      color: var(--on-accent); font-weight: 600;
+    }
+
+    /* The facts table: the whole record at a glance, which is what the page
+       should open on. */
+    table.facts { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    table.facts th {
+      text-align: left; color: var(--haze); font-weight: 500; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px 6px 0;
+    }
+    table.facts td { padding: 9px 10px 9px 0; border-top: 1px solid var(--line); vertical-align: top; }
+    table.facts td.k { font-weight: 600; white-space: nowrap; }
+    table.facts td.v { font-weight: 600; }
+    table.facts td.u { color: var(--haze); white-space: nowrap; }
+    table.facts td.g { white-space: nowrap; font-weight: 700; }
+    table.facts .why { display: block; color: var(--haze); font-size: 0.8rem;
+      font-weight: 400; margin-top: 3px; }
+    table.facts td.g.g-d, table.facts td.g.g-f { color: var(--danger); }
+    table.facts td.g.g-a, table.facts td.g.g-b { color: var(--ok); }
+    table.facts td.g .num { font-weight: 500; font-size: 0.85rem; color: var(--haze); margin-left: 6px; }
+
+    /* Claims grouped by the source that made them. */
+    .group { border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 12px 14px; margin-bottom: 12px; }
+    .group.uncertain { opacity: 0.72; }
+    .group .top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .group .source { font-weight: 600; text-transform: capitalize; }
+    .group .url { font-size: 0.8rem; word-break: break-all; }
+    .group .gnote { color: var(--haze); font-size: 0.85rem; margin: 6px 0 0; }
+
+    .notecard { border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 11px 13px; margin-bottom: 10px; }
+    .notecard .meta { color: var(--haze); font-size: 0.78rem; margin-bottom: 4px;
+      text-transform: uppercase; letter-spacing: 0.06em; }
+    .notecard.closed, .notecard.urgent { border-color: var(--danger); }
     .crumbs { font-size: 0.85rem; color: var(--haze); margin: 0 0 18px; }
     .crumbs a + a { margin-left: 12px; }
 
@@ -85,6 +134,10 @@
     table.readings td.src { text-transform: capitalize; font-weight: 500; white-space: nowrap; }
     table.readings tr.rejected td { opacity: 0.55; }
     table.readings td.val { font-variant-numeric: tabular-nums; }
+    table.readings td.units { color: var(--haze); white-space: nowrap; }
+    table.readings td.grp { white-space: nowrap; }
+    /* Unchanged by normalizing: present, but not worth a second look. */
+    table.readings td.val.unchanged { color: var(--haze); }
 
     .tag {
       font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
@@ -92,7 +145,23 @@
     }
     .tag.accepted { color: var(--ok); border: 1px solid var(--ok); }
     .tag.uncertain { color: var(--danger); border: 1px solid var(--danger); }
-    .claim-note { display: block; color: var(--haze); font-size: 0.8rem; margin-top: 3px; }
+    sup.fn {
+      font-size: 0.62rem; margin-left: 2px; color: var(--accent);
+      vertical-align: super; line-height: 0;
+    }
+    .footnotes {
+      margin: 16px 0 0; padding: 12px 0 0 20px;
+      border-top: 1px solid var(--line);
+      color: var(--haze); font-size: 0.78rem; line-height: 1.5;
+    }
+    .footnotes li { margin-bottom: 4px; }
+    .footnotes li::marker { color: var(--accent); }
+    .derived {
+      display: block; font-size: 0.78rem; color: var(--haze); margin-top: 2px;
+    }
+    /* The reading is a guess, so the ones most worth arguing with stand out. */
+    .derived.disambiguator { color: var(--mist); }
+    .derived.alias { color: var(--ok); }
 
     details.rejected { margin-top: 10px; }
     details.rejected > summary {
@@ -118,11 +187,12 @@
 
     <div id="content" hidden>
       <p class="crumbs" id="crumbs"></p>
-      <p class="lede">Every claim about this place, grouped by what it is a
-        claim <em>about</em>. /admin/claims asks what each source said, which
-        is how the rows are stored; this asks what we believe and how sure we
-        are, which is the question the sources were collected to answer.
-        Worst grade first.</p>
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <p class="lede">One feature, four ways of looking at it. Facts is what
+        we believe and how sure we are. The two claims tabs are the evidence,
+        grouped either by what a claim is <em>about</em> or by the source that
+        made it &mdash; the same rows, and which shape helps depends on
+        whether you are checking a value or checking a source.</p>
       <div id="sections"></div>
     </div>
   </div>
@@ -137,13 +207,18 @@
     // The ladder, with the sentence each rung actually means. A score on its
     // own tells you the order; the description tells you the job.
     const STAGES = {
-      disputed:      ['Disputed', 'sources contradict each other'],
+      unverified:    ['Unverified', 'no source has said anything about this'],
+      disputed:      ['Disputed', 'no two sources agree'],
       single_source: ['Single source', 'one source said it, nobody checked'],
-      disambiguated: ['Consensus, with dissent', 'a majority agree, someone does not'],
-      corroborated:  ['Corroborated', 'three or more sources agree'],
+      two_sources:   ['Two sources agree', 'unanimous, but two is a thin consensus'],
+      disambiguated: ['Not a consensus', 'a minority disagrees, and each holdout costs a rung'],
+      corroborated:  ['Three sources agree', 'unanimous, and the first real consensus'],
+      four_sources:  ['Four sources agree', 'unanimous, and as far as this data reaches'],
+      five_sources:  ['Five or more agree', 'unanimous; nothing has managed it yet'],
       ai_reviewed:   ['AI reviewed', 'read and judged, not visited'],
       human_reviewed:['Human reviewed', 'a person went through the evidence'],
       confirmed_irl: ['Confirmed in person', 'someone stood there'],
+      confirmed_and_agreed: ['Confirmed, and the sources agree', 'been there, and the data backs it'],
     };
 
     const FIELD_LABELS = {
@@ -154,10 +229,15 @@
       parking_coordinate: 'Parking coordinates',
       view_coordinate: 'View coordinates',
       coordinate_raw: 'Coordinates (raw)',
-      height_ft: 'Height',
+      height: 'Height',
       elevation_ft: 'Elevation',
       elevation_gain_ft: 'Elevation gain',
       hike_distance: 'Hike distance',
+      detour_hike_distance: 'Hike distance (detour)',
+      trailhead_coordinate: 'Trailhead coordinates',
+      detour_parking_coordinate: 'Parking coordinates (detour)',
+      detour_trailhead_coordinate: 'Trailhead coordinates (detour)',
+      access_status: 'Access',
       beauty_rating: 'Beauty', photo_rating: 'Photo', solitude_rating: 'Solitude',
     };
     const label = (f) => FIELD_LABELS[f] ||
@@ -237,6 +317,19 @@
       const counted = sec.claims.filter((c) => c.identity_certain);
       const refused = sec.claims.filter((c) => !c.identity_certain);
 
+      // Claim notes are explanations, and an explanation is usually longer
+      // than the value it explains -- inline, one of them swamps the table it
+      // belongs to. So they become numbered footnotes under the card, and the
+      // row keeps only the marker. Identical notes share a number, since a
+      // per-source note lands on every one of that source's claims.
+      const notes = [];
+      const noteNum = (c) => {
+        if (!c.note) return 0;
+        let i = notes.indexOf(c.note);
+        if (i < 0) { notes.push(c.note); i = notes.length - 1; }
+        return i + 1;
+      };
+
       const row = (c) => {
         const cls = c.accepted ? '' : (c.identity_certain ? '' : 'rejected');
         const src = c.url
@@ -244,19 +337,44 @@
           : esc(c.source);
         const tags = (c.accepted ? '<span class="tag accepted">accepted</span> ' : '') +
           (c.identity_certain ? '' : '<span class="tag uncertain">identity uncertain</span>');
+
+        // The parenthetical stays under what was observed, because it was
+        // lifted out of that text. It is labelled by what
+        // parenthetical_kind() made of it rather than by where it came from:
+        // "disambiguator: Gorges" is the useful thing to read, and putting
+        // the reading on the page is how a wrong reading gets caught. Names
+        // get a kind; a distance's "(usually dry)" does not, so that falls
+        // back to the neutral word.
+        const aside = c.parenthetical
+          ? '<span class="derived ' + (c.parenthetical_kind || '') + '">' +
+            esc(c.parenthetical_kind || 'parenthetical') + ': ' +
+            esc(c.parenthetical) + '</span>'
+          : '';
+
+        // Null normalized means nothing needed changing, so the column shows
+        // the observed value dimmed rather than a dash. The point of the
+        // column is a uniform set to scan down; a gap every third row defeats
+        // that, and "unchanged" is not the same as "missing".
+        const observed = showValue(c.value);
+        const norm = c.normalized_value != null ? showValue(c.normalized_value) : observed;
+        const same = norm === observed;
+
+        const n = noteNum(c);
         return '<tr class="' + cls + '">' +
           '<td class="src">' + src + '</td>' +
-          '<td class="val">' + esc(showValue(c.value)) +
-            (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
+          '<td class="grp"><a href="?tab=claims_by_source">#' + c.group_id + '</a></td>' +
+          '<td class="val">' + esc(observed) +
+            (n ? '<sup class="fn">' + n + '</sup>' : '') + aside + '</td>' +
+          '<td class="val' + (same ? ' unchanged' : '') + '">' + esc(norm) + '</td>' +
+          '<td class="units">' + esc(c.units || '') + '</td>' +
           '<td>' + tags + '</td>' +
-          '<td><a href="/admin/claims?feature=' + FEATURE_ID + '#group-' + c.group_id + '">#' +
-            c.group_id + '</a></td>' +
           '</tr>';
       };
 
       const table = (claims) =>
         '<table class="readings"><thead><tr>' +
-          '<th>Source</th><th>Value</th><th></th><th>Group</th>' +
+          '<th>Source</th><th>Group</th><th>Observed</th><th>Normalized</th>' +
+          '<th>Units</th><th></th>' +
         '</tr></thead><tbody>' + claims.map(row).join('') + '</tbody></table>';
 
       const refusedBlock = refused.length === 0 ? '' :
@@ -274,19 +392,165 @@
 
       const head = '<div class="head3">' +
         cell('Field', '<div class="big">' + esc(label(sec.field)) + '</div>') +
-        cell('Pub value',
+        cell('Final value',
           (s2 == null ? '<div class="big unset">not settled</div>'
                       : '<div class="big">' + esc(s2.text) + '</div>') +
           (s2 && s2.units ? '<div class="sub">' + esc(s2.units) + '</div>' : '')) +
         cell('Correctness', correctnessCell(sec)) +
         '</div>';
 
+      // Built last: the tables have to render before notes is populated.
+      const body = table(counted) + refusedBlock;
+      const footnotes = notes.length === 0 ? '' :
+        '<ol class="footnotes">' +
+        notes.map((t) => '<li>' + esc(t) + '</li>').join('') +
+        '</ol>';
+
       return '<section class="field">' +
         head +
         (sec.notes ? '<p class="why">' + esc(sec.notes) + '</p>' : '') +
-        table(counted) + refusedBlock +
+        body + footnotes +
         '</section>';
     }
+
+    // ---------- the other three tabs ----------
+
+    function factsTableHtml(f) {
+      const graded = f.sections.filter((s) => s.stage);
+      const rest = f.sections.filter((s) => !s.stage);
+      const row = (sec) => {
+        const s2 = settledValue(sec);
+        const letter = letterGrade(sec.score);
+        return '<tr>' +
+          '<td class="k">' + esc(label(sec.field)) + '</td>' +
+          '<td class="v">' + esc(s2 ? s2.text : '\u2014') + '</td>' +
+          '<td class="u">' + esc((s2 && s2.units) || '') + '</td>' +
+          '<td class="g ' + gradeClass(sec.score) + '">' +
+            (sec.stage
+              ? esc(letter || '?') +
+                (sec.score == null ? ''
+                  : '<span class="num">' + Number(sec.score).toFixed(1) + '</span>')
+              : '<span class="u">not graded</span>') +
+            (sec.notes ? '<span class="why">' + esc(sec.notes) + '</span>' : '') +
+          '</td></tr>';
+      };
+      return '<table class="facts"><thead><tr>' +
+        '<th>Field</th><th>Final value</th><th>Units</th><th>Correctness</th>' +
+        '</tr></thead><tbody>' +
+        graded.map(row).join('') + rest.map(row).join('') +
+        '</tbody></table>';
+    }
+
+    function claimsBySourceHtml(f) {
+      // Rebuilt from the same sections the other tabs use, rather than
+      // fetched separately: a claim knows its group, so grouping by source is
+      // a regroup, not another query.
+      const bySource = new Map();
+      f.sections.forEach((sec) => sec.claims.forEach((c) => {
+        if (!bySource.has(c.group_id)) {
+          bySource.set(c.group_id, {
+            id: c.group_id, source: c.source, url: c.url,
+            certain: c.identity_certain, claims: [],
+          });
+        }
+        bySource.get(c.group_id).claims.push({ field: sec.field, c });
+      }));
+      const groups = [...bySource.values()].sort((a, b) =>
+        (a.certain === b.certain ? 0 : a.certain ? -1 : 1) ||
+        a.source.localeCompare(b.source) || a.id - b.id);
+      if (!groups.length) return '<p class="empty">No claims on this feature.</p>';
+
+      const one = (g) => '<div class="group' + (g.certain ? '' : ' uncertain') + '">' +
+        '<div class="top"><span class="source">' + esc(g.source) + '</span>' +
+        '<span class="claim-note">#' + g.id + '</span>' +
+        (g.certain ? '' : '<span class="tag uncertain">identity uncertain</span>') +
+        (g.url ? '<span class="url"><a href="' + esc(g.url) +
+          '" target="_blank" rel="noopener">' + esc(g.url) + '</a></span>' : '') +
+        '</div>' +
+        '<table class="readings"><thead><tr>' +
+          '<th>Field</th><th>Observed</th><th>Normalized</th><th>Units</th><th></th>' +
+        '</tr></thead><tbody>' +
+        g.claims.map(({ field, c }) => {
+          const observed = showValue(c.value);
+          const norm = c.normalized_value != null ? showValue(c.normalized_value) : observed;
+          return '<tr>' +
+            '<td class="src">' + esc(label(field)) + '</td>' +
+            '<td class="val">' + esc(observed) +
+              (c.note ? '<span class="claim-note">' + esc(c.note) + '</span>' : '') + '</td>' +
+            '<td class="val' + (norm === observed ? ' unchanged' : '') + '">' + esc(norm) + '</td>' +
+            '<td class="units">' + esc(c.units || '') + '</td>' +
+            '<td>' + (c.accepted ? '<span class="tag accepted">accepted</span>' : '') + '</td>' +
+            '</tr>';
+        }).join('') + '</tbody></table></div>';
+
+      const certain = groups.filter((g) => g.certain);
+      const refused = groups.filter((g) => !g.certain);
+      return certain.map(one).join('') +
+        (refused.length
+          ? '<details class="rejected"><summary>' + refused.length +
+            ' rejected candidate' + (refused.length === 1 ? '' : 's') +
+            ' &mdash; checked against this feature and discarded, kept so a ' +
+            'future import does not retry them</summary>' +
+            refused.map(one).join('') + '</details>'
+          : '');
+    }
+
+    function notesHtml(f) {
+      const parts = [];
+      if (f.notes.length) {
+        parts.push('<h2 class="lede">Access conditions</h2>' + f.notes.map((n) =>
+          '<div class="notecard ' + esc(n.severity) + '">' +
+          '<div class="meta">' + esc(n.severity) +
+            ' &middot; ' + esc(n.source) +
+            (n.observed_on ? ' &middot; seen ' + esc(n.observed_on) : '') +
+          '</div>' + esc(n.text) + '</div>').join(''));
+      }
+      if (f.remarks.length) {
+        parts.push('<h2 class="lede">Remarks</h2>' + f.remarks.map((r) =>
+          '<div class="notecard">' +
+          (r.source ? '<div class="meta">' + esc(r.source) + '</div>' : '') +
+          esc(r.text) + '</div>').join(''));
+      }
+      return parts.length ? parts.join('')
+        : '<p class="empty">No notes or remarks on this feature.</p>';
+    }
+
+    // ---------- tabs ----------
+
+    const TABS = [
+      ['facts', 'Facts', (f) => factsTableHtml(f)],
+      ['claims_by_field', 'Claims by field',
+        (f) => (f.sections.length
+          ? f.sections.map(sectionHtml).join('')
+          : '<p class="empty">No claims on this feature yet.</p>')],
+      ['claims_by_source', 'Claims by source', (f) => claimsBySourceHtml(f)],
+      ['notes', 'Notes', (f) => notesHtml(f)],
+    ];
+
+    function currentTab() {
+      const want = new URLSearchParams(location.search).get('tab');
+      return TABS.some(([k]) => k === want) ? want : 'facts';
+    }
+
+    function drawTabs(f) {
+      const now = currentTab();
+      $('tabs').innerHTML = TABS.map(([key, label]) =>
+        '<button type="button" role="tab" data-tab="' + key + '" aria-selected="' +
+        (key === now) + '">' + escapeTabLabel(label) + '</button>').join('');
+      $('tabs').querySelectorAll('button').forEach((b) =>
+        b.addEventListener('click', () => {
+          const key = b.dataset.tab;
+          // The tab is in the URL so a view is linkable -- "look at the
+          // claims by source for 407" should be a link, not instructions.
+          const q = key === 'facts' ? '' : '?tab=' + key;
+          history.replaceState({}, '', location.pathname + q);
+          drawTabs(f);
+        }));
+      const render = (TABS.find(([k]) => k === now) || TABS[0])[2];
+      $('sections').innerHTML = render(f);
+    }
+
+    const escapeTabLabel = esc;
 
     const FEATURE_ID = location.pathname.split('/').pop();
 
@@ -309,15 +573,12 @@
           $('title').textContent = f.name;
           $('content').hidden = false;
 
-          const links = ['<a href="/admin/features">All features</a>',
-            '<a href="/admin/claims?feature=' + f.id + '">Claims by source</a>'];
+          const links = ['<a href="/admin/features">All features</a>'];
           // The canonical place URL is id-slug; the bare slug 404s.
           if (f.slug) links.push('<a href="/falls/' + f.id + '-' + esc(f.slug) + '">Public page</a>');
           $('crumbs').innerHTML = esc(f.kind) + ' #' + f.id + ' &middot; ' + links.join('');
 
-          $('sections').innerHTML = f.sections.length
-            ? f.sections.map(sectionHtml).join('')
-            : '<p class="empty">No claims on this feature yet.</p>';
+          drawTabs(f);
         });
     }
 

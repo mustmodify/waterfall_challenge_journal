@@ -40,9 +40,51 @@ confidence tiers below.
 
 Nothing here is stored as a single agreed fact. Every source we read becomes a
 `claim_group` — one source's reading of one feature, with the URL it came from
-and the date it was observed — holding `claims`, one row per field. Sixteen
-fields are claimable, from `coordinate` and `height_ft` to `petzoldt` and
-`alias`.
+and the date it was observed — holding `claims`, one row per field.
+
+**A claim carries three columns, not one.** `value` is what the source wrote,
+verbatim. `normalized_value` is the same thing in a uniform form — hedges and
+parenthetical asides removed, distances parsed to round-trip feet, names
+stripped of route tails and page-title marketing. `parenthetical` keeps
+whatever the tidying lifted out, unclassified, because a name's parenthesis
+may be a disambiguator (`Rainbow Falls (Gorges)`), an alias (`Bubbling Springs
+Cascades (Guardrail Falls)`) or a note (`Amos Creek Falls (My name)`), and a
+regex should not be the thing that decides which.
+
+The point of the split is that normalizing commits to a reading. Parsing a
+distance to feet means a wrong reading becomes a wrong *number* instead of
+ambiguous prose — which is the intent: a wrong number sits on the page beside
+the raw text that produced it, where uncomparable prose stays wrong quietly.
+
+Twenty-four fields are claimable. Beyond the obvious ones:
+
+- `trailhead_coordinate` is not `parking_coordinate`. Usually the same spot,
+  which is why they were conflated for months — every ncwaterfalls page
+  publishes a "Trailhead GPS" and the importer filed it as parking.
+- `detour_hike_distance`, `detour_parking_coordinate` and
+  `detour_trailhead_coordinate` hold the temporary situation after a storm,
+  so the permanent numbers underneath stay unedited and come back on their
+  own when the road reopens.
+- `access_status` holds a closure notice verbatim and normalizes to
+  `ok | detour | inaccessible | unverified`.
+
+**Raw values are never edited.** Not a source's claim, not `features.name`,
+not anything that came out of `data/`. A correction is filed as an override
+claim from a superuser source — `jw` for a person, `wanderfall` for an AI
+reading — carrying the raw text in `value`, the correction in
+`normalized_value`, and the reasoning in the note.
+
+The test this protects is reproducibility: you should be able to delete
+everything except the override claims, regenerate claims from the files in
+`data/`, regenerate facts from claims, and land on exactly the same result. An
+edit to a raw value fails that test — it survives no regeneration, leaves no
+audit trail, and silently disagrees with the file it came from. An override
+claim is itself an input, so it replays.
+
+The other half of the same rule: derived columns are caches and *should* be
+recomputed freely. `normalized_value`, `parenthetical` and everything in
+`facts` are rebuilt by rerunning a migration, and several of them have been
+rebuilt repeatedly as the rules improved.
 
 **Claims are not merged.** Two sources disagreeing about a height is a fact
 worth keeping, not a conflict to settle at import time. `accepted` marks the
@@ -73,7 +115,21 @@ waterfall entirely. Those groups are kept rather than deleted, because a source
 saying something about the wrong fall is still a thing the source said, and
 deleting it invites the next importer to make the same match again.
 
-### Facts: confidence beyond the coordinate (designed, not yet built)
+**`identity_certain` is currently doing two jobs, and that is a known
+problem.** It is supposed to answer "is this source talking about our
+waterfall?" It is also the only lever that keeps a bad coordinate out of
+`coordinate_confidence`, so it gets pulled for that too. Joe Pack Falls
+(feature 1199) shows the tangle: hikingwnc's group is marked uncertain
+because its longitude is off by exactly one degree, while the *accepted name*
+for the feature comes from that same group. The group is simultaneously
+trusted enough to name the waterfall and flagged as maybe-not-about-it.
+
+Seven hikingwnc groups are in that state. It matters because the obvious
+cleanup — withdraw the links on uncertain groups — would delete seven
+perfectly good pages about the right waterfalls. Separating identity from
+per-field trust is unfinished work.
+
+### Facts: confidence beyond the coordinate
 
 `coordinate_confidence` only tiers one field. Everything else -- the name,
 whether the links actually point at this waterfall and not a namesake,
@@ -112,6 +168,36 @@ more certain than before (a low score despite the high stage), while the
 on both axes from that same single visit. One method, two facts, two
 different results.
 
+**As built.** Every published waterfall now carries facts for six keys:
+`coordinate`, `name`, `height`, `hike_distance`, `accessibility` and
+`access_status`. The ladder is graded on how many *distinct* sources agree,
+counting `hikingwnc` and `hikingwnc-supplement` as one:
+
+```
+no two agree               disputed              D    1.0
+one source                 single_source         C-   1.7
+two agree                  two_sources           C+   2.3
+three agree                corroborated          B    3.0
+four agree                 four_sources          B+   3.3
+five or more agree         five_sources          A-   3.7
+confirmed in person        confirmed_irl         A    4.0
+three-plus and in person   confirmed_and_agreed  A+   4.3
+```
+
+**Consensus means nobody disagrees.** A dissenting source costs one rung for
+not being a consensus, plus one more per dissenter, floored at D. So three
+agreeing out of four is a C+, where three out of three is a B.
+`agreement_stage()` and `agreement_score()` hold that arithmetic.
+
+Five sources is an A- rather than an A because five sources can be five
+parties copying each other, and in this data they demonstrably are.
+Standing at the waterfall cannot be a copy, so 4.0 is reserved for it and A+
+means what it always meant: every piece of data agrees *and* the signs agree.
+
+Nothing scores above B+ today. Four agreeing sources is the ceiling this data
+reaches, on 25 facts, and no feature has five sources on any field, so A- and
+above are aspirational.
+
 `claims.fact_id` will be a nullable FK once this lands. The bottom four
 stages (`unverified` through `corroborated`) are mechanically derivable from
 claims already in the database -- the same logic `coordinate_confidence`
@@ -140,7 +226,7 @@ This does not replace `accepted`/`field` on `claims`; `facts` sits above it
 as a generalization of what `coordinate_confidence` already does for one
 field, extended to any field worth tracking.
 
-### Confusion sets (designed, not yet built)
+### Confusion sets
 
 Some name collisions aren't "one place, one wrong name attached to it" --
 they're several genuinely different, correctly-named real waterfalls that
@@ -159,6 +245,13 @@ confusion_sets(id, name, created_at, updated_at)
 confusion_set_members(confusion_set_id, feature_id)
 confusion_set_entries(id, confusion_set_id, body, created_at)
 ```
+
+**As built**, with two sets. *Falls Named Tom* is the one above. *Falls On Or
+Near Laurel Fork* is the opposite failure: seven waterfalls within 400 m on
+two watercourses that meet, seven distinct names, and no collision at all --
+the confusion comes from position alone. Kevin Adams catalogued one of them
+twice, as Christopher Falls in 2021 and Chute Falls in 2024, and only his own
+prose separates them, because the coordinates agree to 4 m.
 
 `confusion_set_entries` is a journal, not a field to overwrite: append-only,
 dated, never edited or deleted. When our understanding changes, a new entry

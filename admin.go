@@ -125,100 +125,6 @@ func listFeaturesAdmin(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(out)
 }
 
-type claimGroupRow struct {
-	ID              int        `json:"id"`
-	Source          string     `json:"source"`
-	URL             *string    `json:"url,omitempty"`
-	IdentityCertain bool       `json:"identity_certain"`
-	Note            *string    `json:"note,omitempty"`
-	Claims          []claimRow `json:"claims"`
-}
-
-type claimRow struct {
-	ID       int             `json:"id"`
-	Field    string          `json:"field"`
-	Value    json.RawMessage `json:"value"`
-	Accepted bool            `json:"accepted"`
-	Note     *string         `json:"note,omitempty"`
-}
-
-// listClaims is the "links to claims" destination: every claim_group and
-// claim for one feature, grouped the way the schema groups them -- one
-// source's reading of the place, holding one row per field it asserted.
-func listClaims(w http.ResponseWriter, r *http.Request) {
-	if !requireAdmin(w, r) {
-		return
-	}
-	featureID := r.URL.Query().Get("feature")
-	if featureID == "" {
-		http.Error(w, "feature is required", http.StatusBadRequest)
-		return
-	}
-
-	groups := map[int]*claimGroupRow{}
-	var order []int
-
-	groupRows, err := db.Query(`
-		SELECT id, source, url, identity_certain, note
-		FROM claim_groups WHERE feature_id = $1 ORDER BY id
-	`, featureID)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	for groupRows.Next() {
-		var g claimGroupRow
-		var url, note sql.NullString
-		if err := groupRows.Scan(&g.ID, &g.Source, &url, &g.IdentityCertain, &note); err != nil {
-			groupRows.Close()
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		if url.Valid {
-			g.URL = &url.String
-		}
-		if note.Valid {
-			g.Note = &note.String
-		}
-		g.Claims = []claimRow{}
-		groups[g.ID] = &g
-		order = append(order, g.ID)
-	}
-	groupRows.Close()
-
-	claimRows, err := db.Query(`
-		SELECT group_id, id, field, value, accepted, note
-		FROM claims WHERE feature_id = $1 ORDER BY field, id
-	`, featureID)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer claimRows.Close()
-	for claimRows.Next() {
-		var groupID int
-		var c claimRow
-		var note sql.NullString
-		if err := claimRows.Scan(&groupID, &c.ID, &c.Field, &c.Value, &c.Accepted, &note); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		if note.Valid {
-			c.Note = &note.String
-		}
-		if g, ok := groups[groupID]; ok {
-			g.Claims = append(g.Claims, c)
-		}
-	}
-
-	out := make([]*claimGroupRow, 0, len(order))
-	for _, id := range order {
-		out = append(out, groups[id])
-	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(out)
-}
-
 type unresolvedClaim struct {
 	FeatureID      int    `json:"feature_id"`
 	FeatureName    string `json:"name"`
@@ -544,8 +450,20 @@ type fieldClaimRow struct {
 	URL             *string         `json:"url,omitempty"`
 	IdentityCertain bool            `json:"identity_certain"`
 	Value           json.RawMessage `json:"value"`
-	Accepted        bool            `json:"accepted"`
-	Note            *string         `json:"note,omitempty"`
+	// Both derived from Value rather than claimed: what the source wrote with
+	// the hedging and asides taken out, and the aside that was taken out.
+	// Null when there was nothing to do, so the page shows them only where
+	// they differ from the raw value.
+	Normalized    json.RawMessage `json:"normalized_value,omitempty"`
+	Parenthetical *string         `json:"parenthetical,omitempty"`
+	// What parenthetical_kind() makes of it -- alias, disambiguator or note,
+	// and only for names. A reading, not a verdict.
+	ParentheticalKind *string `json:"parenthetical_kind,omitempty"`
+	// The unit this one claim is in, derived per claim rather than per field:
+	// "3.8 mi" and a bare "0.7" are both miles, but only one of them says so.
+	Units    *string `json:"units,omitempty"`
+	Accepted bool    `json:"accepted"`
+	Note     *string `json:"note,omitempty"`
 }
 
 type featureShow struct {
@@ -554,6 +472,76 @@ type featureShow struct {
 	Kind     string         `json:"kind"`
 	Slug     *string        `json:"slug,omitempty"`
 	Sections []fieldSection `json:"sections"`
+	// Everything the tabs need arrives in one response. A fetch per tab would
+	// buy nothing here -- a feature's whole record is a few kilobytes -- and
+	// switching tabs should not wait on the network.
+	Notes   []featureNoteOut `json:"notes"`
+	Remarks []remarkOut      `json:"remarks"`
+}
+
+// featureNoteOut is an access condition: a closure, a fee, a hazard, carrying
+// the date we saw it.
+type featureNoteOut struct {
+	Severity   string  `json:"severity"`
+	Text       string  `json:"text"`
+	Source     string  `json:"source"`
+	ObservedOn *string `json:"observed_on,omitempty"`
+}
+
+// remarkOut is free prose about a feature, from a publication or from the
+// account owner. Different from featureNoteOut despite both being called
+// notes: one is a dated condition about getting there, the other is about
+// the place.
+type remarkOut struct {
+	Text   string  `json:"text"`
+	Source *string `json:"source,omitempty"`
+}
+
+// loadFeatureNotes fills the two note kinds the Notes tab shows.
+func loadFeatureNotes(out *featureShow, id string) error {
+	out.Notes = []featureNoteOut{}
+	out.Remarks = []remarkOut{}
+
+	rows, err := db.Query(`
+		SELECT severity, text, source, observed_on::text
+		FROM feature_notes WHERE feature_id = $1
+		ORDER BY observed_on DESC NULLS LAST, id`, id)
+	if err != nil {
+		return err
+	}
+	for rows.Next() {
+		var n featureNoteOut
+		var on sql.NullString
+		if err := rows.Scan(&n.Severity, &n.Text, &n.Source, &on); err != nil {
+			rows.Close()
+			return err
+		}
+		if on.Valid {
+			n.ObservedOn = &on.String
+		}
+		out.Notes = append(out.Notes, n)
+	}
+	rows.Close()
+
+	rows, err = db.Query(`
+		SELECT text, source FROM notes
+		WHERE feature_id = $1 AND coalesce(text, '') <> '' ORDER BY id`, id)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var r remarkOut
+		var src sql.NullString
+		if err := rows.Scan(&r.Text, &src); err != nil {
+			return err
+		}
+		if src.Valid && src.String != "" {
+			r.Source = &src.String
+		}
+		out.Remarks = append(out.Remarks, r)
+	}
+	return nil
 }
 
 // showFeatureFacts backs /admin/features/{id}.
@@ -587,7 +575,10 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		SELECT c.field,
 		       f.confidence_stage, f.confidence_score, f.value, f.units, f.notes,
 		       c.id, c.group_id, cg.source, cg.url, cg.identity_certain,
-		       c.value, c.accepted, c.note
+		       c.value, c.normalized_value, c.parenthetical,
+		       parenthetical_kind(c.parenthetical, c.field),
+		       claim_units(c.value #>> '{}', c.field),
+		       c.accepted, c.note
 		FROM claims c
 		JOIN claim_groups cg ON cg.id = c.group_id
 		LEFT JOIN facts f ON f.feature_id = c.feature_id AND f.key = c.field
@@ -608,11 +599,14 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var field string
 		var stage, factValue, units, notes, url, claimNote sql.NullString
+		var parenthetical, parentheticalKind, claimUnits sql.NullString
+		var normalized []byte
 		var score sql.NullFloat64
 		var c fieldClaimRow
 		if err := rows.Scan(&field, &stage, &score, &factValue, &units, &notes,
 			&c.ID, &c.GroupID, &c.Source, &url, &c.IdentityCertain,
-			&c.Value, &c.Accepted, &claimNote); err != nil {
+			&c.Value, &normalized, &parenthetical, &parentheticalKind,
+			&claimUnits, &c.Accepted, &claimNote); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -621,6 +615,18 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		}
 		if claimNote.Valid {
 			c.Note = &claimNote.String
+		}
+		if len(normalized) > 0 {
+			c.Normalized = json.RawMessage(normalized)
+		}
+		if parenthetical.Valid {
+			c.Parenthetical = &parenthetical.String
+		}
+		if parentheticalKind.Valid {
+			c.ParentheticalKind = &parentheticalKind.String
+		}
+		if claimUnits.Valid {
+			c.Units = &claimUnits.String
 		}
 
 		sec, ok := byField[field]
@@ -652,6 +658,11 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 	// refresh them from the map rather than duplicating the append logic.
 	for i := range out.Sections {
 		out.Sections[i].Claims = byField[out.Sections[i].Field].Claims
+	}
+
+	if err := loadFeatureNotes(&out, id); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")

@@ -1,0 +1,149 @@
+/* Chrome shared by the admin pages.
+ *
+ * Nine pages carry the same header and nav, and admin-nav.js exists so the
+ * links live in one file rather than nine. Their appearance had stayed behind
+ * in nine copies of an inline style block, which is how a nav ends up looking
+ * different depending on which page you reached it from. This is the other
+ * half of that: injected by the same script, so a change reaches all nine.
+ */
+
+/* The page itself. Light theme paints the body a flat #eef1ec, which reads as
+ * grey once there is a photograph above it to compare against. A near-white
+ * sheet lets the hero be the only colour on the page, which is the point of
+ * having one. Dark theme keeps its pine; it never had the problem. */
+:root[data-theme="light"] body,
+:root[data-theme="topo"] body { background: #fbfcfa; }
+
+/* Full bleed. The header used to sit inside the 900px column with the banner
+ * boxed in beside it, so the photograph read as an illustration dropped into
+ * the page rather than as the top of it. */
+.admin-hero {
+  position: relative;
+  background-size: cover;
+  background-position: center 55%;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 22px;
+}
+
+/* A scrim, because the title has to stay legible over six different
+ * photographs -- one of them is a bright snowfield and another is a sunrise. */
+.admin-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(10, 24, 20, 0.48) 0%,
+    rgba(10, 24, 20, 0.18) 38%,
+    rgba(10, 24, 20, 0.30) 62%,
+    rgba(10, 24, 20, 0.78) 100%);
+}
+
+.admin-hero > * { position: relative; }
+
+/* Tall enough for the photograph to be a view rather than a strip, with the
+ * wordmark anchored at the bottom and the nav at the top.
+ *
+ * A column, deliberately, because as a row this depended on line layout and
+ * so landed differently from page to page. The wordmark and the nav were two
+ * items in a wrapping row; the pills fit, but they fit on a line of their own,
+ * so the row became two lines. align-content then stretched both to share the
+ * 260px, leaving the wordmark at the bottom of the upper line and the pills at
+ * the top of the lower one -- the two of them meeting in the middle, which is
+ * neither of the places either was asked to go.
+ *
+ * Reversed so the DOM keeps the wordmark first, where a screen reader should
+ * reach it, while the nav renders above it. */
+.admin-hero header.bar {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: stretch;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 18px 16px 22px;
+  min-height: 260px;
+  gap: 14px;
+}
+
+/* Only as wide as the words, so the link is not a full-width hit area. */
+.admin-hero .brand { align-self: flex-start; }
+
+/* Pin and wordmark together, the way the public pages set it. Over a
+ * photograph this is always on dark, whatever the theme is doing elsewhere. */
+.admin-hero .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'Metamorphous', serif;
+  font-weight: 400;
+  font-size: 2.15rem;
+  color: #f4f8f4;
+  text-shadow: 0 1px 10px rgba(10, 24, 20, 0.65);
+}
+
+.admin-hero .mark {
+  width: 57px; height: 57px; flex: none;
+  filter: drop-shadow(0 2px 6px rgba(10, 24, 20, 0.55));
+}
+
+/* The page's own name, now below the photograph where a document title goes.
+ * One level today; a longer trail would start here. */
+.page-title {
+  margin: 0 0 16px;
+  font-family: 'Metamorphous', serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--mist);
+}
+
+.admin-hero .sub {
+  width: 100%;
+  margin: 0;
+  color: rgba(244, 248, 244, 0.82);
+  font-size: 0.85rem;
+  text-shadow: 0 1px 8px rgba(10, 24, 20, 0.6);
+}
+
+/* Pills, matching the map's filters, so the admin side and the public side
+ * read as one site. They keep to the right by their own alignment: the auto
+ * left margin that did it before only worked while this was a row. */
+.admin-hero header.bar nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.admin-hero header.bar nav a {
+  padding: 5px 11px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: rgba(244, 248, 244, 0.86);
+  white-space: nowrap;
+  background: rgba(10, 24, 20, 0.3);
+}
+
+.admin-hero header.bar nav a:hover,
+.admin-hero header.bar nav a:focus-visible {
+  background: rgba(244, 248, 244, 0.22);
+  color: #fff;
+}
+
+.admin-hero header.bar nav a.current {
+  background: var(--filter-active);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+.admin-hero header.bar nav a.current .badge-count {
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+}
+
+@media (max-width: 640px) {
+  .admin-hero header.bar { min-height: 170px; padding: 14px 16px 16px; }
+  .admin-hero .mark { width: 46px; height: 46px; }
+  .admin-hero .brand { font-size: 1.7rem; }
+}

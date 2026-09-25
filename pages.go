@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"hash/fnv"
 	"html/template"
 	"log"
 	"net/http"
@@ -38,6 +39,11 @@ type areaPage struct {
 	Canonical string
 	Title     string
 	Descr     string
+	Banner    banner
+	// Which nav link to mark as current. Empty on a page that is not one of
+	// the nav destinations, which is right for a single area: it sits under
+	// Areas without being it.
+	Nav string
 }
 
 type areaListing struct {
@@ -52,6 +58,46 @@ type areaIndex struct {
 	Canonical string
 	Title     string
 	Descr     string
+	Nav       string
+	Banner    banner
+}
+
+// The banners the server-rendered pages rotate through. jw's own
+// photographs, cropped to the banner's shape and resampled so none of them
+// costs more than a quarter of a megabyte -- these pages get opened on phone
+// signal at trailheads.
+//
+// The alt text describes the photograph rather than naming a waterfall,
+// because most of these are ridge lines rather than a place we carry, and a
+// caption that names the wrong fall is worse than one that names none.
+type banner struct {
+	File string
+	Alt  string
+}
+
+var banners = []banner{
+	{"banner-frozen-falls.jpg",
+		"A frozen waterfall at sunrise, mist glowing gold through bare trees above the ice"},
+	{"banner-creek.jpg",
+		"A side cascade dropping into a creek running high through rhododendron and bare hardwoods"},
+	{"banner-blue-ridges.jpg",
+		"Layered blue ridges at dawn under a pink and orange sky"},
+	{"banner-red-sun.jpg",
+		"A red sun rising over ridge lines with fog settled in the valleys"},
+	{"banner-cloud-light.jpg",
+		"Late light breaking through tall clouds over green ridges"},
+	{"banner-branch-sunset.jpg",
+		"Sunset over wooded hills, framed by an overhanging branch"},
+}
+
+// Which banner a page gets. Chosen from the URL rather than at random, so a
+// page looks the same every time you open it -- a banner that changes under
+// you on a refresh reads as a glitch, not as variety. Different pages still
+// differ, which is the point.
+func bannerFor(canonical string) banner {
+	h := fnv.New32a()
+	h.Write([]byte(canonical))
+	return banners[int(h.Sum32())%len(banners)]
 }
 
 var pageTemplates *template.Template
@@ -93,7 +139,6 @@ func areasWithCounts() ([]areaListing, error) {
 		FROM areas
 		JOIN feature_areas ON feature_areas.area_id = areas.id
 		JOIN features ON features.id = feature_areas.feature_id
-		WHERE features.deprecated_reason IS NULL
 		GROUP BY areas.name, areas.slug
 		ORDER BY count(*) DESC, areas.name`)
 	if err != nil {
@@ -120,6 +165,8 @@ func areaIndexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	page := areaIndex{
 		Areas:     areas,
+		Nav:       "areas",
+		Banner:    bannerFor("https://wanderfall.app/areas"),
 		Canonical: "https://wanderfall.app/areas",
 		Title:     "Waterfalls of Western North Carolina, by area - Wanderfall",
 		Descr: "Every area we carry waterfalls in, from Brevard and DuPont to " +
@@ -151,7 +198,7 @@ func areaHandler(w http.ResponseWriter, r *http.Request) {
 		FROM features
 		JOIN feature_areas ON feature_areas.feature_id = features.id
 		JOIN areas ON areas.id = feature_areas.area_id
-		WHERE areas.slug = $1 AND features.deprecated_reason IS NULL
+		WHERE areas.slug = $1
 		ORDER BY features.name`, slug)
 	if err != nil {
 		log.Printf("area page %s: %v", slug, err)
@@ -161,6 +208,8 @@ func areaHandler(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	page := areaPage{Name: name, Slug: slug,
+		Nav:       "areas",
+		Banner:    bannerFor(slug),
 		Canonical: "https://wanderfall.app/areas/" + slug}
 	for rows.Next() {
 		var f areaFeature

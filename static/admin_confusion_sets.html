@@ -149,7 +149,7 @@
       document.title = set.name + ' · Wanderfall';
 
       const members = set.members.map((mem) =>
-        '<a href="/admin/claims?feature=' + mem.feature_id + '">' + esc(mem.name) +
+        '<a href="/admin/features/' + mem.feature_id + '">' + esc(mem.name) +
         '</a>').join('');
 
       const entries = set.entries.length

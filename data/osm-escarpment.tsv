@@ -1,0 +1,1426 @@
+node_id	osm_name	lat	lon	watercourse	feature_id	feature_name	metres
+266566621	Laurel Falls	35.6775012	-83.5931335	Laurel Branch			
+309814375	Looking Glass Falls	35.2962199	-82.7687623	Looking Glass Creek	378	Looking Glass Falls	6
+331531531	Upper DeSoto Falls	34.7170515	-83.9157116				
+331531543	Lower DeSoto Falls	34.7072183	-83.9173303				
+331962593	L'Eau d'Or Falls	34.739848	-83.3937836	Tallulah River			
+331962597	Tempesta Falls	34.7390026	-83.3927047	Tallulah River			
+331962601	Hurricane Falls	34.7385657	-83.3911955	Tallulah River			
+331962680	Oceana Falls	34.7377451	-83.3882591	Tallulah River			
+331962692	Bridal Veil Falls	34.7350526	-83.3851635	Tallulah River			
+346428568	Amicalola Falls	34.567412	-84.2442749				
+346483887	Waterfall #4	34.509822	-84.2991559	Fall Creek			
+346503826	Fall Creek Waterfall	34.515107	-84.318367	Fall Creek			
+347954637		36.1288019	-80.2840233				
+348737422	Jacks River Falls 80	34.9718762	-84.5725715	Jacks River			
+348809500		34.6554068	-84.6072966	Tails Creek			
+348834702		34.788338	-84.712513				
+348905535	Emery Creek Upper Falls (3,4,5) 15, 40, 15	34.833808	-84.630114	Emery Creek			
+348905664	Emery Creek Lower Falls (1,2) 60, 15	34.831704	-84.632367	Emery Creek			
+349362397		34.957275	-83.1200627	Chattooga River			
+358715503	Raven Cliff Falls	34.7231789	-83.8238445				
+374229943	Duke Creek Falls	34.7027015	-83.7922314	Davis Creek			
+374449742		34.718118	-83.806194	Dodd Creek			
+374450117		34.71774	-83.803231	Dodd Creek			
+374530299		34.730261	-83.920758	Frogtown Creek			
+375062613		34.723544	-83.921299				
+375062788		34.722879	-83.919041				
+375062855		34.722382	-83.9182				
+375370026	Horse Trough Falls	34.7920985	-83.7874727	Chattahoochee River			
+375416944	Blood Mountain Creek Falls	34.734888	-83.943254	Blood Mountain Creek			
+376627557		34.699119	-83.952019	Blood Mountain Creek			
+377137854		34.708064	-83.921082				
+377137999		34.708053	-83.919763				
+401105574		34.9710797	-82.8446088	Peach Orchard Branch			
+401150019		34.947241	-83.500212				
+403909513	Upper Whitewater Falls	35.036061	-83.0177683	Whitewater River	394	Whitewater Falls	13
+403920193	Hidden Falls	34.8797476	-83.0902663				
+403949794	Aggrandizement Falls	35.06464	-83.03996	Democrat Creek			
+403955043	Brasstown Falls	34.718622	-83.304351	Brasstown Creek	337	Brasstown Falls	77
+403955071		34.718758	-83.304795	Brasstown Creek			
+403955089		34.718802	-83.305112	Brasstown Creek			
+403990726	John Fisher Falls	35.156161	-82.9726087	Toxaway River			
+404003842	Paris Falls	35.133602	-82.961626				
+404003845	Avery Falls	35.1335621	-82.960857				
+404003859	Little Deep Ford Falls	35.1341275	-82.9585299				
+404033373	Triple Falls	35.0257032	-82.8166324	Reedy Cove Creek			
+404033402	Euphoria Falls	35.0228116	-82.8186388	Reedy Cove Creek			
+404033462	Twin Falls	35.013643	-82.818362	Reedy Cove Creek	406	Twin Falls (SC)	36
+404098781	Cedar Creek Falls	34.7624216	-83.1896875	Cedar Creek			
+404098791	Blue Hole Falls	34.7617273	-83.1896004	Cedar Creek			
+404132436	Devils Hole Creek Falls	35.0142888	-82.9025173	Devils Hole Creek	880	Devil's Hole Falls	17
+404140350		35.0307037	-82.7708406				
+404150404	Bearcamp Creek Falls	35.043972	-82.9448854	Bearcamp Creek			
+404319344	Lower Bearwallow Falls	35.0792869	-82.9044682	Bearwallow Creek	429	Lower Bearwallow Falls	23
+404352485	Middle Poe Creek Falls	34.9370334	-82.8795365	Poe Creek			
+404352512	Lower Poe Creek Falls	34.9366211	-82.8817693	Poe Creek			
+404487560	Hidden Dome Falls	35.0561594	-82.9947628		811	Hidden Dome Falls	85
+404520533		35.0577091	-82.7879192				
+404520991	Horsehead Point Falls	34.709144	-82.865657				
+404574986	Toccoa Falls	34.5961896	-83.3604954	Toccoa Creek			
+404598573	Rock Creek Falls	35.0642454	-82.8730944	Rock Creek			
+404669628	Indian Branch Falls	35.085909	-82.9263979	Bearwallow Creek	914	Indian Branch Falls	72
+404669774	Bear Canyon Falls	35.080474	-82.91279	Bearwallow Creek	916	Bear Canyon Falls	51
+404669787	Teds Falls	35.0795844	-82.9120213	Bearwallow Creek	916	Bear Canyon Falls	71
+405339117	Twin Falls	35.0794341	-83.0082241	Thompson River	1110	Twin Falls (Thompson River)	14
+405347041		35.0099429	-82.8313128	Laurel Creek			
+405352190	Upper Scotsman Creek Falls	35.0185404	-83.1125144	Scotsman Creek	642	Upper Scotsman Falls	29
+405352217	Scotsman Creek Falls	35.0166594	-83.1121234	Scotsman Creek	368	Scotsman Falls	3
+405352245	Lower Scotsman Creek Falls	35.0150696	-83.1121351	Scotsman Creek			
+405375280	Rudis Falls	35.055639	-82.963472		1243	Uppermost Waterfall on Road Prong	27
+405415643	Opossum Creek Falls	34.7572711	-83.3143643	Opossum Creek	335	Opossum Creek Falls	28
+405429389		34.803993	-83.129363	Yellow Branch			
+405446907	Simon Falls	35.063455	-82.9876828	Thompson River	540	Simon's Falls	9
+405483280	Deadfall Falls	34.9285096	-83.0912435	Crane Creek			
+405483287	Prospector Falls	34.928276	-83.0910501	Crane Creek			
+405483304	Yellow Jacket Falls	34.9276396	-83.0903851	Crane Creek			
+405483342	Crane Creek Falls	34.927083	-83.0899059	Crane Creek			
+405483452	Crane Falls	34.924999	-83.082252	Crane Creek	1027	Lower Crane Creek Falls	16
+405522543	Reedy Branch Falls	34.8050228	-83.2813277	Reedy Branch			
+405579986	Minnehaha Falls	34.747183	-83.480228	Falls Branch			
+405686134	Meadow Falls	34.7207711	-82.8358925				
+405764667		34.9736703	-83.0511017	Bee Creek			
+405781741	Slick Stick Falls	35.018889	-83.165973	Little Creek	641	Slick Stick Falls	45
+405803249	Long Creek Falls	34.7855494	-83.3225475	Long Creek			
+405807338	Lower Miuka Falls	34.9324161	-83.0852152	West Fork Crane Creek	1024	Miuka Falls	71
+405824210	Great Falls	35.076558	-82.8775462	Toxaway Creek			
+405833078	Silver Ribbon Falls	34.9458936	-82.8082008				
+405852207	Blue Valley Falls	35.0323383	-83.2619295	Abes Creek			
+405894974	Little Brasstown Falls	34.7171233	-83.302561	Little Brasstown Creek	592	Little Brasstown Falls	53
+405920351	Hemlock Falls	34.852712	-83.610809	Moccasin Creek			
+405934292	Rock Palace Falls	35.0439511	-82.7778097				
+405946576	Glen Falls	35.0316952	-83.2382418	East Fork Overflow Creek	331	Glen Falls	50
+405946665	Spoonauger Falls	34.9746114	-83.1097782		371	Spoonauger Falls	7
+405961060	Never Ending Falls	34.9975923	-82.8658393	Kinney Branch	1087	Never-Ending Falls	2
+405962538	Sids Falls	34.7557666	-83.3077551	Shoulder Bone Branch	981	Sid's Falls	35
+406003635	Station Cove Falls	34.8495872	-83.0858152	Station Creek	404	Station Cove Falls	37
+406117836	Nasty Falls	35.0512092	-83.049633	Whitewater River			
+406169113	High Falls	35.0703716	-82.9943965	Thompson River	362	High Falls- Thompson River	9
+406175540	Toxaway Falls	35.1240058	-82.9311676	Toxaway River	468	Toxaway Falls	13
+406194419	Jim Lee Falls	34.8448066	-83.0971966	Lee Branch			
+406195847		34.7713795	-83.478253	Joe Creek			
+406220969	Upper Long Creek Falls	34.7792991	-83.2913833	Long Creek			
+406220981	Middle Long Creek Falls	34.7806276	-83.2930505	Long Creek			
+406227770	Persistence Falls	35.0648377	-82.8262372				
+406240568	Double Drop Falls	35.098144	-82.89631	Auger Fork Creek	810	Double Drop Falls	10
+406240878	Auger Hole Falls	35.092073	-82.89638	Auger Fork Creek	542	Auger Fork Falls	36
+406271641	Frozen Creek Shoals	35.09605	-82.875745	Frozen Creek			
+406275883	Stonewall Falls	34.820854	-83.450039	Stonewall Creek			
+406284381	Slippery Witch Falls	35.069277	-83.013007	Mill Creek	317	Slippery Witch Falls	21
+406284411	John's Jump	35.0678427	-83.0073151	Mill Creek	346	John's Jump Falls	62
+406284440	Tumblin' Fun Falls	35.0719292	-83.001019	Mill Creek	1109	Tumblin' Fun Falls	15
+406294057	Corbin Creek Falls	35.034716	-83.0118942	Corbin Creek	949	Laurel Falls (Corbin Creek)	60
+406325514	Fall Creek Falls	34.8189132	-83.2664945	Fall Creek	1304	Main Falls (Fall Creek)	27
+406337276	Maxie Duke Falls	34.7545054	-83.308652	Opossum Creek			
+406418982	Camp Branch Falls	34.764576	-83.308907	Camp Branch	1005	Camp Branch Falls (SC)	16
+406419606	Wildcat Creek Falls	34.75872	-82.85191	Wildcat Creek			
+406432329	Horse Bone Falls	34.8836697	-83.091269	Horse Bone Branch			
+406485810	Longnose Creek Falls	34.6456564	-83.253325	Longnose Creek			
+406514138	Raven Rock Falls	35.157937	-82.981805	Toxaway River	521	Waterfall on Trib #1 of Toxaway River	18
+406539075	Clearwater Falls	34.920907	-82.880911				
+406556100	Battle Creek Falls	34.711642	-83.341065	Battle Creek			
+406570548	Reid Branch Falls	35.0703304	-82.9869825	Reid Branch	541	Reid Branch Falls	19
+406574904		35.0403408	-82.8162349	Eastatoe Creek			
+406697761	Panther Creek Falls	34.676798	-83.388032	Panther Creek			
+406709298	Double Spring Mountain Falls	34.996657	-82.971171		1225	Double Spring Mountain Falls	2
+406711754	Mizelle Falls	34.9472462	-82.8113741				
+406879631	Lohr's Falls	34.7973662	-83.1362165				
+406930867	Isaqueena Falls	34.806862	-83.121473	Cane Creek	403	Issaqueena Falls	31
+406964014	Bone Camp Creek Falls	34.80478	-83.177807	Bone Camp Creek			
+406972315	Maple Spring Branch Falls	35.0920058	-82.8957932	Maple Spring Branch	542	Auger Fork Falls	77
+406997450	Fall Creek Falls	34.8890522	-82.912818	Fall Creek			
+407248686	Upper Bearwallow Falls	35.1029215	-82.9431698	Bearwallow Creek			
+407248858	Indian Camp Falls	35.0885625	-82.9402623	Bearwallow Creek	704	Indian Creek Falls	41
+408065510	Paw Paw Falls	35.0879611	-82.937741	Bearwallow Creek			
+408094325	White Owl Falls	35.0765088	-82.9972686	Thompson River	318	White Owl Falls	12
+433789139		36.0488536	-79.0125614	Stony Creek			
+446317543	Upper Hungry River Falls	35.300041	-82.350498	Big Hungry River Dam | Hungry River			
+446317546	Pacolet Water Falls	34.9218791	-81.7461382	Pacolet River | Upper Pacolet Dam			
+446332797	OMG Falls	35.129739	-82.607745		1122	OMG Falls (SC)	18
+446388489	Hank Hill Falls	35.140866	-82.5232796	Bluff Branch			
+446388495	Sweetest Thing Falls	35.1391459	-82.5209822	Bluff Branch			
+446420481		35.0290153	-82.747639				
+446428577	Reedy River Falls	34.8449933	-82.4009308	Reedy River			
+446431784	Ghosted Falls	35.1492674	-82.5442327	Falls Creek			
+446431792	Shiprock Falls	35.148063	-82.543443	Falls Creek			
+446431840	Upper Falls Creek Falls	35.1409347	-82.5381045	Falls Creek			
+446431844	Falls Creek Falls	35.1399963	-82.5376814	Falls Creek	599	Falls Creek Falls	23
+446441225		35.0060381	-82.7606228	Emory Creek			
+446441238	Good Golly Falls	35.0039065	-82.7607616	Emory Creek			
+446441239	Gauley Falls	35.0036831	-82.7603998	Emory Creek			
+446441986	Pleasant Ridge Falls	35.0881596	-82.4801314	Mill Creek			
+446486700	Confusion Falls	35.0932768	-82.6319238		675	Confusion Falls	9
+446491275		35.100276	-82.6313672				
+446497191	Confluence Falls	35.127628	-82.609196		1123	Confluence Falls (SC)	4
+446497198	Bluff Falls	35.1266041	-82.609416		1124	Bluff Falls (SC)	1
+446498743	Zen Falls	35.1602679	-82.4865371				
+446523628	Lower Heritage Falls	35.0816188	-82.6053787	Slickum Creek			
+446537350		35.1461307	-82.5168974	Tankersley Branch			
+446548521	Shower Bath Falls	35.134366	-82.588689	Cox Camp Creek			
+446583219		35.0099483	-82.7629809				
+446583250		35.0036528	-82.7622835				
+446590596		35.1387835	-82.5344514	Little Falls Creek			
+446590603		35.137216	-82.5342603	Little Falls Creek			
+446607990		35.0053826	-82.752091				
+446612709	Pinnacle Mountain Falls	35.0303672	-82.7241222				
+446635153	Ashmore Falls	35.0893237	-82.5795019		974	Ashmore Falls	95
+446644635		35.073978	-82.6120684				
+446646828	Pinball Falls	35.1490433	-82.5090993	Peters Branch			
+446646835	Bailey's Falls	35.1477815	-82.5083793	Peters Branch			
+446869996	Rachaels Raceway	35.0157041	-82.7343788	Rachael Creek			
+446887411	Tommy Wyche Falls	35.1583784	-82.5024547	Cherry Branch			
+446973982	Raven Cliff Falls	35.105161	-82.661071	Matthews Creek	372	Raven Cliff Falls	60
+450839251		34.9360498	-82.390625	Mountain Lake Dam D-2854			
+451173833		34.9410414	-82.3980215				
+451173853		34.940595	-82.39633				
+451907932		35.1183445	-82.3791827				
+451907957		35.117322	-82.379333				
+451961862	Buffalo Creek Falls	34.8724503	-81.8847407	Buffalo Creek			
+458457624		34.8178588	-82.4043335	Brushy Creek			
+462330440	Hickory Nut Falls	35.4330267	-82.2595196	Fall Creek	343	Hickory Nut Falls	8
+462546733	Stairstep Falls	35.277922	-82.3173799	Stair Step Creek	1237	Stairstep Falls	26
+462675982	Sally Queen Falls	35.5778199	-81.7401914	North Fork Sally Queen Creek			
+462706244	Pacolet Falls	35.2093958	-82.3554375	North Pacolet River			
+462721690	Pot Branch Falls	35.5612134	-81.7171885	Pot Branch	685	Pot Branch Falls	8
+462728052	Oleta Falls	35.339004	-82.340072	Little Hungry River			
+462999055	Bradley Cooper Falls	35.283387	-82.274536	Little Cove Creek	586	Bradley Cooper Falls	22
+463007924	Broad River Falls	35.4865653	-82.2787379	Broad River			
+463031299	Case Falls	35.2889151	-82.3593314		590	Case Falls	48
+463045775	Emily Falls	35.2858092	-82.3202878	Bishop Branch	589	Emily Falls	29
+463073864		35.3129025	-82.3475156				
+463077253		35.196921	-82.474118	Falling Creek			
+463086918	Leland Falls	35.2095976	-82.3557588	Leland Creek			
+463093632	Marilou Bradley Falls	35.2835734	-82.2741628		587	Marilu Bradley Falls	24
+463128270	Milton Bradley Falls	35.2845942	-82.2772451	Little Cove Creek			
+480198307	Tise falls	36.39663	-80.269898		491	Upper Cascade Falls	47
+481598962	Rider Falls	36.397809	-80.3731825				
+482296626	Lower Cascades	36.4148251	-80.2683965	Cascade Creek	495	Lower Cascade Falls	28
+482324081	Fall Creek Falls	36.5412139	-79.9847321	Fall Creek	933	Fall Creek Falls (Hanging Rock)	1
+497982604	Bullhead Creek Falls	36.3996781	-81.0614553	Bullhead Creek			
+498207296	Middle Falls	36.3805661	-81.0403988	Big Sandy Creek	529	Lower Falls at Stone Mountain	27
+498250649	Upper Widows Creek Falls	36.404324	-81.084842	Widows Creek			
+498254554	Stone Mountain Falls	36.3809869	-81.0342182	Big Sandy Creek	508	Stone Mountain Falls (Little Falls)	2
+498512558	Silvervale Falls	36.0487339	-81.5944444		765	Silvervale Falls	59
+498545629	Carter Falls	36.2885789	-80.8848938	Elkin Creek			
+535488044	Bear Den Falls	35.90374	-81.967001		898	Bear Den Falls	23
+535528405	Upper Steels Creek Falls	35.945313	-81.857802	Steels Creek	789	Upper Steels Creek Falls	26
+535528439	Newt Falls	35.9452148	-81.8560681	Steels Creek	790	Newt Falls	14
+535562251		36.1244066	-81.6963778	China Creek			
+535590040	Slick Falls	35.6915152	-82.2060912	Slick Falls Branch	892	Slick Falls	18
+535648029	Upper Linville Falls	35.9501675	-81.9278086	Linville River	395	Linville Falls	8
+535686355	Adako Falls	35.913381	-81.688181				
+535737774	Upper Catawba Falls	35.6019545	-82.2474795	Catawba River	821	Upper Catawba Falls	8
+535741570	Glen Burney Falls	36.1234708	-81.6841541	New Years Creek	420	Glen Burney Falls	25
+535770693	Lower Thunderhole Falls	36.1034318	-81.6961786	Thunderhole Creek	769	Lower Thunderhole Falls	2
+535845475	Harper Creek Falls	35.9830458	-81.7797249	Harper Creek	367	Harper Creek Falls	35
+535853004		35.5757238	-80.836847	Reeds Creek			
+536028561	Toms Creek Falls	35.777648	-82.0624363	Toms Creek	398	Tom's Creek Falls	76
+536167786	Burnthouse Branch Falls	35.950961	-81.822583	Burnthouse Branch	945	Burnthouse Branch Falls	21
+536202095	Phillips Branch Falls	35.968335	-81.771502	Phillips Branch	785	Phillips Branch Falls	51
+536221034	Buck Creek Falls	35.911241	-81.849728	Buck Creek	903	Buck Creek Falls	27
+536247975	Teacups Falls	35.924828	-81.847154	Steels Creek	793	Teacup Falls	21
+536247995	Beverly Hillbilly Falls	35.923476	-81.847417	Steels Creek	794	Beverly Hillbilly Falls	6
+536248089	Steels Creek Falls	35.91903	-81.847563	Steels Creek	311	Steels Creek Falls	17
+536252369	Upper Little Lost Cove Falls	36.021485	-81.830813	Little Lost Cove Creek	782	Upper Little Lost Cove Falls	31
+536269240		36.1233422	-81.6966092	China Creek			
+539624449	High Shoals Falls	35.594435	-81.6355368	Jacob Fork	363	High Shoals Falls	8
+539699726	Little Long Creek Falls	35.333914	-81.220076	Little Long Creek			
+541281126		36.6368006	-81.520662	Cabin Creek			
+541944586		36.4236986	-81.5940414				
+542312054		36.4198094	-81.5967894				
+545214997	Scandin Falls	35.0847254	-83.2669136	Cullasaja River	552	Scadin Falls	45
+545240551	Townhouse Falls	35.342894	-83.586534	Townhouse Branch	759	Townhouse Falls	15
+545275786	Inside Passage Falls	35.285706	-83.676938	Ledbetter Creek	1203	Inside Passage Falls	19
+545284961	Hazel Creek Cascades	35.5450523	-83.5828928	Hazel Creek	925	Hazel Creek Cascades	10
+545881967	Dry Falls	35.0686293	-83.2389952	Cullasaja River	360	Dry Falls	9
+545945764	Big Laurel Falls	35.0181168	-83.5058299	Big Laurel Branch	326	Big Laurel Falls	51
+545971561	Mooney Falls	35.028437	-83.497302	Hemp Patch Branch			
+546016353	Bridal Veil Falls	35.0719057	-83.228884		553	Bridle Veil Falls (Highlands)	2
+547024189	Greenland Creek Falls	35.1507426	-82.9980049	Greenland Creek	344	Greenland Creek Falls	5
+547057017	Big Branch Falls	35.228591	-83.050856	Big Branch	990	Big Branch Falls	5
+547059132	Sols Creek Falls	35.2377592	-83.0350359	Sols Creek	992	Sols Creek Falls	55
+547074675	Upper Buff Creek Falls	35.4285339	-83.1565486	Buff Creek	753	Buff Falls	14
+547145038	Gina Falls	35.4388308	-83.1903272	Fisher Creek	905	Gina Falls	32
+547146876	Roy Taylor Falls	35.279396	-83.012553	Sols Creek	654	Roy Talyor Falls	22
+547157494	High Falls	35.203748	-83.159848	West Fork Tuckasegee River	431	High Falls (Cullowhee Falls)	39
+547194461	Lower Bald Knob Falls	35.251456	-82.938231				
+547200429	Wilderness Falls	35.1640427	-83.0423623		1264	Wilderness Falls	7
+547204116	Verde Falls	35.2232758	-83.0451115	Robinson Creek	991	Verde Falls	18
+547205877	Julie Falls	35.1826112	-83.0661374	Mill Creek			
+547214685	Cavern Falls	35.238707	-82.953887		735	Lower Cavern Falls	89
+547220765	Rock Slab Falls	35.54452	-83.507307	Forney Creek			
+547223988	Woodfin Falls	35.4490261	-83.1007793	Woodfin Creek			
+547247587	Frolictown Falls	35.1620539	-83.038169	Frolictown Creek	1265	Frolictown Falls	8
+547251522	Upper Bear Creek Falls	35.4706959	-83.5773259	Bear Creek	1001	Upper Bear Creek Falls	5
+547260950	Lower Buff Creek Falls	35.4269538	-83.1570441	Buff Creek	752	Lower Buff Falls	79
+547286956	Patricia Falls	35.2644106	-82.9703126	Wolf Creek	964	Patricia Falls	9
+547288692	Mingo Falls	35.5318253	-83.2749009	Mingo Creek	324	Mingo Falls	18
+547288708	Upper Sols Creek Falls	35.2635539	-83.0191497	Sols Creek	345	Upper Sols Creek Falls	8
+547290106	Yanu Branch Cascade	35.534363	-83.563447	Yanu Branch			
+547343685	Paradise Falls	35.2245934	-83.0055034	Wolf Creek			
+547351412	Jonas Creek Falls	35.51973	-83.555653	Jonas Creek	1111	Jonas Creek Falls	88
+547352017	Onion Cliff Falls	35.214678	-83.120816	Trout Creek			
+547356231	Gage Creek Falls	35.292342	-82.9749928	Gage Creek	652	Gage Creek Falls	23
+547357400	Betsy Falls	35.217689	-83.132694	Betsy Branch			
+547362689	Indian Creek Falls	35.4727291	-83.4272678	Indian Creek	352	Indian Creek Falls	16
+547364491	Mac's Falls	35.1551709	-83.0039788	Greenland Creek	1256	Mac’s Falls	91
+547370619	Soco Falls	35.4924142	-83.1696647	Soco Creek	325	Soco Falls	20
+547373684	Will Falls	35.180611	-83.066808	Robinson Creek			
+547380992	Granny Burrell Falls	35.162806	-83.0288043	Panthertown Creek	1266	Granny Burrell Falls	1
+547417340	Doe Branch Falls	35.210163	-83.008829	Doe Branch			
+547440405		35.4356857	-83.1917217	Fisher Creek			
+547444856	Schoolhouse Falls	35.1630198	-83.0067326	Greenland Creek	391	Schoolhouse Falls	31
+548338400	Lower Cold Branch Falls	35.345958	-83.992493	Cold Branch	721	Lower Cold Branch Falls	9
+548352079	Bald River Falls	35.324344	-84.17775	Bald River			
+548440832	Yellow Creek Falls	35.4193424	-83.8859164	Yellow Creek	720	Yellow Creek Falls	7
+548553523	Falls Branch Falls	35.355347	-84.064622	Falls Branch			
+548757136	Blue Boar Falls	35.287883	-84.008173		817	Hooper Falls	20
+548846899	Upper Cold Branch Falls	35.347769	-83.99593	Cold Branch	722	Upper Cold Branch Falls	15
+549871257	Dennis Cove Waterfall	36.252764	-82.099983	Laurel Fork			
+549908998	Laurel Falls	36.272754	-82.134928	Laurel Fork			
+549919303	Jones Falls	36.2029874	-81.9822407	Jones Branch	421	Jones Falls	42
+550014491	Hebron Colony Falls	36.1549901	-81.7355251	Boone Fork	376	Hebron Colony Falls	33
+550015635	Blue Hole Falls	36.4327958	-82.0721333	Mill Creek			
+550330640	Laurel Creek Falls	36.2524514	-81.8528432	Laurel Creek			
+550437632		35.1774116	-82.6201468	Little River			
+550539230	Dudley Falls	35.9625609	-82.8673439	Paint Creek			
+550548990	Hickey Fork Falls	35.9954913	-82.7177038	West Prong Hickey Fork	826	West Prong Hickey Fork Falls	38
+550593816		36.0201209	-82.6608973	Whiteoak Flats Branch	755	Whiteoak Flats Falls	32
+550611334	Glassmine Falls	35.7354354	-82.331273	Glassmine Branch			
+550685670	Upper Little Moore Cove Falls	35.312486	-82.778636		955	Upper Little More Cove Falls	20
+550685674	Little Moore Cove Falls	35.3120064	-82.778603		505	Little Moore Cove Falls	10
+550692310		35.6387543	-82.4158795	Long Branch			
+550709339	Cove Creek Falls	35.2940746	-82.8174565	Cove Creek	313	Cove Creek Falls	33
+550739493	Gemini Falls	35.281903	-82.854004		682	Gemini Falls	43
+550759948	Cliff Dwellers Cascade	35.835889	-82.968455	Trail Fork			
+550773263	Claypole Branch Falls	35.1109872	-82.8233215	Claypole Branch			
+550781122	Cathey's Creek Falls	35.2262806	-82.8026342	Catheys Creek	340	Catheys Creek Falls	6
+550787131	Hidden Falls	35.314795	-82.787452	Looking Glass Creek	502	Unnamed Waterfall on Looking Glass Creek #2	4
+550788376	Log Hollow Falls	35.3238412	-82.8077333	Log Hollow Branch	377	Waterfall on Log Hollow Branch	14
+550805920	Slick Rock Falls	35.293222	-82.797477		583	Lower Slick Rock Falls	3
+550827169		35.196522	-82.701083	Hogsed Creek			
+550857362	Stick Biscuit Falls	35.184754	-82.720271				
+550857522	Wintergreen Falls	35.1978739	-82.5835968	Grassy Creek	506	Wintergreen Falls (DuPont)	17
+550872643		35.8730193	-82.8850898	East Fork Shut-In Creek			
+550883832	Bernie's Falls	35.1976373	-82.9300897	Miser Creek	545	Bernie's Falls	30
+550885043	Johnny Tiller Falls	35.3895891	-82.6907396	Slate Rock Creek			
+550895518	Trillium Falls	35.9964748	-82.6274631		825	Trillium Falls	10
+550901671	Devil's Canyon Falls	35.1691564	-82.9571742	Fork Creek	979	Devil's Canyon	14
+550901698	Stillhouse Falls	35.1690311	-82.9566948	Fork Creek	979	Devil's Canyon	35
+550901727	Elmo Falls	35.1707218	-82.9540016	Fork Creek	716	Elmos Falls	13
+550920025	Twin Falls	35.336757	-82.7603558	Henry Branch	379	Twin Falls (Henry Branch)	98
+550933971	Laughing Falls	35.2951973	-82.7020875	South Prong Turkey Creek	954	Laughing Falls	18
+550935883	Upper Beetree Fork Falls	35.252038	-82.891783	Beetree Fork			
+550940494	Shoal Creek Falls	35.2238915	-82.8612659	Shoal Creek	481	Shoal Creek Falls	6
+550964070	Wolf Creek Falls	35.8664529	-82.9298358	Wolf Creek			
+550967295	Laurel Fork Falls	35.2790611	-82.8575552	Laurel Fork	683	Laurel Fork Falls	14
+550972910	Avery Creek Falls	35.3203611	-82.7531889	Avery Creek			
+550975787	Sutton Falls	35.3050411	-82.6902303	Silver Creek			
+550987622	Spice Cove Falls	35.1706416	-82.8468466				
+551034809	Toms Spring Falls	35.2887377	-82.8268974		336	Lee Falls	19
+551055828	Douglas Falls	35.720936	-82.37429		401	Douglas Falls	28
+551657590	Grogan Creek Falls	35.271841	-82.80867	Grogan Creek			
+551674635	Twin Boulder Falls	35.309	-82.850875	Right Fork Davidson River	666	Twin Boulder Falls	27
+551677165	Upper Courthouse Falls	35.284014	-82.8994353	Courthouse Creek			
+551692782	Lake Falls	35.260116	-82.475237	Greer Creek			
+551799392	Johnnies Creek Falls	35.237166	-82.914104	Johnnies Creek	893	Johnnies Creek Falls	29
+551805707	Saxifrage Falls	35.259292	-82.776003	King Creek	584	Saxifrage Falls	18
+551816344	Merry Falls	35.200486	-82.6436376	East Fork Laurel Creek	482	Merry Falls	14
+551816403	Christmas Falls	35.2017006	-82.6436689	East Fork Laurel Creek			
+551834230		36.0407367	-82.6251685	Dry Creek			
+551857993	Hooker Falls	35.2018277	-82.6234273	Little River	417	Hooker Falls	45
+552033544	Needles Falls	35.8763701	-82.8032319				
+553132095	Buzzard Roost Falls	35.8220221	-83.1777197				
+553139812	Ivestor Ridge Falls	35.341725	-82.848955	Greasy Cove Prong	871	Ivestor Ridge Falls	18
+553194341	Upper Dark Prong Falls	35.331681	-82.857512	Dark Prong	822	Upper Dark Prong Falls	18
+553195027	Serpentine Falls	35.3285606	-82.8406723	Dark Prong	823	Serpentine Falls	50
+553196628	Bubbling Spring Branch Cascades	35.3136521	-82.9095319	Bubbling Spring Branch	427	Bubbling Springs Cascades (Guardrail Falls)	8
+553197727	Sam Branch Falls	35.3387271	-82.8912921	Sam Branch	838	Sam Branch Falls	21
+553244946	Wildcat Falls	35.3139905	-82.9043399	Silver Mine Branch	428	Wildcat Falls (Flat Laurel Creek)	32
+553274894	Lyn Lowry Falls	35.47434	-83.113758		1174	Lyn Lowry Falls	24
+553426013	Josiah Falls	36.114586	-82.535767	Devil Fork			
+553522441		36.1447696	-82.3209533	Dick Creek			
+553523925	Margarette Falls	36.0563196	-82.7172245	West Fork Dry Creek			
+553547250	Hell Hollow Falls	36.1343901	-82.5366065				
+553579914	Birchfield Camp Falls	36.088682	-82.5387605	Birchfield Camp Branch			
+553618477	Whiteoak Creek Falls	35.826703	-82.220571	Whiteoak Creek	573	Whiteoak Creek Falls	13
+553738060	Red Fork Falls	36.150134	-82.261681	Red Fork			
+553748255		36.1519725	-82.3268428	Dick Creek			
+553824151	Big Creek Falls	36.039489	-82.376329	Big Creek	888	Big Creek Falls	9
+553919530		35.9979425	-82.6062106	Sugarloaf Branch			
+553978613	Split Rock Falls	35.794507	-82.240994	Middle Creek, North Prong			
+553978625	Timber Falls	35.794331	-82.240711	Middle Creek, North Prong			
+553990237	Martin Creek Falls	36.11642	-82.389536	Martin Creek			
+554242324	Roaring Fork Falls	35.760239	-82.191723	Roaring Fork	399	Roaring Fork Falls	17
+554314839	Camp Celo Falls	35.8189299	-82.2149109	Locust Creek			
+554359432	Longarm Branch Falls	36.101978	-82.5518631	Longarm Branch			
+554367125	Fall Creek Falls	36.0787843	-82.0967355	Fall Creek			
+554421146	Pete's Branch Falls	36.0847971	-82.6503108	Petes Branch			
+554465643		36.1444516	-82.3192515	Dick Creek			
+554504749	Lower Higgins Creek Falls	36.089056	-82.533411	Higgins Creek			
+554519283	Grassy Creek Falls	35.8562205	-82.0854256	Grassy Creek	571	Grassy Creek Falls	47
+555233288	Lower Bald Springs Falls	35.127475	-83.781999	Bald Springs Branch	744	Lower Bald Springs Falls	24
+555475979	Upper Garrett Branch Falls	34.8408842	-83.7672285	Garrett Branch			
+555542446	Upper Sorrels Branch Falls	34.8358425	-83.747111	Sorrels Branch			
+555542448	Lower Sorrels Branch Falls	34.8355423	-83.7469132	Sorrels Branch			
+555563031		34.742845	-83.920441	Shanty Branch			
+555563063	Nottely Falls	34.743385	-83.92007	Shanty Branch			
+556848430	Long Creek Falls	34.667824	-84.170829	Long Creek			
+556848463		34.667818	-84.173592	Long Creek			
+556848475		34.6676076	-84.1756595	Long Creek			
+556885042	Lower Canada Creek Falls	34.68986	-84.042977	Canada Creek			
+556886379	Noontootla Falls	34.686239	-84.194128				
+556944330	Rock Creek Falls	35.1302301	-84.592681	Rock Creek			
+556979832		34.7868078	-84.3058654	Fall Branch			
+556979838		34.7865345	-84.305743	Fall Branch			
+556993177	Benton Falls	35.1412316	-84.5960996	Franklin Spring Branch			
+557010260	Little Rock Creek Falls	34.713865	-84.14576	Little Rock Creek			
+806875647	Rock Quarry Falls	34.8431667	-82.3930858				
+877270365	Rainbow Falls	35.0908566	-82.9660028	Horsepasture River	393	Rainbow Falls- Horsepasture River	20
+877270366	Turtleback Falls	35.0925274	-82.9661924	Horsepasture River	334	Turtleback Falls- Horsepasture River	38
+909576366	Stripmine Falls	35.2529924	-85.2407341				
+909590089	Wildcat Hollow Falls	35.4640609	-85.1030724				
+909880576	Cherokee Falls	34.8339165	-85.484198	Daniel Creek			
+910199631	Lower Cascades Glen Falls 65	34.9875273	-85.3419324				
+910205876	Glen Falls 15	34.9876742	-85.3427142				
+1119586108	Emory Gap Falls	36.144034	-84.471519	Emory Gap Branch			
+1119589602	Debord Falls	36.139149	-84.478478	North Prong Flat Fork			
+1226724860	Discovery Falls	35.3272526	-82.8089333		501	Discovery Falls	42
+1395369390	Second Falls	35.32221	-82.8470638	Yellowstone Prong			
+1631789399	Upper Creek Falls	35.9604284	-81.8634967	Upper Creek	386	Upper Creek Falls	42
+1631795020	Upper South Harper Creek Falls	35.9797529	-81.812648	Harper Creek			
+1631795171	South Harper Creek Falls	35.9802893	-81.8106694	Harper Creek			
+1631797345	Bard Falls	36.0007014	-81.8060496	North Harper Creek			
+1631798761	Huntfish Falls	36.013965	-81.8043072	Lost Cove Creek	387	Hunt Fish Falls	34
+1634510220	Crabtree Falls	35.8197591	-82.1495895	Big Crabtree Creek	396	Crabtree Falls	30
+1815131435	Catawba Falls	35.6039895	-82.2452476	Catawba River	405	Catawba Falls	38
+1899078856	Rainbow Falls	35.1336864	-82.5881393	Cox Camp Creek	329	Rainbow Falls (Camp Greenville)	43
+2232199284	Barnes Creek Falls 25	34.8262768	-84.5822051				
+2232199288	Bridge Creek Falls	35.2301458	-85.5536667				
+2232199289	Brush Creek Falls 20	35.486823	-85.104441	Brush Creek			
+2232199294	Clear Branch Falls 40	35.2306538	-85.2387389	Clear Branch			
+2232199296	Coker Creek Falls (4) 45	35.197254	-84.370251	Coker Creek			
+2232199299	Cooper Creek Falls	35.269893	-85.26519	Cooper Creek			
+2232199301	Deep Pool Cascades 8	35.692807	-84.9227129	Duskin Creek			
+2232199304	Falling Water Falls 110	35.189709	-85.282598	Little Falling Water Creek			
+2232199306	Foster Falls 60	35.1819313	-85.6760155	Little Gizzard Creek			
+2232199317	Horsehair Falls 80	35.1820576	-85.6756248				
+2232199325	Julia Falls 95	35.1249834	-85.3738775				
+2232199332	Keown Falls North 35	34.6132209	-85.0949953				
+2232199333	Keown Falls South 25	34.6115629	-85.0958794				
+2232199339	Laurel Falls 80	35.5471429	-85.0236939	Laurel Creek			
+2232199343	Legget Branch Falls 30	35.4208317	-85.1534245	Leggett Branch			
+2232199350	Little Possum Falls 25	35.361791	-85.168681	Little Possum Creek			
+2232199366	Lower Piney Falls 40	35.7287403	-84.8653777				
+2232199378	Lula Falls 100	34.9328717	-85.3723666	Rock Creek			
+2232199383	Lula Lake Falls 30	34.9311611	-85.3736897	Rock Creek			
+2232199419	Mill Creek Falls (2) 50	34.7746574	-84.6986709				
+2232199429	Morphy Falls 12	35.534981	-85.05968	Morgan Creek			
+2232199433	Mystery Falls 8	35.2441901	-85.2932389	North Chickamauga Creek			
+2232199438	North Pole Falls 17	35.5392124	-85.038473	Morgan Creek			
+2232199441	Paine Creek Falls 10	35.5282032	-85.0213054	Paine Creek			
+2232199443	Chain Falls	35.2182512	-85.731978				
+2232199446	Pocket Creek Falls	35.2297	-85.5557				
+2232199449	Power Line Falls 140	35.232509	-85.240552				
+2232199452	Rainbow Falls 40	35.127023	-85.365517	Middle Creek			
+2232199453	Ray Falls	35.7813986	-84.8421565	Ray Branch			
+2232199455	Richey Ridge Falls 18	35.3468187	-85.175388				
+2232199461	Sale Creek Falls 40	35.521019	-85.054331	Sale Creek			
+2232199462	Small Falls 10	35.1855988	-85.6765454	Little Gizzard Creek			
+2232199463	Snow Falls 12	35.5464239	-85.0385731	Morgan Creek			
+2232199466	Stinging Fork Falls 60	35.7211216	-84.927079	Stinging Fork			
+2232199467	Hogskin Branch	35.2463502	-85.2348759	Hogskin Branch			
+2232199476	Upper Glen Falls 12	34.9881016	-85.343513				
+2232199481	Upper Piney Falls 80	35.7311203	-84.8635088				
+2232199488	White Pine Cascades 28	35.6868	-84.934	Duskin Creek			
+2302904228	Angel Falls	36.4953322	-84.6509588	Cumberland River South Fork			
+2313739534	Cataract Falls	35.689364	-83.538823				
+2330052750	Lynn Camp Falls	35.616121	-83.661462				
+2330052751	Mannis Branch Falls	35.6623089	-83.6199909				
+2330052752	Marks Creek Falls	35.624033	-83.6424535				
+2330052753	Meadow Branch Cascade	35.651987	-83.7132114				
+2330052755	Meigs Falls	35.668928	-83.6751148				
+2420273336	Upper Falls	35.3182212	-82.8668856	Yellowstone Prong	365	Upper Falls @ Graveyard Fields	3
+2420292917	Skinny Dip Falls	35.3222812	-82.8345183	Yellowstone Prong			
+2454566075	Juney Whank Falls	35.4663183	-83.4348928	Juney Whank Branch	483	Juney Whank Falls	27
+2454566083	Tom Branch Falls	35.4665984	-83.4298599	Tom Branch	484	Tom Branch Falls	5
+2454879714	Chasteen Creek Cascade	35.5874944	-83.3107046	Chasteen Creek	862	Chasteen Creek Falls	7
+2454879720	Cliff Branch Falls	35.5813351	-83.3515672	Cliff Branch	861	Cliff Branch Falls	19
+2454879775	Grotto Falls	35.6738745	-83.4495562	Roaring Fork	390	Grotto Falls	14
+2454879776	Gunter Fork Falls	35.6964169	-83.1960364	Gunter Fork	841	Gunter Fork Falls	6
+2454879788	Hitchin Post Falls	35.5884931	-83.3258675		1231	Hitchin Post Falls	20
+2454879810	Little River Upper Falls	35.6001039	-83.5161461				
+2454879854	Ramsey Cascades	35.7084644	-83.3000186		315	Ramsey Cascades (GSMNP)	30
+2454879885	Taywa Creek Cascade	35.6011872	-83.3277432	Taywa Creek			
+2454879887	Thousand Drips	35.7111795	-83.4829994	Cliff Branch			
+2454879897	War Branch Cascade	35.607986	-83.5477984	Wars Branch			
+2482955243	Big Bradley Falls	35.2680432	-82.2915794	Cove Creek	537	Big Bradley Falls	42
+2484200805	Twentymile Creek Cascade	35.4708461	-83.8696126		1241	Twenty Mile Cascades	62
+2484209637	Gunter Fork Cascades	35.6966955	-83.1932795	Gunter Fork	840	Waterfall on Gunter Fork	3
+2484209638	Little Creek Falls	35.506348	-83.372634		860	Little Creek Falls	11
+2484209640	Talking Falls	35.6154	-83.4705		1244	Upper Waterfall on Road Prong	92
+2484209641	Trickling Falls	35.6220142	-83.4696246				
+2489639296	Little Bradley Falls	35.2544344	-82.2951822	Cove Creek	410	Little Bradley Falls	27
+2497268903	Lower Wildcat Falls	35.0740558	-82.5968071		513	Middle Wildcat Branch Falls	20
+2503351671	Waldrop Stone Falls	34.7394912	-82.8203958				
+2506624376	Window Falls	36.4010862	-80.259437	Indian Creek	493	Window Falls	35
+2506624380	Hidden Falls	36.3991845	-80.2604626	Indian Creek	492	Hidden Falls	21
+2593950187	Upper Wildcat Falls	35.079216	-82.5967776		516	Upper Wildcat Branch Falls	3
+2593950188	Middle Wildcat Falls	35.0743102	-82.5969101		513	Middle Wildcat Branch Falls	10
+2594031983	Last Falls on Slickum	35.0727291	-82.6019625	Slickum Creek	615	Last Falls on Slickum	20
+2594031984	Sweet Thing On Slickum	35.0739209	-82.6030078	Slickum Creek	616	Sweet Thing on Slickum	37
+2594031986	Lower New Millennium Falls	35.0755747	-82.6032711	Slickum Creek			
+2594031987	Middle New Millennium Falls	35.0760079	-82.6031823	Slickum Creek			
+2594031988	Upper New Millennium Falls	35.0764817	-82.6030423	Slickum Creek			
+2594031989	Heritage Falls	35.0829106	-82.6057865	Slickum Creek			
+2624216931	Triple Falls	35.1984338	-82.6168846	Little River	353	Triple Falls	15
+2624219420	Grassy Creek Falls	35.1954612	-82.6085322	Grassy Creek	507	Grassy Creek Falls	40
+2716415670	Caledonia Cascade	34.7451083	-83.3888808	Slaughter Pen Branch			
+2722183029	Dill Falls	35.2834647	-82.9435497	Tanasee Creek	349	Dill Falls	6
+2722183030	Upper Dill Falls	35.2840774	-82.943266	Tanasee Creek	349	Dill Falls	68
+2727786885	Sliding Rock	35.311082	-82.786633	Looking Glass Creek	463	Sliding Rock	28
+2729628840	Courthouse Falls	35.2716432	-82.8940974	Courthouse Creek	407	Courthouse Falls	6
+2770294173	Fish Camp Cascades	35.6124051	-83.5483919	Fish Camp Prong			
+2770297420	Huskey Branch Falls	35.6386071	-83.5515188	Huskey Branch	1228	Baskins Creek Falls	4
+2770302288	Meigs Creek Cascade	35.6599642	-83.6598727	Meigs Creek			
+2785380872	Eastern Stream Falls	35.103845	-82.5924821				
+2785481333	Oil Camp Falls	35.103045	-82.5882996		733	Oil Camp Falls	22
+2819418529	Baskins Creek Falls	35.6950107	-83.4823042	Falls Branch			
+2866767494	Indian Flats Falls	35.5923761	-83.6329586	Indian Flats Prong	1250	Indian Flats Falls	4
+2866776829	Spruce Flats Falls	35.6343117	-83.6818975	Spruce Flats Branch	436	Spruce Flats Falls	5
+2875186967	Drift Falls	35.0934694	-82.969606	Horsepasture River	359	Drift Falls (Bust-Your-Butt Falls)	29
+2875189123	Stairway Falls	35.0857145	-82.9570349	Horsepasture River	333	Stairway Falls	35
+2893742807	Crooked Arm Cascades	35.611535	-83.7777812	Crooked Arm Branch			
+2894367897	Cane Creek Twin Falls	35.6744376	-83.6925234	Pipestem Branch			
+2936111095	Abrams Falls	35.6089561	-83.879806	Abrams Creek	1235	Abrams Falls	6
+3061273751	Alana Falls	34.7016562	-83.7318562				
+3111154835	Conestee Falls	34.771176	-82.3482182	Lake Conestee Dam | Reedy River			
+3181997477		36.0763201	-81.306218				
+3208507813	Jones Gap Falls	35.1249773	-82.5942288		598	Jones Gap Falls	39
+3215160837	Drip Rock Falls	35.1020826	-82.6121936		985	Drip Rock Falls	18
+3218194800		35.1233418	-82.5820331				
+3219003803	Toll Road Falls	35.1238057	-82.6087005		1104	Toll Road Falls (SC)	5
+3219159121	Ben's Sluice	35.1229507	-82.5988551	Middle Saluda River	1103	Ben's Sluice	15
+3237431780	Silver Run Falls	35.0662256	-83.0651075	Silver Run Creek	323	Silver Run Falls	27
+3239635367	Silver Steps Falls	35.1217547	-82.6271519	Middle Saluda River	989	Dargans Cascade (Silver Steps Falls)	1
+3239843575	Linville Falls	35.9497177	-81.9269129	Linville River	395	Linville Falls	91
+3240218312		35.1215989	-82.6281001	Middle Saluda River	989	Dargans Cascade (Silver Steps Falls)	88
+3290571141		35.0746125	-82.6088675				
+3290571148	Spider Tunnel Falls	35.0732741	-82.6095385				
+3324138711	Rock Cliff Falls	35.1053799	-82.617099				
+3324164366	Cliff Falls	35.1131588	-82.6203485		692	Cliff Falls	27
+3324186678	Firewater Falls	35.1105622	-82.6197451		691	Firewater Falls	41
+3363268806	Duggers Creek Falls	35.9565144	-81.9274432		569	Duggers Creek Falls	17
+3370882800	Big Falls	35.04511	-82.9823262	Thompson River	320	Big Falls- Thompson River	99
+3370882905	Rich Falls	35.0501044	-82.9838493	Thompson River	539	Rich Falls	12
+3371247382	Sassafras Falls	35.2555172	-83.9679163	Sassafras Creek	433	Sassafras Falls- Snowbird Creek	25
+3394617504	Misty Falls	35.0997092	-82.6095504				
+3404643741	Bridal Veil Falls	35.1772449	-82.6207075	Little River	354	Bridalveil Falls (DuPont)- Little River	59
+3404667749	High Falls	35.1926506	-82.6136452	Little River	384	High Falls- Little River	7
+3406343252	Mashbox Falls	35.1033299	-82.6089977	Oil Camp Creek	751	Mashbox Falls	36
+3412052257	Beech Bottom Falls	35.0627998	-82.8089057	Abner Creek			
+3413731897	Moonshine Falls	35.0946424	-82.6314105		357	Moonshine Falls	21
+3413732253	Cascade Falls	35.0956885	-82.6394365	Matthews Creek	673	Cascades Falls	20
+3420180151	Arboretum Falls	34.8437119	-82.4030748				
+3421484296	Laurel Fork Falls	35.031715	-82.8942324	Laurel Fork Creek	878	Laurel Fork Falls (Lake Jocasse)	12
+3421514135	Lower Whitewater Falls	35.0164272	-82.9930423	Whitewater River	515	Lower Whitewater Falls	40
+3432745052	Ranger Falls	35.4224361	-85.6597122	Ranger Creek			
+3432745853	Horsepound Falls	35.4293753	-85.6026755	Collins River			
+3432747122		35.440633	-85.5535853	Savage Creek			
+3432747147	Savage Falls	35.4410161	-85.5537291	Savage Creek			
+3442198879		35.1158312	-85.7098131				
+3442204144		35.1872596	-85.697372				
+3442206753	Sycamore Falls	35.2466213	-85.7547243	Big Fiery Gizzard Creek			
+3442206847		35.2501084	-85.7539558	Big Fiery Gizzard Creek			
+3442206870	Small Waterfall	35.2504531	-85.7467624	Little Fiery Gizzard Creek			
+3442206885	Blue Hole Falls	35.2506845	-85.7501122	Little Fiery Gizzard Creek			
+3442206903	Hanes Hole Falls	35.2514468	-85.7549456	Big Fiery Gizzard Creek			
+3442206993		35.2530304	-85.7445929	Little Fiery Gizzard Creek			
+3448973218	Hen Wallow Falls	35.760068	-83.2380685	Lower Falling Branch	1226	Henwallow Falls	1
+3449354383	Mouse Creek Falls	35.7342641	-83.1334267	Mouse Creek			
+3450569277	Batsaw Branch Falls	35.6027079	-83.2715218	Batsaw Branch			
+3451984787	McGalliard Falls	35.7651275	-81.5687767	McGalliard Creek	831	McGilliard Falls	25
+3625430202	Mill Creek Falls	35.0306029	-82.726774		1129	Mill Creek Falls (Table Rock Park)	34
+3625899287	Nellies Falls	35.2011731	-83.0337267	Flat Creek	370	Nellie's Falls	68
+3717449006	Todd Creek Falls	34.7502837	-82.8139254	Todd Creek			
+3725559909	Flat Creek Falls	35.2202929	-83.0333554	Flat Creek	392	Flat Creek Falls	22
+3760745236	Wintergreen Falls	35.0978613	-82.9248885	Toxaway River	342	Wintergreen Falls (Dupont)	65
+3761020257	Lee Falls	34.8947325	-83.1021601	Tamassee Creek			
+3761032061	Pigpen Falls	34.9284608	-83.1291664	Lick Log Creek	534	Pigpen Falls	14
+3761032062	Licklog Falls	34.9296977	-83.1308221	Lick Log Creek	535	Licklog Falls	44
+3761034009	Secret Falls	34.925251	-83.0868766	Crane Creek	1026	Secret Falls (SC)	25
+3761037068	Big Bend Falls	34.9531368	-83.1186796	Chattooga River			
+3761991050	King Creek Falls	34.9662525	-83.1110264	King Creek	375	King's Creek Falls	72
+3762047818	Cavern Falls	35.2838365	-82.2699097		588	Cavern Falls	34
+3764586806	Bee Cove Falls	34.9744379	-83.0524277	Bee Creek			
+3764719299	Yellow Branch Falls	34.7951119	-83.1342915	Yellow Branch			
+3771845473	Cullasaja Falls	35.1167919	-83.269812	Cullasaja River	550	Cullasaja Falls	14
+3828787892	Shunkawauken Falls	35.2727608	-82.2148904	Horse Creek	664	Shunkawauken Falls	100
+3829326105	Eastatoe Falls	35.1099351	-82.8172624	Shoal Creek	321	Eastatoe Falls	19
+3837514065	Riley Moore Falls	34.7412867	-83.1795357	Chauga River	402	Riley Moore Falls	10
+3839125283	Bird Rock Falls	35.2211646	-82.861206	North Fork French Broad River	364	Bird Rock Falls	4
+3839125291	French Broad Falls	35.2238331	-82.8615125	North Fork French Broad River	480	French Broad Falls	17
+3841102328	Connestee Falls	35.1641695	-82.7308851	Carson Creek	462	Connestee Falls	11
+3841102331	Batson Creek Falls	35.1639638	-82.7312061	Batson Creek	461	Batson Creek Falls	11
+3882819286	Silver Slip Falls	35.0996209	-83.1167131	Chattooga River			
+3886519020	Rufus Morgan Waterfall	35.1425176	-83.5483776	Left Prong Rough Fork	327	Rufus Morgan Falls	48
+3889742756	Virginia Hawkins Falls	35.0431194	-82.8509931	Laurel Fork Creek			
+4013185208	Picklesimer Rock House Falls	35.0185426	-83.2536845		330	Picklesimer Rockhouse Falls	27
+4020670669	Slicking Falls	35.0764062	-82.7042745	Slicking Creek			
+4026800810	Adams Creek Falls	34.9738943	-82.6642473	Adams Creek			
+4029159645	Green Creek Falls	35.0353588	-82.7020784	Green Creek			
+4030631629		35.0355696	-82.7214694		620	Waterfall #3 on Pinnacle MTN Trail	12
+4030639374	Spring Bluff Falls	35.034117	-82.722554		621	Waterfall #4 on Pinnacle MTN Trail	40
+4031277964	Carrick Creek Falls	35.0328893	-82.7013314	Carrick Creek	619	Waterfall #2 on Pinnacle MTN Trail	69
+4144354318	Melrose Falls	35.2203737	-82.298734	Big Fall Creek	424	Melrose Falls	7
+4154620807		34.7515826	-82.822162				
+4166256177		34.941163	-81.8377767	Lawsons Fork Creek			
+4218363005	Fungi Falls	35.2761796	-82.2513864	Ostin Creek			
+4243574306		34.7238265	-83.9223712				
+4264497976	Wright Creek Falls	35.0074753	-82.9759398	Wright Creek	881	Wright Creek Falls	34
+4264506405	Mill Creek Falls	35.0374648	-82.9375604	Mill Creek			
+4303406757	Torys Falls	36.4023875	-80.3000318		494	Torys Den Falls	6
+4305415701	Upper Casscades	36.3953681	-80.269181				
+4306850777		36.4028827	-80.3479828				
+4311674243	The Cascades	36.2494281	-81.455184	Fall Creek	774	Cascade Falls	17
+4370507990	Walden Creek Waterfall	34.6480668	-84.0213504	Walden Creek			
+4457361831	Widows Falls	36.3975304	-81.0683113	Widows Creek	528	Widow's Creek Falls	52
+4457462702	Lower Falls	36.374804	-81.0411117	Big Sandy Creek			
+4461147370		35.2852994	-82.4396727	King Creek			
+4479455714	Canes Creek Cascades;Cane Creek Falls	35.662298	-85.3509503	Cane Creek			
+4479455716	Fall Creek Falls	35.6660944	-85.3557167	Fall Creek			
+4501054976	China Creek Falls	36.1213343	-81.6968259	China Creek			
+4701492628	Frey Creek Falls	34.9456048	-82.0445483	Frey Creek			
+4702287719	Cummins Falls	36.2489579	-85.5699217	Blackburn Fork River			
+4772017433		34.7086871	-83.8492787	Town Creek			
+4791841123	Sunburst Falls	35.3381774	-82.9034073	West Fork Pigeon River	474	Waterfall on West Fork of the Pigeon River	21
+4813718247	Betsy's Rock Falls	36.2858671	-81.4077121	North Prong Lewis Fork			
+4815802991	Head Foremost Falls	35.1390122	-82.5499499	Head Foremost Creek			
+4820412440	Rocky Branch Falls	35.1327379	-82.5704332	Rocky Branch	1130	Rocky Branch Falls (SC)	16
+4835362322	Elk River Falls	36.1987635	-81.9691668	Elk River	314	Elk River Falls	60
+4857916418		34.8809729	-83.3564269				
+5004018137	Awanita Falls	35.1326679	-82.4860226				
+5052361039		34.7866673	-84.3058082	Fall Branch			
+5109621411		35.0799941	-82.572029	Robinson Branch			
+5139485272	Moore Cove Falls	35.3118919	-82.777732		505	Little Moore Cove Falls	74
+5139583756	Cedar Rock Falls	35.2779976	-82.7995953	Cedar Rock Creek	381	Cedar Rock Falls	16
+5144130382		34.6763961	-83.9747816				
+5220474972		35.0500658	-82.8269686				
+5220479383		35.0516836	-82.8211145				
+5259107096	Waterloo Falls	36.3027885	-85.4673942				
+5263015553	Falling Water Cascades	36.0444521	-85.5956632	Falling Water River			
+5263015554	Little Falls	36.0438448	-85.5962694	Falling Water River			
+5263015559	Middle Falls	36.0426585	-85.5984661	Falling Water River			
+5263874978	Wash Morgan Falls	36.3288156	-85.5294596				
+5305774131	Virgin Falls	35.8384229	-85.3308299		1217	Virgin Falls (TN)	17
+5313702274	Mill Creek Falls	35.1420891	-82.9699596				
+5313702281	Deep Ford Falls	35.1279479	-82.9678868				
+5313716006		35.1451685	-82.9732731	Mill Creek			
+5313725699	Carlton Falls	35.1448934	-82.9946655	Greenland Creek	526	Carlton Falls	18
+5313725700	Halfway Falls	35.1471424	-82.9964564	Greenland Creek	525	Halfway Falls	18
+5313725703	Pothole Falls	35.1553671	-83.0046297	Greenland Creek	1257	Pothole Falls	45
+5313725704	Warden Falls	35.1716961	-83.0063765	Tuckasegee River	430	Warden Falls (Jim Burrell Falls)	12
+5313725705	Jawbone Falls	35.1733147	-83.0035995	Tuckasegee River	369	Jawbone Falls	13
+5313725706	Riding Ford Falls	35.1743274	-83.0028027	Tuckasegee River	1261	Riding Ford Falls	23
+5313725707	Red Butt Falls	35.180229	-83.0067516	Tuckasegee River			
+5313725709	Panthertown Creek Falls	35.1482445	-83.0226305	Panthertown Creek			
+5344198691		36.1501231	-85.4250962				
+5348018257	City Lake Falls	36.1342342	-85.4459808				
+5348046676	Lost Creek Falls	35.8419111	-85.3612099				
+5371338151	Limestone Falls	34.8297981	-83.1877005	Limestone Creek			
+5394317140	Cannon Creek Falls	35.172829	-82.6643477	Cannon Creek			
+5399507321	Amadehy Falls	36.218405	-81.3052292	Purlear Creek			
+5401922638		35.0756956	-82.6090737				
+5401922639		35.0763508	-82.6091328				
+5404655482	Evans Falls	35.100382	-82.6084701	Oil Camp Creek	750	Evans Falls	21
+5443690822	Pearson's Falls	35.2149894	-82.3360708	Colt Creek	408	Pearson's Falls	10
+5485542507	Shoal Creek Falls	35.2292271	-82.5956723	Shoal Creek			
+5494632705	Cedar Falls	35.954999	-79.0351616	Cedar Fork			
+5497795982	Moonshiners Falls	35.1526046	-82.2813758				
+5497820430	Blue Wall Falls	35.1834144	-82.2671178		1021	Blue Wall Falls	15
+5505920330		35.147415	-82.519503	Tankersley Branch			
+5509220074	Chute Falls	35.1378345	-82.5368648	Falls Creek			
+5509349866		35.086913	-82.5909321	West Fork Wattacoo Creek	975	Hamlin Falls	8
+5509590588	Upper Yucca Falls	35.0142784	-82.7368151	Yucca Creek	965	Upper Yucca Falls	15
+5509590591	Lower Yucca Falls	35.0138244	-82.7363706	Yucca Creek	966	Yucca Falls	5
+5531343377	Rock Bottom Falls	35.0421262	-82.8094207	Rocky Bottom Creek	1061	Rock Bottom Falls	56
+5548081955	Sequoah Falls	35.0676905	-83.2249037		633	Lake Sequoyah Dam Falls	77
+5548220397	Maidenhair Falls	35.1407836	-83.0426784	Trays Island Creek			
+5548227775	Fairfield Falls	35.1346141	-83.0422487	Long Branch			
+5562014787		34.8063005	-83.1285955	Yellow Branch			
+5562035348		34.799998	-83.1299055	Yellow Branch			
+5562035349		34.8030431	-83.1297351	Yellow Branch			
+5562074241		34.7974486	-83.13451				
+5562866087		34.7943224	-83.1287496				
+5565415337	Rocky Bottom Gorge Falls	35.0427999	-82.8065488	Rocky Bottom Creek	1060	Rocky Bottom Gorge Falls	6
+5588774607	Piney Creek Falls	35.6731661	-85.3840488				
+5600929968	Incredible Falls	36.4265162	-81.0861779				
+5614074123	Burgess Falls	36.0454617	-85.5994358	Falling Water River	1181	Burgess Falls	20
+5615907668	Lower Rhapsodie Falls	35.1858772	-82.9729163				
+5615907673	Rhapsodie Falls	35.1847066	-82.9745846		310	Rhapsodie Falls	39
+5615907701	Aunt Sallys Falls	35.1902263	-82.9622625				
+5623029262	Woodfin Cascades	35.4528527	-83.104054	Woodfin Creek			
+5682527688		34.9468461	-82.8064361				
+5693697321		34.88193	-83.3532723				
+5720419765	High Falls	35.3493515	-82.7329559		351	High Falls- South Fork Mills River	71
+5735167829		34.8164351	-83.2497124	Fall Creek	875	Lower Raines Mill Falls	7
+5745560697	Horseshoe Falls	34.5964975	-81.8542445	Cedar Shoals Creek	1049	Horseshoe Falls (SC)	7
+5754920121	Blowing Wind Falls	35.0914467	-85.4208354				
+5764000272	Glen Cannon Falls	35.226085	-82.6961877	Williamson Creek	636	Glencannon Falls	56
+5851892594	Bear Falls	35.0827884	-82.6368496				
+5851971080	Secret Falls	35.0844473	-82.6501854				
+5856745842		35.1808849	-82.2587405		1022	Upper Blue Wall Falls	23
+5866949196	Lemon Falls	35.1995968	-82.8645892	Lamance Creek	531	Lemon Falls	13
+5877079988	Anna Ruby Falls	34.7643023	-83.712489	Smith Creek	1253	Anna Ruby Falls	6
+5908070697	Tiger Rock Falls	35.2213876	-83.0464825	Robinson Creek			
+5954317358	Pristine Falls	34.8219115	-83.2565602	Fall Creek	874	Pristine Falls	17
+5954337918	Side Pocket Falls	34.8193691	-83.2679708	Fall Creek	1305	Third Falls (Fall Creek)	22
+5954337919	Final Falls	34.8202845	-83.2686637	Fall Creek	757	Fall Creek Falls	6
+5954432898	Midway Falls	34.8230411	-83.2520595		1303	Upper Falls (Fall Creek)	52
+5954432899	Rhodo Falls	34.823405	-83.253339	North Fork Fall Creek			
+5954432901	Andrew Ramey Falls	34.8225598	-83.2511165		1303	Upper Falls (Fall Creek)	49
+5954464862	Lower Falls Creek Falls	35.13695	-82.535931	Falls Creek			
+5967457446	Double Branch Falls	34.7867636	-83.2242107	Double Branch			
+5969320186	Graveley Falls	35.0888821	-82.7567324	South Prong Glady Fork	645	Graveley Falls	27
+5972153144		34.8162645	-83.2494347	Fall Creek	876	Middle Raines Mill Falls	5
+5972176607		34.8161028	-83.2491432	Fall Creek	877	Upper Raines Mill Falls	4
+5972570018	Big Bearpen Falls	35.3174068	-82.7995965	Big Bearpen Branch	836	Big Bearpen Falls	11
+5972574252	Transylvania Falls	35.2946401	-82.800795	Rockhouse Creek	1189	Transylvania Falls	13
+5981387981	East Fork Falls	35.1139218	-82.7481434	East Fork French Broad River	581	East Fork Falls	69
+5981428096	Reece Place Falls	35.1152593	-82.7088498	East Fork French Broad River	576	Reese Place Falls	16
+6003837200	Little Bird Falls	35.3494762	-82.9132381	Green Creek	489	Little Bird Falls	19
+6080336278		35.0067701	-82.679229	Carrick Creek			
+6097331281		34.9865967	-83.0119851	Limber Pole Creek			
+6101799268	Upper Pigpen Falls	34.9284069	-83.1286119	Lick Log Creek	534	Pigpen Falls	57
+6171422492	Hatcher Falls	35.2061952	-83.1652293	Rough Run	549	Rough Run Falls	39
+6206159460	Little Fall Creek Falls	34.8190949	-83.2519119	Fall Creek			
+6227811066		35.0536319	-82.845877	Laurel Fork Creek	1073	Christopher Falls (SC)	11
+6238802299	Miuka Falls	34.9330517	-83.08566	West Fork Crane Creek	1024	Miuka Falls	14
+6238802319	Little Miuka Falls	34.9308153	-83.0840198	West Fork Crane Creek	1025	Little Miuka Falls	32
+6245847105		35.107702	-82.585361				
+6245894650	The Narrows	35.0315884	-82.8203383	Eastatoe Creek			
+6258448929	Wildfire Falls	35.1488667	-82.5440822	Falls Creek			
+6260040556	Mossy Cove Falls	35.1478712	-82.5404915	Falls Creek			
+6260217733	Big Spring Falls	36.6559619	-84.546482				
+6261959899	Polka Dot Falls	35.1484374	-82.5437897	Falls Creek			
+6282157083		35.0312559	-82.8210271	Eastatoe Creek			
+6289887352		35.1469082	-82.5186169	Tankersley Branch			
+6289899831		34.665844	-80.5135242				
+6289900925		34.66532	-80.5131007				
+6289933081		35.0433543	-82.7791874				
+6289933965	Hog Wild Cave Falls	35.0704972	-82.829319	Wild Hog Creek			
+6290317391	Yucca Falls	35.014029	-82.7365527	Yucca Creek	965	Upper Yucca Falls	21
+6290318562	Rachael Creek Falls	35.0134243	-82.7358683	Rachael Creek	969	Middle Rachel Creek Falls	41
+6290323387	Middle Rachael Creek Falls	35.01391	-82.7353997	Rachael Creek	968	Rachel Creek Falls	19
+6302112810	Mitchell Falls	35.7765938	-82.2826075	Mitchell Creek			
+6335907541		34.9854177	-81.9583781				
+6355588127	Hilliard Falls	35.0541838	-82.9666145	Bearcamp Creek	361	Bearcamp Falls (Hillard Falls)	35
+6368948960	Dutch Creek Falls	36.1880741	-81.7880073	Dutch Creek			
+6370560829		35.0930428	-82.5931976	West Fork Wattacoo Creek	1032	Waterfall #1 on Wattacoo Creek	11
+6370560830		35.0926306	-82.593199	West Fork Wattacoo Creek	1033	Waterfall #2 on Wattacoo Creek	28
+6370560831		35.0917369	-82.5926728	West Fork Wattacoo Creek	1035	Waterfall #4 on Wattacoo Creek	17
+6370560832		35.0913433	-82.5923394	West Fork Wattacoo Creek	1036	Waterfall #5 on Wattacoo Creek	17
+6370560833		35.0905624	-82.5921055	West Fork Wattacoo Creek	1038	Waterfall #7 on Wattacoo Creek	10
+6370560834		35.0900135	-82.59222	West Fork Wattacoo Creek	977	Waterfall #9 on Wattacoo Creek	5
+6381811492		35.042816	-82.8060003	Rocky Bottom Creek	1060	Rocky Bottom Gorge Falls	51
+6395080325	Poe Creek Falls	34.9370313	-82.8788611	Poe Creek			
+6465600132	Coon Creek Falls	35.6660482	-85.3559738	Coon Creek			
+6480929502		34.7247507	-82.7232519	Eighteenmile Creek			
+6495452626		34.7928204	-83.1319945	Yellow Branch			
+6506381485	Mountaineer Falls	36.2193239	-81.9849227				
+6541207295	Upper Waterloo Falls	36.3030264	-85.4647579				
+6547791574	Foremost Cove Falls	35.1412341	-82.5506585	Head Foremost Creek			
+6547836449	Jenn's Falls	35.1680687	-82.6075325				
+6563304720	Disappearing Falls	34.8782689	-83.0947403				
+6593804497	Camp McCall Falls	35.0252239	-82.8022317	Reedy Cove Creek	1041	Camp McCall Falls	57
+6611228767	Eden Falls	35.0299341	-82.7714621	Reedy Cove Creek	1028	Mountain Cat Falls	25
+6611313324	Mountain Cat Falls	35.032303	-82.7849644				
+6611831397		35.0313522	-82.7708563				
+6616787643	Middle Fork Rock Creek Falls	35.7661987	-82.2505662	Middle Fork Rock Creek			
+6624538176	Firefly Falls	35.0517566	-82.7806184	Rocky Bottom Creek			
+6625138911	Powerline Falls	35.1341457	-82.5709592	Rocky Branch			
+6625149323	Hospital Rock Falls	35.1334671	-82.5708464	Rocky Branch	1130	Rocky Branch Falls (SC)	89
+6646799323		35.0442677	-82.7768749				
+6657868791	Squibb Creek Falls	36.0854282	-82.6338622	Squibb Creek			
+6804568555	Chute Falls	35.0882465	-82.9386181	Bearwallow Creek	706	Chute Falls	52
+6804568571	Chub Line Falls	35.0849981	-82.9040578	Toxaway River	940	Chub Line Falls	77
+6804568575	Step Around Falls	35.081899	-82.89949	Toxaway River			
+6804568586	Sidepocket Falls	35.0807049	-82.9583001	Horsepasture River	855	Sidepocket Falls	43
+7018361350	Slatten Branch Falls	35.0037862	-83.0546712	Slatten Branch			
+7036143107		35.076083	-82.5889794				
+7055820608	Upper Sloan Bridge Falls	35.000454	-83.056179	East Fork Chattooga River			
+7055820609	Lower Sloan Bridge Falls	34.9994705	-83.055429	East Fork Chattooga River			
+7055820610		34.9975244	-83.05522	East Fork Chattooga River			
+7092236543		35.032165	-82.7250335	Mill Creek			
+7105516107	Slab Falls	35.184009	-82.5724909	Briery Fork Creek			
+7105937553	Windy Falls	35.0736695	-82.958439	Horsepasture River	864	Bear Rock Falls	66
+7124967451	Upper Cedar Rock Falls	35.2776153	-82.7999189	Cedar Rock Creek	381	Cedar Rock Falls	59
+7128559915		35.2337046	-82.4196961				
+7172479371	Mossy Cove Falls	35.0489467	-82.8263054				
+7312494359	Chau Ram Falls	34.6825192	-83.1449095	Ramsey Creek			
+7367866822	Homer's Falls	34.7794969	-83.3209409	Pinckney Branch	1004	Homer Falls (SC)	19
+7368797795	Coon Den Falls	36.2534578	-82.1188916	Coon Den Branch			
+7387854425	Ray Cove Falls	35.1817649	-83.4348026				
+7563869983	DEW Falls	35.0685619	-83.0094309	Mill Creek	316	DEW Falls	52
+7566932001	Brushy Ridge Falls	35.9327839	-81.9251206	Linville River			
+7589363460	Helton Creek Falls	34.7527145	-83.8956844				
+7589425216	Dicks Creek Falls	34.6798024	-83.9371236	Dicks Creek			
+7592683899	Divinity Falls	34.9967761	-82.8656267	Kinney Branch	1086	Divinity Falls	11
+7612890029	Triple Falls	34.9542095	-82.8573744				
+7612906089	Upper Rachael Creek Falls	35.0167126	-82.733702	Rachael Creek			
+7693338185	Center Hill-Fancher Falls	36.0043411	-85.6283297				
+7705689685		36.0030829	-85.6225				
+7832429938		36.2125591	-81.4362356				
+7851662284		36.645531	-81.8229938	Laurel Creek			
+7924546979	Crossland Creek Falls	34.9162993	-83.0827222	Crossland Creek			
+7929707432		35.0109085	-82.7450161				
+7998244466	Coolidge Falls	35.1672195	-83.0267908		1238	Coolidge Falls	1
+8001831955	Ozone Falls	35.8804563	-84.8098977	Fall Creek			
+8073244234	Split Falls	35.308704	-82.9072365				
+8073257216	Waterfalls of Flat Laurel Creek	35.3247588	-82.8971224	Flat Laurel Creek	490	Waterfall on Flat Laurel Creek	21
+8086518281	Rainbow Falls	35.6623434	-83.4634448	Le Conte Creek	435	Rainbow Falls (GSMNP)	28
+8158833090	Curtis Creek Falls	35.7243208	-82.1897092	Curtis Creek			
+8204813865	Quarry Falls	35.0928733	-83.2667739	Cullasaja River	551	Quarry Falls	16
+8263071297		35.0940946	-82.6315051		674	Waterfall downstream from Moonshine Falls	20
+8285222392	Hiker's Peril Falls	34.9973168	-83.0546592				
+8285231411		34.9169241	-83.1188672				
+8303473698		35.101246	-80.9402677				
+8394175149	Upper Log Hollow Falls	35.3240348	-82.8089113	Log Hollow Branch	418	Upper Log Hollow Falls	12
+8399679375	Jumble Falls	35.0148188	-82.7348033	Rachael Creek			
+8421919312		34.9069879	-83.1073433				
+8455779213	Lichen Falls	35.182904	-83.0054232		844	Lichen Falls	15
+8481101470	Chauga Narrows	34.8273414	-83.1722235	Chauga River			
+8486429940	Deception Falls	35.0182043	-82.8552891	Laurel Creek	972	Deception Falls (Laurel Falls) SC	23
+8495467414	Monolith Falls	35.0214411	-82.8625715				
+8511675513	Sparkle Falls	34.7557878	-83.3096672	Sawhead Branch	982	Sparkle Falls	21
+8512289590	Upper Toll Road Falls	35.1246857	-82.6083346		1126	Upper Toll Road Falls (SC)	21
+8539679028	Gragg Prong Falls	36.0203243	-81.7930768	Gragg Prong	787	Gragg Prong Falls	26
+8539679030	Middle Gragg Prong Falls	36.0213118	-81.7966669	Gragg Prong	388	Middle Gragg Prong Falls	14
+8557266015	Lower Hungry River Falls	35.2929218	-82.3559022	Hungry River			
+8561319356	Lower Reedy River Falls	34.8441101	-82.4005267	Reedy River			
+8561319358		34.9408163	-82.3971969				
+8561319359	Cave Falls	35.1528701	-82.2876443				
+8561319360	Lower Cave Falls	35.1523554	-82.2874049				
+8561319361	Upper Cave Falls	35.1534033	-82.2878904				
+8561319362	Brenda Falls	35.1540947	-82.2883664				
+8561319363	Big Falls	35.1635196	-82.3939384	Big Falls Creek			
+8561319364	Sidewinder Falls	35.1622535	-82.4881128				
+8561319365	$10,000 Falls	35.1557185	-82.5055735				
+8561319366	Sweet Pete Falls	35.1484816	-82.5087793	Peters Branch			
+8561319367	Irish Falls	35.1492876	-82.5088234	Peters Branch			
+8561319368	Thunder Falls	35.1259837	-82.6094502		1125	Thunder Falls (SC)	19
+8561319369	Notch Falls	35.1306637	-82.6100392		1121	Notch Falls (SC)	33
+8561319372	Alewine Falls	35.0073114	-82.742516				
+8561319376	Palmetto Trail Falls	35.0306554	-82.7759773		1029	Palmetto Trail Falls	4
+8561319387	Evil Ducky Falls	35.0536488	-82.8464561		1074	Evil Ducky Falls (SC)	14
+8561319388	Bella Falls	35.0539914	-82.8465166		1072	Bella Falls (SC)	19
+8561319389		34.9742783	-83.0522043	Bee Creek			
+8561319390		34.9739143	-83.0514981	Bee Creek			
+8561319397	Upper Wash Branch Falls	34.921246	-83.09564	Wash Branch			
+8561319398	Lower Wash Branch Falls	34.9200569	-83.093564	Wash Branch			
+8561319400	Cheohee Road Falls	34.9137788	-83.1068793		1023	Cheohee Road Falls (SC)	1
+8561319402	Ira Branch Falls	34.9211127	-83.1439072	Ira Branch			
+8561319403	Triple Falls	34.8134874	-83.2589073	Stump Branch			
+8561319404	Norm's Falls	34.8069018	-83.2953994	Reedy Branch			
+8604635092	Upper Opossum Creek Falls	34.756785	-83.3142333	Opossum Creek	335	Opossum Creek Falls	70
+8604642894	Shoulder Bone Falls	34.7557201	-83.3019814	Shoulder Bone Branch			
+8618772048	Lower Poplar Hollow Falls	35.0314723	-82.7805128				
+8618783392	Poplar Hollow Falls	35.0337952	-82.7807052				
+8633746628		35.0638102	-82.9267298	Bear Creek			
+8666162947	Boyer Falls	34.6898	-83.3053087	Boatwright Creek			
+8702292841	Upper Silver Run Falls	35.0672377	-83.0640924	Silver Run Creek	471	Upper Silver Run Falls	11
+8721875144	Secret Falls	35.0044976	-83.1711645	Big Creek	332	Secret Falls (Highlands)	38
+8725620138	Elbow Falls	35.1779512	-83.0034525	Tuckasegee River	1262	Elbow Falls	88
+8758054049	John Danner Falls	34.7537581	-83.3124348				
+8819102178	Wash Hollow Falls	35.3417465	-82.8976471		412	Wash Hollow Falls	18
+8819102187	Lower Sam Branch Falls	35.3410019	-82.8979978	Sam Branch			
+8819299431	Bad Creek Falls	34.9736732	-82.9868607	Bad Creek			
+8837371906		34.9737994	-82.9856619				
+8865813923	Land Bridge Falls	34.8311665	-83.1641258				
+8914631217		35.1790143	-84.1665006				
+8964612998	Shower Falls	35.1598359	-82.9742997		511	Shower Falls	73
+8986971847	High Falls	34.973881	-85.3477311				
+9044408936	Baby Falls	35.3267214	-84.176434	Tellico River			
+9049475139	Upper Canada Creek Falls	34.6898758	-84.0314592	Canada Creek			
+9160815226	Ricker Branch Falls	35.9617352	-82.8678303	Ricker Branch			
+9160815227	Camp Creek Falls	36.0408947	-82.7437755				
+9213120377		34.9574879	-82.8528436				
+9262436768	Little Bearwallow Falls	35.4677601	-82.3395146		423	Little Bearwallow Falls	23
+9319612942	Twisting Falls	36.2312863	-81.9754368	Elk River			
+9348092652		35.1550299	-85.6868899				
+9348092653	Hemlock Falls	35.1527053	-85.6706055				
+9348092777	Denny Cove Falls	35.1536056	-85.6726621				
+9455779360	Green Grotto Falls	35.3045498	-82.2450488				
+9492605689	Noisy Falls	35.0444597	-83.0421539				
+9492605690	FR89 Falls	35.0438463	-83.044266		1117	FR89 Falls	33
+9492605691	Destiny Falls	35.99042	-81.7488993				
+9496138953	Alarka Falls	35.3379619	-83.3699213	Alarka Creek			
+9550301390	Green Mountain Falls	36.1141929	-81.7785582	Green Mountain Creek	799	Green Mountain Falls	3
+9550301392	Otter Falls	36.148185	-81.8080865	Valley Creek			
+9550301393	Cullowhee Creek Falls	35.2314567	-83.1859065	Cullowhee Creek			
+9550301394	The Falls	35.3865525	-83.4433497		859	The Falls	6
+9550301395	J. Johnson Falls	35.3923439	-83.5179898	Alarka Creek	858	J. Johnson Falls	23
+9550301396	Bear Creek Falls	35.471319	-83.5734127	Bear Creek	944	Bear Creek Falls	20
+9550301397	Mount Toxaway Falls	35.1316733	-83.0089749		830	Mount Toxaway Falls	4
+9550301398	Land Bridge Falls	35.0972633	-82.9267984	Toxaway River	939	Land Bridge Falls	4
+9550301399	Upper Wintergreen Falls	35.0983242	-82.9273843	Toxaway River	938	Upper Wintergreen Falls	40
+9550301400	Eel Line Falls	35.0780633	-82.8940473	Toxaway River			
+9555602243	Rockhouse Creek Falls	35.6629698	-85.3493562	Rockhouse Creek			
+9562854210	Twin Falls	35.8090848	-85.6351727				
+9594371341	Suter Falls	35.4108058	-85.597974	Rockey Moutain Creek			
+9594442988	Greeter Falls	35.4346402	-85.6964099	Firescald Creek			
+9609903284	Ester Falls	35.1775665	-85.6873406				
+9609935323		35.1830692	-85.6923514				
+9621376451	Ten Foot Falls	35.9300051	-81.7420822	Wilson Creek	784	Ten Foot Falls	2
+9621376452	North Harper Creek Falls	36.0043699	-81.8401719	North Harper Creek			
+9621376453	Big Bear Falls	35.6034563	-81.6376044	Shinny Creek	1106	Big Bear Falls	74
+9621376454	Loobie Falls	35.2755476	-82.3176537	Stair Step Creek			
+9621376455	Briefcase Falls	35.2885542	-82.358892		590	Case Falls	29
+9621376456	Upper Avery Creek Falls	35.328985	-82.7674247	Avery Creek	486	Waterfall on Avery Creek	25
+9621376457	Chasm Falls	35.0083711	-83.2488333	East Fork Overflow Creek			
+9621376458	Split Rock Falls	35.088557	-82.9395623	Bearwallow Creek	705	Split Rock Falls	17
+9641730237	Boulderfield Falls	35.3605529	-82.8795853		707	Boulderfield Falls	41
+9656705570	Anvil Horn Falls	35.2094079	-82.9979631	Tuckaseigee River			
+9656705571	Tuckasegee River Falls	35.2067729	-82.9944495	Tuckaseigee River			
+9656705572	Rocky Knob Falls	35.281059	-82.9887789		869	Rocky Knob Falls	15
+9656705573	Charley Creek Falls	35.2848983	-82.984409	Charley Creek	655	Charleys Creek Falls	6
+9656705574	Unmentionable Falls	35.0676749	-82.9863639	Thompson River			
+9656705575	Boxcar Falls	35.1872554	-82.852566	North Fork French Broad River	895	Boxcar Falls	5
+9656705576	Sky Falls	35.0645686	-82.8782132	Rock Creek			
+9656705577	Indian Ford Falls	35.0657548	-82.8738535	Rock Creek			
+9675344517	McGill Creek Falls	35.4370133	-85.1251319				
+9675757595	Graybeard Falls	35.6750343	-82.2851053	Flat Creek	896	Graybeard Falls	11
+9675757596	Confluence Falls	35.3267865	-83.0026466	Piney Mountain Creek			
+9741561647		34.7501484	-83.4051563	Tallulah River			
+9771128308		36.095211	-80.2450851				
+9799684569	Big Bearwallow Falls	35.1705193	-82.8418284	Big Bearwallow Creek			
+9813452035	Rainbow Falls	35.662353	-83.4640731	Le Conte Creek	435	Rainbow Falls (GSMNP)	29
+9814875351	Nantahala Falls	35.332474	-83.5955018	Nantahala River	758	Nantahala Falls	19
+9814875352	Wesser Falls	35.3336347	-83.5903173	Nantahala River			
+9814875353	Whiteoak Falls	35.2507779	-83.6397981	Whiteoak Creek	609	Whiteoak Falls	16
+9814875354	Nantahala Cascades	35.2482772	-83.6397057	Nantahala River			
+9814875355	Jagged Rock Falls	35.2501978	-83.6421283		610	Jagged Rock Falls	5
+9814875356	The Cascades on Nantahala	35.2477684	-83.6443979	Nantahala River			
+9814875357	Camp Branch Falls	35.2536191	-83.6529497	Camp Branch	612	Camp Branch Falls	18
+9814875358	Grassy Branch Falls	35.3207573	-83.6046458	Grassy Branch	726	Falls on Grassy Branch	23
+9814875359	Rattlesnake Falls	35.303322	-83.5263487	Rattlesnake Creek			
+9814875360	Brooks Creek Falls	35.0307678	-83.2245715	Brooks Creek	606	Brooks Creek Falls	33
+9814875361	Kalakaleskies Falls	35.0676042	-83.2257626	Cullasaja River			
+9814875362	Ranger Falls	35.0878651	-83.2244577	Skitty Creek	602	Ranger Falls	6
+9814875363	Fowler Creek Falls	35.0039721	-83.1057226	Fowler Creek	719	Fowler Creek Falls	47
+9814875364	Miller Falls	35.10576	-82.9848167	Horsepasture River			
+9814875365	Breakbone Falls	35.212456	-83.1577274	West Fork Tuckasegee River			
+9814875366	Silver Ribbon Falls	35.2953287	-82.6998379	North Prong Turkey Creek	1018	Silver Ribbon Falls	3
+9814875367	Hickory Branch Falls	35.6935979	-82.1883114	Hickory Branch	422	Hickory Branch Falls	56
+9814875368	Buck Creek Falls	35.7330541	-82.1116709	Buck Creek	885	Buck Creek Falls (Marion)	7
+9814875369	Laurel Leap Falls	35.8952356	-81.9239743	Laurel Branch	953	Laurel Leap Falls	10
+9814875370	Rip Breeches Falls	35.9363055	-81.8514878		791	Rip Breeches Falls	16
+9814875371	Zig Zag Falls	35.9400516	-81.8580204		792	Zigzag Falls	7
+9814875372	Shacktown Falls	36.1242071	-80.593175	North Deep Creek	908	Shacktown Falls	7
+9814875373	The Shoals	35.0787235	-82.8715178	Toxaway Creek			
+9814875374	Taper Falls	35.0779448	-82.8744264	Toxaway Creek			
+9814875375	Boushell Falls	35.0782656	-82.8754836	Toxaway Creek			
+9814875376	Luner Falls	35.0777164	-82.8768053	Toxaway Creek			
+9814875377	Diamond Creek Falls	35.1543582	-82.8580952	Diamond Creek	648	Diamond Creek Falls	41
+9830918760		35.6518461	-83.5729939	Bearwallow Branch			
+9851341837	Thorps Creek Falls	35.9971129	-81.759085	Thorps Creek	786	Thorps Creek Falls	23
+9862134455		35.1910403	-85.4581276	Valley Brook			
+9872623927		35.3209107	-82.9546565				
+9893987890	Upper Glen Marie Falls	36.1215546	-81.6844243	New Years Creek			
+9893987895	Lower Glen Marie Falls	36.1214011	-81.6845909	New Years Creek			
+9894275811	Spelunker Falls	34.9370471	-82.8553902				
+9894275812	Crosscut Falls	34.9372711	-82.8566686	Poe Creek			
+9894323506	Allie's Falls	34.9462292	-82.8114275				
+9894333470	Pork Chop Falls	34.9516519	-82.862055				
+9898165198	Barnett Branch Trail Falls	35.3717426	-82.7743074				
+9898165199	Bartram Falls	35.3035397	-83.6824758	Ledbetter Creek	761	Bartram Falls	9
+9898165200	Bearwallow Falls	35.3293937	-83.0016739	Bearwallow Creek	677	Bearwallow Falls	13
+9898165201	Beetree Fork Falls	35.2512909	-82.8905778	Beetree Fork	579	Beetree Fork Falls	19
+9898165202	Bent Field Falls	35.1920357	-82.8540727	North Fork French Broad River			
+9898165203	Billy Branch Falls	35.3585243	-82.7374734	Billy Branch			
+9898165204	Toxaway Shoals	35.0715266	-82.8869254	Toxaway River			
+9898165205	Buck Creek Falls	35.1325752	-83.2246138	Buck Creek	731	Buck Creek Falls	34
+9898165206	Buckeye Creek Falls	36.2229346	-81.9074084	Buckeye Creek	771	Buckeye Falls	11
+9898165207	Buttermilk Falls	35.1078642	-82.7628608	West Prong Glady Fork			
+9898165208	Camp Branch Falls	35.1679537	-83.5419171	Camp Branch	669	Camp Branch Falls	23
+9898165209	Upper Camp Branch Falls	35.1682787	-83.5422353	Camp Branch	670	Upper Camp Branch Falls	7
+9898165210	Cascades Falls	35.712935	-82.3716944	Waterfall Creek	887	Cascades Waterfall (Craggy)	34
+9898165211	Chestnut Falls	35.2791272	-82.8873152	Chestnut Creek	498	Chestnut Falls	8
+9898165212	Clawhammer Falls	35.3255364	-82.7465179				
+9898165213	Coyote Falls	35.0671975	-83.0740326	Little Whitewater Creek	999	Coyote Falls	12
+9898165214	Cradle Falls	35.375231	-82.7820831		601	Cedar Falls (Fountain Inn)	13
+9898165215	Falling Water Branch Falls	35.8048394	-82.306689	Falling Water Branch	1105	Falling Water Branch Falls	36
+9898165216	First Falls	35.1566884	-82.8745477	West Fork French Broad River			
+9898196117	Second Falls	35.155075	-82.8734973	West Fork French Broad River			
+9898196118	Plaid Falls	35.1535266	-82.8738861	West Fork French Broad River			
+9898196119	Whitmire Falls	35.1330694	-82.7920701	East Fork French Broad River	665	Waterfall on East Fork of French Broad River	12
+9898196120	Granite Falls	35.8000773	-81.410902	Gunpowder Creek			
+9898196121	Handpole Branch Falls	35.2810611	-83.6821083	Handpole Branch	935	Handpole Branch Falls	0
+9898196122	Huntfish Sidekick Falls	36.0137439	-81.8039443		783	Hunt Fish Sidekick Falls	8
+9898196123	Indian Camp Branch Falls	35.0866907	-82.9273042	Indian Camp Branch	1107	Indian Camp Branch Falls (Gorges)	19
+9898196124	John Neal Falls	35.2042881	-82.923201		808	John Neal Falls	43
+9898196126	Little Looking Glass Falls	35.3165103	-82.7902156	Looking Glass Creek			
+9898196127	Mystery Falls	35.3168739	-82.7904191	Looking Glass Creek			
+9898196128	Lower Abbs Creek Falls	35.3245594	-83.0754552	Abbs Creek	678	Lower Abbs Creek Falls	48
+9898196129	Upper Abbs Creek Falls	35.3268077	-83.0762283	Abbs Creek			
+9898196130	Dismal Falls	35.1803287	-82.9741394	Dismal Creek	414	Dismal Falls	48
+9898196131	Lower Dismal Falls	35.1813112	-82.9734594	Dismal Creek			
+9898196132	Lower Thompson Ridge Falls	35.3914886	-82.74686		662	Lower Thompson Ridge Falls	7
+9898196133	Upper Thompson Ridge Falls	35.3918928	-82.747801		663	Upper Thompson Ridge Falls	18
+9898196134	McCall Mill Shoals	35.1447945	-82.8849154	North Fork Flat Creek			
+9898196135	Parker Creek Falls	35.2145863	-82.952933	Parker Creek			
+9898196136	She Falls Falls	36.208471	-81.875646	Pond Creek			
+9898196137	Shot Pouch Falls	35.1604838	-83.5728874	Shot Pouch Creek	1067	Shot Pouch Falls	83
+9898196138	Tucker Creek Falls	35.2172156	-82.8869939	Tucker Creek			
+9898196140	Barbara Falls	35.2397385	-82.8249349	Catheys Creek			
+9898196141	Washington Creek Falls	35.4489915	-83.2420273	Washington Creek	842	Waterfall on Washington Creek	3
+9951766892	Long Creek Falls	35.306421	-81.2340341	Long Creek			
+9951766893	High Shoals	35.3963185	-81.2024561	South Fork Catawba River			
+9951766894	Uwharrie Falls	35.4097023	-80.0900749				
+9951766895	Sharpes Falls	36.4593624	-81.5548229	North Fork New River	930	Sharpes Falls	2
+9951766896	Bluff Mountain Falls	36.4008738	-81.5443757				
+9951766897	Nana Falls	36.3789216	-81.4118446		931	Riverview Falls (Nana Falls)	12
+9951766898	Slate Rock Creek Falls	35.3929886	-82.6945908	Slate Rock Creek	425	Slate Rock Creek Falls	10
+9951766899	Little East Fork Falls	35.3710342	-82.8936124	Little East Fork Pigeon River	708	Waterfall on Little East Fork	62
+9973652805	Abrams Falls	36.6767308	-82.256612	Abrams Creek			
+9975056718	Pulliam Creek Falls	35.2783649	-82.3416604	Pulliam Creek	849	Pulliam Creek Falls	8
+9975056719	Lower Horse Creek Falls	35.2698516	-82.2146823	Horse Creek			
+9975056720	Summey Cove Falls	35.2629862	-82.8905397		577	Summey Cove Falls	42
+9975056721	Bullpen Cove Falls	35.3669047	-82.8122275		776	Waterfall in Bullpen Cove	6
+9975056722	Boomer Inn Falls	35.3735549	-82.9638051	Boomer Inn Branch	832	Boomer Inn Falls	63
+9975056723	Caney Bottom Falls	35.2976467	-82.8151418	Caney Bottom Creek			
+9975056724	Factory Branch Falls	35.1233065	-83.6143204	Factory Branch	920	Factory Branch Falls	2
+9975056725	Katies Falls	35.206846	-83.2670604				
+9975056726	Lower Satulah Falls	35.0247413	-83.1905378	Clear Creek			
+9975056727	Satulah Falls	35.0307545	-83.1977814	Clear Creek	728	Satula Falls	13
+9975056728	Flat Creek Falls	35.5494357	-83.1716969	Flat Creek			
+10003087905	Lower Falls	35.4540864	-83.971855	Slickrock Creek	820	Lower Falls (Robbinsville)	34
+10003087906	Bear Creek Falls	35.440017	-83.931248	Bear Creek			
+10003087907	Bear Creek Falls (Cheoah)	35.4403034	-83.9292563	Cheoah River			
+10003087908	Aiken Branch Falls	35.4606799	-83.9234142	Aiken Branch			
+10003087909	Judy Branch Falls	35.464898	-83.8875775	Judy Branch			
+10003087910	Violet Falls	35.3491722	-83.9999638	Cold Branch	815	Violet Falls	33
+10003087912	Verlie Falls	35.3778858	-83.9125811	Avey Creek			
+10003087913	Burgan Creek Falls	35.2646599	-83.8402778	Burgan Creek	812	Burgan Creek Falls	40
+10005318008	Yellowstone Falls	35.323938	-82.840889	Yellowstone Prong	512	Yellowstone Falls	66
+10016914656	Little Wildcat Falls	35.3114709	-82.9145656				
+10016914667	Mount Hardy Falls	35.303963	-82.9197001	West Fork Pigeon River	426	Mt Hardy Falls	10
+10016914675	Lower Wildcat Falls	35.315321	-82.9074566	Silver Mine Branch	536	Lower Wildcat Falls	47
+10019235082	Bruce Knob Falls	35.2374101	-82.9117445		894	Bruce Knob Falls	49
+10028339364	Piney Creek Falls	35.6730786	-85.3842121	Piney Creek			
+10028339471		35.6612301	-85.3855117	Piney Creek			
+10037576961	Turley Falls	35.322374	-82.5203078	Brightwater Branch			
+10037576962	Glencannon Falls	35.2266293	-82.6953578	Williamson Creek			
+10037576963	Clear Creek Falls	35.1513997	-83.6582641	Clear Creek	950	Clear Creek Falls	25
+10037576964	Nelsons Falls	35.242628	-83.6974767	Powder Burnt Branch			
+10037576965	Wildcat Falls	35.4278065	-83.9995708	Slickrock Creek	819	Wildcat Falls (Robbinsville)	39
+10037576966	North Shoal Creek Falls	35.1782135	-84.2344764	North Shoal Creek	883	North Shoal Creek Falls	20
+10049091458	Cane Creek Falls	35.6631126	-85.3501764	Cane Creek			
+10054330791	4x4 Falls	35.9169423	-81.7485579		952	4 X 4 Falls	68
+10056415859	Upper Bubbling Spring Branch Falls	35.3006492	-82.911923	Bubbling Spring Branch	488	Upper Bubbling Springs Branch	6
+10056415860	Lower Bubbling Spring Branch Falls	35.3010428	-82.9119079	Bubbling Spring Branch	487	Lower Bubbling Springs Branch	6
+10076027819	Little Sam Falls	35.3176724	-82.9064952		827	Little Sam Falls	10
+10140639672	Sweat Heifer Cascades	35.6189377	-83.3811377	Sweat Heifer Creek			
+10140639673	Upper Mouse Creek Falls	35.7180444	-83.1298589	Mouse Creek			
+10140639674	West Prong Mouse Creek Falls	35.7190421	-83.1334511		948	West Prong Mouse Creek Falls	38
+10140639675	Thomas Falls	35.0229632	-83.560014		742	Thomas Falls	22
+10197856548	Walker Hollow Falls	36.072744	-81.7430972		797	Walker Hollow Falls	34
+10197856549	Woodruff Branch Falls	36.0590383	-81.7330332	Woodruff Branch	795	Woodruff Branch Falls	4
+10197856550	Tanawha Falls	36.0985144	-81.7975162		798	Tanawha Falls	6
+10197856551	Rainbow Falls	35.4491844	-82.2561746				
+10197856552	Walker Falls	35.7556934	-82.3538101	Walker Branch	671	Walker Falls	36
+10197856553	Moravian Falls	36.0860273	-81.1901159				
+10197856554	Fishtop Falls	35.2668688	-82.3281455	Green River			
+10197856555	Sillers Falls	35.2053073	-82.2286091	Vaughn Creek			
+10197856556	Boren Mill Shoals	35.089354	-82.849899	Toxaway Creek			
+10197856557	Lower Indian Creek Falls	35.1057813	-82.9233942	Indian Creek			
+10197856558	Chastine Creek Falls	35.3221768	-83.0625407	Chastine Creek	1059	Waterfall on Chastine Creek	2
+10197856559	Fisher Falls	35.4300865	-83.1830671	Fisher Creek East Fork	906	Fisher Falls	10
+10197856560	Bull Cove Falls	35.0031351	-83.5425476		739	Bull Cove Falls	23
+10197856561	High Falls	35.0149812	-83.5279387	Beech Creek	740	High Falls (Beech Creek)	43
+10240728761	Ripshin Branch Falls	35.9395038	-81.8177525	Ripshin Branch			
+10240728762	Bluff Falls	35.0817612	-82.9166326	Bearwallow Creek	469	Bearwallow Falls	16
+10240728763	Double Branch Falls	35.2103589	-82.9350932	Double Branch	527	Falls on Double Branch	19
+10240728770	Licklog Branch Falls	35.7094563	-82.1973903	Licklog Branch	837	Licklog Branch Falls	14
+10240728772	Little Fall Branch Falls	35.7552596	-82.9765198		373	Little Fall Branch Falls	9
+10240728773	Logging Road Falls	35.3211664	-82.8110762		385	Logging Road Falls	62
+10240728774	New Falls	35.029601	-83.5560853	Wateroak Creek	741	New Falls	8
+10240728775	Rockhouse Falls	35.1086641	-82.9987292	Burlingame Creek			
+10240728776	Thunderhole Falls	36.110198	-81.6999463	Thunderhole Creek	768	Thunderhole Falls	5
+10240728777	Tranquility Falls	35.3065616	-82.7831937	Looking Glass Creek			
+10240728778	Whaleback Falls	35.2821656	-82.8168217	Davidson River			
+10240728783	501 Falls	34.9977234	-83.5458115		1136	501 Falls	28
+10297003950	Tom's Falls	35.4863515	-82.308548	Toms Fork			
+10297271068	Lowry Falls	35.221723	-84.5352079	Lowry Branch			
+10302621117	Upper Middle Creek Falls	35.0080746	-83.3281089	Middle Creek	629	Upper Middle Creek Falls	64
+10302621118	Middle Creek Falls	35.0105141	-83.3313281	Middle Creek			
+10302621119	Dome Falls	35.0125616	-83.3361683	Middle Creek	736	Cavern Falls	26
+10302621120	Pothole Falls	35.0161665	-83.1262284	Chattooga River	632	Potholes Falls	30
+10302621121	Chestnut Cove Branch Falls	36.0030661	-81.839211	North Harper Creek	781	Chestnut Cove Branch Falls	6
+10302621122	King Creek Falls	35.2580419	-82.7740065	King Creek	1051	Fawn Branch Falls	85
+10302621123	Long Branch Falls	35.2790075	-82.8248059	Long Branch	382	Waterfall on Long Branch	10
+10302621124	Piney Mountain Falls	35.3259926	-83.0006733	Piney Mountain Creek	676	Piney Mountain Falls	3
+10302621125	Split Rock Falls	35.1219395	-82.9840765		1000	Crevasse Falls (Split Rock Falls)	37
+10313169795	Joe Pack Falls	35.0780417	-83.0064637	Thompson River	1199	Joe Pack Falls	10
+10313169796	Bestos Falls	35.0786693	-83.0032018	Thompson River	1197	Upper Bestos Falls	15
+10554619106	Lower Middle Prong Falls	35.3517697	-82.9434948	Middle Prong West Fork Pigeon River	834	Middle Prong Falls	28
+10554652376	Upper Middle Prong Falls	35.3513026	-82.9437397	Middle Prong West Fork Pigeon River	834	Middle Prong Falls	29
+10575435828	Bottomless Pools	35.4268919	-82.2326588	Pool Creek			
+10604265378	Upper Melrose Falls	35.2176036	-82.3000694	Big Fall Creek			
+10604265380	Edge of the World Falls	35.2685708	-82.3771952				
+10655403278	Narrows Falls	35.1129893	-83.0039859	Horsepasture River			
+10655403279	Gladie Creek Falls	35.274003	-83.0337986	Gladie Creek			
+10655403280	Slatten Falls	35.2042114	-83.0537972	Slatten Branch			
+10655403281	Great Falls	35.2012211	-83.0510786	Robinson Creek			
+10655403282	Laurel Falls	35.2002241	-83.0531978	Robinson Creek			
+10655403283	Middle Cold Creek Falls	35.2168167	-82.9668028	Cold Creek			
+10655403284	Mill Shoals	35.1882583	-82.9505104	Mill Branch			
+10655403285	Upper Mill Shoals	35.1945711	-82.9532113	Mill Branch	1209	Mill Branch Falls (281N)	2
+10655403286	Camp Minnehaha Falls	35.4642572	-82.2849394	Grassy Creek			
+10655403287	Skidder Falls	35.9826517	-81.8542525	Harper Creek			
+10662170522		36.1269357	-82.3226942	Rock Creek			
+10662170770		36.1279178	-82.3256619	Rock Creek			
+10671885779	Sill Branch Falls	36.1243447	-82.5269556	North Fork Sill Branch			
+10671931812	Pine Ridge Falls	36.1201028	-82.5374409	Devil Fork			
+10671931834	Wilderness Falls	36.1061011	-82.5442394				
+10713259883	Spring Creek Falls	35.8844421	-82.8331822	Spring Creek			
+10735239409		35.0236513	-83.2423921				
+10746713377	Middle Batson Creek Falls	35.1629636	-82.7324285	Batson Creek	460	Middle Batson Creek Falls	10
+10746713378	Upper Batson Creek Falls	35.1591321	-82.7337303	Batson Creek	459	Upper Batson Creek Falls	99
+10746713379	William Falls	35.1657825	-82.7345877	Carson Creek			
+10746713380	Warrior Falls	35.2571525	-82.7726347	King Creek	1052	Warrior Falls	6
+10746713381	Whitetail Falls	35.2571712	-82.7748323	Fawn Branch	1051	Fawn Branch Falls	67
+10746713389	Bambi Falls	35.2567914	-82.7733434		1052	Warrior Falls	79
+10746713390	Rock Creek Falls	35.2007753	-82.5040636	Rock Creek			
+10746713391	Powerhouse Falls	35.2448875	-82.3888893	Green River			
+10754921562	Fawn Branch Falls	35.2572699	-82.7741411	Fawn Branch	1051	Fawn Branch Falls	3
+10762318386		35.4404667	-85.5534728	Savage Creek			
+10784410549	Bee Branch Falls	35.4209068	-82.7173111	Bee Branch	927	Bee Branch Falls	36
+10784410550	English Falls	35.9131869	-81.9610625		900	English Falls (access restricted)	83
+10784410552	Kuykendall Falls	35.244618	-82.787905	Kuykendall Creek	926	Kuykendall Falls	21
+10784410553	Slickens Creek Falls	35.210722	-83.0062593	Slickens Creek			
+10784410554	Lower Enloe Creek Falls	35.6099628	-83.259814	Enloe Creek			
+10784410555	Bluet Falls	35.606161	-83.2615532	Raven Fork			
+10784410556	Pothole Falls	35.6070948	-83.2593686	Raven Fork			
+10784410558	Big Rock Falls	35.6080172	-83.2593663	Raven Fork			
+10784410559	Sand Creek Falls	35.3548357	-83.9926873	Sand Creek	813	Sand Creek Falls	9
+10784410560	Shuck Ridge Creek Falls	35.2954616	-82.861656	Shuck Ridge Creek	341	Shuck Ridge Creek Falls	33
+10784410561	Skitty Creek Falls	35.091818	-83.2176268	Skitty Creek	608	Waterfall on Skitty Creek	3
+10784410562	Tellico Falls	35.2599322	-84.0488465	Tellico River	884	Tellico Falls	1
+10784410563	Twin Falls	35.1193646	-82.9265837	Toxaway River	703	Twin Falls (Toxaway River)	4
+10784410564	Upper Toms Spring Falls	35.2956174	-82.8343823		347	Yellow Branch Falls	46
+10784410565	Wolf Laurel Falls	35.3568459	-83.981567	Wolf Laurel Branch	814	Wolf Laurel Falls	23
+10798202569		35.0948646	-82.5703059	Wattacoo Creek			
+10799901701	Upper Maple Spring Branch Falls	35.0963852	-82.8898936	Maple Spring Branch	1212	Upper Maple Springs Branch Falls	29
+10803294617	Grassy Creek Falls	35.2374641	-83.1363312	Little Mill Creek			
+10803294618	Shoal Creek Falls	35.6341683	-81.7656923	Shoal Creek			
+10803294619	Upper Shoal Creek Falls	35.6334373	-81.7623263	Shoal Creek			
+10803294620		36.100413	-81.9294197	Blood Camp Branch	770	Waterfalls Park Falls	39
+10803294621	Boat Buster	35.9283301	-81.7367592	Wilson Creek			
+10803294622	Thunder Hole	35.9284086	-81.7364517	Wilson Creek			
+10803294623	Triple Drop	35.9254197	-81.7338224	Wilson Creek			
+10803294624	Razorback	35.9212412	-81.734554	Wilson Creek			
+10809682606	Upper Raven Cliff Falls	35.9485556	-81.8206446	Upper Creek	946	Raven Cliff Falls	84
+10809682607	Goliath Falls	35.9478255	-81.8210845	Upper Creek	946	Raven Cliff Falls	55
+10812764652	Little Wilson Creek Falls	36.0800782	-81.7900603	Little Wilson Creek			
+10812764653	Andrews Creek Falls	36.0711939	-81.813327	Andrews Creek			
+10812764654	Barn Ridge Creek Falls	36.05084	-81.735285				
+10815469281	Indian Creek Falls	35.1111676	-82.919524	Indian Creek			
+10815469282	Upper Indian Creek Falls	35.1087955	-82.921241	Indian Creek			
+10815469283	Middle Indian Creek Falls	35.1074474	-82.9220556	Indian Creek			
+10833025725	Lower Balsam Falls	35.2660832	-82.9693434	Wolf Creek	962	Balsam Falls	21
+10833025726	Balsam Falls	35.2663616	-82.9694738	Wolf Creek	962	Balsam Falls	20
+10833025732	Lauren Falls	35.2640382	-82.969807	Wolf Creek	986	Lauren Falls	11
+10834213426	Upper Logging Road Falls	35.3227552	-82.8150312		322	Upper Logging Road Falls	26
+10876845872		35.7742122	-84.9458767	Jewett Branch			
+10902421881	Enloe Creek Falls	35.6113103	-83.2611649	Enloe Creek	358	Enloe Creek Falls	12
+10902421882	Raven Falls	35.5984916	-83.2660627	Raven Fork			
+10902421883	Island Slide Falls	35.5961338	-83.2669951	Raven Fork			
+10902421884	Great Blue Heron Falls	35.595027	-83.2670482	Raven Fork			
+10902421885	Big Boy Falls	35.5939958	-83.2674078	Raven Fork			
+10902421886	Buckshot Falls	35.5903342	-83.2659757	Raven Fork			
+10929582612	Yellow Patch Falls	35.293075	-82.9603194	Yellow Patch Branch	805	Yellow Patch Falls	47
+10945275628	Hemlock Falls	34.8351776	-85.4827911	Daniel Creek			
+10951769185	Robinson Creek Falls	35.2183285	-83.0464772	Robinson Creek			
+10951769186	Stillhouse Falls	35.8541721	-81.9382492	Stillhouse Branch			
+10956219906	Splash Dam Falls	36.2101284	-81.9740254	Elk River			
+10971337297	Gingercake Creek Falls	35.9254272	-81.8612313	Gingercake Creek			
+11011124039	Upper Gragg Prong Falls	36.0252701	-81.7974613	Gragg Prong	788	Upper Gragg Prong Falls	20
+11011124040	Upper Rockhouse Creek Falls	35.2990173	-82.8031888	Rockhouse Creek	520	Waterfall on Rockhouse Creek	10
+11011124041	Middle Rockhouse Creek Falls	35.2961557	-82.8006826	Rockhouse Creek	518	Middle Falls on Rockhouse Creek	14
+11011124042	Lower Rockhouse Creek Falls	35.2864766	-82.8023802	Rockhouse Creek			
+11020685937	Bennett Cove Falls	35.336282	-82.8035499	Looking Glass Creek	548	Bennett Cove Falls	64
+11020685940	Crawford Cove Falls	35.1681556	-83.5690497				
+11020685941	Sunshine Falls	35.2776205	-82.3418766	Green River	850	Sunshine Falls (Green River)	65
+11020915967	Bullhead Creek Cascades	36.4240224	-81.0794198				
+11033954737		35.1012024	-80.9402344				
+11083721840	Cashiers Sliding Rock	35.0750168	-83.1078277	Chattooga River			
+11083721841	Corkscrew Falls	35.0592456	-83.1170034	Chattooga River			
+11083721842	Rainbow Falls	35.1235288	-83.1252412	Hurricane Creek			
+11083721843	Naiad Falls	35.0611381	-83.2172451	Cullasaja River			
+11083721844	Pinky Falls	35.0818142	-83.2070698	Big Creek			
+11147135333	MIddle Raven Cliff Falls	35.9477918	-81.8203684	Upper Creek	946	Raven Cliff Falls	10
+11147135334	Lower Raven Cliff Falls	35.9475902	-81.8196884	Upper Creek	946	Raven Cliff Falls	75
+11220830256	Bird Falls	35.3429579	-83.5700603	Bird Falls Branch	936	Bird Falls	20
+11261900625		35.1032031	-85.6709628				
+11283991327	Dove Falls	35.1873894	-82.9418511				
+11283991328		35.196062	-83.0553533	Robinson Creek			
+11284421887	Onion Falls	35.1978647	-83.1531143				
+11284429343	Twin Falls	35.1389283	-83.0430161	Long Branch			
+11308830373	Wolf Creek Falls	35.4195603	-82.259434	Wolf Creek			
+11349433659	Big Hole Falls	35.0557189	-83.0350386				
+11349433660	Cody Falls	35.2708533	-82.8955008	Mill Station Creek	338	Cody Falls	96
+11349433661	Rooster Tail Falls	35.070785	-82.9588461	Horsepasture River	868	Rooster Tail Falls	19
+11349433662	Hen Tail Falls	35.0710841	-82.9585131		867	Hentail Falls	8
+11375803835		35.0076142	-82.4061937	North Enoree River			
+11490213352	Prince Cove Falls	34.9942941	-82.8779246		1148	Prince Cove Falls	18
+11500780954		35.8043289	-83.1780007				
+11532675519		34.7895418	-83.1332022	Yellow Branch			
+11540326822	Fulfillment Falls	35.0873767	-83.0466805				
+11540326823	Bon Ami Falls	35.8468882	-82.1259223	Burnett Branch	886	Emerald Village Falls	55
+11550689515		34.8105713	-83.1239118				
+11552944653	Bead and Lace Falls	35.4476341	-82.3390563	Bold Branch			
+11571463652		35.0693851	-82.8261632				
+11571474947	Shangri-La Falls	35.0739403	-82.8255968				
+11573469714	Big Falls of Beechflat Creek	35.3609551	-83.0077847	Beechflat Creek			
+11573469715	Moses Creek Falls	35.3429565	-83.0965209	West Fork Moses Creek	656	Moses Creek Falls	21
+11600578117	Exit Falls	35.0505181	-83.0474646	Whitewater River	562	Exit Falls	42
+11635809810		35.0053789	-82.7525979				
+11635809812		35.0051766	-82.7524178				
+11635811655		35.0057509	-82.7522215				
+11636279938		35.0024021	-82.7529372				
+11638851681		35.1031225	-82.5868188		732	Waterfall on Oil Camp Creek Trib	6
+11643996878	Pool Creek Falls	35.4063691	-82.2478482	Pool Creek			
+11643996879	Upper Pool Creek Falls	35.4055668	-82.2491831	Pool Creek			
+11705003925	Somey Creek Falls	35.563315	-81.8185233	Somey Creek			
+11712182826	Charlotte Falls	36.2820639	-85.5606961				
+11747222540	Justus Cove Falls	35.3241761	-82.7928182		957	Justus Cove Falls	27
+11747222541	Cherry Cove Falls	35.3336522	-82.8058492		661	Cherry Cove Falls	26
+11747222542	No-Name Cove Falls	35.3456	-82.7958777		622	No-Name Cove Falls	13
+11747222543	Poundingmill Branch Falls	35.3491031	-82.7897491	Poundingmill Branch	594	Poundingmill Branch Falls	12
+11747222645	Lower Slick Rock Falls	35.292714	-82.7997073				
+11750486180	Tanasee Creek Falls	35.2553457	-82.9407123	Tanasee Creek	651	Tanasee Creek Falls	27
+11750486200	Dark Prong Falls	35.3284056	-82.8332393	Dark Prong	824	Dark Prong Falls	17
+11750486218	Upper Greasy Cove Falls	35.3419202	-82.8613047	Greasy Cove Prong	870	Upper Greasy Cove Falls	44
+11750486219	GPS Falls	35.3417471	-82.8430557	Greasy Cove Prong	872	GPS Falls	18
+11750486220	Lower Greasy Cove Falls	35.3417589	-82.8401552	Greasy Cove Prong	873	Lower Greasy Cove Falls	24
+11754651344		34.5193524	-85.6101286	Seymour Branch			
+11761655200	Pleasant Grove Church Falls	35.0344397	-83.0928283	Fowler Creek			
+11761655201	Doghobble Falls	35.0684515	-83.0656227	Whitewater River			
+11774624494	DeSoto Falls	34.5488114	-85.5907225	West Fork Little River			
+11796204026	Stair Step Falls	35.0877368	-82.8626188				
+11815511656	Little Barnett Branch Trail Falls	35.37318	-82.7750011		478	Waterfall on Barnett Branch	9
+11825710938	Carvers Falls	35.1502231	-78.8558932	Carvers Creek			
+11866602273	Whitewater Branch Falls	35.5968008	-83.270424	Whitewater Branch			
+11866602274	Fountain Branch Falls	35.5904289	-83.2613568	Fountain Branch			
+11872447257		35.9196967	-81.9002811				
+11901191238	Norton Falls	35.1566484	-83.1501975	Norton Creek			
+11901191239	Hidden Falls	35.1729198	-83.1542658				
+11901191240	Mill Creek Falls	35.1753197	-83.1708332	Mill Creek			
+11901191242	Glassyrock Creek Falls	35.1559891	-83.0978144	Glassyrock Creek			
+11979532549	Highlands Falls	35.0703668	-83.174181	Cullasaja River	1270	Highlands Falls (Highlands Falls Country Club)	36
+11988960352	Saranac Lake Waterfall	34.9888698	-81.8651237	Mineral Spring Branch			
+11989421486	Middle Wildcat Falls	35.3151465	-82.9070627	Silver Mine Branch	536	Lower Wildcat Falls	87
+11997911941	Looking Glass Falls	35.2962199	-82.7687623		378	Looking Glass Falls	6
+11997911942	Looking Glass Falls	35.2962199	-82.7687623		378	Looking Glass Falls	6
+11997911947	Upper Moore Cove Falls	35.3121412	-82.777832		505	Little Moore Cove Falls	68
+11999860492	Berry Branch Falls	35.3555564	-82.9468011		582	Berry Branch Falls	38
+11999860540	Big Beartrap Falls	35.343754	-82.953627	Big Beartrap Branch	833	Big Beartrap Falls	94
+11999860541	Upper Buckeye Falls	35.3112418	-82.9333174	Buckeye Creek			
+11999860542	Sheephead Falls	35.3146383	-82.9356635	Buckeye Creek	778	Sheephead Falls	16
+11999860543	Buckeye Falls	35.3265349	-82.9418176	Buckeye Creek	779	Buckeye Falls	19
+12007274283	Lower Middle Creek Falls	35.7911719	-82.2355088	Middle Creek			
+12007274284	Squawroot Falls	35.7911183	-82.2360811	Middle Creek			
+12007274285	Middle Creek Falls	35.7908146	-82.2371111	Middle Creek, South Prong			
+12007274286	Anaconda Falls	35.7927212	-82.2381459	Middle Creek, North Prong			
+12007274287	Crevice Falls	35.7943693	-82.2388123	Middle Creek, North Prong			
+12007274288	Guyot Falls	35.7946917	-82.2417119	Middle Creek, North Prong			
+12007274289	Galvladi Falls	35.7948091	-82.251281	Middle Creek, North Prong			
+12010795455	Key Falls	35.2478354	-82.6770857		580	Key Falls	18
+12013565823	Democrat Canyon Falls	35.0624111	-83.0412234	Democrat Creek			
+12013565824	Dana Falls	35.0632214	-83.0409954	Democrat Creek			
+12013565825	Waddle Branch Falls	35.0422334	-83.0262849	Waddle Branch	856	Waddle Branch Falls	5
+12013565826	Hornet Falls	35.0523202	-83.041813	Democrat Creek	1115	Hornet Falls	35
+12013565827	Entrance Falls	35.0507827	-83.0485539	Whitewater River			
+12013565828	Bedrock Falls	35.0508086	-83.0433105	Whitewater River	563	Bedrock Betty Falls	63
+12013565829	Merge Lane Falls	35.0483749	-83.0395756	Whitewater River	564	Merge Lane Falls	67
+12013565830	55MPH Falls	35.0448583	-83.0377729	Whitewater River			
+12013565831	Big Ledge Falls	35.0420699	-83.0378212	Whitewater River	848	Big Ledge Falls	9
+12013565832	Wheelchair Accessable Falls	35.0405699	-83.0350145	Whitewater River	567	Wheelchair Accessible Falls	51
+12013565833	Portage Left Falls	35.0404305	-83.0332388	Whitewater River	568	Portage Left Falls	29
+12013565834	Leatherwood Falls	35.096305	-83.8591413	Leatherwood Branch	743	Leatherwood Falls	58
+12013565835	Bald Springs Falls	35.1271519	-83.7809529	Bald Springs Branch	745	Bald Springs Falls	26
+12013565836	Rainforest Falls	35.1268871	-83.7801386	Bald Springs Branch	746	Rain Forest Falls	33
+12013565837	Beautimos Falls	35.5690728	-81.6847709	Brier Creek	1054	Upper Beautimus Falls	18
+12013565838	Black Mountain Falls	35.5748176	-81.7042434		756	Black Mountain Falls	37
+12013565839	Dark Hollow Falls	35.4360512	-83.1652589				
+12013565840	10,000 Trillium Falls	35.435154	-83.1650003				
+12013565842	Bonas Defeat Falls	35.2114258	-83.0094711	Tuckasegee River			
+12013565843	Horseshoe Falls	35.2306114	-82.9662695		734	Horseshoe Falls	29
+12013565844	Lower Cavern Falls	35.2383007	-82.9532391		735	Lower Cavern Falls	18
+12029613274		35.2774019	-84.0364535	Peckerwood Creek			
+12029615903	Lower Catawaba Falls	35.6062596	-82.2435703	Catawba River			
+12029615904	Davids Falls	35.597413	-82.2559471	Catawba River			
+12052154032	Blue Hole Falls	36.1683071	-81.5525123	South Fork Laurel Creek			
+12057314174	Cathedral Falls	35.9005303	-81.8976327		899	Cathedral Falls	45
+12057314175	Cleft Falls	35.1695986	-82.9548422	Fork Creek	715	Cleft Falls	37
+12057314177	Emily's Cascade	35.1702834	-82.9539314	Fork Creek	980	Emily's Cascade	24
+12057314178	Ledbetter Canyon Falls	35.287712	-83.6774883	Ledbetter Creek	934	Ledbetter Canyon Falls	15
+12057314179	Rough Butt Creek Falls	35.3199525	-83.0231028	Rough Butt Creek	1147	Upper Rough Butt Falls	21
+12057314180	Catamount Falls	35.3517244	-83.0879397	East Fork Moses Creek	1057	Logjam Falls	21
+12057314181	Sugar Creek Falls	35.3098879	-83.0368756	Sugar Creek	658	Dryland Laurel Branch Falls	21
+12057314182	Dryland Laurel Branch Falls	35.3097943	-83.0369832	Dryland Laurel Branch	658	Dryland Laurel Branch Falls	8
+12080133179	New Year's Creek Cascades	36.1255999	-81.683266	New Years Creek	767	The Cascades (Glenlevit Falls)	3
+12080133180	Resurrection Falls	35.5700798	-81.7983609		1044	Resurrection Falls	3
+12097818131	Reems Creek Falls	35.6890072	-82.6034361	Reems Creek			
+12125833364	Savannah Falls	36.2854475	-85.5535986				
+12152752192	Whitetop Laurel Falls	36.6341113	-81.748721	Whitetop Laurel Creek			
+12152760183	Straight Branch Falls	36.6444065	-81.7152348	Straight Branch			
+12175006193	Maidenhair Falls	35.1973405	-82.7016985	Hogsed Creek			
+12175006194	Sleepy Hollow Falls	35.3096091	-83.2598831	Reed Branch			
+12175006195	Stick Falls	35.0205537	-83.1639517	Big Creek	639	Stick Falls	7
+12175006197	Upper Sugar Creek Falls	35.3094466	-83.0340969	Sugar Creek	659	Upper Sugar Creek Falls	13
+12175006198	Wolf Creek Falls	35.246691	-83.1849913	Wolf Creek	680	Falls on Wolf Creek	7
+12175006199	Williamson Creek Falls	35.2233175	-82.6913006	Williamson Creek			
+12175014207	Bradley Creek Falls	35.3927207	-82.7381859	Bradley Creek	409	Bradley Creek Falls	17
+12175014208	Cane Creek Falls	35.0340799	-83.1374786	Cane Creek	710	Cane Creek Falls	20
+12175014209	First Falls	35.2026027	-83.1592209	West Fork Tuckasegee River	890	First Falls	1
+12175014210	Herrin Knob Falls	35.2959806	-82.9379115	Tanasee Creek			
+12175014211	Hooper Falls	35.2876875	-84.0079503		817	Hooper Falls	27
+12175014212	Hurricane Falls	35.1366818	-83.1252971	Hurricane Creek	717	Hurricane Falls	7
+12175014213	Jumping Fish Falls	35.4812062	-78.9102471	Avents Creek	909	Jumping Fish Falls	2
+12175014215	Little Creek Falls	35.0239669	-83.1776904	Little Creek	709	Little Creek Falls (Highlands)	7
+12175014216	Little River Falls	35.6096257	-81.6232625		891	Little River Falls	26
+12175014218	Lower Cavern Falls	35.2839099	-82.2703809		588	Cavern Falls	33
+12175014219	Lower Stick Falls	35.0190416	-83.1641927	Big Creek	640	Lower Stick Falls	7
+12175014220	Mitchell Lick Falls	35.2866244	-84.0076242		816	Mitchell Lick Falls	11
+12175014221	Moosejaw Falls	35.7235916	-79.0987969				
+12175014222	Mossy Chute Falls	35.91113	-81.8522274	Buck Creek	902	Mossy Chute Falls	22
+12175014223	Orange Rock Falls	35.9117103	-81.8483723	Buck Creek			
+12175014224	Pulpit Falls	35.2221769	-82.8608586	North Fork French Broad River			
+12175014225	Phillips Falls	35.1911052	-82.6999769	Phillips Creek			
+12175014228	Pounding Mill Falls	35.0994776	-82.8088699		649	Pounding Mill Falls	61
+12175014229	Red Rock Falls	35.2919295	-82.9038338	Courthouse Creek	835	Red Rock Falls	8
+12175014230	Lake Louise Falls	35.6880898	-82.5705763	Reems Creek	1297	Reems Creek at Lake Louise	65
+12175014231	Rhododendron Falls	35.1943451	-82.7008562	Phillips Creek			
+12188169591	Upper Bald Knob Falls	35.2508467	-82.9369066				
+12188169592	Lower Rockyface Falls	35.248881	-82.938492				
+12188169593	Upper Rockyface Falls	35.2478491	-82.9373421				
+12188169594	Tributary Three Falls	35.245812	-82.9465814				
+12188169595	Banded Rock Falls	35.2387761	-82.9492136				
+12297030733	Standing Stone Falls	35.047404	-82.9824951	Thompson River	538	Standing Stone Falls	56
+12472093624	Bell Park Falls	35.2361541	-82.3933784				
+12482321612	Snider Falls	34.8901614	-83.1922062				
+12498237436	Arrowhead Falls	35.091737	-82.7956587				
+12513308587	Jane Cantrell Falls	35.0827557	-82.7388719	Jane Cantrell Creek	960	Jane Cantrell Falls	37
+12542547300	Kindling Falls	35.1492264	-83.2600357	Walnut Creek			
+12542551301	Lamance Creek Falls	35.2086816	-82.8948851	Lamance Creek			
+12542551302	Campbell Creek Falls	35.4755462	-83.1134755	East Fork Campbell Creek	1175	Campbell Creek Falls	10
+12542551303	Alyssa Falls	35.4742942	-83.1140928	East Fork Campbell Creek	1173	Alyssa Falls	18
+12542551304	Plott Hound Falls	35.476332	-83.1128234				
+12542551305	Cathey Gap Falls	35.25572	-82.9494906				
+12542551306	Walkingstick Falls	35.0344084	-83.1612916	Big Creek			
+12542551307	Mill Falls	35.9308072	-81.9398326	North Fork Catawba River			
+12557883402		35.0106935	-82.7448486				
+12695711043	Big Laurel Falls	35.8437565	-85.3086811	Laurel Creek	1216	Big Laurel Falls (TH)	36
+12695711086	Big Branch Falls	35.8505234	-85.2996465	Big Branch	1220	Big Branch Falls (TN)	10
+12707734651	Lower Garrett Branch Falls	34.8406011	-83.7673564	Garrett Branch			
+12754522480	Lovers Falls	35.1523918	-82.8911467	North Fork Flat Creek			
+12754522481	Upper Kiesee Falls	35.2795611	-82.8814509	Kiesee Creek			
+12754522482	Kiesee Falls	35.2792058	-82.8818984	Kiesee Creek			
+12754522484	Puncheon Camp Creek Falls	35.4258432	-82.3771968	Puncheon Camp Creek			
+12754522485	Little Beartrap Falls	35.3560258	-82.9479769	Little Beartrap Branch			
+12758804480	Big Lost Falls	35.1415477	-84.4548098	Bearpen Branch			
+12776385929	Little Falls	35.1031862	-82.9806043	Horsepasture River			
+12833686769	Indian Camp Creek Falls	35.2239352	-83.5381046	Indian Camp Creek	923	Indian Camp Creek Falls	23
+12833686770	Mossy Ledge Falls	35.9039765	-81.8651945	Buck Creek	901	Mossy Ledge Falls	28
+12833686771	Setrock Creek Falls	35.7497563	-82.22788	Setrock Creek	400	Setrock Creek Falls	31
+12859924236	Mossy Cave Falls	35.2030661	-82.926946				
+12880170307	Stevenson Branch Falls	35.2677912	-85.2634936	Stevenson Branch			
+12913102401	White Oak Sinks Falls	35.6361189	-83.7447526				
+13048463683		35.4863195	-82.2795542	Broad River			
+13048463684		35.4864525	-82.2790733	Broad River			
+13076578788	Lower Chestnut Falls	35.277349	-82.8873074	Chestnut Creek			
+13107776362	Catstairs Falls	35.0302258	-83.2759411				
+13107776363	Charley Bridge Falls	35.2687296	-82.984303	Charley Creek	312	Long Creek Falls	9
+13162149180	The Notch	35.2888823	-83.6784756	Ledbetter Creek			
+13238017718		35.0375875	-82.6971296				
+13261679928	Imodium Falls	35.3672725	-85.1754222	Little Possum Creek			
+13263779056	Dugger Creek Falls	36.1332893	-81.5150829	Dugger Creek			
+13263779057	Winston Falls	36.0831851	-81.767452	Anthony Creek			
+13263779058	Crow Creek Falls	35.1159066	-83.2799462	Crow Creek			
+13263779059		35.2078219	-83.2849792				
+13263779060	Laurel Falls	35.2075306	-83.2850739	Laurel Creek			
+13277709197		34.7681395	-83.4772291	Joe Creek			
+13294605671	Upper Crow Creek Falls	35.1155798	-83.2819639	Crow Creek			
+13294605672		35.0483718	-83.2720554				
+13294605678	Serenity Falls	35.014154	-83.2770506				
+13294605679	Lower Serenity Falls	35.0140011	-83.2766698				
+13294605680		35.2417273	-82.9508538				
+13294605681	Upper High Shoals Falls	35.5939799	-81.6353983	Jacob Fork	363	High Shoals Falls	59
+13318316276		35.1898653	-83.0589558	Robinson Creek			
+13334590212	Crab Orchard Falls	36.201225	-81.7935802	Craborchard Creek	419	Crab Orchard Falls	44
+13356429212		35.2101245	-83.1173141	Trout Creek			
+13356429213		35.2097606	-83.1144361	Trout Creek			
+13393436028	Pine Branch Falls	35.6999236	-84.9101116	Pine Branch			
+13393436111	Hemlock Falls	35.6914716	-84.9182518	Duskin Creek			
+13401734199	Grace Falls	35.2366416	-82.8254559	Glady Fork			
+13408633048	Vortex Falls	35.2586571	-85.2905677	Cain Creek			
+13421827484	Sitton Creek Falls	35.3208344	-82.6871625	Sutton Creek			
+13421827485		35.0099017	-83.0893723				
+13421827494		35.045495	-83.1277414				
+13431231328	Standing Rock Falls	35.5318482	-82.1651472	Sally Branch			
+13431231329	Standing Up Rock Falls	35.0683507	-82.957054	Horsepasture River			
+13450416392	Upper Whiteoak Creek Falls	35.8304744	-82.2383768	Whiteoak Creek			
+13450416393	Locust Creek Falls	35.8204311	-82.2288905	Locust Creek			
+13529056352		35.3366657	-82.7590557				
+13584051344	Gentry Creek Falls	36.5676934	-81.7050183	Gentry Creek			
+13599447758	Cedar Rock Falls	35.2330295	-82.8116296	Cedar Rock Creek			
+13599447759	Dunns Rock Falls	35.1786968	-82.7217952	Dunns Creek			
+13599447760	Little Lost Cove Falls	36.0215483	-81.8296004	Little Lost Cove Creek	356	Little Lost Cove Falls	50
+13670305690	Keaton Falls	35.7513975	-84.9734625				
+13673169372		35.2001971	-82.5809716	Grassy Creek	951	Secret Falls (DuPont)	83
+13720759325		35.4930685	-83.3067483				
+13732830201		34.8838818	-83.3525892				
+13733278952	Hemlock Shoals	35.2214866	-82.2986096	Big Fall Creek			
+13733278953	Big Fall Creek Falls	35.2169434	-82.3002379	Big Fall Creek			
+13737526201		35.0940914	-83.5191403				
+13738084136		35.2154708	-82.288405	Little Fall Creek			
+13738084138		35.2172266	-82.288025	Little Fall Creek			
+13750042913	Pinkerton Pool Falls	35.0675686	-83.1905725	Cullasaja River			
+13750042914	Laurel Falls	35.0743231	-83.2132069	Big Creek			
+13753480498	Big Pisgah Falls	35.1849499	-82.9654975				
+13753513629	Diamond Falls	35.1818404	-82.9656561				
+13753513635	Laurel Blossom Falls	35.1814515	-82.9660203				
+13753513637	Game Land Falls	35.307852	-82.2940451	Laurel Branch	1066	Gamelands Falls	57
+13753513638	Grandmas Kitchen Falls	35.2154679	-83.0151746	Tuckasegee River			
+13753513639	Lower Laurel Fork Falls	35.2797886	-82.8495952	Laurel Fork	684	Unnamed Waterfall on Laurel Fork	17
+13753513640	Pigeon Branch Falls	35.3613811	-82.783682	South Fork Mills River	544	Pigeon Branch Falls	8
+13753513674	Powerline Falls	35.332245	-82.767937		1015	Powerline Falls	3
+13753513675	Rainy Falls	35.2981809	-82.2528335		851	Rainy Falls	10
+13753513676	Revels Prong Falls	35.2215002	-82.7988757	Revels Prong			
+13753513677	Sassafras Knob Falls	35.2827663	-82.859152		689	Sassafras Knob Falls	25
+13753513678	Turtle Rock Falls	35.3004714	-82.2581286		852	Turtle Falls	14
+13753513679	Wolf Mountain Falls	35.294358	-82.9631116	Wolf Creek	806	Wolf Mountain Falls	28
+13753513680	Upper Wolf Mountain Falls	35.2965463	-82.9634742	Wolf Creek	996	Mr T's Cascade	34
+13775128290	Kelly Falls	35.9763641	-82.8490394	Paint Creek			
+13821262626	Havilah Falls	35.2138459	-82.9676352	Cold Creek			
+13821262627	Bearpen Falls	35.0683669	-82.8656607	Bearpen Creek			
+13821262628		35.0693496	-82.8651445				
+13821262629	Charlie Falls	35.1815033	-83.0665973	Robinson Creek			
+13821262639	Packs Falls	35.1726831	-83.0501704	Packs Creek			
+13821262640	Pittypat Falls	35.1732401	-83.0507327	Packs Creek			
+13821262641	Twin Falls	35.1731704	-83.0714513	Robinson Creek			
+13826196969	Cane Creek Falls	35.007803	-82.8748217	Cane Creek	804	Cane Creek Falls	26
+13826234596		34.9286594	-83.0913686	Crane Creek			
+13851009476	Black Canyon Falls	35.2496429	-85.754279	Big Fiery Gizzard Creek			
+13853489985	South Shoal Creek Falls	35.1407312	-84.2261479	South Shoal Creek			
+13983846175	Lower Bearwallow Falls	35.3277857	-83.0019496	Bearwallow Creek			
+14000312605		35.2172865	-83.0506006				
+14000744158	Anderson Falls	35.2224066	-85.73695	McAlloyd Branch			
+14068802524	Shut In Falls	35.081679	-83.2632047	Cullasaja River			
+14068802525	Short Creek Falls	35.0932076	-83.2600063	Short Creek			
+14068802527		35.0311672	-83.2620769	Abes Creek			
+14068911370		36.5638412	-82.2258914	Steele Creek			
+14091039982		35.6656742	-82.2986421	Slaty Branch			
+14129041821	Steeltrap Creek Falls	35.5473066	-83.5141586	Steeltrap Creek	943	Steeltrap Creek Falls	24

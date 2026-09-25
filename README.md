@@ -4,8 +4,8 @@ A map and logbook for the waterfalls and lookout towers of Western North
 Carolina. Find somewhere to go, record that you went, and track progress
 against the challenge lists that people actually hike.
 
-Currently **956 places** — 934 waterfalls and 22 lookout towers — across four
-challenges. 464 of them are published on the map; the rest are held back until
+Currently **966 places** — 944 waterfalls and 22 lookout towers — across four
+challenges. 495 of them are published on the map; the rest are held back until
 a second source agrees on where they are. See *Data* below.
 
 A hobby project by jw. Feedback: <jw@mustmodify.com>
@@ -56,6 +56,17 @@ is why `go run .` needs no environment locally. The migration runner has no
 such fallback — it requires `DATABASE_URL`, hence the longer line above. On a
 local socket install, `host=/var/run/postgresql` is what gets you peer
 authentication; `postgres://user:pass@host/db` works anywhere else.
+
+### Branches
+
+Work goes on a branch named for the work, and that branch is opened as a pull
+request and merged once. `ty-feedback` was reused four times — merged, then
+committed to again, then merged again — which is how forty-four commits ended
+up sitting unmerged with no pull request open and nothing deployed. A branch
+name that describes what is on it can't be reused that way, because the next
+piece of work needs a different name.
+
+Merging is jw's; nobody else merges.
 
 ### Signing in
 
@@ -115,7 +126,7 @@ disagreement rather than picking a winner at import time.
 
 The coordinate is the one field where agreement is required rather than
 recorded. A waterfall is published on the map only when two or more independent
-sources put it in the same place, which is why 464 of 956 places appear. The
+sources put it in the same place, which is why 495 of 966 places appear. The
 rest are real waterfalls we are not yet confident enough to send somebody to.
 
 ### Who owns the ground

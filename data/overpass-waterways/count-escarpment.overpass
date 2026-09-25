@@ -1,0 +1,6 @@
+[out:json][timeout:120];
+(
+  node["waterway"="waterfall"](34.50,-85.80,36.70,-78.80);
+  node["natural"="waterfall"](34.50,-85.80,36.70,-78.80);
+);
+out count;

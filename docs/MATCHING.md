@@ -641,3 +641,101 @@ comparing that against "Silver Run Falls". All 54 carry a note saying
 not a cleanup: whether position agreement inside 200 m with no name
 agreement is enough to set `identity_certain = true`. If it is, one
 re-arbitration migration settles all 54.
+
+## 9. What the sources do that a matcher has to know
+
+Added after a day spent reading pages rather than rows. Each of these cost a
+wrong answer before it was understood.
+
+### 9.1 ncwaterfalls measures one way
+
+Kevin Adams publishes hike distances one way; hikingwnc publishes round trip.
+He documents this nowhere, so it was measured: across the 80 waterfalls where
+both give a distance and hikingwnc marks round trip explicitly, his figures
+run at **0.57** of theirs, with 41 of 80 between 0.4 and 0.6 and only 5 within
+20% of equal. Normalizing doubles his numbers.
+
+The bug this caused is worth remembering: a note on 146 claims had asserted
+the convention since migration 043 and *nothing acted on it*, because
+`hike_distance_feet()` only doubles when the text says "each way" and his bare
+"0.9 miles" says nothing. So the normalized column held one-way feet for him
+and round-trip feet for everyone else while the units column claimed both were
+feet. Uniform to look at, not uniform in fact.
+
+### 9.2 AllTrails names routes, not waterfalls
+
+285 of its names carry a "via" tail — `Courthouse Falls via Summey Cove
+Trail`. Stripping it made 64 features unanimous on their name that were not.
+AllTrails also lists several routes to one waterfall at very different
+lengths, so a large distance disagreement with a guidebook is *not* evidence
+of a closure; Courthouse has a 3.8-mile route and a 6.8-mile one.
+
+### 9.3 Some hikingwnc pages cover several waterfalls
+
+A url opening with two numbers, the second larger than the first, is a run:
+`942-945-big-cliff-falls-etc-sc` covers falls 942 through 945. Three numbers
+are not always a range — `691-22-foot-falls` is the 691st fall and it is
+called 22 Foot Falls — so the test is that the second number exceeds the
+first. Four pages qualify; twelve waterfalls live on three of them, against
+three features that stood in for all of them.
+
+Those pages carry per-waterfall detail our structured import lost entirely:
+`data/hiking_wnc_falls.json` holds each of them several times over with
+byte-identical content, the page-level row copied once per waterfall. The real
+data is in a table on the page, or in labelled prose with a `GPS Info: LAT x
+LONG y (Name)` line per fall.
+
+A leading number in a name from one of those pages is his counter, not a name:
+`945 Big Cliff Falls etc. (SC)` is the last of four plus his shorthand for the
+rest.
+
+### 9.4 OpenStreetMap heights are metres — usually
+
+A bare `height` tag means metres by specification, and the data agrees: across
+33 features where OSM and another source both give a height, the metres
+reading is closer in 29. But in three the raw number matches the other source
+almost exactly, which is what a mapper typing feet leaves behind — Wildcat
+Falls tagged 60 against everyone else's 60 feet, stored as 197.
+
+### 9.5 Closures live in AllTrails' structured fields, not its reviews
+
+`[CLOSED]` in the trail name, or a bullet at the head of the description:
+"Partial closure: As of May 2025, this area is closed indefinitely due to
+damage from Hurricane Helene". `review_summary` is the weakest of the three
+and is sometimes null outright.
+
+### 9.6 A source can catalogue one waterfall twice
+
+Chute Falls and Christopher Falls are 4 m apart, have different names and
+different entries in Kevin's own numbering — #793 in 2021, #945 in 2024 — and
+are the same water. Only his prose separates them: one page places Bella and
+Evil Ducky on the unnamed trib, the other says two of three are on the trib
+and the third on Laurel Fork. Position alone said "two adjacent falls", which
+is exactly what a duplicate looks like.
+
+### 9.7 A creek name is not a key either
+
+The watercourse is the best discriminator we have, and it is still not
+unique. jw: "creek names are not guaranteed to be unique. More likely, but
+still, there are a TON of creeks."
+
+Measured against our own 121 watercourse claims, by how far apart the falls
+sharing a creek name actually are:
+
+    Big Creek                16 falls    136 km apart
+    Fall Creek                4 falls    117 km apart
+    Cullasaja River          36 falls     10 km
+    Looking Glass Creek       9 falls      5 km
+    Courthouse Creek          9 falls    2.6 km
+
+Big Creek and Fall Creek are several different creeks. They fail for the same
+reason High Falls and Rainbow Falls fail: they are generic English words, and
+generic names recur wherever the feature does. Cullasaja, Yellowstone Prong
+and Courthouse hold together because nobody else named their creek that.
+
+So use the watercourse **with** position, never instead of it. Two falls on
+"Big Creek" are the same creek only if they are also near each other; two
+falls 4 m apart are the same waterfall only if they are also on the same
+creek, which is what settled Chute Falls against Christopher Falls. Each test
+is weak alone and strong in company, which is the general shape of everything
+in this document.

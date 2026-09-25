@@ -1,0 +1,6 @@
+[out:json][timeout:60];
+(
+  way["waterway"]["name"="Big Creek"](34.8,-84.5,36.3,-81.5);
+  way["waterway"]["name"="Alarka Creek"](34.8,-84.5,36.3,-81.5);
+);
+out ids tags;

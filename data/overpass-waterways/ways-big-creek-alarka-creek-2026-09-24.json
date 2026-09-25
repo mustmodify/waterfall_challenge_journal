@@ -1,0 +1,2541 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-09-24T19:44:52Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 34558246,
+  "tags": {
+    "NHD:ComID": "136154149",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154149",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream",
+    "wikidata": "Q32841019"
+  }
+},
+{
+  "type": "way",
+  "id": 34560711,
+  "tags": {
+    "NHD:ComID": "136154154",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154154",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34560812,
+  "tags": {
+    "NHD:ComID": "136154159",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000263",
+    "NHD:way_id": "136154159",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34713142,
+  "tags": {
+    "NHD:ComID": "136154157",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000262",
+    "NHD:way_id": "136154157",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34713212,
+  "tags": {
+    "NHD:ComID": "136154153",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154153",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34968690,
+  "tags": {
+    "NHD:ComID": "136154158",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000263",
+    "NHD:way_id": "136154158",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34970340,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "3060102001722",
+    "NHD:way_id": "136155396",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34972365,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "3060102001715",
+    "NHD:way_id": "136155393",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34973814,
+  "tags": {
+    "NHD:ComID": "136154156",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154156",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34975903,
+  "tags": {
+    "NHD:ComID": "136154155",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154155",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34976406,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "3060102000266",
+    "NHD:way_id": "136154163",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34978100,
+  "tags": {
+    "NHD:ComID": "136154152",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154152",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34982389,
+  "tags": {
+    "NHD:ComID": "136154151",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154151",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34982494,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "3060102000265",
+    "NHD:way_id": "136154162",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34983348,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "3060102000264",
+    "NHD:way_id": "136154161",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34987256,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000263",
+    "NHD:way_id": "136154160",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 34988220,
+  "tags": {
+    "NHD:ComID": "136154150",
+    "NHD:FCode": "46006",
+    "NHD:ReachCode": "3060102000261",
+    "NHD:way_id": "136154150",
+    "gnis:feature_id": "1009305",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 42822603,
+  "tags": {
+    "NHD:ComID": "141319719",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "3050101001367",
+    "NHD:way_id": "141319719",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009303",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091019112441",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43350884,
+  "tags": {
+    "NHD:ComID": "90506716",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000242",
+    "NHD:way_id": "90506716",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351147,
+  "tags": {
+    "NHD:ComID": "90507042",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000250",
+    "NHD:way_id": "90507042",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351192,
+  "tags": {
+    "NHD:ComID": "90506176",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506176",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351264,
+  "tags": {
+    "NHD:ComID": "90503174",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003710",
+    "NHD:way_id": "90503174",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351642,
+  "tags": {
+    "NHD:ComID": "90506914",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90506914",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351735,
+  "tags": {
+    "NHD:ComID": "90507040",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90507040",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351749,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202000466",
+    "NHD:way_id": "90511252",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351845,
+  "tags": {
+    "NHD:ComID": "90507062",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90507062",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351860,
+  "tags": {
+    "NHD:ComID": "90506698",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000242",
+    "NHD:way_id": "90506698",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351919,
+  "tags": {
+    "NHD:ComID": "90506818",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000234",
+    "NHD:way_id": "90506818",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43351963,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202000464",
+    "NHD:way_id": "90511468",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43352014,
+  "tags": {
+    "NHD:ComID": "90506964",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90506964",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43352030,
+  "tags": {
+    "NHD:ComID": "90506200",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506200",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43352214,
+  "tags": {
+    "NHD:ComID": "90503152",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003699",
+    "NHD:way_id": "90503152",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43352403,
+  "tags": {
+    "NHD:ComID": "90503176",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003711",
+    "NHD:way_id": "90503176",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43353750,
+  "tags": {
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:ReachCode": "6010202000466",
+    "NHD:way_id": "90504618",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43353818,
+  "tags": {
+    "NHD:ComID": "90506136",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202001297",
+    "NHD:way_id": "90506136",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43353878,
+  "tags": {
+    "NHD:ComID": "90506148",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000226",
+    "NHD:way_id": "90506148",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43353898,
+  "tags": {
+    "NHD:ComID": "90508396",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000792",
+    "NHD:way_id": "90508396",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009300",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43353901,
+  "tags": {
+    "NHD:ComID": "90503158",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003702",
+    "NHD:way_id": "90503158",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43354075,
+  "tags": {
+    "NHD:ComID": "90506696",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000242",
+    "NHD:way_id": "90506696",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43354146,
+  "tags": {
+    "NHD:ComID": "90506192",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000226",
+    "NHD:way_id": "90506192",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43354182,
+  "tags": {
+    "NHD:ComID": "90507060",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90507060",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43354292,
+  "tags": {
+    "NHD:ComID": "90503162",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003704",
+    "NHD:way_id": "90503162",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43354600,
+  "tags": {
+    "NHD:ComID": "90506876",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90506876",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368124,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202002641",
+    "NHD:way_id": "90511016",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368174,
+  "tags": {
+    "NHD:ComID": "90503136",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003692",
+    "NHD:way_id": "90503136",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368354,
+  "tags": {
+    "NHD:ComID": "90506736",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000231",
+    "NHD:way_id": "90506736",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368411,
+  "tags": {
+    "NHD:ComID": "90506650",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000244",
+    "NHD:way_id": "90506650",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368437,
+  "tags": {
+    "NHD:ComID": "90503164",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003705",
+    "NHD:way_id": "90503164",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368693,
+  "tags": {
+    "NHD:ComID": "90507030",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000250",
+    "NHD:way_id": "90507030",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368883,
+  "tags": {
+    "NHD:ComID": "90508504",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000792",
+    "NHD:way_id": "90508504",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009300",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43368962,
+  "tags": {
+    "NHD:ComID": "90506330",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506330",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369062,
+  "tags": {
+    "NHD:ComID": "90507074",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000250",
+    "NHD:way_id": "90507074",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369067,
+  "tags": {
+    "NHD:ComID": "90507068",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90507068",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369146,
+  "tags": {
+    "NHD:ComID": "90507088",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90507088",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369216,
+  "tags": {
+    "NHD:ComID": "90507066",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000250",
+    "NHD:way_id": "90507066",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369239,
+  "tags": {
+    "NHD:ComID": "90507020",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000249",
+    "NHD:way_id": "90507020",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369284,
+  "tags": {
+    "NHD:ComID": "90506354",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506354",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369301,
+  "tags": {
+    "NHD:ComID": "90507084",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90507084",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369367,
+  "tags": {
+    "NHD:ComID": "90503172",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003709",
+    "NHD:way_id": "90503172",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369368,
+  "tags": {
+    "NHD:ComID": "90507090",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90507090",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369419,
+  "tags": {
+    "NHD:ComID": "90508654",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000792",
+    "NHD:way_id": "90508654",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009300",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369546,
+  "tags": {
+    "NHD:ComID": "90506138",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202001298",
+    "NHD:way_id": "90506138",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369553,
+  "tags": {
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:ReachCode": "6010202000468",
+    "NHD:way_id": "90504562",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43369801,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202000468",
+    "NHD:way_id": "90511102",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43370472,
+  "tags": {
+    "NHD:ComID": "90506748",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000249",
+    "NHD:way_id": "90506748",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43370541,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202000468",
+    "NHD:way_id": "90511024",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43370593,
+  "tags": {
+    "NHD:ComID": "90506768",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000233",
+    "NHD:way_id": "90506768",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43370928,
+  "tags": {
+    "NHD:ComID": "90503170",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003708",
+    "NHD:way_id": "90503170",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43370952,
+  "tags": {
+    "NHD:ComID": "90506190",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506190",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371128,
+  "tags": {
+    "NHD:ComID": "90506548",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000230",
+    "NHD:way_id": "90506548",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371134,
+  "tags": {
+    "NHD:ComID": "90506728",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000242",
+    "NHD:way_id": "90506728",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371185,
+  "tags": {
+    "NHD:ComID": "90508456",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000792",
+    "NHD:way_id": "90508456",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009300",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371216,
+  "tags": {
+    "NHD:ComID": "90506254",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506254",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371343,
+  "tags": {
+    "NHD:ComID": "90506746",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000231",
+    "NHD:way_id": "90506746",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371359,
+  "tags": {
+    "NHD:ComID": "90506820",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000233",
+    "NHD:way_id": "90506820",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371365,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202000466",
+    "NHD:way_id": "90511110",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371369,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202000466",
+    "NHD:way_id": "90511168",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371425,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:ReachCode": "6010202000468",
+    "NHD:way_id": "90511130",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371528,
+  "tags": {
+    "NHD:ComID": "90506188",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506188",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371536,
+  "tags": {
+    "NHD:ComID": "90506756",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000232",
+    "NHD:way_id": "90506756",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371566,
+  "tags": {
+    "NHD:ComID": "90506140",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506140",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371623,
+  "tags": {
+    "NHD:ComID": "90506116",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000227",
+    "NHD:way_id": "90506116",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371635,
+  "tags": {
+    "NHD:ComID": "90506826",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000249",
+    "NHD:way_id": "90506826",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371656,
+  "tags": {
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:ReachCode": "6010202003420",
+    "NHD:way_id": "90504728",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371658,
+  "tags": {
+    "NHD:ComID": "90508148",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000792",
+    "NHD:way_id": "90508148",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009300",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371660,
+  "tags": {
+    "NHD:ComID": "90506700",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000242",
+    "NHD:way_id": "90506700",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371822,
+  "tags": {
+    "NHD:ComID": "90506646",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000243",
+    "NHD:way_id": "90506646",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371902,
+  "tags": {
+    "NHD:ComID": "90506198",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000226",
+    "NHD:way_id": "90506198",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43371986,
+  "tags": {
+    "NHD:ComID": "90506632",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000230",
+    "NHD:way_id": "90506632",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43372017,
+  "tags": {
+    "NHD:ComID": "90506866",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000251",
+    "NHD:way_id": "90506866",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43372046,
+  "tags": {
+    "NHD:ComID": "90503168",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202003707",
+    "NHD:way_id": "90503168",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43372146,
+  "tags": {
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:ReachCode": "6010202000464",
+    "NHD:way_id": "90504638",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43467818,
+  "tags": {
+    "NHD:ComID": "112263257",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204003539",
+    "NHD:way_id": "112263257",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43470468,
+  "tags": {
+    "NHD:ComID": "112263469",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000324",
+    "NHD:way_id": "112263469",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43471882,
+  "tags": {
+    "NHD:ComID": "112263179",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000323",
+    "NHD:way_id": "112263179",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43481074,
+  "tags": {
+    "NHD:ComID": "112263825",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000324",
+    "NHD:way_id": "112263825",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43481993,
+  "tags": {
+    "NHD:ComID": "112263313",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000321",
+    "NHD:way_id": "112263313",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43481994,
+  "tags": {
+    "NHD:ComID": "112263559",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000324",
+    "NHD:way_id": "112263559",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43484145,
+  "tags": {
+    "NHD:ComID": "112262999",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000323",
+    "NHD:way_id": "112262999",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43484285,
+  "tags": {
+    "NHD:ComID": "112263191",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204003539",
+    "NHD:way_id": "112263191",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43484377,
+  "tags": {
+    "NHD:ComID": "112263299",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000322",
+    "NHD:way_id": "112263299",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43484773,
+  "tags": {
+    "NHD:ComID": "112263919",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000325",
+    "NHD:way_id": "112263919",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43484951,
+  "tags": {
+    "NHD:ComID": "112263227",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000320",
+    "NHD:way_id": "112263227",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43485990,
+  "tags": {
+    "NHD:ComID": "112263221",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000319",
+    "NHD:way_id": "112263221",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43486072,
+  "tags": {
+    "NHD:ComID": "112264279",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000325",
+    "NHD:way_id": "112264279",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43487950,
+  "tags": {
+    "NHD:ComID": "112263225",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010204000320",
+    "NHD:way_id": "112263225",
+    "attribution": "NHD",
+    "gnis:feature_id": "1327609",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091031072003",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43614489,
+  "tags": {
+    "NHD:RESOLUTION": "High",
+    "gnis:feature_id": "1009302",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream",
+    "wikidata": "Q32841018"
+  }
+},
+{
+  "type": "way",
+  "id": 43642395,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009304",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091101133836",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43715720,
+  "tags": {
+    "NHD:ComID": "132657494",
+    "NHD:FCode": "46003",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010106000800",
+    "NHD:way_id": "132657494",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009301",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103124256",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43717330,
+  "tags": {
+    "NHD:ComID": "132657578",
+    "NHD:FCode": "46003",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010106000801",
+    "NHD:way_id": "132657578",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009301",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103124256",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43717343,
+  "tags": {
+    "NHD:ComID": "132657504",
+    "NHD:FCode": "46003",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010106000799",
+    "NHD:way_id": "132657504",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009301",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103124256",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43718041,
+  "tags": {
+    "NHD:ComID": "132657509",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010106000799",
+    "NHD:way_id": "132657509",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009301",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103124256",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43724065,
+  "tags": {
+    "NHD:ComID": "131007307",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131007307",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43724933,
+  "tags": {
+    "NHD:ComID": "131008861",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001633",
+    "NHD:way_id": "131008861",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43725065,
+  "tags": {
+    "NHD:ComID": "131012636",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012636",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43742477,
+  "tags": {
+    "NHD:ComID": "131011073",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131011073",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43744294,
+  "tags": {
+    "NHD:ComID": "131013095",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108013000",
+    "NHD:way_id": "131013095",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43744423,
+  "tags": {
+    "NHD:ComID": "131013268",
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131013268",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43747142,
+  "tags": {
+    "NHD:ComID": "131007605",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131007605",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43748649,
+  "tags": {
+    "NHD:ComID": "131009477",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131009477",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43749213,
+  "tags": {
+    "NHD:ComID": "131012641",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012641",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43749554,
+  "tags": {
+    "NHD:ComID": "131011114",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001633",
+    "NHD:way_id": "131011114",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43749681,
+  "tags": {
+    "NHD:ComID": "131012590",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012590",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43749714,
+  "tags": {
+    "NHD:ComID": "131008866",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001633",
+    "NHD:way_id": "131008866",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43750056,
+  "tags": {
+    "NHD:ComID": "131012491",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012491",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43750524,
+  "tags": {
+    "NHD:ComID": "131012836",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131012836",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43752941,
+  "tags": {
+    "NHD:ComID": "131013089",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131013089",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43753069,
+  "tags": {
+    "NHD:ComID": "131011647",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131011647",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43753341,
+  "tags": {
+    "NHD:ComID": "131012362",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012362",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43753502,
+  "tags": {
+    "NHD:ComID": "131012950",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131012950",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43754843,
+  "tags": {
+    "NHD:ComID": "131010538",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131010538",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43754990,
+  "tags": {
+    "NHD:ComID": "131011005",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131011005",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43764383,
+  "tags": {
+    "NHD:ComID": "131011163",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131011163",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43764823,
+  "tags": {
+    "NHD:ComID": "131010449",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001633",
+    "NHD:way_id": "131010449",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43769067,
+  "tags": {
+    "NHD:ComID": "131011368",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131011368",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43769645,
+  "tags": {
+    "NHD:ComID": "131013270",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131013270",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43770660,
+  "tags": {
+    "NHD:ComID": "131012647",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131012647",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43772335,
+  "tags": {
+    "NHD:ComID": "131008060",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131008060",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43773044,
+  "tags": {
+    "NHD:ComID": "131013126",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131013126",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43775041,
+  "tags": {
+    "NHD:ComID": "131013081",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131013081",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43777205,
+  "tags": {
+    "NHD:ComID": "131011642",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001633",
+    "NHD:way_id": "131011642",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43777453,
+  "tags": {
+    "NHD:ComID": "131012477",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012477",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43777489,
+  "tags": {
+    "NHD:ComID": "131012638",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001631",
+    "NHD:way_id": "131012638",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 43778210,
+  "tags": {
+    "NHD:ComID": "131013082",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001630",
+    "NHD:way_id": "131013082",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 268454285,
+  "tags": {
+    "NHD:ComID": "90506698",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000242",
+    "NHD:way_id": "90506698",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 337875747,
+  "tags": {
+    "FlowDir": "1",
+    "name": "Big Creek",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 389828375,
+  "tags": {
+    "FlowDir": "1",
+    "name": "Big Creek",
+    "waterway": "river"
+  }
+},
+{
+  "type": "way",
+  "id": 395033781,
+  "tags": {
+    "layer": "-1",
+    "name": "Big Creek",
+    "tunnel": "culvert",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 395033782,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009304",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091101133836",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 424026483,
+  "tags": {
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:ReachCode": "6010202003420",
+    "NHD:way_id": "90504728",
+    "gnis:feature_id": "1009299",
+    "layer": "-1",
+    "name": "Big Creek",
+    "source": "NHD",
+    "tunnel": "yes",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 424026484,
+  "tags": {
+    "NHD:FCode": "55800",
+    "NHD:FType": "ArtificialPath",
+    "NHD:ReachCode": "6010202003420",
+    "NHD:way_id": "90504728",
+    "gnis:feature_id": "1009299",
+    "name": "Big Creek",
+    "source": "NHD",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 1133574683,
+  "tags": {
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009304",
+    "intermittent": "yes",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091101133836",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 1135484879,
+  "tags": {
+    "NHD:ComID": "131012362",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012362",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 1135484880,
+  "tags": {
+    "NHD:ComID": "131012362",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010108001634",
+    "NHD:way_id": "131012362",
+    "attribution": "NHD",
+    "gnis:feature_id": "1009307",
+    "layer": "-1",
+    "name": "Big Creek",
+    "source": "NHD_import_v0.3_20091103140827",
+    "tunnel": "culvert",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 1163401591,
+  "tags": {
+    "NHD:ComID": "90506198",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000226",
+    "NHD:way_id": "90506198",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "waterway": "stream"
+  }
+},
+{
+  "type": "way",
+  "id": 1163401592,
+  "tags": {
+    "NHD:ComID": "90506198",
+    "NHD:FCode": "46006",
+    "NHD:FType": "StreamRiver",
+    "NHD:RESOLUTION": "High",
+    "NHD:ReachCode": "6010202000226",
+    "NHD:way_id": "90506198",
+    "attribution": "NHD",
+    "gnis:feature_id": "1008664",
+    "layer": "-1",
+    "name": "Alarka Creek",
+    "source": "NHD_import_v0.3_20091029201335",
+    "tunnel": "culvert",
+    "waterway": "stream"
+  }
+}
+
+  ]
+}

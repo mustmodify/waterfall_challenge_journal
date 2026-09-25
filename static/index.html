@@ -139,6 +139,27 @@
 
     #search::placeholder { color: var(--haze); }
 
+    /* The other names a waterfall answers to, under its heading. */
+    .aka { color: var(--haze); font-size: 0.85rem; margin: -4px 0 10px; }
+
+    /* Near misses. Shown only when what was typed matched nothing exactly --
+       a datalist already handles the case where it did. */
+    #search-hits {
+      margin: -4px 0 10px; border: 1px solid var(--line);
+      border-radius: 8px; background: var(--field-bg); overflow: hidden;
+    }
+    #search-hits .miss-head {
+      padding: 6px 10px; color: var(--haze); font-size: 0.78rem;
+      border-bottom: 1px solid var(--line);
+    }
+    #search-hits button {
+      display: block; width: 100%; text-align: left;
+      padding: 7px 10px; border: 0; background: transparent;
+      color: var(--mist); font: inherit; cursor: pointer;
+    }
+    #search-hits button:hover, #search-hits button:focus { background: rgba(242,246,242,0.08); }
+    #search-hits .why { color: var(--haze); font-size: 0.78rem; margin-left: 6px; }
+
     .chip-row {
       display: flex;
       flex-wrap: wrap;
@@ -1372,6 +1393,7 @@
         Filters<span id="filter-count" hidden></span>
       </button>
     </div>
+    <div id="search-hits" hidden></div>
     <div id="filter-controls">
     <div class="subheading">Filters</div>
     <div class="filter-list">
@@ -2023,7 +2045,56 @@
     // Free text from several sources: "Roadside", "4.4", "0.6 Miles (out and
     // back)", "Approx 1.4 mile each way", "Less than 1.7", and one "2.8.30".
     // Requiring a leading digit threw away seventeen real distances.
+    // The arbitrated answer, where there is one. facts is keyed by the thing
+    // the fact is about, and carries the value, its unit, and how much it is
+    // worth -- so the card can show the number and the map can filter on it
+    // without either re-parsing whatever prose a source happened to write.
+    function factOf(goal, key) {
+      return (goal.facts && goal.facts[key]) || null;
+    }
+    // What to call a place: the name we believe, plus whatever tells it from
+    // the others that share it. Five waterfalls are called High Falls, so the
+    // short name alone is not an answer -- and the combined string was not
+    // either, because sources publish the short name and we were grading
+    // their agreement against ours.
+    function displayName(goal) {
+      const name = (factOf(goal, 'name') || {}).value || goal.name;
+      const dis = (factOf(goal, 'disambiguator') || {}).value;
+      return dis ? name + ' (' + dis + ')' : name;
+    }
+
+    function aliasesOf(goal) {
+      const f = factOf(goal, 'aliases');
+      if (!f) return [];
+      try { return JSON.parse(f.value) || []; } catch (e) { return []; }
+    }
+
+    function factNumber(goal, key) {
+      const f = factOf(goal, key);
+      if (!f) return null;
+      const n = Number(f.value);
+      return isFinite(n) ? n : null;
+    }
+
+    // Miles once it is far enough for miles to mean anything, feet below
+    // that. A tenth of a mile is 528 feet, which reads as a number nobody can
+    // picture; "400 ft" is a walk you can see the end of.
+    const FEET_PER_MILE = 5280;
+    const MILES_THRESHOLD_FT = 0.6 * FEET_PER_MILE;   // 3168
+
+    function describeDistanceFt(ft) {
+      if (ft === null || ft === undefined) return null;
+      if (ft <= 0) return 'Roadside';
+      if (ft >= MILES_THRESHOLD_FT) return (ft / FEET_PER_MILE).toFixed(1) + ' mi';
+      return Math.round(ft / 10) * 10 + ' ft';
+    }
+
     function walkMiles(goal) {
+      // The fact first: it has been through the same parser for every
+      // source, including the ones that publish one-way distances.
+      const ft = factNumber(goal, 'hike_distance');
+      if (ft !== null) return ft / FEET_PER_MILE;
+
       const raw = (goal.rt_hike_distance || '').trim();
       if (!raw) return null;
       if (/^roadside/i.test(raw)) return 0;
@@ -2498,7 +2569,7 @@
           ? 'Visited ' + goal.last_visited
           : (goal.challenges || []).join(' &middot; ') || 'Not visited';
         marker.bindTooltip(
-          '<strong>' + escapeHtml(goal.name) + '</strong><div class="tip-sub">' + sub + '</div>',
+          '<strong>' + escapeHtml(displayName(goal)) + '</strong><div class="tip-sub">' + sub + '</div>',
           { className: 'goal-tip', direction: 'top', offset: [0, -8] }
         );
         marker.on('click', () => openDrawer(goal, false));
@@ -2622,11 +2693,34 @@
       const d = goal.difficulty_rating ? goal.difficulty_rating.trim() : '';
       const diffName = { E: 'Easy', M: 'Moderate', D: 'Difficult' }[d];
 
-      let html = '<h2>' + escapeHtml(goal.name) + '</h2>';
+      let html = '<h2>' + escapeHtml(displayName(goal)) + '</h2>';
+      const aka = aliasesOf(goal);
+      if (aka.length) {
+        html += '<p class="aka">Also called ' +
+          aka.map((a) => escapeHtml(a)).join(', ') + '</p>';
+      }
       html += '<div class="badges">';
       if (diffName) html += '<span class="badge diff-' + d + '">' + diffName + '</span>';
       if (goal.last_visited) html += '<span class="badge visited">Visited</span>';
       html += '</div>';
+
+      // Access comes before the deprecation notice: "you cannot get there"
+      // outranks "it is not what it was". Only 'ok' and 'unverified' stay
+      // quiet -- the first needs no warning and the second would put a banner
+      // on almost every waterfall, which would train people to ignore it.
+      const access = factOf(goal, 'access_status');
+      if (access && (access.value === 'inaccessible' || access.value === 'detour')) {
+        const detourFt = factNumber(goal, 'detour_hike_distance');
+        html += '<div class="warn"><strong>' +
+          (access.value === 'inaccessible'
+            ? 'Reported inaccessible'
+            : 'Reported open, but not by the usual way') + '</strong>';
+        if (access.value === 'detour' && detourFt !== null) {
+          html += '<p>The walk is ' + escapeHtml(describeDistanceFt(detourFt)) +
+            ' while access is impaired.</p>';
+        }
+        html += '</div>';
+      }
 
       if (goal.deprecated_reason) {
         html += '<div class="warn"><strong>' +
@@ -2643,7 +2737,18 @@
       });
 
       html += '<div class="fact-grid">';
-      html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;') + '</div></div>';
+      const walkFt = factNumber(goal, 'hike_distance');
+      const walkText = describeDistanceFt(walkFt) ||
+        (goal.rt_hike_distance ? escapeHtml(goal.rt_hike_distance) : '&mdash;');
+      html += '<div class="fact"><div class="k">Round trip</div><div class="v">' + walkText + '</div></div>';
+      const heightFt = factNumber(goal, 'height');
+      if (heightFt !== null) {
+        html += '<div class="fact"><div class="k">Height</div><div class="v">' +
+          Math.round(heightFt) + ' ft</div></div>';
+      } else if (goal.height_ft) {
+        html += '<div class="fact"><div class="k">Height</div><div class="v">' +
+          goal.height_ft + ' ft</div></div>';
+      }
       html += '<div class="fact"><div class="k">Last visited</div><div class="v">' + (goal.last_visited ? escapeHtml(goal.last_visited) : 'Never') + '</div></div>';
       html += '<div class="fact"><div class="k">Beauty</div>' + band('beauty', goal.beauty_rating) + '</div>';
       html += '<div class="fact"><div class="k">Photo</div>' + band('photo', goal.photo_rating) + '</div>';
@@ -2953,14 +3058,124 @@
 
     function renderDatalist() {
       const places = state.features
-        .map((g) => '<option value="' + escapeHtml(g.name) + '"></option>');
+        .map((g) => '<option value="' + escapeHtml(displayName(g)) + '"></option>');
       const areas = [...areaNames].sort()
         .map((a) => '<option value="' + escapeHtml(a + AREA_SUFFIX) + '"></option>');
       $('goal-names').innerHTML = places.concat(areas).join('');
     }
 
+    // Near-miss search. An exact name opens the place; anything else gets
+    // ranked suggestions rather than "nothing found".
+    //
+    // Worth being deliberate about, because the names here are built to
+    // collide: five High Falls, four Twin Falls, apostrophes that come and
+    // go ("Tom's Creek" against "Toms Creek"), and the disambiguator a
+    // person is least likely to type ("Rainbow Falls (Gorges)"). Someone
+    // typing "toms creek" has not failed to find anything -- they have found
+    // something we refused to show them.
+    function searchKey(s) {
+      return String(s || '').toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ').trim();
+    }
+
+    // Cheap edit distance, capped: we only care whether two short names are
+    // within a typo or two of each other, never how far apart they really are.
+    function withinEdits(a, b, max) {
+      if (Math.abs(a.length - b.length) > max) return false;
+      let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+      for (let i = 1; i <= a.length; i++) {
+        const row = [i];
+        let best = i;
+        for (let j = 1; j <= b.length; j++) {
+          row[j] = Math.min(prev[j] + 1, row[j - 1] + 1,
+                            prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+          best = Math.min(best, row[j]);
+        }
+        if (best > max) return false;      // whole row already too far
+        prev = row;
+      }
+      return prev[b.length] <= max;
+    }
+
+    function scoreName(key, candidateKey) {
+      if (!key || !candidateKey) return 0;
+      if (candidateKey === key) return 100;
+      if (candidateKey.startsWith(key)) return 80;
+      if (candidateKey.includes(key)) return 65;
+      // Every word typed appears somewhere: "gorges rainbow" finds
+      // "Rainbow Falls (Gorges)".
+      const words = key.split(' ').filter(Boolean);
+      if (words.length && words.every((w) => candidateKey.includes(w))) return 55;
+      // "falls" is in almost every name, so a typo allowance is only
+      // meaningful on what is left once it is gone.
+      const bare = (t) => t.replace(/\bfalls?\b/g, '').trim();
+      const a = bare(key), b = bare(candidateKey);
+      if (a && b && withinEdits(a, b, a.length > 6 ? 2 : 1)) return 45;
+      return 0;
+    }
+
+    function nearMisses(typed) {
+      const key = searchKey(typed);
+      if (key.length < 2) return [];
+      const hits = [];
+      state.features.forEach((g) => {
+        // Every name it answers to, so "Guardrail Falls" finds Bubbling
+        // Springs Cascades and "Cullowhee" finds High Falls.
+        let best = scoreName(key, searchKey(displayName(g)));
+        best = Math.max(best, scoreName(key, searchKey(g.name)));
+        aliasesOf(g).forEach((a) => {
+          best = Math.max(best, scoreName(key, searchKey(a)) - 3);
+        });
+        if (best) hits.push({ score: best, label: displayName(g), goal: g });
+      });
+      areaNames.forEach((a) => {
+        const score = scoreName(key, searchKey(a));
+        if (score) hits.push({ score: score - 5, label: a + AREA_SUFFIX, area: a });
+      });
+      hits.sort((x, y) => y.score - x.score || x.label.length - y.label.length);
+      return hits.slice(0, 6);
+    }
+
+    function clearHits() {
+      $('search-hits').hidden = true;
+      $('search-hits').innerHTML = '';
+    }
+
+    function showHits(typed, hits) {
+      const head = hits.length
+        ? 'No waterfall is called &ldquo;' + escapeHtml(typed) + '&rdquo;. Did you mean:'
+        : 'Nothing here matches &ldquo;' + escapeHtml(typed) + '&rdquo;.';
+      $('search-hits').innerHTML = '<div class="miss-head">' + head + '</div>' +
+        hits.map((h, i) => '<button type="button" data-hit="' + i + '">' +
+          escapeHtml(h.label) +
+          (h.goal && h.goal.deprecated_reason
+            ? '<span class="why">' + escapeHtml(DEPRECATED_LABELS[h.goal.deprecated_reason] ||
+                h.goal.deprecated_reason) + '</span>' : '') +
+          '</button>').join('');
+      $('search-hits').hidden = false;
+      $('search-hits').querySelectorAll('button').forEach((b) => {
+        b.addEventListener('click', () => {
+          const hit = hits[Number(b.dataset.hit)];
+          clearHits();
+          $('search').value = hit.label;
+          if (hit.goal) {
+            track('search', { found: 'place', term: hit.goal.name });
+            openDrawer(hit.goal, true);
+          } else {
+            track('search', { found: 'area', term: hit.area });
+            setArea(hit.area);
+          }
+        });
+      });
+    }
+
+    $('search').addEventListener('input', () => {
+      if (!$('search').value.trim()) clearHits();
+    });
+
     $('search').addEventListener('change', () => {
       const typed = $('search').value.trim();
+      clearHits();
       if (!typed) return;
 
       if (typed.endsWith(AREA_SUFFIX)) {
@@ -2968,26 +3183,37 @@
         if (areaNames.has(area)) {
           track('search', { found: 'area', term: area });
           setArea(area);
-        } else {
-          track('search', { found: 'nothing' });
+          return;
         }
-        return;
       }
 
       // A place wins a tie: someone typing "Linville Falls" wants the waterfall.
       // The term is reported only when it matches a place or area we publish,
       // so what reaches Google is our own vocabulary rather than whatever
       // someone typed into a box.
-      const goal = state.features.find((g) => g.name === typed);
+      const goal = state.features.find((g) => g.name === typed || displayName(g) === typed);
       if (goal) {
         track('search', { found: 'place', term: goal.name });
         openDrawer(goal, true);
-      } else if (areaNames.has(typed)) {
+        return;
+      }
+      if (areaNames.has(typed)) {
         track('search', { found: 'area', term: typed });
         setArea(typed);
-      } else {
-        track('search', { found: 'nothing' });
+        return;
       }
+
+      const hits = nearMisses(typed);
+      // One unambiguous near miss is worth opening outright -- a trailing
+      // space or a missing apostrophe is not a question worth asking.
+      if (hits.length === 1 && hits[0].score >= 80 && hits[0].goal) {
+        track('search', { found: 'place', term: hits[0].goal.name });
+        $('search').value = hits[0].goal.name;
+        openDrawer(hits[0].goal, true);
+        return;
+      }
+      track('search', { found: hits.length ? 'near' : 'nothing' });
+      showHits(typed, hits);
     });
 
     // ---------- filters ----------
