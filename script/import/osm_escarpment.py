@@ -18,7 +18,7 @@ every segment of a creek carries the creek's name, and the name is what we
 want. It does mean a node can sit on two ways, and where those disagree both
 names are kept rather than one being picked.
 
-    python3 script/osm_escarpment.py
+    python3 script/import/osm_escarpment.py
 
 Writes data/osm-escarpment.tsv and says which of the nodes we already hold.
 Every tile is cached, so running it again is a re-read rather than a refetch.

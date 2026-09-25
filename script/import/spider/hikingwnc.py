@@ -17,8 +17,8 @@ This only fetches and writes the page as it arrived. Nothing is parsed here
 -- an extractor can be rerun against a file on disk, while a parser wired
 into the fetch has to re-ask the site every time it changes its mind.
 
-    python3 script/spider/hikingwnc.py            # the ranges we know of
-    python3 script/spider/hikingwnc.py <url> ...  # or whichever you name
+    python3 script/import/spider/hikingwnc.py            # the ranges we know of
+    python3 script/import/spider/hikingwnc.py <url> ...  # or whichever you name
 """
 import os, re, sys
 

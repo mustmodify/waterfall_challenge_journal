@@ -6,7 +6,7 @@
 -- node, and we have none of it: the Overpass extract is 2,385 nodes and zero
 -- ways, because the query never asked for parents."
 --
--- It does now. script/osm_escarpment.py walks the whole escarpment in tiles
+-- It does now. script/import/osm_escarpment.py walks the whole escarpment in tiles
 -- and writes data/osm-escarpment.tsv, which is where every row below comes
 -- from. 1,425 waterfall nodes, 1,046 of them on a named way.
 --

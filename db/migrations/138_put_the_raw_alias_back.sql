@@ -27,7 +27,7 @@
 -- changing our categorisation rather than the source's words. Defensible, but
 -- it does not replay -- re-running the importer files them as parking again,
 -- because the importer is where that bug actually lives. Noted here so the
--- next person fixing script/backfill_claims/ncwaterfalls.py knows why.
+-- next person fixing script/import/claims/ncwaterfalls.py knows why.
 
 BEGIN;
 

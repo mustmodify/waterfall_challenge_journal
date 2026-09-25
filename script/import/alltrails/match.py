@@ -17,8 +17,8 @@ measures to the car park, and a waterfall four miles up a trail has a trailhead
 four miles away -- Ramsey Cascades is 5,280 m out and is still the right match.
 So pins arbitrates and trailhead distance is recorded, never tested.
 
-    python3 script/alltrails/match.py
-    python3 script/alltrails/match.py --explain 378
+    python3 script/import/alltrails/match.py
+    python3 script/import/alltrails/match.py --explain 378
 """
 
 import argparse

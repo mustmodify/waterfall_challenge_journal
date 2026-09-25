@@ -1,7 +1,7 @@
 // Import spidered waterfalls into features, matching on coordinates.
 //
-//	go run script/import_waterfalls.go              # dry run, prints the plan
-//	go run script/import_waterfalls.go -commit      # actually writes
+//	go run script/import/waterfalls.go              # dry run, prints the plan
+//	go run script/import/waterfalls.go -commit      # actually writes
 //
 // Matching: <=40m is the same fall whatever it's called -- GPS says it's the
 // same spot. >250m is a different fall. In between, the name decides, because

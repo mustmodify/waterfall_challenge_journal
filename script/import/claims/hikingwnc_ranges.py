@@ -14,7 +14,7 @@ The pages hold the real thing in three shapes, so this handles three:
                               line per waterfall
   single   996-997            one waterfall despite the range url
 
-Reads only data/hikingwnc/*.html, never the network -- script/spider/
+Reads only data/hikingwnc/*.html, never the network -- script/import/spider/
 hikingwnc.py put them there. Prints what it found; writes nothing.
 """
 import html, os, re, sys

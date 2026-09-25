@@ -28,7 +28,7 @@ import os
 import subprocess
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'spider'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'import', 'spider'))
 import overpass
 
 RESULTS = 'data/water-sweep.tsv'

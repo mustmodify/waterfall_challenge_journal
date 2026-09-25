@@ -14,9 +14,9 @@ Claude-SearchBot from the web site and /api/ from everybody; this touches
 neither. If AllTrails would rather we did not, the cache means stopping costs
 us nothing either.
 
-    python3 script/alltrails/fetch.py            # every published waterfall
-    python3 script/alltrails/fetch.py --limit 50
-    python3 script/alltrails/fetch.py --all      # unpublished ones too
+    python3 script/import/alltrails/fetch.py            # every published waterfall
+    python3 script/import/alltrails/fetch.py --limit 50
+    python3 script/import/alltrails/fetch.py --all      # unpublished ones too
 
 Writes:
     data/alltrails/raw/search/<feature_id>.json

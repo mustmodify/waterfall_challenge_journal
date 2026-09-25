@@ -9,7 +9,7 @@ not already encode; disagreeing everywhere would mean the rule is wrong.
 
 Neither side is ground truth. A disagreement is a question, not a defect.
 
-    python3 script/alltrails/compare.py
+    python3 script/import/alltrails/compare.py
 """
 
 import json

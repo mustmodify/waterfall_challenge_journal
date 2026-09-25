@@ -21,7 +21,7 @@ internet.
 
 Or from the shell, which is the useful form when checking something once:
 
-    python3 script/spider/overpass.py my.overpass name-for-the-cache
+    python3 script/import/spider/overpass.py my.overpass name-for-the-cache
 """
 import json
 import os

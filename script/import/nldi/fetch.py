@@ -11,11 +11,11 @@ For each waterfall:
 Output: data/nldi/drainage.jsonl, one JSON object per waterfall.
 Already-fetched rows (by feature_id) are skipped so the script can resume.
 
-    DATABASE_URL="..." python3 script/import_nldi/fetch.py
+    DATABASE_URL="..." python3 script/import/nldi/fetch.py
 
 Then build the migration:
 
-    python3 script/import_nldi/build.py > db/migrations/064_nldi_drainage_area.sql
+    python3 script/import/nldi/build.py > db/migrations/064_nldi_drainage_area.sql
 
 Rate: ~1 req/s, two per waterfall. Expect ~30 min for the full set.
 """

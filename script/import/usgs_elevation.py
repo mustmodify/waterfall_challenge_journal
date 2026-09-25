@@ -21,8 +21,8 @@ exact and wins a close comparison.
 Cache first, parse second -- nothing here re-fetches what it already has, so
 it is safe to stop and restart, which matters because this makes ~900 calls.
 
-    python3 script/usgs_elevation.py fetch      # populate the cache
-    python3 script/usgs_elevation.py extract    # cache -> migration SQL
+    python3 script/import/usgs_elevation.py fetch      # populate the cache
+    python3 script/import/usgs_elevation.py extract    # cache -> migration SQL
 """
 import json
 import os

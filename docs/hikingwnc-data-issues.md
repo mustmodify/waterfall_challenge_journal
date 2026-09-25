@@ -154,7 +154,7 @@ Eastatoe Narrows, and four falls where hikingwnc and OpenStreetMap differ by
 | the rest | 12 | our own corrections, Google Maps readings, waterfallshiker |
 
 Pages from ncwaterfalls.com and the Wayback copies of dwhike.com are cached
-under `data/spider-cache` (gitignored) by `script/spider`, so re-parsing never
+under `data/spider-cache` (gitignored) by `script/import/spider`, so re-parsing never
 costs another fetch.
 
 ### Attaching a hike to a waterfall
