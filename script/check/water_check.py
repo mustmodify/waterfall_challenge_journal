@@ -6,9 +6,9 @@ no local point-in-polygon math needed, since most mountain streams are mapped
 as lines (waterway=stream/river), not polygons, and `around` handles both.
 
 Usage:
-    python3 script/water_check.py LAT LON [RADIUS_METERS]
-    python3 script/water_check.py --feature-id 398
-    python3 script/water_check.py --single-source     # every single-source waterfall
+    python3 script/check/water_check.py LAT LON [RADIUS_METERS]
+    python3 script/check/water_check.py --feature-id 398
+    python3 script/check/water_check.py --single-source     # every single-source waterfall
 
 Uses DATABASE_URL for the --feature-id / --single-source modes, same
 default as script/migrate (falls back to the local wc_journey_db).

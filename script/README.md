@@ -3,8 +3,8 @@
 Everything here is outside the server. Three kinds: the migration runner,
 which is part of deploying; the importers under `import/`, which are one-off
 programs kept for provenance, so it stays possible to see where each field
-came from; and a few tools that check what is already here rather than adding
-to it.
+came from; and the tools under `check/`, which ask questions about what is
+already here rather than adding to it.
 
 Anything that fetches from a source, or turns what was fetched into claims,
 belongs under `import/`. It used to be spread across `script/spider/`,
@@ -59,14 +59,26 @@ Migration headers written before 2026-09-25 cite the older paths in their
 comments; those have been rewritten to point at the new ones, since a comment
 naming a directory that no longer exists helps nobody.
 
-## Checking rather than importing
+## `check/` — reading what we have rather than adding to it
 
-These read what we already have and report. Nothing here writes claims.
+Nothing here writes a claim. Each one asks a question about what is already
+in the database and reports the answer for a person to act on.
+
+`water_check.py` and `water_sweep.py` ask OpenStreetMap whether there is a
+mapped stream near a coordinate, one point or hundreds. A waterfall nowhere
+near mapped water is usually a bad coordinate, though it is just as often a
+creek nobody has drawn yet, so the output is a list to look at rather than a
+list of errors.
+
+`review_links.py` fetches the links we publish and reports the ones that no
+longer resolve. It marks the live ones reviewed and deliberately leaves the
+dead ones untouched, because marking a dead link reviewed would record
+"checked, fine" about something that is not fine.
 
 ```sh
-python3 script/water_check.py --feature-id 398   # is there mapped water near a point
-python3 script/water_sweep.py --single-source    # the same question, for hundreds
-python3 script/review_links.py                   # links due for review, and whether they resolve
+python3 script/check/water_check.py --feature-id 398   # is there mapped water near a point
+python3 script/check/water_sweep.py --single-source    # the same question, for hundreds
+python3 script/check/review_links.py                   # links due for review, and whether they resolve
 ```
 
 The matching rules the importers follow are in [docs/MATCHING.md](../docs/MATCHING.md),

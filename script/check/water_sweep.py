@@ -3,7 +3,7 @@
 
 A waterfall standing nowhere near a mapped stream is usually a bad
 coordinate, so this is a cheap way to find the ones worth looking at.
-script/water_check.py answers the same question for one point; this answers
+script/check/water_check.py answers the same question for one point; this answers
 it for hundreds without needing to be watched.
 
 Two things make that practical. Overpass will take many `around` filters in
@@ -15,9 +15,9 @@ Every answer is appended to the results file as it lands, and a rerun skips
 whatever is already there -- so this can be interrupted, and a sweep that
 died at 42 of 396 picks up at 43.
 
-    python3 script/water_sweep.py --single-source
-    python3 script/water_sweep.py --all
-    python3 script/water_sweep.py --dry          # just list what's been found
+    python3 script/check/water_sweep.py --single-source
+    python3 script/check/water_sweep.py --all
+    python3 script/check/water_sweep.py --dry          # just list what's been found
 
 Add --radius to widen the search; the results file records the radius each
 answer was found at, so widening it re-asks rather than trusting the old no.
@@ -28,7 +28,7 @@ import os
 import subprocess
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'import', 'spider'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'import', 'spider'))
 import overpass
 
 RESULTS = 'data/water-sweep.tsv'

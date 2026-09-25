@@ -20,7 +20,7 @@
 -- means never reviewed, not "reviewed just now" -- backfilling every
 -- existing link to now() would hide the entire backlog from the review
 -- queue on day one, which defeats the point of having one. See
--- script/review_links for what "reasonable interval" means in practice.
+-- script/check/review_links for what "reasonable interval" means in practice.
 --
 -- Originally one BEGIN/COMMIT wrapping every table. That deadlocked in
 -- production on every attempt (2026-09-17): preDeployCommand runs before the

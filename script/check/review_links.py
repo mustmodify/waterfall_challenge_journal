@@ -9,8 +9,8 @@ in the links table twice a season, short enough that a dead link doesn't sit
 unnoticed for years. reviewed_at IS NULL (never checked) always sorts first,
 regardless of interval.
 
-    python3 script/review_links.py            report only, nothing written
-    python3 script/review_links.py -commit    mark live links reviewed_at = now()
+    python3 script/check/review_links.py            report only, nothing written
+    python3 script/check/review_links.py -commit    mark live links reviewed_at = now()
 
 A link that comes back dead is never touched automatically -- it is reported
 so a person decides whether the place moved, the source restructured its
