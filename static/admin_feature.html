@@ -312,6 +312,13 @@
     // against 45 ft reads as a disagreement, which for a waterfall height
     // it is.
     function agrees(c, sec) {
+      // A rating is taste, not a reading, and its fact is the average of the
+      // raters rather than one of them. So every rater differs from it
+      // slightly and none of them is disagreeing with anything -- badging
+      // both an 8 and a 6 against an averaged 7 would be nonsense. Where they
+      // are too far apart to average, the fact already says disputed.
+      if (/_rating$/.test(sec.field)) return true;
+
       const settled = sec.value != null ? sec.value
         : (sec.claims.find((x) => x.accepted) || {}).value;
       if (settled == null || c.value == null) return true;
