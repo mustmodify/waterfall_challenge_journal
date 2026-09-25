@@ -145,6 +145,14 @@
     }
     .tag.accepted { color: var(--ok); border: 1px solid var(--ok); }
     .tag.uncertain { color: var(--danger); border: 1px solid var(--danger); }
+    /* Two different kinds of "not counted". A superseded reading is the right
+       waterfall read wrongly, so it stays in the table, dimmed and struck,
+       because a caught error is evidence about the readings that survived.
+       Disagrees is milder: it counted, it just lost. */
+    .tag.superseded { color: var(--haze); border: 1px solid var(--haze); }
+    .tag.disagrees { color: var(--warn, var(--danger)); border: 1px solid var(--warn, var(--danger)); }
+    table.readings tr.superseded td.val { text-decoration: line-through; }
+    table.readings tr.superseded td { opacity: 0.7; }
     sup.fn {
       font-size: 0.62rem; margin-left: 2px; color: var(--accent);
       vertical-align: super; line-height: 0;
@@ -290,6 +298,42 @@
       return { text: sec.value, units: sec.units };
     }
 
+    // Does this reading differ from the one that won?
+    //
+    // Recomputed here rather than read off the record: the grade knows how
+    // many sources agreed but not which, so the page has to compare. That
+    // means these rules are a second implementation of the ones the fact
+    // builders use, and the two could drift. The badge is a pointer to look,
+    // not the arbitration.
+    //
+    // 250 m is the distance coordinate_confidence calls agreement. Text is
+    // compared on letters and digits alone, because "4 X 4 Falls" and
+    // "4x4 Falls" are the same name. Numbers have no tolerance, so 40 ft
+    // against 45 ft reads as a disagreement, which for a waterfall height
+    // it is.
+    function agrees(c, sec) {
+      const settled = sec.value != null ? sec.value
+        : (sec.claims.find((x) => x.accepted) || {}).value;
+      if (settled == null || c.value == null) return true;
+
+      const mine = c.normalized_value != null ? c.normalized_value : c.value;
+
+      if (typeof mine === 'object' && 'lat' in mine) {
+        const m = String(settled).split(',');
+        if (m.length !== 2) return true;
+        const dLat = (mine.lat - parseFloat(m[0])) * 111320;
+        const dLon = (mine.lon - parseFloat(m[1])) * 111320 *
+                     Math.cos(mine.lat * Math.PI / 180);
+        return Math.sqrt(dLat * dLat + dLon * dLon) <= 250;
+      }
+
+      const a = Number(mine), b = Number(settled);
+      if (!isNaN(a) && !isNaN(b)) return a === b;
+
+      const flat = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+      return flat(mine) === flat(settled);
+    }
+
     // The grade carries the meaning, so it is what you see; the score is the
     // same thing to one decimal, kept beside it for anyone comparing two
     // fields that both came out B.
@@ -331,11 +375,17 @@
       };
 
       const row = (c) => {
-        const cls = c.accepted ? '' : (c.identity_certain ? '' : 'rejected');
+        const cls = c.accepted ? ''
+          : c.superseded_by ? 'superseded'
+          : (c.identity_certain ? '' : 'rejected');
         const src = c.url
           ? '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.source) + '</a>'
           : esc(c.source);
         const tags = (c.accepted ? '<span class="tag accepted">accepted</span> ' : '') +
+          (c.superseded_by ? '<span class="tag superseded">superseded</span> ' : '') +
+          // Superseded already says it disagrees, and says more besides.
+          (!c.accepted && !c.superseded_by && c.identity_certain && !agrees(c, sec)
+            ? '<span class="tag disagrees">disagrees</span> ' : '') +
           (c.identity_certain ? '' : '<span class="tag uncertain">identity uncertain</span>');
 
         // The parenthetical stays under what was observed, because it was

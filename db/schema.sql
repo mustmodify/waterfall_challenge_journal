@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict TZmWocNqeh7jr4Ud4OhQ2ETCfgMPjKHJRWWfVKCbMK02bWfj8AFiYYhRZq2cZmR
+\restrict 3MIvCbnc3OWtp0xllb32KUmDQhsZ0rq2DtVKgyyWIQpUDTIYOvMTdb1fFPBqexf
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -859,6 +859,7 @@ CREATE TABLE public.claims (
     fact_id integer,
     normalized_value jsonb,
     parenthetical text,
+    superseded_by integer,
     CONSTRAINT claims_field_known CHECK ((field = ANY (ARRAY['coordinate'::text, 'parking_coordinate'::text, 'view_coordinate'::text, 'coordinate_raw'::text, 'trailhead_coordinate'::text, 'detour_parking_coordinate'::text, 'detour_trailhead_coordinate'::text, 'detour_hike_distance'::text, 'access_status'::text, 'disambiguator'::text, 'watercourse'::text, 'height'::text, 'elevation_ft'::text, 'elevation_gain_ft'::text, 'petzoldt'::text, 'beauty_rating'::text, 'photo_rating'::text, 'solitude_rating'::text, 'hike_distance'::text, 'accessibility'::text, 'owner'::text, 'name'::text, 'alias'::text, 'photos_count'::text, 'completed_hikes_count'::text, 'reviews_count'::text, 'wikidata'::text, 'wikipedia'::text, 'gnis_id'::text, 'waterway_type'::text, 'tourism'::text, 'access'::text, 'wheelchair'::text, 'intermittent'::text, 'website'::text, 'description'::text, 'direction'::text, 'county'::text, 'river_basin'::text, 'watershed'::text, 'usgs_map'::text, 'fall_type'::text]))),
     CONSTRAINT claims_value_shape CHECK (
 CASE
@@ -884,6 +885,13 @@ COMMENT ON COLUMN public.claims.normalized_value IS 'value with hedges ("approx"
 --
 
 COMMENT ON COLUMN public.claims.parenthetical IS 'What normalizing lifted out of value, verbatim and unclassified -- "Gorges", "Upper", "Guardrail Falls", "My name". Derived, not claimed: the raw value is still the claim. For a name, parenthetical_kind() reads it as an alias, a disambiguator or a note, but that reading is not stored yet. On other fields it is plain description.';
+
+
+--
+-- Name: COLUMN claims.superseded_by; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.claims.superseded_by IS 'This reading is wrong and the claim it points at is the correction. The source is still talking about this feature -- that is identity_certain. A superseded reading is excluded from corroboration and still displayed, because a caught error is evidence about the readings that survived.';
 
 
 --
@@ -1154,7 +1162,7 @@ CREATE VIEW public.coordinate_confidence AS
             ((c.value ->> 'lon'::text))::numeric AS lon
            FROM (public.claims c
              JOIN public.claim_groups cg ON ((cg.id = c.group_id)))
-          WHERE ((c.field = 'coordinate'::text) AND cg.identity_certain)
+          WHERE ((c.field = 'coordinate'::text) AND cg.identity_certain AND (c.superseded_by IS NULL))
         ), stored AS (
          SELECT f.id AS feature_id,
             f.name,
@@ -2365,6 +2373,14 @@ ALTER TABLE ONLY public.claims
 
 
 --
+-- Name: claims claims_superseded_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.claims
+    ADD CONSTRAINT claims_superseded_by_fkey FOREIGN KEY (superseded_by) REFERENCES public.claims(id);
+
+
+--
 -- Name: confusion_set_entries confusion_set_entries_confusion_set_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2528,5 +2544,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict TZmWocNqeh7jr4Ud4OhQ2ETCfgMPjKHJRWWfVKCbMK02bWfj8AFiYYhRZq2cZmR
+\unrestrict 3MIvCbnc3OWtp0xllb32KUmDQhsZ0rq2DtVKgyyWIQpUDTIYOvMTdb1fFPBqexf
 
