@@ -70,10 +70,20 @@
 
     /* Search and the way to the filters, side by side. The brand needs the
        full width above them -- there is no room for it beside the field. */
-    .find { display: flex; gap: 8px; align-items: stretch; }
+    .find {
+      display: flex; gap: 8px; align-items: center;
+      justify-content: space-between; margin-top: 10px;
+    }
+    .find label {
+      color: var(--haze); font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.06em; font-weight: 500;
+    }
     #filter-controls { margin-top: 10px; }
     #filters-slot #filter-controls { margin-top: 0; }
-    .find #search { margin-bottom: 0; }
+    /* 70% of the row, right-aligned, the way the List box above it is --
+       wider because a name is longer than a menu choice. Allowed to shrink
+       so the Filters button still fits beside it on a narrow screen. */
+    .find #search { margin-bottom: 0; flex: 0 1 70%; min-width: 0; }
 
     #filter-button {
       flex: none;
@@ -1428,7 +1438,8 @@
     </div>
     <p id="challenge-notes" hidden></p>
     <div class="find">
-      <input id="search" list="goal-names" placeholder="Find a waterfall or area&hellip;" aria-label="Find a waterfall or area" />
+      <label for="search">Search</label>
+      <input id="search" list="goal-names" placeholder="Find a waterfall or area&hellip;" />
       <datalist id="goal-names"></datalist>
       <button type="button" class="chip" id="filter-button" aria-expanded="false" hidden>
         Filters<span id="filter-count" hidden></span>
