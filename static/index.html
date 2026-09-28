@@ -1320,7 +1320,13 @@
     /* The view picker decides what the map is of, so it sits above the search
        box rather than inside Filters: the other controls narrow a set, this
        one chooses which set. */
-    .view-pick { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    /* space-between, the same as .filter-row: label on the left, the control
+       it names hard against the right edge. The filter rows below line up
+       with it. */
+    .view-pick {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; margin-bottom: 8px;
+    }
     .view-pick label {
       color: var(--haze); font-size: 0.72rem; text-transform: uppercase;
       letter-spacing: 0.06em; font-weight: 500;
