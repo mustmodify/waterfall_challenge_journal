@@ -70,10 +70,20 @@
 
     /* Search and the way to the filters, side by side. The brand needs the
        full width above them -- there is no room for it beside the field. */
-    .find { display: flex; gap: 8px; align-items: stretch; }
+    .find {
+      display: flex; gap: 8px; align-items: center;
+      justify-content: space-between; margin-top: 10px;
+    }
+    .find label {
+      color: var(--haze); font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.06em; font-weight: 500;
+    }
     #filter-controls { margin-top: 10px; }
     #filters-slot #filter-controls { margin-top: 0; }
-    .find #search { margin-bottom: 0; }
+    /* 70% of the row, right-aligned, the way the List box above it is --
+       wider because a name is longer than a menu choice. Allowed to shrink
+       so the Filters button still fits beside it on a narrow screen. */
+    .find #search { margin-bottom: 0; flex: 0 1 70%; min-width: 0; }
 
     #filter-button {
       flex: none;
@@ -316,24 +326,6 @@
     #area-current { flex: 1; min-width: 0; font-size: 0.82rem; font-weight: 600; }
     #area-clear { padding: 4px 6px; }
 
-    #advanced-challenge-pick {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    #advanced-challenge-select {
-      flex: 1;
-      min-width: 0;
-      padding: 6px 8px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: var(--field-bg);
-      color: var(--mist);
-      font: inherit;
-      font-size: 0.8rem;
-      color-scheme: inherit;
-    }
 
     #advanced .modal-body > * + * { margin-top: 14px; }
 
@@ -1159,6 +1151,13 @@
 
     .challenge-lists a:hover { background: var(--accent); color: var(--on-accent); }
 
+    /* The full names are long by design -- "NCWaterfalls.com 500 Waterfalls
+       Challenge" -- so these wrap instead of running off the drawer. Each
+       list gets its own line: our view of it, then the publisher's page. */
+    .cl-entry { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+    .cl-entry a { max-width: 100%; }
+    .cl-entry .cl-source { font-weight: 500; color: var(--haze); border-color: var(--line); }
+
     #log-visit label {
       display: block;
       font-size: 0.72rem;
@@ -1328,8 +1327,54 @@
 
     .goal-tip .tip-sub { color: var(--haze); font-size: 0.72rem; }
 
+    /* The view picker decides what the map is of, so it sits above the search
+       box rather than inside Filters: the other controls narrow a set, this
+       one chooses which set. */
+    /* space-between, the same as .filter-row: label on the left, the control
+       it names hard against the right edge. The filter rows below line up
+       with it. */
+    .view-pick {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; margin-bottom: 8px;
+    }
+    .view-pick label {
+      color: var(--haze); font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.06em; font-weight: 500;
+    }
+    /* Same shape as #search: they sit one above the other and are the two
+       ways of getting to a place, so a different box on each would read as
+       two unrelated controls. */
+    #view-select {
+      /* Half the row rather than all of it. The names are long, but the
+         control is a menu of five things and does not need to look like the
+         search box's twin to borrow its shape. */
+      flex: none;
+      width: 50%;
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+    }
+    /* Room enough on a wide screen to just read the thing. On a narrow one it
+       would push the map off the bottom, so there it becomes a link. */
+    #challenge-notes {
+      margin: 0 0 8px; color: var(--haze); font-size: 0.82rem; line-height: 1.5;
+      max-width: 52ch;
+    }
+    #challenge-notes a { color: var(--accent); }
+    #challenge-notes a.official {
+      display: block; margin-top: 4px; font-weight: 600; text-decoration: none;
+    }
+    #challenge-notes a.official:hover { text-decoration: underline; }
+    #notes-open { flex: none; display: none; }
+
     @media (max-width: 720px) {
       #topbar { max-width: calc(100vw - 32px); }
+      #challenge-notes { display: none !important; }
+      #notes-open:not([hidden]) { display: inline-flex; }
 
       #drawer {
         top: auto;
@@ -1386,8 +1431,15 @@
       <h1>Wanderfall</h1>
       <span class="tagline">Find something cool.</span>
     </div>
+    <div class="view-pick">
+      <label for="view-select">List</label>
+      <select id="view-select"></select>
+      <button type="button" class="chip" id="notes-open" hidden>Challenge Notes</button>
+    </div>
+    <p id="challenge-notes" hidden></p>
     <div class="find">
-      <input id="search" list="goal-names" placeholder="Find a waterfall, tower or area&hellip;" aria-label="Find a waterfall, tower or area" />
+      <label for="search">Search</label>
+      <input id="search" list="goal-names" placeholder="Find a waterfall or area&hellip;" />
       <datalist id="goal-names"></datalist>
       <button type="button" class="chip" id="filter-button" aria-expanded="false" hidden>
         Filters<span id="filter-count" hidden></span>
@@ -1397,33 +1449,6 @@
     <div id="filter-controls">
     <div class="subheading">Filters</div>
     <div class="filter-list">
-      <div class="filter-row">
-        <span class="filter-label"><span class="dot" style="background:var(--c-azure)"></span>Waterfalls</span>
-        <div class="switch" data-switch="kind-waterfall" data-switch-kind="waterfall">
-          <input type="radio" id="kind-waterfall-hide" name="kind-waterfall" value="hide">
-          <label for="kind-waterfall-hide">Hide</label>
-          <input type="radio" id="kind-waterfall-show" name="kind-waterfall" value="show" checked>
-          <label for="kind-waterfall-show">Show</label>
-        </div>
-      </div>
-      <div class="filter-row">
-        <span class="filter-label"><span class="dot" style="background:var(--c-tower)"></span>Towers</span>
-        <div class="switch" data-switch="kind-tower" data-switch-kind="tower">
-          <input type="radio" id="kind-tower-hide" name="kind-tower" value="hide">
-          <label for="kind-tower-hide">Hide</label>
-          <input type="radio" id="kind-tower-show" name="kind-tower" value="show" checked>
-          <label for="kind-tower-show">Show</label>
-        </div>
-      </div>
-      <div class="filter-row">
-        <span class="filter-label"><span class="dot" style="background:var(--c-swim)"></span>Swimming holes</span>
-        <div class="switch" data-switch="kind-swimming_hole" data-switch-kind="swimming_hole">
-          <input type="radio" id="kind-swimming_hole-hide" name="kind-swimming_hole" value="hide">
-          <label for="kind-swimming_hole-hide">Hide</label>
-          <input type="radio" id="kind-swimming_hole-show" name="kind-swimming_hole" value="show" checked>
-          <label for="kind-swimming_hole-show">Show</label>
-        </div>
-      </div>
       <div class="filter-row" id="visited-row">
         <span class="filter-label"><span class="dot" style="background:var(--c-visited)"></span>Visited</span>
         <div class="switch" data-switch="visited" style="--switch-count:3">
@@ -1521,6 +1546,16 @@
     </div>
   </div>
 
+  <div id="notes-backdrop" hidden>
+    <div id="notes-modal" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="notes-title">
+      <div class="modal-head">
+        <h2 id="notes-title"></h2>
+        <button class="close quiet" id="notes-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body" id="notes-body"></div>
+    </div>
+  </div>
+
   <div id="advanced-backdrop" hidden>
     <div id="advanced" class="panel modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="advanced-title">
       <div class="modal-head">
@@ -1528,11 +1563,14 @@
         <button class="close quiet" id="advanced-close" aria-label="Close">&#10005;</button>
       </div>
       <div class="modal-body">
-        <div id="advanced-challenge-pick">
-          <label class="row-label" for="advanced-challenge-select">Challenge list</label>
-          <select id="advanced-challenge-select">
-            <option value="all">All challenges</option>
-          </select>
+        <div class="filter-row">
+          <span class="filter-label">Swimming hole reported</span>
+          <div class="switch" data-switch="swimmable">
+            <input type="radio" id="swimmable-all" name="swimmable" value="all" checked>
+            <label for="swimmable-all">All</label>
+            <input type="radio" id="swimmable-yes" name="swimmable" value="yes">
+            <label for="swimmable-yes">Yes</label>
+          </div>
         </div>
         <div class="chip-row elevation-row" role="group" aria-label="Elevation, where known">
           <span class="row-label">Elevation</span>
@@ -1584,13 +1622,18 @@
         This is a list of waterfalls and other amazing quests in Western North
         Carolina. No account needed; if you do create one, you'll be able to
         track which places you visit and rate them.</p>
-      <p>Wanderfall also lists several challenges. Visit the entire list and you
-        get a badge!</p>
+      <p>Wanderfall is an independent project. It gathers waterfall information
+        from several sources, including
+        <a href="https://ncwaterfalls.com/" target="_blank" rel="noopener">NCWaterfalls.com</a>,
+        HikingWNC, OpenStreetMap and the USGS, and compares them against each
+        other to weed out bad information.</p>
+      <p>You can also pick a challenge list from the menu at the top. Wanderfall
+        only shows you which waterfalls are on a list &mdash; the lists belong
+        to the people who publish them, and taking part officially is arranged
+        through them rather than here.</p>
       <div class="how">Here's how to read the map</div>
       <ul class="key-list">
         <li><span class="dot" style="background:var(--c-azure)"></span>blue is a waterfall</li>
-        <li><span class="dot" style="background:var(--c-tower)"></span>sienna is a lookout tower</li>
-        <li><span class="dot" style="background:var(--c-swim)"></span>teal is a swimming hole</li>
       </ul>
       <div class="how">And when they are close together</div>
       <div class="group-demo">
@@ -1807,13 +1850,22 @@
     const state = {
       user: null,
       features: [],
-      // Type is a category, visited is a status -- orthogonal, so they get
-      // separate controls. Both kinds on to start; visited muted, not hidden.
-      showKinds: new Set(['waterfall', 'tower', 'swimming_hole']),
+      // Towers and swimming holes are off the site for now, so waterfalls are
+      // the only kind left and the Show/Hide row for them said nothing. Kept
+      // as a set rather than dropped, because putting them back should be a
+      // one-line change rather than an archaeology exercise.
+      showKinds: new Set(['waterfall']),
+      // What the map is of, as opposed to which of it you want. One of
+      // 'verified', 'all', or a challenge code.
+      view: 'verified',
+      challenges: [],
+      // 'all' or 'yes'. A reported swimming hole is somebody saying you can
+      // swim at the foot of this one, so there is no useful 'no' -- false
+      // mostly means nobody has said either way.
+      swimmable: 'all',
       // Signed out nothing is visited, so muting would advertise a treatment
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
-      challenge: new URLSearchParams(window.location.search).get('challenge') || 'all',
       // Indices into WALK_STOPS. Both ends parked means no distance filter at
       // all, which is not the same as 0 to 20 miles: it also keeps the 59 falls
       // whose distance nobody has written down.
@@ -1933,8 +1985,16 @@
         fetch('/me').then((r) => (r.ok ? r.json() : null)).catch(() => null),
         fetch('/features').then((r) => r.json()),
         fetch('/visits').then((r) => (r.ok ? r.json() : [])).catch(() => []),
-      ]).then(([user, features, visits]) => {
+        fetch('/challenges').then((r) => (r.ok ? r.json() : [])).catch(() => []),
+      ]).then(([user, features, visits, challenges]) => {
         state.user = user;
+        state.challenges = challenges;
+        // A link like /?challenge=ADAMS500 has to land on that list, and has
+        // to work for a signed-out first-time visitor arriving from a feature
+        // card. Done here rather than at startup because the codes are not
+        // known until the challenges have loaded.
+        const wanted = new URLSearchParams(window.location.search).get('challenge');
+        if (wanted && challengeBy(wanted)) state.view = wanted;
         if (user && user.is_admin && window.wjMarkInternal) window.wjMarkInternal(true);
         state.features = features;
         state.visits = visits;
@@ -1946,7 +2006,7 @@
           countIntroShown();
           setIntro(true);
         }
-        renderChallenges();
+        renderViewPicker();
         renderAreas();
         renderDatalist();
         renderMarkers(true);
@@ -2258,15 +2318,25 @@
       });
     });
 
+    // Two sources agreeing on where a waterfall is. Anything else is reported
+    // but unconfirmed, which is a real thing to show somebody as long as the
+    // view they chose says so.
+    const VERIFIED_TIERS = new Set(['confirmed', 'corroborated']);
+
     function inScope(goal) {
       const matchesKind = state.showKinds.has(kindOf(goal));
       const matchesArea = !state.area || (goal.areas || []).includes(state.area);
-      const matchesChallenge = state.challenge === 'all' ||
-        (goal.challenges || []).includes(state.challenge);
+      // A challenge list is its publisher's claim that the waterfall exists,
+      // so choosing one shows everything on it rather than only the part we
+      // have independently corroborated.
+      const matchesView = state.view === 'all' ? true
+        : state.view === 'verified' ? VERIFIED_TIERS.has(goal.confidence)
+        : (goal.challenges || []).includes(state.view);
+      const matchesSwimmable = state.swimmable === 'all' || goal.swimmable;
       const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
       const matchesRated = passesRatingFilter(goal);
-      return matchesKind && matchesArea && matchesChallenge && matchesElevation(goal) &&
-        matchesVisitStatus && matchesRated && matchesWalk(goal);
+      return matchesKind && matchesView && matchesArea && matchesSwimmable &&
+        matchesElevation(goal) && matchesVisitStatus && matchesRated && matchesWalk(goal);
     }
 
     // 900 undifferentiated points is a smear, so that case draws as density.
@@ -2788,12 +2858,27 @@
       }
 
       if ((goal.challenges || []).length) {
-        html += '<div class="challenge-lists"><div class="k">Challenge Lists</div>' +
-          '<p>This place is on a list with some other great spots &mdash; ' +
-          'collect the whole set!</p>';
-        goal.challenges.forEach((c) => {
-          const label = CHALLENGE_LABELS[c] || c;
-          html += '<a href="/?challenge=' + encodeURIComponent(c) + '" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</a>';
+        // No talk of collecting a set or earning anything. These lists belong
+        // to the people who publish them, and taking part officially happens
+        // on their site, not here -- so each one is named in full and links
+        // to whoever published it where we know the address.
+        const many = goal.challenges.length > 1;
+        html += '<div class="challenge-lists"><div class="k">' +
+          (many ? 'Challenge Lists' : 'Challenge List') + '</div>' +
+          '<p>On ' + (many ? 'these published lists' : 'a published list') +
+          '. Wanderfall only shows you what is on ' + (many ? 'them' : 'it') + '.</p>';
+        goal.challenges.forEach((code) => {
+          const c = challengeBy(code);
+          const label = challengeLabel(code);
+          html += '<div class="cl-entry">' +
+            '<a href="/?challenge=' + encodeURIComponent(code) + '" title="' +
+            escapeHtml(label) + '">' + escapeHtml(label) + '</a>' +
+            (c && c.url
+              ? '<a class="cl-source" href="' + escapeHtml(c.url) + '" target="_blank" ' +
+                'rel="noopener" title="' + escapeHtml(label) + ', where it is published">' +
+                'The published list &#8599;</a>'
+              : '') +
+            '</div>';
         });
         html += '</div>';
       }
@@ -3003,36 +3088,98 @@
       $('spectrum').hidden = colorRatingKeys().length === 0;
     }
 
-    // Display names for the terse codes the DB stores.
-    // Key order is display order: WC100 leads, then the other CMC list, then
-    // the Adams lists smallest first. Anything not listed sorts in after.
-    const CHALLENGE_LABELS = {
-      WC100: 'CMC WC100',
-      LTC: 'Tower Challenge',
-      ADAMS100: 'Adams 100',
-      ADAMS500: 'Adams 500',
-    };
-    const CHALLENGE_ORDER = Object.keys(CHALLENGE_LABELS);
+    // Names come from the database now, not from a map in here. Kevin Adams,
+    // who publishes two of these lists, asked for their full official names --
+    // "NCWaterfalls.com 500 Waterfalls Challenge", not "Adams 500" -- because
+    // a name like the latter reads as though the challenge is named after a
+    // person rather than published by a site. Hardcoding them here would mean
+    // changing a name required a deploy.
+    const CHALLENGE_ORDER = ['WC100', 'ADAMS100', 'ADAMS500', 'LTC'];
 
-    // Lives in the Advanced modal rather than the main filter list: it isn't
-    // something you tune per-visit, it's "show me one specific list." Every
-    // challenge is offered regardless of whether you've started it -- a
-    // place's "Challenge Lists" badge links here as /?challenge=CODE, and
-    // that has to work for a first-time, signed-out visitor too.
-    function renderChallenges() {
-      $('advanced-challenge-select').innerHTML =
-        '<option value="all">All challenges</option>' +
-        CHALLENGE_ORDER.map((n) => '<option value="' + escapeHtml(n) + '"' +
-          (state.challenge === n ? ' selected' : '') + '>' +
-          escapeHtml(CHALLENGE_LABELS[n] || n) + '</option>').join('');
+    function challengeBy(code) {
+      return state.challenges.find((c) => c.name === code) || null;
     }
 
-    $('advanced-challenge-select').addEventListener('change', (e) => {
-      state.challenge = e.target.value;
-      track('select_challenge', { challenge: state.challenge });
+    function challengeLabel(code) {
+      const c = challengeBy(code);
+      return (c && c.full_name) || code;
+    }
+
+    // Only the lists about the kind of place the map is currently showing.
+    // With towers off the site, offering the tower challenge would be a view
+    // that draws nothing.
+    function offeredChallenges() {
+      return state.challenges
+        .filter((c) => state.showKinds.has(c.feature_kind))
+        .sort((a, b) => CHALLENGE_ORDER.indexOf(a.name) - CHALLENGE_ORDER.indexOf(b.name));
+    }
+
+
+    // ---------- what the map is of ----------
+    function renderViewPicker() {
+      const opt = (v, label) => '<option value="' + escapeHtml(v) + '"' +
+        (state.view === v ? ' selected' : '') + '>' + escapeHtml(label) + '</option>';
+      const lists = offeredChallenges();
+      // A disabled option rather than an optgroup: every browser indents the
+      // contents of an optgroup, and these names are long enough already.
+      // This keeps the heading and leaves the lists flush with the two
+      // views above them.
+      $('view-select').innerHTML =
+        opt('verified', 'Verified Waterfalls') +
+        opt('all', 'All Reported Waterfalls') +
+        (lists.length
+          ? '<option disabled>── Challenge Lists ──</option>' +
+            lists.map((c) => opt(c.name, c.full_name || c.name)).join('')
+          : '');
+      renderChallengeNotes();
+    }
+
+    // The note belongs to the publisher, so it is their prose, stored and
+    // edited as prose rather than built out of fields here.
+    function renderChallengeNotes() {
+      const c = challengeBy(state.view);
+      const note = c && c.notes;
+      $('challenge-notes').hidden = !note;
+      $('notes-open').hidden = !note;
+      if (!note) return;
+      // On its own line under the description rather than trailing off the
+      // end of it: this is where somebody goes to actually take part, which
+      // is the one thing the app cannot do for them.
+      const link = c.url
+        ? '<a class="official" href="' + escapeHtml(c.url) + '" target="_blank" ' +
+          'rel="noopener">View Official Page &#8599;</a>'
+        : '';
+      $('challenge-notes').innerHTML = escapeHtml(note) + link;
+    }
+
+    $('view-select').addEventListener('change', (e) => {
+      state.view = e.target.value;
+      track('select_view', { view: state.view });
+      renderChallengeNotes();
       syncFilterButton();
       renderMarkers(true);
     });
+
+    $('notes-open').addEventListener('click', () => {
+      const c = challengeBy(state.view);
+      if (!c) return;
+      $('notes-title').textContent = c.full_name || c.name;
+      $('notes-body').innerHTML = '<p>' + escapeHtml(c.notes || '') + '</p>' +
+        (c.url ? '<p><a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' +
+          'View Official Page &#8599;</a></p>' : '');
+      setNotes(true);
+    });
+
+    function setNotes(open) {
+      $('notes-backdrop').hidden = !open;
+      if (open) $('notes-modal').focus();
+    }
+
+    $('notes-close').addEventListener('click', () => setNotes(false));
+    $('notes-backdrop').addEventListener('click', (e) => {
+      if (e.target === $('notes-backdrop')) setNotes(false);
+    });
+
 
     // Areas live in the same box as places. "Linville Falls" is both a
     // waterfall and an area, so areas are listed with an "(area)" suffix and a
@@ -3227,39 +3374,13 @@
     }
 
     function syncFilters() {
-      setSwitch('kind-waterfall', state.showKinds.has('waterfall') ? 'show' : 'hide');
-      setSwitch('kind-tower', state.showKinds.has('tower') ? 'show' : 'hide');
-      setSwitch('kind-swimming_hole', state.showKinds.has('swimming_hole') ? 'show' : 'hide');
       setSwitch('visited', state.visited);
+      setSwitch('swimmable', state.swimmable);
       setSwitch('rating-beauty', state.ratingMode.beauty);
       setSwitch('rating-photo', state.ratingMode.photo);
       setSwitch('rating-solitude', state.ratingMode.solitude);
-      setRatingsDisabled(!state.showKinds.has('waterfall'));
       syncFilterButton();
     }
-
-    // Ratings only ever describe waterfalls -- towers carry none and
-    // swimming holes that aren't also a waterfall feature carry none either.
-    // Hiding waterfalls leaves nothing for Beauty/Photo/Solitude to act on,
-    // so disable them rather than leave controls that visibly do nothing.
-    function setRatingsDisabled(disabled) {
-      document.querySelectorAll('.switch[data-switch-rating]').forEach((sw) => {
-        sw.classList.toggle('disabled', disabled);
-        sw.querySelectorAll('input').forEach((i) => { i.disabled = disabled; });
-      });
-    }
-
-    document.querySelectorAll('.switch[data-switch-kind]').forEach((sw) =>
-      sw.addEventListener('change', (e) => {
-        const k = sw.dataset.switchKind;
-        if (e.target.value === 'show') state.showKinds.add(k);
-        else state.showKinds.delete(k);
-        track('filter_kind', { kind: k, showing: state.showKinds.has(k),
-          kinds_on: [...state.showKinds].sort().join(',') || 'none' });
-        if (k === 'waterfall') setRatingsDisabled(!state.showKinds.has('waterfall'));
-        syncFilterButton();
-        renderMarkers(true);
-      }));
 
     document.querySelector('[data-switch="visited"]').addEventListener('change', (e) => {
       const sw = e.currentTarget;
@@ -3377,11 +3498,10 @@
 
     function activeFilterCount() {
       let n = 0;
-      if (state.showKinds.size !== 3) n++;
       if (state.visited !== (state.user ? 'mute' : 'show')) n++;
       if (RATING_KEYS.some((k) => state.ratingMode[k] !== 'all')) n++;
       if (state.area) n++;
-      if (state.challenge !== 'all') n++;
+      if (state.swimmable !== 'all') n++;
       if (walkFilterOn()) n++;
       if (elevationFilterOn()) n++;
       return n;
@@ -3389,7 +3509,7 @@
 
     function advancedFilterCount() {
       let n = 0;
-      if (state.challenge !== 'all') n++;
+      if (state.swimmable !== 'all') n++;
       if (elevationFilterOn()) n++;
       return n;
     }
@@ -3490,11 +3610,17 @@
       if (e.target === $('advanced-backdrop')) setAdvanced(false);
     });
 
+    document.querySelector('[data-switch="swimmable"]').addEventListener('change', (e) => {
+      state.swimmable = e.target.value;
+      track('filter_swimmable', { swimmable: state.swimmable });
+      syncFilterButton();
+      renderMarkers(true);
+    });
+
     $('filters-reset').addEventListener('click', () => {
-      state.showKinds = new Set(['waterfall', 'tower', 'swimming_hole']);
       state.visited = state.user ? 'mute' : 'show';
+      state.swimmable = 'all';
       state.ratingMode = { beauty: 'all', photo: 'all', solitude: 'all' };
-      state.challenge = 'all';
       state.walk = { min: 0, max: WALK_STOPS.length - 1 };
       state.elevation = { min: 0, max: ELEVATION_STOPS.length - 1 };
       syncWalk();
@@ -3502,7 +3628,6 @@
       setArea('');
       syncFilters();
       renderLegend();
-      renderChallenges();
       renderMarkers(true);
       syncFilterButton();
     });
@@ -3659,7 +3784,9 @@
     const MENU_ACTIONS = {
       info:       () => { setIntro(true); },
       account:    () => { window.location.href = '/account'; },
-      challenges: () => { window.location.href = '/challenges'; },
+      // /challenges is the JSON API, and this tile has been walking people
+      // into it. Choosing a list lives in the view picker now.
+      challenges: () => { $('view-select').focus(); },
       'add-place': () => {
         $('menu-backdrop').hidden = true;
         if (state.user) { openAddPlace(); } else { showAddPlaceSignInPrompt(); }

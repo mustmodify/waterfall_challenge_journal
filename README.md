@@ -95,13 +95,26 @@ anyone by requesting a link for their address.
 |---|---|---|---|
 | CMC WC100 | 115 | 116 | any **100** |
 | CMC Lookout Tower Challenge | 22 | 22 | all |
-| Kevin Adams 100 | 100 | 94 | all |
-| Kevin Adams 500 | 500 | 471 | all |
+| NCWaterfalls.com 100 Waterfalls Challenge | 100 | 94 | all |
+| NCWaterfalls.com 500 Waterfalls Challenge | 500 | 471 | all |
 
-"Linked here" is lower than "listed" for the Adams challenges because matching
-published lists to our features is done by name, and 35 entries could not be
-resolved with confidence. They are deliberately left unlinked rather than
-guessed — a wrong link awards badge progress nobody earned. See
+Use those names in full wherever a person will read them. Kevin Adams, who
+publishes the NCWaterfalls.com lists, asked for it when he gave permission for
+his data to be used: a name like "Adams 500" reads as a challenge named after
+a person rather than one published by a site. The short codes in
+`challenges.name` are ours and stay; `challenges.full_name` is his.
+
+Wanderfall shows which waterfalls a list contains and nothing more. Taking
+part officially, and getting a completion certificate, is arranged by
+whoever publishes the list — for the NCWaterfalls.com challenges that means
+downloading the list there and following the instructions. Nothing in the app
+should suggest it awards anything, which is why the account page says "all
+visited" rather than anything about earning a badge.
+
+"Linked here" is lower than "listed" for the NCWaterfalls.com challenges
+because matching published lists to our features is done by name, and 35
+entries could not be resolved with confidence. They are deliberately left
+unlinked rather than guessed — a wrong link credits progress nobody made. See
 `db/migrations/008`–`010`.
 
 That caution earned itself again in September 2026, on a different job. Seven

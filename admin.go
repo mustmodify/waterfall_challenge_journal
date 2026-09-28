@@ -464,6 +464,10 @@ type fieldClaimRow struct {
 	Units    *string `json:"units,omitempty"`
 	Accepted bool    `json:"accepted"`
 	Note     *string `json:"note,omitempty"`
+	// The claim that corrects this one, where somebody has established that
+	// this reading is wrong. A different thing from an uncertain identity:
+	// the source is talking about our waterfall, it just got the value wrong.
+	SupersededBy *int `json:"superseded_by,omitempty"`
 }
 
 type featureShow struct {
@@ -578,7 +582,7 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		       c.value, c.normalized_value, c.parenthetical,
 		       parenthetical_kind(c.parenthetical, c.field),
 		       claim_units(c.value #>> '{}', c.field),
-		       c.accepted, c.note
+		       c.accepted, c.note, c.superseded_by
 		FROM claims c
 		JOIN claim_groups cg ON cg.id = c.group_id
 		LEFT JOIN facts f ON f.feature_id = c.feature_id AND f.key = c.field
@@ -602,11 +606,12 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		var parenthetical, parentheticalKind, claimUnits sql.NullString
 		var normalized []byte
 		var score sql.NullFloat64
+		var supersededBy sql.NullInt64
 		var c fieldClaimRow
 		if err := rows.Scan(&field, &stage, &score, &factValue, &units, &notes,
 			&c.ID, &c.GroupID, &c.Source, &url, &c.IdentityCertain,
 			&c.Value, &normalized, &parenthetical, &parentheticalKind,
-			&claimUnits, &c.Accepted, &claimNote); err != nil {
+			&claimUnits, &c.Accepted, &claimNote, &supersededBy); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -615,6 +620,10 @@ func showFeatureFacts(w http.ResponseWriter, r *http.Request) {
 		}
 		if claimNote.Valid {
 			c.Note = &claimNote.String
+		}
+		if supersededBy.Valid {
+			v := int(supersededBy.Int64)
+			c.SupersededBy = &v
 		}
 		if len(normalized) > 0 {
 			c.Normalized = json.RawMessage(normalized)

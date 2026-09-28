@@ -90,6 +90,9 @@ type Feature struct {
 	DeprecatedReason *string        `json:"deprecated_reason,omitempty"`
 	DeprecatedNote   *string        `json:"deprecated_note,omitempty"`
 	DeprecatedOn     *string        `json:"deprecated_on,omitempty"`
+	// Somebody has reported you can swim at the foot of this one. A report,
+	// not a recommendation, and false mostly means nobody has said.
+	Swimmable bool `json:"swimmable"`
 }
 
 // FactOut is one arbitrated fact as the front end needs it: the value, the
@@ -292,15 +295,21 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			confidence.tier,
 			`+confusion+` AS confusion_json,
 			features.owner, deprecated_reason, deprecated_note,
-			deprecated_on::text
+			deprecated_on::text, features.swimmable
 		FROM features
 			LEFT JOIN locations ON locations.id = features.feature_location_id
 		LEFT JOIN locations parking_loc ON parking_loc.id = features.parking_location_id
 			LEFT JOIN coordinate_confidence confidence ON confidence.feature_id = features.id
-		-- A tower carries no source claims at all, so tiering would hide every
-		-- one of them.
-		WHERE features.kind <> 'waterfall'
-		   OR confidence.tier IN ('confirmed', 'corroborated')
+		-- Everything not withdrawn, published or not. The map used to be sent
+		-- only the waterfalls two sources agreed on, which made "show me
+		-- everything anyone has reported" impossible without a second trip to
+		-- the server. The tier rides along on every row instead, and the view
+		-- picker decides -- so the default is still the corroborated ones, and
+		-- choosing otherwise is a deliberate act with a label on it.
+		--
+		-- A tower carries no source claims at all, so it has no tier; the
+		-- client treats a missing tier as unverified rather than hiding it.
+		WHERE features.deprecated_reason IS NULL
 	`, args...)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -360,7 +369,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&f.Owner,
 			&f.DeprecatedReason,
 			&f.DeprecatedNote,
-			&f.DeprecatedOn,
+			&f.DeprecatedOn, &f.Swimmable,
 		)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
