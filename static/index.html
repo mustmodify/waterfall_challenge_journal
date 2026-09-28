@@ -1325,7 +1325,19 @@
       color: var(--haze); font-size: 0.72rem; text-transform: uppercase;
       letter-spacing: 0.06em; font-weight: 500;
     }
-    #view-select { flex: 1; min-width: 0; }
+    /* Same shape as #search: they sit one above the other and are the two
+       ways of getting to a place, so a different box on each would read as
+       two unrelated controls. */
+    #view-select {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--field-bg);
+      color: var(--mist);
+      font: inherit;
+    }
     /* Room enough on a wide screen to just read the thing. On a narrow one it
        would push the map off the bottom, so there it becomes a link. */
     #challenge-notes {
