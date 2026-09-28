@@ -1345,6 +1345,10 @@
       max-width: 52ch;
     }
     #challenge-notes a { color: var(--accent); }
+    #challenge-notes a.official {
+      display: block; margin-top: 4px; font-weight: 600; text-decoration: none;
+    }
+    #challenge-notes a.official:hover { text-decoration: underline; }
     #notes-open { flex: none; display: none; }
 
     @media (max-width: 720px) {
@@ -3117,9 +3121,12 @@
       $('challenge-notes').hidden = !note;
       $('notes-open').hidden = !note;
       if (!note) return;
+      // On its own line under the description rather than trailing off the
+      // end of it: this is where somebody goes to actually take part, which
+      // is the one thing the app cannot do for them.
       const link = c.url
-        ? ' <a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' +
-          escapeHtml(c.full_name || c.name) + '</a>'
+        ? '<a class="official" href="' + escapeHtml(c.url) + '" target="_blank" ' +
+          'rel="noopener">View Official Page &#8599;</a>'
         : '';
       $('challenge-notes').innerHTML = escapeHtml(note) + link;
     }
@@ -3138,7 +3145,7 @@
       $('notes-title').textContent = c.full_name || c.name;
       $('notes-body').innerHTML = '<p>' + escapeHtml(c.notes || '') + '</p>' +
         (c.url ? '<p><a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' +
-          escapeHtml(c.url) + '</a></p>' : '');
+          'View Official Page &#8599;</a></p>' : '');
       setNotes(true);
     });
 
