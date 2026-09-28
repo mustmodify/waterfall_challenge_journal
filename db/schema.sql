@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict rcPxi7J5ai4vRDcL1SAcRWZ2Fch2a37y0Aj1bscYyjGYPSJjSygjB2Gwu4Zzg30
+\restrict 3pn2Nahg0beUYoP9ojBwN8o9edad7f2D4S7DIcYGwhsrrH9Ndr5IdaDvLNHFCwv
 
 -- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
@@ -793,6 +793,10 @@ CREATE TABLE public.challenges (
     target integer,
     slug text NOT NULL,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    full_name text,
+    url text,
+    notes text,
+    feature_kind text DEFAULT 'waterfall'::text NOT NULL,
     CONSTRAINT challenges_target_positive CHECK (((target IS NULL) OR (target > 0)))
 );
 
@@ -802,6 +806,20 @@ CREATE TABLE public.challenges (
 --
 
 COMMENT ON COLUMN public.challenges.target IS 'Visits needed to complete. NULL = every goal on the list.';
+
+
+--
+-- Name: COLUMN challenges.full_name; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.challenges.full_name IS 'The name the publisher uses, in full. Shown wherever a person sees the list named. Kevin Adams asked for these specifically.';
+
+
+--
+-- Name: COLUMN challenges.notes; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.challenges.notes IS 'Prose about the list, written to be read and edited by hand. Says who publishes it and how somebody actually takes part, which is not something this app administers.';
 
 
 --
@@ -2544,5 +2562,5 @@ ALTER TABLE ONLY public.visits
 -- PostgreSQL database dump complete
 --
 
-\unrestrict rcPxi7J5ai4vRDcL1SAcRWZ2Fch2a37y0Aj1bscYyjGYPSJjSygjB2Gwu4Zzg30
+\unrestrict 3pn2Nahg0beUYoP9ojBwN8o9edad7f2D4S7DIcYGwhsrrH9Ndr5IdaDvLNHFCwv
 

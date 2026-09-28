@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"net/http"
 
@@ -235,14 +236,23 @@ type Challenge struct {
 	Name   string `json:"name"`
 	Goals  int    `json:"goals"`
 	Target int    `json:"target"`
+	// The publisher's own name for the list, their page, and prose about how
+	// somebody actually takes part -- which is not something this app
+	// administers, and has to be said in their terms rather than assembled
+	// from fragments here.
+	FullName    *string `json:"full_name,omitempty"`
+	URL         *string `json:"url,omitempty"`
+	Notes       *string `json:"notes,omitempty"`
+	FeatureKind string  `json:"feature_kind"`
 }
 
 func getChallenges(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query(`
-		SELECT c.name, count(g.id) AS goals, COALESCE(c.target, count(g.id)) AS target
+		SELECT c.name, count(g.id) AS goals, COALESCE(c.target, count(g.id)) AS target,
+		       c.full_name, c.url, c.notes, c.feature_kind
 		FROM challenges c
 		LEFT JOIN goals g ON g.challenge_id = c.id
-		GROUP BY c.id, c.name, c.target
+		GROUP BY c.id, c.name, c.target, c.full_name, c.url, c.notes, c.feature_kind
 		ORDER BY c.name
 	`)
 	if err != nil {
@@ -254,9 +264,20 @@ func getChallenges(w http.ResponseWriter, r *http.Request) {
 	out := []Challenge{}
 	for rows.Next() {
 		var c Challenge
-		if err := rows.Scan(&c.Name, &c.Goals, &c.Target); err != nil {
+		var full, url, notes sql.NullString
+		if err := rows.Scan(&c.Name, &c.Goals, &c.Target,
+			&full, &url, &notes, &c.FeatureKind); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
+		}
+		if full.Valid {
+			c.FullName = &full.String
+		}
+		if url.Valid {
+			c.URL = &url.String
+		}
+		if notes.Valid {
+			c.Notes = &notes.String
 		}
 		out = append(out, c)
 	}

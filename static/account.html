@@ -75,8 +75,12 @@
 
     .meter i { display: block; height: 100%; background: var(--accent); }
     .challenge.done .meter i { background: var(--c-visited); }
+    .challenge .note {
+      margin: 8px 0 0; color: var(--haze); font-size: 0.78rem; line-height: 1.5;
+    }
+    .challenge .note a { color: var(--accent); }
 
-    .badge-won {
+    .all-visited {
       font-size: 0.64rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -144,11 +148,16 @@
   <script src="/static/ratings.js"></script>
   <script>
     const $ = (id) => document.getElementById(id);
-    const LABELS = {
-      WC100: 'CMC WC100', LTC: 'Lookout Towers',
-      ADAMS100: 'Adams 100', ADAMS500: 'Adams 500',
-    };
+    // Names come from /challenges, where they can be edited. Kevin Adams,
+    // who publishes two of these, asked for their full official names --
+    // "NCWaterfalls.com 500 Waterfalls Challenge", not "Adams 500", which
+    // reads as a challenge named after a person rather than one published by
+    // a site.
     const ORDER = ['WC100', 'LTC', 'ADAMS100', 'ADAMS500'];
+    const labelFor = (meta, code) => {
+      const c = (meta || []).find((m) => m.name === code);
+      return (c && c.full_name) || code;
+    };
 
     const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -179,11 +188,21 @@
         const pct = need ? Math.min(100, Math.round((t.done / need) * 100)) : 0;
         const won = t.done >= need;
         const extra = need < t.total ? ' <span class="of">of ' + t.total + ' listed</span>' : '';
+        // "All visited" describes this log and nothing else. These lists
+        // belong to the people who publish them, and finishing one here is
+        // not the same as taking part officially -- which is why the
+        // publisher's own note sits underneath saying where that happens.
+        const c = (meta || []).find((m) => m.name === n);
+        const note = c && c.notes
+          ? '<p class="note">' + esc(c.notes) +
+            (c.url ? ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
+              esc(c.full_name || c.name) + '</a>' : '') + '</p>'
+          : '';
         return '<div class="challenge' + (won ? ' done' : '') + '">' +
-          '<div class="top"><span class="name">' + esc(LABELS[n] || n) + '</span>' +
-          (won ? '<span class="badge-won">badge earned</span>' : '') +
+          '<div class="top"><span class="name">' + esc(labelFor(meta, n)) + '</span>' +
+          (won ? '<span class="all-visited">all visited</span>' : '') +
           '<span class="count">' + t.done + ' / ' + need + extra + '</span></div>' +
-          '<div class="meter"><i style="width:' + pct + '%"></i></div></div>';
+          '<div class="meter"><i style="width:' + pct + '%"></i></div>' + note + '</div>';
       }).join('');
     }
 
