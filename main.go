@@ -604,6 +604,8 @@ func main() {
 	r.HandleFunc("/falls/{ref}", placeHandler).Methods("GET")
 	r.HandleFunc("/features/{id}/view", recordView).Methods("POST")
 	r.HandleFunc("/account", servePage("./static/account.html")).Methods("GET")
+	r.HandleFunc("/tos", servePage("./static/tos.html")).Methods("GET")
+	r.HandleFunc("/privacy", servePage("./static/privacy.html")).Methods("GET")
 
 	r.HandleFunc("/", appHome).Methods("GET")
 
