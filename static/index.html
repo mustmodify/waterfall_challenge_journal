@@ -1325,11 +1325,7 @@
       color: var(--haze); font-size: 0.72rem; text-transform: uppercase;
       letter-spacing: 0.06em; font-weight: 500;
     }
-    #view-select {
-      flex: 1; min-width: 0; font: inherit; font-size: 0.9rem;
-      padding: 6px 8px; border-radius: var(--radius);
-      border: 1px solid var(--line); background: var(--panel); color: var(--ink);
-    }
+    #view-select { flex: 1; min-width: 0; }
     /* Room enough on a wide screen to just read the thing. On a narrow one it
        would push the map off the bottom, so there it becomes a link. */
     #challenge-notes {
@@ -1337,11 +1333,12 @@
       max-width: 52ch;
     }
     #challenge-notes a { color: var(--accent); }
-    #notes-open { flex: none; }
+    #notes-open { flex: none; display: none; }
 
     @media (max-width: 720px) {
       #topbar { max-width: calc(100vw - 32px); }
       #challenge-notes { display: none !important; }
+      #notes-open:not([hidden]) { display: inline-flex; }
 
       #drawer {
         top: auto;
@@ -1399,7 +1396,7 @@
       <span class="tagline">Find something cool.</span>
     </div>
     <div class="view-pick">
-      <label for="view-select">Show</label>
+      <label for="view-select">List</label>
       <select id="view-select"></select>
       <button type="button" class="chip" id="notes-open" hidden>Challenge Notes</button>
     </div>
@@ -1529,6 +1526,15 @@
         <button class="close quiet" id="advanced-close" aria-label="Close">&#10005;</button>
       </div>
       <div class="modal-body">
+        <div class="filter-row">
+          <span class="filter-label">Swimming hole reported</span>
+          <div class="switch" data-switch="swimmable">
+            <input type="radio" id="swimmable-all" name="swimmable" value="all" checked>
+            <label for="swimmable-all">All</label>
+            <input type="radio" id="swimmable-yes" name="swimmable" value="yes">
+            <label for="swimmable-yes">Yes</label>
+          </div>
+        </div>
         <div class="chip-row elevation-row" role="group" aria-label="Elevation, where known">
           <span class="row-label">Elevation</span>
           <div class="range" id="elevation">
@@ -1816,6 +1822,10 @@
       // 'verified', 'all', or a challenge code.
       view: 'verified',
       challenges: [],
+      // 'all' or 'yes'. A reported swimming hole is somebody saying you can
+      // swim at the foot of this one, so there is no useful 'no' -- false
+      // mostly means nobody has said either way.
+      swimmable: 'all',
       // Signed out nothing is visited, so muting would advertise a treatment
       // that is not being applied. renderAuth moves this to 'mute' on sign-in.
       visited: 'show',
@@ -2285,9 +2295,10 @@
       const matchesView = state.view === 'all' ? true
         : state.view === 'verified' ? VERIFIED_TIERS.has(goal.confidence)
         : (goal.challenges || []).includes(state.view);
+      const matchesSwimmable = state.swimmable === 'all' || goal.swimmable;
       const matchesVisitStatus = state.visited !== 'hide' || !goal.last_visited;
       const matchesRated = passesRatingFilter(goal);
-      return matchesKind && matchesView && matchesArea &&
+      return matchesKind && matchesView && matchesArea && matchesSwimmable &&
         matchesElevation(goal) && matchesVisitStatus && matchesRated && matchesWalk(goal);
     }
 
@@ -3072,13 +3083,16 @@
       const opt = (v, label) => '<option value="' + escapeHtml(v) + '"' +
         (state.view === v ? ' selected' : '') + '>' + escapeHtml(label) + '</option>';
       const lists = offeredChallenges();
+      // A disabled option rather than an optgroup: every browser indents the
+      // contents of an optgroup, and these names are long enough already.
+      // This keeps the heading and leaves the lists flush with the two
+      // views above them.
       $('view-select').innerHTML =
         opt('verified', 'Verified Waterfalls') +
         opt('all', 'All Reported Waterfalls') +
         (lists.length
-          ? '<optgroup label="Challenge Lists">' +
-            lists.map((c) => opt(c.name, c.full_name || c.name)).join('') +
-            '</optgroup>'
+          ? '<option disabled>── Challenge Lists ──</option>' +
+            lists.map((c) => opt(c.name, c.full_name || c.name)).join('')
           : '');
       renderChallengeNotes();
     }
@@ -3321,6 +3335,7 @@
 
     function syncFilters() {
       setSwitch('visited', state.visited);
+      setSwitch('swimmable', state.swimmable);
       setSwitch('rating-beauty', state.ratingMode.beauty);
       setSwitch('rating-photo', state.ratingMode.photo);
       setSwitch('rating-solitude', state.ratingMode.solitude);
@@ -3446,6 +3461,7 @@
       if (state.visited !== (state.user ? 'mute' : 'show')) n++;
       if (RATING_KEYS.some((k) => state.ratingMode[k] !== 'all')) n++;
       if (state.area) n++;
+      if (state.swimmable !== 'all') n++;
       if (walkFilterOn()) n++;
       if (elevationFilterOn()) n++;
       return n;
@@ -3453,6 +3469,7 @@
 
     function advancedFilterCount() {
       let n = 0;
+      if (state.swimmable !== 'all') n++;
       if (elevationFilterOn()) n++;
       return n;
     }
@@ -3553,8 +3570,16 @@
       if (e.target === $('advanced-backdrop')) setAdvanced(false);
     });
 
+    document.querySelector('[data-switch="swimmable"]').addEventListener('change', (e) => {
+      state.swimmable = e.target.value;
+      track('filter_swimmable', { swimmable: state.swimmable });
+      syncFilterButton();
+      renderMarkers(true);
+    });
+
     $('filters-reset').addEventListener('click', () => {
       state.visited = state.user ? 'mute' : 'show';
+      state.swimmable = 'all';
       state.ratingMode = { beauty: 'all', photo: 'all', solitude: 'all' };
       state.walk = { min: 0, max: WALK_STOPS.length - 1 };
       state.elevation = { min: 0, max: ELEVATION_STOPS.length - 1 };

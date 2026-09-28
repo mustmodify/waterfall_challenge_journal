@@ -90,6 +90,9 @@ type Feature struct {
 	DeprecatedReason *string        `json:"deprecated_reason,omitempty"`
 	DeprecatedNote   *string        `json:"deprecated_note,omitempty"`
 	DeprecatedOn     *string        `json:"deprecated_on,omitempty"`
+	// Somebody has reported you can swim at the foot of this one. A report,
+	// not a recommendation, and false mostly means nobody has said.
+	Swimmable bool `json:"swimmable"`
 }
 
 // FactOut is one arbitrated fact as the front end needs it: the value, the
@@ -292,7 +295,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			confidence.tier,
 			`+confusion+` AS confusion_json,
 			features.owner, deprecated_reason, deprecated_note,
-			deprecated_on::text
+			deprecated_on::text, features.swimmable
 		FROM features
 			LEFT JOIN locations ON locations.id = features.feature_location_id
 		LEFT JOIN locations parking_loc ON parking_loc.id = features.parking_location_id
@@ -366,7 +369,7 @@ func getFeatures(w http.ResponseWriter, r *http.Request) {
 			&f.Owner,
 			&f.DeprecatedReason,
 			&f.DeprecatedNote,
-			&f.DeprecatedOn,
+			&f.DeprecatedOn, &f.Swimmable,
 		)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
