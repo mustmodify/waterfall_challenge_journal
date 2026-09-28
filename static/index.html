@@ -1329,7 +1329,11 @@
        ways of getting to a place, so a different box on each would read as
        two unrelated controls. */
     #view-select {
-      flex: 1;
+      /* Half the row rather than all of it. The names are long, but the
+         control is a menu of five things and does not need to look like the
+         search box's twin to borrow its shape. */
+      flex: none;
+      width: 50%;
       min-width: 0;
       padding: 8px 10px;
       border-radius: 8px;
